@@ -1,10 +1,157 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Design Projects</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rhythm Patel — Mechanical Design Portfolio</title>
+  <meta name="description" content="Mechanical design projects, CAD, mechatronics, and manufacturing work." />
+  <style>
+    :root{
+      --bg:#0b0f14; --panel:#111824; --muted:#9fb0c0; --text:#eaf2f8; --accent:#59b2ff;
+      --card:#0f1622; --chip:#1b2433; --border:#1e2a3a;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.6}
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{display:grid; grid-template-columns:300px 1fr; min-height:100vh}
+    /* left rail */
+    .rail{background:var(--panel); padding:32px; border-right:1px solid var(--border); position:sticky; top:0; height:100vh}
+    .avatar{width:120px; height:120px; border-radius:50%; object-fit:cover; border:3px solid var(--border)}
+    .name{font-size:1.6rem; margin:16px 0 4px}
+    .role{color:var(--muted); margin:0 0 16px}
+    .rail p{color:var(--muted); margin:10px 0}
+    .links a{display:inline-block; margin-right:12px}
+    .rail .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+    .chip{background:var(--chip); border:1px solid var(--border); padding:6px 10px; border-radius:999px; font-size:.85rem; color:#cfe2f3}
+    /* main */
+    main{padding:40px; max-width:1100px}
+    section{margin:0 0 48px}
+    h2{margin:0 0 14px; font-size:1.4rem; letter-spacing:.3px}
+    .muted{color:var(--muted)}
+    /* projects grid */
+    .grid{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
+    .card{
+      grid-column:span 6; background:var(--card); border:1px solid var(--border); border-radius:14px;
+      overflow:hidden; transition:transform .12s ease, border-color .12s ease;
+    }
+    .card:hover{transform:translateY(-2px); border-color:#2b3c52}
+    .thumb{width:100%; height:220px; object-fit:cover; display:block; background:#0b0f14}
+    .card-body{padding:14px 14px 18px}
+    .card h3{margin:6px 0 4px; font-size:1.05rem}
+    .tagset{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px}
+    .tag{font-size:.8rem; padding:3px 8px; border-radius:999px; border:1px solid var(--border); color:#cbd6e2}
+    /* timeline */
+    .timeline{border-left:2px solid var(--border); padding-left:16px}
+    .tl-item{margin:0 0 18px}
+    .tl-item .when{font-size:.9rem; color:var(--muted)}
+    /* footer */
+    footer{color:var(--muted); border-top:1px solid var(--border); padding:18px 0}
+    /* responsive */
+    @media (max-width:1000px){ .wrap{grid-template-columns:1fr} .rail{position:static; height:auto} }
+    @media (max-width:780px){ .card{grid-column:span 12} .thumb{height:200px} }
+  </style>
 </head>
 <body>
-  <h1>Welcome to My Design Work Portfolio</h1>
-  <p>This page lists my projects from SolidWorks to now!</p>
+<div class="wrap">
+  <!-- LEFT RAIL -->
+  <aside class="rail">
+    <img class="avatar" src="images/avatar.jpg" alt="Rhythm Patel headshot" />
+    <h1 class="name">Rhythm Patel</h1>
+    <p class="role">Mechanical Engineering — Mechatronics</p>
+    <p class="muted">CAD, FEA, CNC, controls, EV racecar (FSAE). Chronological highlights from SolidWorks day 1 → present.</p>
+
+    <div class="links" style="margin:12px 0 4px">
+      <a href="mailto:your.email@example.com">Email</a>
+      <a href="https://github.com/rhythm1321" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noopener">LinkedIn</a>
+      <!-- add more if you like -->
+    </div>
+
+    <div class="chips">
+      <span class="chip">SolidWorks</span>
+      <span class="chip">Fusion 360 CAM</span>
+      <span class="chip">GD&amp;T</span>
+      <span class="chip">FEA</span>
+      <span class="chip">CNC / GRBL</span>
+      <span class="chip">Python</span>
+      <span class="chip">Controls (PID)</span>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- ABOUT -->
+    <section id="about">
+      <h2>About</h2>
+      <p class="muted">
+        I’m a mechanical/mechatronics engineer focused on practical design-for-manufacture and testing.
+        I lead the Toronto Metropolitan Formula Racing EV team and build tools like a modular foam-cutting CNC to speed up aero molds.
+      </p>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="grid">
+        <!-- CARD 1 -->
+        <article class="card">
+          <img class="thumb" src="images/p1.jpg" alt="Accumulator container CAD render">
+          <div class="card-body">
+            <h3>FSAE EV — Accumulator Container & Mounts</h3>
+            <p class="muted">Structural design, rules compliance (EV.5/F.10), vibration/thermal considerations, serviceability.</p>
+            <div class="tagset">
+              <span class="tag">SolidWorks</span><span class="tag">DFMEA</span><span class="tag">Sheet Metal</span>
+            </div>
+            <p style="margin-top:8px"><a href="project-accumulator.html">Case study →</a></p>
+          </div>
+        </article>
+
+        <!-- CARD 2 -->
+        <article class="card">
+          <img class="thumb" src="images/p2.jpg" alt="CNC foam cutter photo">
+          <div class="card-body">
+            <h3>Modular Foam-Cutting CNC</h3>
+            <p class="muted">$700 build. 2×2 ft base expandable to 4×4. Arduino Mega + RAMPS 1.4, GRBL-Mega-5X, UGS workflow.</p>
+            <div class="tagset">
+              <span class="tag">CNC</span><span class="tag">GRBL</span><span class="tag">Fusion 360 CAM</span>
+            </div>
+            <p style="margin-top:8px"><a href="project-cnc.html">Build log →</a></p>
+          </div>
+        </article>
+
+        <!-- Duplicate more cards by copy/pasting an <article class="card"> block -->
+      </div>
+    </section>
+
+    <!-- EXPERIENCE / TIMELINE -->
+    <section id="experience">
+      <h2>Experience</h2>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="when">2024–Now — Team Captain, TMFR (EV)</div>
+          <div>Oversaw full vehicle lifecycle, led sub-teams, ensured FSAE compliance, testing & competition strategy.</div>
+        </div>
+        <div class="tl-item">
+          <div class="when">2023 — Nosecone Lead</div>
+          <div>Composite layups, tooling, cost report, rapid iteration for aero package.</div>
+        </div>
+        <!-- add more items -->
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p class="muted">Open to mechatronics / manufacturing roles and collaborations. Reach me via <a href="mailto:your.email@example.com">email</a> or LinkedIn.</p>
+    </section>
+
+    <footer>
+      <small>© <span id="y"></span> Rhythm Patel — Built with GitHub Pages</small>
+    </footer>
+  </main>
+</div>
+
+<script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
