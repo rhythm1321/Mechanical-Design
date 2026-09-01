@@ -9,10 +9,14 @@
 
   <meta
     name="description"
-    content="Design and development of a modular foam-cutting CNC machine by Rhythm Patel."
+    content="Design, analysis, manufacturing, and testing of a modular foam-cutting CNC machine developed as a Mechanical Engineering capstone project."
   />
 
   <style>
+
+    /* =========================================================
+       GLOBAL
+    ========================================================= */
 
     :root {
       --background: #071019;
@@ -23,11 +27,12 @@
       --muted: #9eafbf;
 
       --accent: #5eb5ff;
+      --accent-light: #8bcbff;
       --accent-soft: rgba(94, 181, 255, 0.11);
 
       --border: #213247;
 
-      --max-width: 1050px;
+      --max-width: 1080px;
     }
 
     * {
@@ -71,11 +76,6 @@
       display: block;
       max-width: 100%;
     }
-
-
-    /* =========================================================
-       PAGE
-    ========================================================= */
 
     .container {
       width: min(
@@ -138,7 +138,7 @@
     ========================================================= */
 
     .project-hero {
-      padding: 80px 0 50px;
+      padding: 80px 0 48px;
     }
 
     .project-label {
@@ -156,13 +156,13 @@
     }
 
     .project-hero h1 {
-      max-width: 850px;
+      max-width: 900px;
 
-      margin: 0 0 22px;
+      margin: 0 0 24px;
 
       font-size:
         clamp(
-          2.6rem,
+          2.7rem,
           7vw,
           5rem
         );
@@ -173,7 +173,7 @@
     }
 
     .project-summary {
-      max-width: 820px;
+      max-width: 850px;
 
       margin: 0;
 
@@ -190,7 +190,7 @@
     .hero-image {
       width: 100%;
 
-      max-height: 610px;
+      max-height: 650px;
 
       object-fit: cover;
 
@@ -208,7 +208,7 @@
       display: grid;
 
       grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+        repeat(5, minmax(0, 1fr));
 
       gap: 12px;
 
@@ -228,7 +228,7 @@
     .info-label {
       color: var(--muted);
 
-      font-size: 0.75rem;
+      font-size: 0.72rem;
 
       text-transform: uppercase;
 
@@ -236,7 +236,7 @@
     }
 
     .info-value {
-      margin-top: 4px;
+      margin-top: 5px;
 
       color: var(--text);
 
@@ -279,55 +279,74 @@
       line-height: 1.2;
     }
 
-    .project-section p {
-      max-width: 820px;
+    .project-section > .container > p {
+      max-width: 850px;
 
       color: var(--muted);
     }
 
 
     /* =========================================================
-       OVERVIEW
+       CARDS
     ========================================================= */
 
-    .overview-grid {
+    .two-column-grid {
       display: grid;
 
       grid-template-columns:
-        1.15fr 0.85fr;
+        1fr 1fr;
 
-      gap: 22px;
+      gap: 18px;
+
+      margin-top: 26px;
+    }
+
+    .three-column-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+
+      margin-top: 26px;
     }
 
     .content-card {
-      padding: 26px;
+      padding: 25px;
 
       border: 1px solid var(--border);
 
-      border-radius: 15px;
+      border-radius: 14px;
 
       background: var(--card);
     }
 
     .content-card h3 {
-      margin-top: 0;
+      margin: 0 0 10px;
 
-      font-size: 1.1rem;
+      font-size: 1.08rem;
     }
 
     .content-card p {
-      margin-bottom: 0;
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.94rem;
     }
 
 
     /* =========================================================
-       REQUIREMENTS
+       REQUIREMENT LIST
     ========================================================= */
 
     .requirements {
       display: grid;
 
-      gap: 11px;
+      gap: 12px;
+
+      margin-top: 6px;
     }
 
     .requirement {
@@ -346,19 +365,71 @@
 
 
     /* =========================================================
-       TECHNOLOGY GRID
+       DESIGN PROCESS
     ========================================================= */
 
-    .technology-grid {
+    .process-grid {
       display: grid;
 
       grid-template-columns:
         repeat(3, minmax(0, 1fr));
 
       gap: 15px;
+
+      margin-top: 27px;
     }
 
-    .technology-card {
+    .process-card {
+      padding: 22px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: var(--card);
+    }
+
+    .process-number {
+      color: var(--accent);
+
+      font-size: 0.75rem;
+
+      font-weight: 750;
+
+      letter-spacing: 0.1em;
+    }
+
+    .process-card h3 {
+      margin: 7px 0 8px;
+
+      font-size: 1rem;
+    }
+
+    .process-card p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================================================
+       COMPONENT GRID
+    ========================================================= */
+
+    .component-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+
+      margin-top: 26px;
+    }
+
+    .component-card {
       padding: 21px;
 
       border: 1px solid var(--border);
@@ -368,41 +439,255 @@
       background: var(--card);
     }
 
-    .technology-card h3 {
+    .component-category {
+      margin-bottom: 5px;
+
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+
+      letter-spacing: 0.08em;
+
+      text-transform: uppercase;
+    }
+
+    .component-card h3 {
       margin: 0 0 7px;
 
       font-size: 1rem;
     }
 
-    .technology-card p {
+    .component-card p {
       margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.89rem;
+    }
+
+
+    /* =========================================================
+       MODULARITY
+    ========================================================= */
+
+    .feature-list {
+      display: grid;
+
+      gap: 14px;
+
+      margin-top: 25px;
+    }
+
+    .feature-item {
+      padding: 20px 22px;
+
+      display: grid;
+
+      grid-template-columns: 160px 1fr;
+
+      gap: 20px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 13px;
+
+      background: var(--card);
+    }
+
+    .feature-title {
+      color: var(--accent);
+
+      font-weight: 750;
+    }
+
+    .feature-description {
+      color: var(--muted);
+    }
+
+
+    /* =========================================================
+       ANALYSIS / RESULTS
+    ========================================================= */
+
+    .analysis-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+
+      margin-top: 28px;
+    }
+
+    .analysis-card {
+      padding: 22px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(94, 181, 255, 0.05),
+          transparent 55%
+        ),
+        var(--card);
+    }
+
+    .analysis-value {
+      color: var(--accent);
+
+      font-size: 1.55rem;
+
+      font-weight: 800;
+
+      line-height: 1.2;
+    }
+
+    .analysis-title {
+      margin-top: 7px;
+
+      color: var(--text);
+
+      font-weight: 700;
+    }
+
+    .analysis-description {
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 0.85rem;
+    }
+
+
+    /* =========================================================
+       ENGINEERING ANALYSIS DETAILS
+    ========================================================= */
+
+    .analysis-detail {
+      margin-top: 18px;
+
+      padding: 25px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: var(--card);
+    }
+
+    .analysis-detail h3 {
+      margin: 0 0 10px;
+    }
+
+    .analysis-detail p {
+      margin: 0;
+
+      color: var(--muted);
+    }
+
+
+    /* =========================================================
+       WORKFLOW
+    ========================================================= */
+
+    .workflow {
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+      gap: 10px;
+
+      margin-top: 28px;
+    }
+
+    .workflow-step {
+      position: relative;
+
+      padding: 19px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 12px;
+
+      background: var(--card);
+    }
+
+    .workflow-step-number {
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+    }
+
+    .workflow-step h3 {
+      margin: 7px 0 5px;
+
+      font-size: 0.92rem;
+    }
+
+    .workflow-step p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.79rem;
+    }
+
+
+    /* =========================================================
+       MANUFACTURING
+    ========================================================= */
+
+    .manufacturing-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 15px;
+
+      margin-top: 26px;
+    }
+
+    .manufacturing-card {
+      padding: 23px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: var(--card);
+    }
+
+    .manufacturing-card h3 {
+      margin: 0 0 8px;
+    }
+
+    .manufacturing-card p {
+      margin: 0;
+
+      color: var(--muted);
 
       font-size: 0.9rem;
     }
 
 
     /* =========================================================
-       IMAGE BLOCKS
+       IMAGE PLACEHOLDERS
     ========================================================= */
 
-    .section-image {
-      width: 100%;
-
-      margin-top: 26px;
-
-      max-height: 570px;
-
-      object-fit: cover;
-
-      border: 1px solid var(--border);
-
-      border-radius: 15px;
-    }
-
     .image-placeholder {
-      min-height: 300px;
+      min-height: 280px;
 
-      margin-top: 26px;
+      margin-top: 27px;
 
       display: flex;
       align-items: center;
@@ -427,50 +712,79 @@
       text-align: center;
     }
 
+    .image-placeholder strong {
+      display: block;
+
+      margin-bottom: 5px;
+
+      color: var(--text);
+    }
+
 
     /* =========================================================
-       PROCESS
+       COST
     ========================================================= */
 
-    .process-grid {
+    .cost-highlight {
+      margin-top: 25px;
+
+      padding: 30px;
+
+      display: grid;
+
+      grid-template-columns: 180px 1fr;
+
+      gap: 25px;
+
+      align-items: center;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background:
+        linear-gradient(
+          125deg,
+          rgba(94, 181, 255, 0.13),
+          transparent 60%
+        ),
+        var(--card);
+    }
+
+    .cost-value {
+      color: var(--accent);
+
+      font-size: 2.7rem;
+
+      font-weight: 800;
+
+      line-height: 1;
+    }
+
+    .cost-copy h3 {
+      margin: 0 0 7px;
+    }
+
+    .cost-copy p {
+      margin: 0;
+
+      color: var(--muted);
+    }
+
+
+    /* =========================================================
+       LIMITATIONS
+    ========================================================= */
+
+    .recommendations-grid {
       display: grid;
 
       grid-template-columns:
         repeat(2, minmax(0, 1fr));
 
-      gap: 16px;
+      gap: 15px;
 
-      margin-top: 24px;
-    }
-
-    .process-card {
-      padding: 23px;
-
-      border: 1px solid var(--border);
-
-      border-radius: 14px;
-
-      background: var(--card);
-    }
-
-    .process-number {
-      color: var(--accent);
-
-      font-size: 0.77rem;
-
-      font-weight: 750;
-
-      letter-spacing: 0.1em;
-    }
-
-    .process-card h3 {
-      margin: 7px 0 8px;
-    }
-
-    .process-card p {
-      margin: 0;
-
-      font-size: 0.92rem;
+      margin-top: 26px;
     }
 
 
@@ -501,7 +815,7 @@
 
 
     /* =========================================================
-       NEXT / BACK
+       BOTTOM NAVIGATION
     ========================================================= */
 
     .bottom-navigation {
@@ -512,6 +826,7 @@
       border-top: 1px solid var(--border);
 
       display: flex;
+
       justify-content: space-between;
       align-items: center;
 
@@ -519,12 +834,12 @@
     }
 
     .nav-button {
-      display: inline-flex;
-      align-items: center;
-
       min-height: 44px;
 
       padding: 0 16px;
+
+      display: inline-flex;
+      align-items: center;
 
       border: 1px solid var(--border);
 
@@ -560,33 +875,36 @@
 
 
     /* =========================================================
-       MOBILE
+       TABLET
     ========================================================= */
 
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
 
       .project-info-grid {
         grid-template-columns:
-          repeat(2, minmax(0, 1fr));
+          repeat(3, minmax(0, 1fr));
       }
 
-      .overview-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .technology-grid {
+      .component-grid,
+      .analysis-grid,
+      .process-grid {
         grid-template-columns:
           repeat(2, minmax(0, 1fr));
       }
 
-      .process-grid {
-        grid-template-columns: 1fr;
+      .workflow {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
       }
 
     }
 
 
-    @media (max-width: 550px) {
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media (max-width: 650px) {
 
       .container {
         width: min(
@@ -599,12 +917,28 @@
         padding-top: 55px;
       }
 
-      .project-info-grid {
+      .project-info-grid,
+      .two-column-grid,
+      .three-column-grid,
+      .component-grid,
+      .analysis-grid,
+      .process-grid,
+      .manufacturing-grid,
+      .recommendations-grid,
+      .workflow {
         grid-template-columns: 1fr;
       }
 
-      .technology-grid {
+      .feature-item {
         grid-template-columns: 1fr;
+
+        gap: 5px;
+      }
+
+      .cost-highlight {
+        grid-template-columns: 1fr;
+
+        gap: 14px;
       }
 
       .bottom-navigation {
@@ -666,27 +1000,26 @@
 
       <div class="container">
 
-
         <div class="project-label">
-          Academic Project · Capstone
+          Mechanical Engineering Capstone · MEC 825
         </div>
-
 
         <h1>
           Modular Foam-Cutting CNC Machine
         </h1>
 
-
         <p class="project-summary">
 
-          A modular CNC machine designed and built to
-          manufacture aerodynamic foam mold components
-          for Toronto Metropolitan Formula Racing.
+          Designed, analyzed, manufactured, and tested
+          a modular CNC machine intended to reduce the
+          cost and lead time associated with outsourcing
+          foam molds for student engineering teams.
 
-          The project focused on creating a scalable,
-          repairable, and cost-effective manufacturing
-          platform using readily available mechanical
-          and electronic components.
+          The system combines mechanical design,
+          structural analysis, additive manufacturing,
+          electronics, motion control, CAM, G-code,
+          and physical prototyping into a scalable
+          manufacturing platform.
 
         </p>
 
@@ -696,7 +1029,7 @@
 
 
     <!-- ====================================================
-         MAIN IMAGE
+         HERO IMAGE & QUICK INFO
     ===================================================== -->
 
     <section>
@@ -705,25 +1038,12 @@
 
         <img
           src="images/cnc-image.jpg"
-          alt="Completed modular foam-cutting CNC machine"
+          alt="Modular foam-cutting CNC machine prototype"
           class="hero-image"
         />
 
 
         <div class="project-info-grid">
-
-
-          <div class="info-card">
-
-            <div class="info-label">
-              Project Type
-            </div>
-
-            <div class="info-value">
-              Capstone
-            </div>
-
-          </div>
 
 
           <div class="info-card">
@@ -742,11 +1062,11 @@
           <div class="info-card">
 
             <div class="info-label">
-              Budget
+              Timeline
             </div>
 
             <div class="info-value">
-              $700
+              Jan – Apr 2025
             </div>
 
           </div>
@@ -755,11 +1075,37 @@
           <div class="info-card">
 
             <div class="info-label">
-              Institution
+              Prototype Cost
             </div>
 
             <div class="info-value">
-              TMU
+              ≈ $630
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Budget
+            </div>
+
+            <div class="info-value">
+              &lt; $700
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Max Envelope
+            </div>
+
+            <div class="info-value">
+              40 × 40 × 15 in
             </div>
 
           </div>
@@ -773,44 +1119,56 @@
 
 
     <!-- ====================================================
-         01 OVERVIEW
+         01 — THE PROBLEM
     ===================================================== -->
 
     <section class="project-section">
 
       <div class="container">
 
-
         <div class="section-number">
-          01 — Overview
+          01 — The Problem
         </div>
 
         <h2>
-          Project Objective
+          Bringing Foam-Mold Manufacturing In-House
         </h2>
 
+        <p>
 
-        <div class="overview-grid">
+          Student design teams at Toronto Metropolitan
+          University, including Toronto Metropolitan
+          Formula Racing and Toronto Metropolitan
+          Engineering Concrete Toboggan, rely on
+          custom-machined foam molds for components such
+          as aerodynamic composite molds and concrete
+          toboggan ski molds.
+
+          Outsourcing these parts increases both project
+          cost and manufacturing lead time. Comparable
+          hobbyist CNC systems capable of satisfying
+          similar requirements can also cost roughly
+          $1,000 to $3,000 or more.
+
+        </p>
+
+
+        <div class="two-column-grid">
 
 
           <div class="content-card">
 
             <h3>
-              The Problem
+              Project Goal
             </h3>
 
             <p>
 
-              Toronto Metropolitan Formula Racing
-              required a method of manufacturing foam
-              components used during the production of
-              aerodynamic molds.
-
-              The goal of the capstone project was to
-              develop a CNC system capable of performing
-              this work while remaining affordable,
-              modular, and adaptable to future
-              manufacturing requirements.
+              Develop a low-cost CNC foam-cutting
+              platform that allows student teams to
+              manufacture foam molds internally while
+              remaining practical for a shared
+              engineering workspace.
 
             </p>
 
@@ -820,87 +1178,39 @@
           <div class="content-card">
 
             <h3>
-              Design Requirements
+              Primary Design Requirements
             </h3>
-
 
             <div class="requirements">
 
               <div class="requirement">
-
-                <span class="requirement-marker">
-                  +
-                </span>
-
-                <span>
-                  Total project budget of approximately $700
-                </span>
-
+                <span class="requirement-marker">+</span>
+                <span>Keep the total design below $700</span>
               </div>
 
-
               <div class="requirement">
-
-                <span class="requirement-marker">
-                  +
-                </span>
-
-                <span>
-                  Modular mechanical construction
-                </span>
-
+                <span class="requirement-marker">+</span>
+                <span>Support a maximum 40 × 40 × 15 in envelope</span>
               </div>
 
-
               <div class="requirement">
-
-                <span class="requirement-marker">
-                  +
-                </span>
-
-                <span>
-                  Scalable machine footprint
-                </span>
-
+                <span class="requirement-marker">+</span>
+                <span>Allow the machine footprint to expand and contract</span>
               </div>
 
-
               <div class="requirement">
-
-                <span class="requirement-marker">
-                  +
-                </span>
-
-                <span>
-                  Use of readily available components
-                </span>
-
+                <span class="requirement-marker">+</span>
+                <span>Prioritize off-the-shelf and replaceable parts</span>
               </div>
 
-
               <div class="requirement">
-
-                <span class="requirement-marker">
-                  +
-                </span>
-
-                <span>
-                  Repairable and replaceable hardware
-                </span>
-
+                <span class="requirement-marker">+</span>
+                <span>Use hardware familiar to student design teams</span>
               </div>
 
-
               <div class="requirement">
-
-                <span class="requirement-marker">
-                  +
-                </span>
-
-                <span>
-                  G-code-based machine control
-                </span>
-
+                <span class="requirement-marker">+</span>
+                <span>Provide automated three-axis foam machining</span>
               </div>
 
             </div>
@@ -916,245 +1226,30 @@
 
 
     <!-- ====================================================
-         02 MECHANICAL DESIGN
+         02 — DESIGN PROCESS
     ===================================================== -->
 
     <section class="project-section">
 
       <div class="container">
 
-
         <div class="section-number">
-          02 — Mechanical Design
+          02 — Design Process
         </div>
 
         <h2>
-          Designing a Modular Machine Architecture
+          From Requirements to a Physical Prototype
         </h2>
-
 
         <p>
 
-          The mechanical system was designed around
-          modularity so the CNC machine could be
-          constructed at a smaller footprint and later
-          expanded without replacing the entire machine.
-
-          This allowed components such as motors,
-          controllers, lead screws, and electronics
-          to be reused across multiple machine
-          configurations.
-
-        </p>
-
-
-        <div class="process-grid">
-
-
-          <div class="process-card">
-
-            <div class="process-number">
-              FRAME
-            </div>
-
-            <h3>
-              Modular Structure
-            </h3>
-
-            <p>
-              The frame was designed to support
-              different machine footprints while
-              maintaining a consistent mechanical
-              architecture.
-            </p>
-
-          </div>
-
-
-          <div class="process-card">
-
-            <div class="process-number">
-              MOTION
-            </div>
-
-            <h3>
-              Linear Motion
-            </h3>
-
-            <p>
-              Stepper-driven axes were incorporated
-              to provide controlled machine movement
-              while using inexpensive and widely
-              available hardware.
-            </p>
-
-          </div>
-
-
-          <div class="process-card">
-
-            <div class="process-number">
-              SERVICEABILITY
-            </div>
-
-            <h3>
-              Replaceable Components
-            </h3>
-
-            <p>
-              Off-the-shelf components were selected
-              wherever possible so failed hardware
-              could be replaced without redesigning
-              the complete system.
-            </p>
-
-          </div>
-
-
-          <div class="process-card">
-
-            <div class="process-number">
-              SCALABILITY
-            </div>
-
-            <h3>
-              Expandable Footprint
-            </h3>
-
-            <p>
-              The machine architecture allowed the
-              system to scale from approximately
-              2 ft × 2 ft toward larger configurations
-              such as 4 ft × 4 ft.
-            </p>
-
-          </div>
-
-
-        </div>
-
-
-        <div class="image-placeholder">
-          Add a CAD screenshot or frame-design image here later
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-    <!-- ====================================================
-         03 ELECTRONICS
-    ===================================================== -->
-
-    <section class="project-section">
-
-      <div class="container">
-
-
-        <div class="section-number">
-          03 — Electronics & Motion Control
-        </div>
-
-        <h2>
-          Hardware Architecture
-        </h2>
-
-
-        <p>
-
-          The electrical system was built primarily
-          from readily available CNC and 3D-printer
-          hardware to reduce cost and simplify
-          replacement and troubleshooting.
-
-        </p>
-
-
-        <div class="technology-grid">
-
-
-          <div class="technology-card">
-
-            <h3>
-              Arduino Mega
-            </h3>
-
-            <p>
-              Main microcontroller used to execute
-              machine-control firmware.
-            </p>
-
-          </div>
-
-
-          <div class="technology-card">
-
-            <h3>
-              RAMPS 1.4
-            </h3>
-
-            <p>
-              Provided an interface between the
-              Arduino controller, stepper drivers,
-              motors, and machine hardware.
-            </p>
-
-          </div>
-
-
-          <div class="technology-card">
-
-            <h3>
-              NEMA 17 Motors
-            </h3>
-
-            <p>
-              Stepper motors provided controlled
-              movement across the CNC axes.
-            </p>
-
-          </div>
-
-
-        </div>
-
-
-        <div class="image-placeholder">
-          Add an electronics, wiring, or controller image here later
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-    <!-- ====================================================
-         04 SOFTWARE
-    ===================================================== -->
-
-    <section class="project-section">
-
-      <div class="container">
-
-
-        <div class="section-number">
-          04 — Software & Controls
-        </div>
-
-        <h2>
-          From CAD Geometry to Machine Motion
-        </h2>
-
-
-        <p>
-
-          The machine used a conventional CNC workflow
-          in which machining operations were prepared
-          digitally and converted into G-code before
-          being transmitted to the controller.
+          The development process began with research
+          into existing CNC systems and common failure
+          modes. Design concepts were then generated
+          for each major machine function and evaluated
+          against the project's cost, modularity,
+          maintainability, dimensional, and compatibility
+          requirements.
 
         </p>
 
@@ -1169,12 +1264,13 @@
             </div>
 
             <h3>
-              Fusion 360
+              Define Requirements
             </h3>
 
             <p>
-              Toolpaths were programmed using Autodesk
-              Fusion 360 CAM.
+              Established machine size, budget,
+              modularity, maintainability, and foam
+              machining requirements.
             </p>
 
           </div>
@@ -1187,13 +1283,13 @@
             </div>
 
             <h3>
-              G-code
+              Research Existing Systems
             </h3>
 
             <p>
-              CAM operations were exported as G-code
-              containing the machine movement and
-              tool-control commands.
+              Evaluated commercial and DIY CNC
+              designs, motion systems, structures,
+              electronics, workholding, and software.
             </p>
 
           </div>
@@ -1206,13 +1302,12 @@
             </div>
 
             <h3>
-              GRBL
+              Generate Concepts
             </h3>
 
             <p>
-              GRBL-based firmware interpreted the
-              G-code and generated real-time machine
-              control commands.
+              Used a morphological chart to compare
+              possible solutions for each CNC function.
             </p>
 
           </div>
@@ -1225,13 +1320,1047 @@
             </div>
 
             <h3>
-              Universal G-code Sender
+              Select Components
             </h3>
 
             <p>
-              UGS was used to communicate with the
-              machine and execute batches of G-code
-              commands.
+              Selected components based on cost,
+              compatibility, performance, modularity,
+              and ease of maintenance.
+            </p>
+
+          </div>
+
+
+          <div class="process-card">
+
+            <div class="process-number">
+              05
+            </div>
+
+            <h3>
+              Analyze & Model
+            </h3>
+
+            <p>
+              Performed structural, motor, vibration,
+              thermal, and material calculations before
+              finalizing the CAD assembly.
+            </p>
+
+          </div>
+
+
+          <div class="process-card">
+
+            <div class="process-number">
+              06
+            </div>
+
+            <h3>
+              Manufacture & Test
+            </h3>
+
+            <p>
+              Fabricated the prototype and tested
+              mechanical motion, electronics, firmware,
+              and G-code execution.
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="image-placeholder">
+
+          <div>
+            <strong>Suggested image:</strong>
+            Morphological chart or design-process diagram
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         03 — FINAL DESIGN
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          03 — Final Design
+        </div>
+
+        <h2>
+          Component Selection
+        </h2>
+
+        <p>
+
+          The final architecture combined readily
+          available CNC and 3D-printer hardware with
+          custom-manufactured components.
+
+          The component choices were made to balance
+          mechanical performance with the project's
+          stronger priorities of affordability,
+          expandability, repairability, and ease of
+          integration.
+
+        </p>
+
+
+        <div class="component-grid">
+
+
+          <div class="component-card">
+
+            <div class="component-category">
+              Structure
+            </div>
+
+            <h3>
+              Aluminum T-Slot Rails
+            </h3>
+
+            <p>
+              Lightweight aluminum extrusion provided
+              a modular, readily available structural
+              system that could be expanded without
+              completely rebuilding the machine.
+            </p>
+
+          </div>
+
+
+          <div class="component-card">
+
+            <div class="component-category">
+              Motors
+            </div>
+
+            <h3>
+              NEMA 17 Stepper Motors
+            </h3>
+
+            <p>
+              Selected for precise step-based motion,
+              availability, familiarity, and
+              compatibility with the CNC electronics.
+            </p>
+
+          </div>
+
+
+          <div class="component-card">
+
+            <div class="component-category">
+              Motor Drivers
+            </div>
+
+            <h3>
+              A4988
+            </h3>
+
+            <p>
+              Selected as the final motor driver because
+              it met voltage requirements and proved
+              easier to configure and adjust during
+              prototyping.
+            </p>
+
+          </div>
+
+
+          <div class="component-card">
+
+            <div class="component-category">
+              Controller
+            </div>
+
+            <h3>
+              Arduino Mega + RAMPS 1.4
+            </h3>
+
+            <p>
+              The Arduino Mega provided sufficient I/O
+              and memory while the RAMPS board created
+              a compact interface for motors, drivers,
+              and limit switches.
+            </p>
+
+          </div>
+
+
+          <div class="component-card">
+
+            <div class="component-category">
+              Cutting Tool
+            </div>
+
+            <h3>
+              Proxxon Micromot 60/E
+            </h3>
+
+            <p>
+              A 12 V variable-speed rotary tool capable
+              of using different cutting bits for
+              varying foam geometries and machining
+              requirements.
+            </p>
+
+          </div>
+
+
+          <div class="component-card">
+
+            <div class="component-category">
+              Software
+            </div>
+
+            <h3>
+              GRBL
+            </h3>
+
+            <p>
+              Open-source CNC firmware provided an
+              accessible and well-supported interface
+              for interpreting G-code and controlling
+              machine motion.
+            </p>
+
+          </div>
+
+
+          <div class="component-card">
+
+            <div class="component-category">
+              Power
+            </div>
+
+            <h3>
+              12 V DC Supply
+            </h3>
+
+            <p>
+              Selected to satisfy the requirements of
+              the motors, controller hardware, and
+              Proxxon rotary tool.
+            </p>
+
+          </div>
+
+
+          <div class="component-card">
+
+            <div class="component-category">
+              Cooling
+            </div>
+
+            <h3>
+              Fan + Heat Sinks
+            </h3>
+
+            <p>
+              Motor-driver cooling combined heat sinks
+              with forced-air cooling using a Noctua
+              fan.
+            </p>
+
+          </div>
+
+
+          <div class="component-card">
+
+            <div class="component-category">
+              Workholding
+            </div>
+
+            <h3>
+              Adjustable 3D-Printed Clamps
+            </h3>
+
+            <p>
+              Custom clamps could be repositioned
+              around the base and adjusted to multiple
+              angles for different workpiece geometries.
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="image-placeholder">
+
+          <div>
+            <strong>Suggested image:</strong>
+            Final SolidWorks CAD assembly from the report
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         04 — MODULAR MECHANICAL DESIGN
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          04 — Modularity
+        </div>
+
+        <h2>
+          A CNC Designed to Change Size
+        </h2>
+
+        <p>
+
+          Modularity was one of the primary design
+          requirements. The X and Y axes were designed
+          to operate at approximately 2 ft in the
+          compact configuration and expand to roughly
+          3.5 ft using additional aluminum rails.
+
+          This allowed the CNC to occupy less storage
+          space when a large machining envelope was
+          unnecessary.
+
+        </p>
+
+
+        <div class="feature-list">
+
+
+          <div class="feature-item">
+
+            <div class="feature-title">
+              Expandable Rails
+            </div>
+
+            <div class="feature-description">
+              Two-foot and 1.5-foot T-slot rail sections
+              connect using aluminum straight brackets,
+              allowing the machine footprint to be
+              expanded or contracted.
+            </div>
+
+          </div>
+
+
+          <div class="feature-item">
+
+            <div class="feature-title">
+              Modular Base
+            </div>
+
+            <div class="feature-description">
+              Multiple 2 ft × 2 ft wooden base sections
+              can be aligned to support the expanded
+              workspace.
+            </div>
+
+          </div>
+
+
+          <div class="feature-item">
+
+            <div class="feature-title">
+              Rail Alignment
+            </div>
+
+            <div class="feature-description">
+              M5 guide bolts along the base provide
+              alignment points so the T-slot rails and
+              wooden base sections remain positioned
+              correctly during expansion.
+            </div>
+
+          </div>
+
+
+          <div class="feature-item">
+
+            <div class="feature-title">
+              Adjustable Workholding
+            </div>
+
+            <div class="feature-description">
+              The custom clamp design uses multiple
+              mounting positions and angular adjustment
+              to accommodate different foam geometries.
+            </div>
+
+          </div>
+
+
+          <div class="feature-item">
+
+            <div class="feature-title">
+              Repositionable Limit Switches
+            </div>
+
+            <div class="feature-description">
+              Limit-switch mounts can be moved to the
+              ends of the rails as the machine changes
+              size, preserving homing and machine-limit
+              functionality.
+            </div>
+
+          </div>
+
+
+          <div class="feature-item">
+
+            <div class="feature-title">
+              Expandable Cable Management
+            </div>
+
+            <div class="feature-description">
+              Drag chains and wire routing were sized
+              with the machine's maximum configuration
+              in mind so expansion would not require
+              complete rewiring.
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="image-placeholder">
+
+          <div>
+            <strong>Suggested images:</strong>
+            Rail connection, base alignment, clamp adjustability,
+            and limit-switch mounting
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         05 — 3D PRINTING & MATERIAL SELECTION
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          05 — Material Selection
+        </div>
+
+        <h2>
+          Engineering the 3D-Printed Components
+        </h2>
+
+        <p>
+
+          Additive manufacturing allowed custom bearing
+          housings, motor mounts, clamps, limit-switch
+          mounts, brackets, and tool mounts to be
+          manufactured quickly and at relatively low cost.
+
+          Rather than selecting filament only from
+          manufacturer specifications, tensile testing
+          was performed on PETG and carbon-fibre-reinforced
+          filament to support material selection and
+          SolidWorks simulation inputs.
+
+        </p>
+
+
+        <div class="two-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              PETG
+            </h3>
+
+            <p>
+
+              PETG was used for components that required
+              durability but were not subjected to the
+              highest structural loads, including
+              limit-switch mounts, Proxxon mounts,
+              L-brackets, and clamps.
+
+              Testing was performed at both 10% and
+              100% infill.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              PAHT-CF
+            </h3>
+
+            <p>
+
+              Carbon-fibre-reinforced filament was
+              selected for more highly loaded components
+              such as motor and bearing housings.
+
+              Testing produced an average tensile
+              strength of approximately 44.91 MPa and
+              supported the use of the material for
+              structural printed components.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="image-placeholder">
+
+          <div>
+            <strong>Suggested image:</strong>
+            PETG and carbon-fibre tensile-test results
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         06 — ENGINEERING ANALYSIS
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          06 — Engineering Analysis
+        </div>
+
+        <h2>
+          Validating the Design Before and During the Build
+        </h2>
+
+        <p>
+
+          Mechanical calculations and simulation were
+          used to determine whether the lightweight and
+          modular architecture could still provide
+          sufficient rigidity and motion capability.
+
+          The analysis included rail deflection, FEA,
+          motor torque, vibration, cutting force,
+          motor-driver thermal behavior, and material
+          testing.
+
+        </p>
+
+
+        <div class="analysis-grid">
+
+
+          <div class="analysis-card">
+
+            <div class="analysis-value">
+              0.0070 mm
+            </div>
+
+            <div class="analysis-title">
+              Hand-Calculated Rail Deflection
+            </div>
+
+            <div class="analysis-description">
+              Maximum calculated deflection at the
+              rail-connection point in the expanded
+              configuration.
+            </div>
+
+          </div>
+
+
+          <div class="analysis-card">
+
+            <div class="analysis-value">
+              0.0052 mm
+            </div>
+
+            <div class="analysis-title">
+              SolidWorks FEA Deflection
+            </div>
+
+            <div class="analysis-description">
+              Simulated deflection of the 3.5 ft rail
+              under the 7.15 N tool-head load.
+            </div>
+
+          </div>
+
+
+          <div class="analysis-card">
+
+            <div class="analysis-value">
+              0.021 mm
+            </div>
+
+            <div class="analysis-title">
+              Y-Axis Rail Deflection
+            </div>
+
+            <div class="analysis-description">
+              Calculated deflection of the expanded
+              Y-axis structure under the gantry load.
+            </div>
+
+          </div>
+
+
+          <div class="analysis-card">
+
+            <div class="analysis-value">
+              0.331 N·m
+            </div>
+
+            <div class="analysis-title">
+              Required Motor Torque
+            </div>
+
+            <div class="analysis-description">
+              Calculated torque required per motor to
+              lift a conservatively estimated 6 kg
+              vertical assembly.
+            </div>
+
+          </div>
+
+
+          <div class="analysis-card">
+
+            <div class="analysis-value">
+              0.45 N·m
+            </div>
+
+            <div class="analysis-title">
+              Motor Holding Torque
+            </div>
+
+            <div class="analysis-description">
+              NEMA 17 holding torque exceeded the
+              calculated lifting requirement.
+            </div>
+
+          </div>
+
+
+          <div class="analysis-card">
+
+            <div class="analysis-value">
+              0.2 N
+            </div>
+
+            <div class="analysis-title">
+              Estimated Cutting Force
+            </div>
+
+            <div class="analysis-description">
+              Estimated force associated with the
+              Proxxon rotary tool during foam cutting.
+            </div>
+
+          </div>
+
+
+          <div class="analysis-card">
+
+            <div class="analysis-value">
+              0.1908 µm
+            </div>
+
+            <div class="analysis-title">
+              Predicted Vibration Amplitude
+            </div>
+
+            <div class="analysis-description">
+              Forced-vibration analysis predicted a
+              very small cutting displacement.
+            </div>
+
+          </div>
+
+
+          <div class="analysis-card">
+
+            <div class="analysis-value">
+              50.3 Hz
+            </div>
+
+            <div class="analysis-title">
+              Estimated Natural Frequency
+            </div>
+
+            <div class="analysis-description">
+              Used to compare the frame response against
+              spindle and stepper-motor excitation.
+            </div>
+
+          </div>
+
+
+          <div class="analysis-card">
+
+            <div class="analysis-value">
+              44.91 MPa
+            </div>
+
+            <div class="analysis-title">
+              PAHT-CF Tensile Strength
+            </div>
+
+            <div class="analysis-description">
+              Average tensile strength obtained from
+              the printed carbon-fibre material tests.
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="analysis-detail">
+
+          <h3>
+            Structural Verification
+          </h3>
+
+          <p>
+
+            At maximum rail expansion, hand calculations
+            predicted approximately 0.0070 mm of
+            deflection at the weakest rail connection.
+
+            SolidWorks FEA produced a similar result of
+            approximately 0.0052 mm, providing additional
+            confidence that the selected aluminum
+            T-slot structure was sufficiently rigid for
+            the foam-cutting application.
+
+          </p>
+
+        </div>
+
+
+        <div class="analysis-detail">
+
+          <h3>
+            Motor Selection
+          </h3>
+
+          <p>
+
+            A conservative 6 kg vertical load was used
+            when evaluating the TR8×8 lead-screw drive.
+
+            The calculated required torque was
+            approximately 0.331 N·m per motor, below
+            the selected NEMA 17 motor's 0.45 N·m
+            holding torque.
+
+          </p>
+
+        </div>
+
+
+        <div class="analysis-detail">
+
+          <h3>
+            Vibration
+          </h3>
+
+          <p>
+
+            The frame's estimated natural frequency was
+            approximately 50.3 Hz.
+
+            The vibration analysis indicated that the
+            primary operating conditions were sufficiently
+            separated from this resonance region, although
+            the report recommended avoiding operation too
+            close to the minimum spindle speed and
+            increasing the minimum to approximately
+            6,000 RPM.
+
+          </p>
+
+        </div>
+
+
+        <div class="image-placeholder">
+
+          <div>
+            <strong>Suggested images:</strong>
+            SolidWorks rail deflection FEA and structural
+            bracket FEA results
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         07 — ELECTRONICS & THERMAL DESIGN
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          07 — Electronics & Thermal Design
+        </div>
+
+        <h2>
+          Arduino-Based Motion Control
+        </h2>
+
+        <p>
+
+          The controller architecture was built around
+          an Arduino Mega and RAMPS 1.4 board.
+
+          A4988 stepper drivers controlled the NEMA 17
+          motors while limit switches provided machine
+          endpoint detection.
+
+          A 12 V DC supply powered the system, and
+          thermal analysis was performed to investigate
+          motor-driver cooling requirements.
+
+        </p>
+
+
+        <div class="three-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              A4988 Driver
+            </h3>
+
+            <p>
+
+              Calculated power dissipation was
+              approximately 3.168 W under the
+              assumptions used in the report.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Heat Sinks
+            </h3>
+
+            <p>
+
+              Heat sinks were added to the motor
+              drivers to reduce their expected operating
+              temperatures.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Forced-Air Cooling
+            </h3>
+
+            <p>
+
+              A Noctua fan already available to the
+              project was selected to provide airflow
+              across the controller electronics.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="image-placeholder">
+
+          <div>
+            <strong>Suggested image:</strong>
+            Arduino Mega, RAMPS board, A4988 drivers,
+            heat sinks, and cooling fans
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         08 — SOFTWARE
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          08 — Software & Controls
+        </div>
+
+        <h2>
+          From CAD Model to Physical Motion
+        </h2>
+
+        <p>
+
+          The CNC follows a conventional digital
+          manufacturing workflow.
+
+          A CAD model is converted into a machining
+          toolpath, exported as G-code, transferred
+          through a G-code sender, and interpreted by
+          GRBL firmware to command the motors.
+
+        </p>
+
+
+        <div class="workflow">
+
+
+          <div class="workflow-step">
+
+            <div class="workflow-step-number">
+              STEP 01
+            </div>
+
+            <h3>
+              CAD
+            </h3>
+
+            <p>
+              Create the desired geometry in
+              SolidWorks.
+            </p>
+
+          </div>
+
+
+          <div class="workflow-step">
+
+            <div class="workflow-step-number">
+              STEP 02
+            </div>
+
+            <h3>
+              CAM
+            </h3>
+
+            <p>
+              Generate machining toolpaths using
+              software such as Fusion 360.
+            </p>
+
+          </div>
+
+
+          <div class="workflow-step">
+
+            <div class="workflow-step-number">
+              STEP 03
+            </div>
+
+            <h3>
+              G-code
+            </h3>
+
+            <p>
+              Export machine-readable movement and
+              cutting commands.
+            </p>
+
+          </div>
+
+
+          <div class="workflow-step">
+
+            <div class="workflow-step-number">
+              STEP 04
+            </div>
+
+            <h3>
+              UGS
+            </h3>
+
+            <p>
+              Universal G-code Sender transfers
+              commands to the controller.
+            </p>
+
+          </div>
+
+
+          <div class="workflow-step">
+
+            <div class="workflow-step-number">
+              STEP 05
+            </div>
+
+            <h3>
+              GRBL
+            </h3>
+
+            <p>
+              Firmware interprets commands and
+              controls X, Y, and Z motion.
             </p>
 
           </div>
@@ -1242,32 +2371,16 @@
 
         <div class="tags">
 
-          <span class="tag">
-            Fusion 360
-          </span>
-
-          <span class="tag">
-            CAM
-          </span>
-
-          <span class="tag">
-            G-code
-          </span>
-
-          <span class="tag">
-            GRBL
-          </span>
-
-          <span class="tag">
-            Universal G-code Sender
-          </span>
-
-          <span class="tag">
-            Arduino
-          </span>
+          <span class="tag">SolidWorks</span>
+          <span class="tag">Fusion 360</span>
+          <span class="tag">CAM</span>
+          <span class="tag">G-code</span>
+          <span class="tag">GRBL</span>
+          <span class="tag">Universal G-code Sender</span>
+          <span class="tag">Arduino Mega</span>
+          <span class="tag">RAMPS 1.4</span>
 
         </div>
-
 
       </div>
 
@@ -1275,42 +2388,123 @@
 
 
     <!-- ====================================================
-         05 MANUFACTURING
+         09 — MANUFACTURING
     ===================================================== -->
 
     <section class="project-section">
 
       <div class="container">
 
-
         <div class="section-number">
-          05 — Manufacturing & Assembly
+          09 — Manufacturing & Assembly
         </div>
 
         <h2>
-          Building the Physical System
+          Building the Prototype
         </h2>
-
 
         <p>
 
-          Once the mechanical design and hardware
-          architecture were established, the machine
-          was assembled and integrated as a complete
-          mechatronic system.
+          After the detailed design was finalized, the
+          team spent approximately one month fabricating
+          and integrating the physical prototype.
 
-          Mechanical components, stepper motors,
-          electronics, wiring, and machine-control
-          hardware were combined and tested together
-          before full machining operations were run.
+          The manufacturing process combined
+          conventional fabrication, off-the-shelf
+          hardware, additive manufacturing, mechanical
+          assembly, wiring, and controller integration.
 
         </p>
 
 
-        <div class="image-placeholder">
-          Add manufacturing or machine-assembly photos here later
+        <div class="manufacturing-grid">
+
+
+          <div class="manufacturing-card">
+
+            <h3>
+              Wooden Base
+            </h3>
+
+            <p>
+
+              Base sections were cut and drilled before
+              M5 threaded inserts were installed to
+              create reusable mounting and alignment
+              locations.
+
+            </p>
+
+          </div>
+
+
+          <div class="manufacturing-card">
+
+            <h3>
+              3D-Printed Housings
+            </h3>
+
+            <p>
+
+              Bearing housings and custom brackets were
+              modeled in SolidWorks, converted to STL,
+              printed, assembled with bearings and
+              fasteners, and checked for smooth rail
+              movement.
+
+            </p>
+
+          </div>
+
+
+          <div class="manufacturing-card">
+
+            <h3>
+              Mechanical Frame
+            </h3>
+
+            <p>
+
+              Aluminum rails, lead screws, bearing
+              housings, brackets, motors, and couplers
+              were aligned and assembled into the
+              three-axis structure.
+
+            </p>
+
+          </div>
+
+
+          <div class="manufacturing-card">
+
+            <h3>
+              Electrical Integration
+            </h3>
+
+            <p>
+
+              Motor drivers, stepper motors, limit
+              switches, power connections, the RAMPS
+              shield, controller, and rotary tool were
+              integrated into the final machine.
+
+            </p>
+
+          </div>
+
+
         </div>
 
+
+        <div class="image-placeholder">
+
+          <div>
+            <strong>Suggested images:</strong>
+            Assembly process, printed bearing housings,
+            frame construction, and wiring
+          </div>
+
+        </div>
 
       </div>
 
@@ -1318,42 +2512,60 @@
 
 
     <!-- ====================================================
-         06 TESTING
+         10 — COST
     ===================================================== -->
 
     <section class="project-section">
 
       <div class="container">
 
-
         <div class="section-number">
-          06 — Testing & Validation
+          10 — Cost Analysis
         </div>
 
         <h2>
-          Integrating and Testing the CNC System
+          Meeting the Budget Constraint
         </h2>
-
 
         <p>
 
-          Testing focused on verifying machine movement,
-          motor operation, firmware communication,
-          G-code execution, and the integration of the
-          mechanical and electronic subsystems.
+          Cost was a major design driver because the
+          intended users were student engineering teams
+          with limited funding.
 
-          The system was operated through Universal
-          G-code Sender to execute machine commands
-          and verify synchronized movement and tool
-          operation.
+          The machine therefore relied heavily on
+          standardized hardware, aluminum extrusions,
+          3D-printed components, open-source software,
+          and donated or already-available components.
 
         </p>
 
 
-        <div class="image-placeholder">
-          Add CNC testing or finished-cut photos here later
-        </div>
+        <div class="cost-highlight">
 
+          <div class="cost-value">
+            ≈ $630
+          </div>
+
+          <div class="cost-copy">
+
+            <h3>
+              Prototype Manufacturing Cost
+            </h3>
+
+            <p>
+
+              The completed prototype remained below
+              the project's $700 design budget while
+              incorporating the required mechanical,
+              electronic, motion-control, workholding,
+              and safety-related components.
+
+            </p>
+
+          </div>
+
+        </div>
 
       </div>
 
@@ -1361,83 +2573,305 @@
 
 
     <!-- ====================================================
-         07 RESULT
+         11 — TESTING
     ===================================================== -->
 
     <section class="project-section">
 
       <div class="container">
 
-
         <div class="section-number">
-          07 — Final Result
+          11 — Testing & System Integration
         </div>
 
         <h2>
-          A Functional Modular CNC Platform
+          Making the Mechanical, Electrical, and Software Systems Work Together
         </h2>
-
 
         <p>
 
-          The completed project demonstrated how
-          low-cost off-the-shelf hardware could be
-          integrated into a modular CNC platform for
-          manufacturing applications.
+          The completed prototype was used to validate
+          integration of the mechanical motion system,
+          controller electronics, motors, limit
+          switches, firmware, and G-code workflow.
 
-          The project combined mechanical design,
-          machine construction, electronics,
-          embedded control, CAM programming, G-code
-          generation, and system integration into a
-          single engineering system.
+          Motor movement was successfully commanded
+          using G-code through GRBL, confirming that
+          the main architecture operated as intended.
+
+        </p>
+
+
+        <div class="two-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Challenges Encountered
+            </h3>
+
+            <p>
+
+              Integration required troubleshooting of
+              software synchronization, mechanical
+              alignment, component fitment, wiring,
+              calibration, and motion behavior.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Validation
+            </h3>
+
+            <p>
+
+              Testing and iterative adjustment
+              demonstrated a functional CNC platform
+              that satisfied the project's central
+              goals of affordability, modularity,
+              automated movement, and foam-cutting
+              capability.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="image-placeholder">
+
+          <div>
+            <strong>Suggested image or video:</strong>
+            Prototype operating through UGS / GRBL or
+            the machine cutting foam
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         12 — LIMITATIONS / FUTURE WORK
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          12 — Future Development
+        </div>
+
+        <h2>
+          What I Would Improve Next
+        </h2>
+
+        <p>
+
+          The prototype demonstrated the feasibility of
+          the modular CNC concept, but the report also
+          identified several areas that would benefit
+          from continued development and additional
+          testing.
+
+        </p>
+
+
+        <div class="recommendations-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Improve Precision
+            </h3>
+
+            <p>
+
+              Additional time for calibration,
+              mechanical alignment, and controller
+              tuning would improve machining precision
+              and repeatability.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Improve Expansion Mechanism
+            </h3>
+
+            <p>
+
+              A folding or snap-in expandable base
+              could make changing the machine footprint
+              faster and more ergonomic than manually
+              fastening each section.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Broaden Material Capability
+            </h3>
+
+            <p>
+
+              Interchangeable tool heads and additional
+              speed-control options could expand the
+              system beyond foam machining.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Optimize Materials & Cost
+            </h3>
+
+            <p>
+
+              Further investigation into lighter,
+              lower-cost materials and additional
+              sponsorship opportunities could reduce
+              system cost and weight.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Improve Sustainability
+            </h3>
+
+            <p>
+
+              Future iterations could investigate
+              reduced energy consumption and more
+              environmentally responsible material
+              selections.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Improve Documentation
+            </h3>
+
+            <p>
+
+              Expanded user documentation,
+              troubleshooting guides, tutorials, and
+              customization instructions would make
+              the machine easier for future teams to
+              maintain and modify.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         13 — FINAL RESULT
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          13 — Final Result
+        </div>
+
+        <h2>
+          A Functional, Expandable CNC Prototype
+        </h2>
+
+        <p>
+
+          The project resulted in a physical,
+          Arduino-controlled CNC prototype that
+          demonstrated the feasibility of producing
+          a cost-effective and expandable foam
+          machining platform for student engineering
+          teams.
+
+          The final system brought together mechanical
+          design, CAD, FEA, material testing,
+          manufacturing, electronics, motor control,
+          thermal analysis, CAM, G-code, and physical
+          validation within the project's cost and
+          dimensional constraints.
 
         </p>
 
 
         <div class="tags">
 
-          <span class="tag">
-            Mechanical Design
-          </span>
-
-          <span class="tag">
-            Mechatronics
-          </span>
-
-          <span class="tag">
-            CNC
-          </span>
-
-          <span class="tag">
-            Manufacturing
-          </span>
-
-          <span class="tag">
-            Arduino Mega
-          </span>
-
-          <span class="tag">
-            RAMPS 1.4
-          </span>
-
-          <span class="tag">
-            NEMA 17
-          </span>
-
-          <span class="tag">
-            Fusion 360
-          </span>
-
-          <span class="tag">
-            GRBL
-          </span>
-
-          <span class="tag">
-            G-code
-          </span>
+          <span class="tag">Mechanical Design</span>
+          <span class="tag">SolidWorks</span>
+          <span class="tag">FEA</span>
+          <span class="tag">Mechatronics</span>
+          <span class="tag">CNC</span>
+          <span class="tag">3D Printing</span>
+          <span class="tag">PAHT-CF</span>
+          <span class="tag">PETG</span>
+          <span class="tag">Arduino Mega</span>
+          <span class="tag">RAMPS 1.4</span>
+          <span class="tag">A4988</span>
+          <span class="tag">NEMA 17</span>
+          <span class="tag">Proxxon 60/E</span>
+          <span class="tag">GRBL</span>
+          <span class="tag">Fusion 360</span>
+          <span class="tag">G-code</span>
+          <span class="tag">Manufacturing</span>
 
         </div>
 
+
+        <div class="image-placeholder">
+
+          <div>
+            <strong>Suggested final image:</strong>
+            Best photograph of the completed CNC machine
+          </div>
+
+        </div>
 
       </div>
 
@@ -1445,7 +2879,7 @@
 
 
     <!-- ====================================================
-         NAVIGATION
+         BOTTOM NAVIGATION
     ===================================================== -->
 
     <div class="container">
@@ -1474,12 +2908,18 @@
   </main>
 
 
+  <!-- ======================================================
+       FOOTER
+  ======================================================= -->
+
   <footer>
 
     <div class="container">
 
-      © <span id="year"></span>
-      Rhythm Patel · Mechanical Engineering Portfolio
+      ©
+      <span id="year"></span>
+      Rhythm Patel
+      · Mechanical Engineering Portfolio
 
     </div>
 
