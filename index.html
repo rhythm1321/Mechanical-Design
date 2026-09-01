@@ -279,22 +279,23 @@
 
 
     /* =========================================================
-       HERO
+       INTRO / HERO
     ========================================================= */
 
     .hero {
-      min-height: 82vh;
+      min-height: auto;
 
       display: flex;
       align-items: center;
 
-      padding-top: 45px;
+      padding-top: 85px;
+      padding-bottom: 30px;
     }
 
     .hero-content {
       width: 100%;
 
-      max-width: 930px;
+      max-width: 850px;
     }
 
     .hero-label {
@@ -306,6 +307,8 @@
       margin-bottom: 22px;
 
       color: var(--accent);
+
+      font-size: 0.95rem;
 
       font-weight: 700;
     }
@@ -319,35 +322,16 @@
       background: var(--accent);
     }
 
-    .hero h1 {
-      max-width: 900px;
-
-      margin: 0;
-
-      font-size:
-        clamp(
-          3rem,
-          7vw,
-          5.8rem
-        );
-
-      line-height: 0.98;
-
-      letter-spacing: -0.045em;
-    }
-
-    .hero h1 span {
-      color: var(--accent);
-    }
-
     .hero-description {
-      max-width: 780px;
+      max-width: 820px;
 
-      margin: 28px 0 30px;
+      margin: 0 0 30px;
 
-      color: var(--muted);
+      color: var(--text);
 
-      font-size: 1.1rem;
+      font-size: 1.18rem;
+
+      line-height: 1.8;
     }
 
     .hero-buttons {
@@ -914,11 +898,7 @@
       }
 
       .hero {
-        min-height: auto;
-
-        padding-top: 80px;
-
-        padding-bottom: 25px;
+        padding-top: 65px;
       }
 
     }
@@ -972,17 +952,15 @@
         padding-top: 68px;
       }
 
-      .hero h1 {
-        font-size:
-          clamp(
-            2.7rem,
-            14vw,
-            4rem
-          );
+      .hero {
+        padding-top: 50px;
+        padding-bottom: 10px;
       }
 
       .hero-description {
         font-size: 1rem;
+
+        line-height: 1.75;
       }
 
       .project-image-container,
@@ -1116,7 +1094,7 @@
 
 
       <!-- ====================================================
-           HERO
+           INTRO
       ===================================================== -->
 
       <section
@@ -1130,25 +1108,15 @@
             Mechanical & Mechatronics Engineering
           </div>
 
-
-          <h1>
-            Designing solutions
-            from concept to
-            <span>physical reality.</span>
-          </h1>
-
-
           <p class="hero-description">
 
             I am a Mechanical Engineering graduate and
             Master of Engineering student at Toronto
             Metropolitan University with a background in
-            mechatronics.
-
-            My experience spans mechanical design,
-            FEA, manufacturing, Formula SAE EV development,
-            CNC systems, automation, embedded hardware,
-            controls, and engineering leadership.
+            mechatronics. My experience spans mechanical
+            design, FEA, manufacturing, Formula SAE EV
+            development, CNC systems, automation, embedded
+            hardware, controls, and engineering leadership.
 
           </p>
 
@@ -1177,7 +1145,7 @@
 
 
       <!-- ====================================================
-           ABOUT
+           PROFILE
       ===================================================== -->
 
       <section>
@@ -1393,12 +1361,10 @@
                 Designed and built a modular CNC machine
                 for manufacturing aerodynamic foam molds
                 for the Toronto Metropolitan Formula Racing
-                vehicle.
-
-                The machine was developed within a $700
-                budget while emphasizing scalability,
-                repairability, and the use of
-                off-the-shelf hardware.
+                vehicle. The machine was developed within
+                a $700 budget while emphasizing scalability,
+                repairability, and the use of off-the-shelf
+                hardware.
 
               </p>
 
@@ -1651,39 +1617,31 @@
             <ul class="experience-list">
 
               <li>
-
                 Work toward optimizing daily SPQRCE
                 principles including Safety, People,
                 Quality, Responsiveness, Cost, and
                 Environment.
-
               </li>
 
               <li>
-
                 Identify and advocate for design changes
                 to production tools to improve operator
                 safety and ergonomics.
-
               </li>
 
               <li>
-
                 Analyze potential vehicle-production
                 bottlenecks and develop solutions for
                 presentation during bi-weekly Throughput
                 Improvement Presentation meetings.
-
               </li>
 
               <li>
-
                 Create Plant Floor Change Management
                 requests to initiate collaboration with
                 Manufacturing Engineers, Controls
                 Engineers, and other stakeholders on
                 proposed production improvements.
-
               </li>
 
             </ul>
@@ -1743,63 +1701,51 @@
             <ul class="experience-list">
 
               <li>
-
                 Led a group of approximately 50 students
                 through the design and manufacturing of
                 a Formula SAE vehicle while coordinating
                 deadlines and ensuring engineering
                 decisions supported overall team goals.
-
               </li>
 
 
               <li>
-
                 Organized the team's GrabCAD environment
                 to improve collaborative design efficiency,
                 assisted members with design methodology,
                 and resolved assembly errors and component
                 redesigns.
-
               </li>
 
 
               <li>
-
                 Designed battery pack mounts and conducted
                 FEA to verify a minimum factor of safety
                 of 2.5 under 20 g vertical and 40 g lateral
                 and longitudinal acceleration.
-
               </li>
 
 
               <li>
-
                 Communicated with WIHA Tools and secured
                 sponsorship to procure safety tools
                 required for work on the electric vehicle.
-
               </li>
 
 
               <li>
-
                 Assisted in developing and conducting
                 structural testing plans to compare
                 FEA-predicted deflections with
                 experimentally measured deflections.
-
               </li>
 
 
               <li>
-
                 Conducted topology studies on Formula SAE
                 wing mounts and ribs to reduce component
                 weight while maintaining a minimum
                 factor of safety of 2.
-
               </li>
 
             </ul>
@@ -2115,10 +2061,6 @@
 
   </div>
 
-
-  <!-- ========================================================
-       JAVASCRIPT
-  ========================================================= -->
 
   <script>
 
