@@ -1262,178 +1262,218 @@
 
 
     <!-- ====================================================
-         02 — DESIGN PROCESS
-    ===================================================== -->
+     02 — DESIGN PROCESS
+===================================================== -->
 
-    <section class="project-section">
+<section class="project-section">
 
-      <div class="container">
+  <div class="container">
 
-        <div class="section-number">
-          02 — Design Process
+    <div class="section-number">
+      02 — Design Process
+    </div>
+
+    <h2>
+      From Requirements to a Physical Prototype
+    </h2>
+
+    <p>
+
+      The development process began with research
+      into existing CNC systems and common failure
+      modes. Design concepts were then generated
+      for each major machine function and evaluated
+      against the project's cost, modularity,
+      maintainability, dimensional, and compatibility
+      requirements.
+
+    </p>
+
+
+    <div class="process-grid">
+
+
+      <div class="process-card">
+
+        <div class="process-number">
+          01
         </div>
 
-        <h2>
-          From Requirements to a Physical Prototype
-        </h2>
+        <h3>
+          Define Requirements
+        </h3>
 
         <p>
-
-          The development process began with research
-          into existing CNC systems and common failure
-          modes. Design concepts were then generated
-          for each major machine function and evaluated
-          against the project's cost, modularity,
-          maintainability, dimensional, and compatibility
-          requirements.
-
+          Established machine size, budget,
+          modularity, maintainability, and foam
+          machining requirements.
         </p>
 
-
-        <div class="process-grid">
-
-
-          <div class="process-card">
-
-            <div class="process-number">
-              01
-            </div>
-
-            <h3>
-              Define Requirements
-            </h3>
-
-            <p>
-              Established machine size, budget,
-              modularity, maintainability, and foam
-              machining requirements.
-            </p>
-
-          </div>
+      </div>
 
 
-          <div class="process-card">
+      <div class="process-card">
 
-            <div class="process-number">
-              02
-            </div>
-
-            <h3>
-              Research Existing Systems
-            </h3>
-
-            <p>
-              Evaluated commercial and DIY CNC
-              designs, motion systems, structures,
-              electronics, workholding, and software.
-            </p>
-
-          </div>
-
-
-          <div class="process-card">
-
-            <div class="process-number">
-              03
-            </div>
-
-            <h3>
-              Generate Concepts
-            </h3>
-
-            <p>
-              Used a morphological chart to compare
-              possible solutions for each CNC function.
-            </p>
-
-          </div>
-
-
-          <div class="process-card">
-
-            <div class="process-number">
-              04
-            </div>
-
-            <h3>
-              Select Components
-            </h3>
-
-            <p>
-              Selected components based on cost,
-              compatibility, performance, modularity,
-              and ease of maintenance.
-            </p>
-
-          </div>
-
-
-          <div class="process-card">
-
-            <div class="process-number">
-              05
-            </div>
-
-            <h3>
-              Analyze & Model
-            </h3>
-
-            <p>
-              Performed structural, motor, vibration,
-              thermal, and material calculations before
-              finalizing the CAD assembly.
-            </p>
-
-          </div>
-
-
-          <div class="process-card">
-
-            <div class="process-number">
-              06
-            </div>
-
-            <h3>
-              Manufacture & Test
-            </h3>
-
-            <p>
-              Fabricated the prototype and tested
-              mechanical motion, electronics, firmware,
-              and G-code execution.
-            </p>
-
-          </div>
-
-
+        <div class="process-number">
+          02
         </div>
 
+        <h3>
+          Research Existing Systems
+        </h3>
 
-        <!-- MORPHOLOGICAL CHART -->
+        <p>
+          Evaluated commercial and DIY CNC
+          designs, motion systems, structures,
+          electronics, workholding, and software.
+        </p>
 
-        <div class="project-figure">
+      </div>
+
+
+      <div class="process-card">
+
+        <div class="process-number">
+          03
+        </div>
+
+        <h3>
+          Generate Concepts
+        </h3>
+
+        <p>
+          Used a morphological chart to compare
+          possible solutions for each CNC function.
+        </p>
+
+      </div>
+
+
+      <div class="process-card">
+
+        <div class="process-number">
+          04
+        </div>
+
+        <h3>
+          Select Components
+        </h3>
+
+        <p>
+          Selected components based on cost,
+          compatibility, performance, modularity,
+          and ease of maintenance.
+        </p>
+
+      </div>
+
+
+      <div class="process-card">
+
+        <div class="process-number">
+          05
+        </div>
+
+        <h3>
+          Analyze & Model
+        </h3>
+
+        <p>
+          Performed structural, motor, vibration,
+          thermal, and material calculations before
+          finalizing the CAD assembly.
+        </p>
+
+      </div>
+
+
+      <div class="process-card">
+
+        <div class="process-number">
+          06
+        </div>
+
+        <h3>
+          Manufacture & Test
+        </h3>
+
+        <p>
+          Fabricated the prototype and tested
+          mechanical motion, electronics, firmware,
+          and G-code execution.
+        </p>
+
+      </div>
+
+
+    </div>
+
+
+    <!-- MORPHOLOGICAL CHART -->
+
+    <div class="project-figure">
+
+      <div
+        style="
+          width: 100%;
+          max-height: 720px;
+          overflow-y: auto;
+          overflow-x: hidden;
+          margin-top: 30px;
+          border: 1px solid var(--border);
+          border-radius: 15px;
+          background: white;
+        "
+      >
+
+        <a
+          href="images/morphological-chart.png"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
 
           <img
             src="images/morphological-chart.png"
             alt="Morphological chart used to evaluate CNC design concepts"
-            class="section-image"
+            style="
+              width: 100%;
+              height: auto;
+              display: block;
+              cursor: zoom-in;
+            "
           />
 
-          <p class="figure-caption">
-            Morphological chart used during concept generation to compare
-            alternative solutions for the CNC machine's structure, motion
-            system, electronics, cutting tool, controls, workholding,
-            cooling, and modularity.
-          </p>
-
-        </div>
-
+        </a>
 
       </div>
 
-    </section>
+
+      <p
+        style="
+          margin: 10px 0 0;
+          color: var(--accent);
+          font-size: 0.78rem;
+          text-align: center;
+        "
+      >
+        Scroll to view the complete chart · Click the chart to open full size
+      </p>
 
 
+      <p class="figure-caption">
+        Morphological chart used during concept generation to compare
+        alternative solutions for the CNC machine's structure,
+        linear-motion system, motors, motor drivers, cutting tool,
+        software, cooling, workholding, vibration mitigation,
+        control board, power supply, drive system, and modularity.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
     <!-- ====================================================
          03 — FINAL DESIGN
     ===================================================== -->
