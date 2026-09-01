@@ -1712,151 +1712,537 @@
     </section>
 
 
-    <!-- ====================================================
-         04 — MODULAR MECHANICAL DESIGN
-    ===================================================== -->
+  <!-- ====================================================
+     04 — MODULAR MECHANICAL DESIGN
+===================================================== -->
 
-    <section class="project-section">
+<style>
 
-      <div class="container">
+  /* =========================================================
+     SECTION 04 — MODULARITY IMAGE/TEXT ROWS
+  ========================================================= */
 
-        <div class="section-number">
-          04 — Modularity
+  .modularity-showcase {
+    display: grid;
+    gap: 22px;
+    margin-top: 32px;
+  }
+
+  .modularity-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    min-height: 320px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+    border-radius: 16px;
+
+    background: var(--card);
+  }
+
+
+  /* TEXT */
+
+  .modularity-copy {
+    padding: 34px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .modularity-label {
+    margin-bottom: 7px;
+
+    color: var(--accent);
+
+    font-size: 0.72rem;
+    font-weight: 750;
+
+    letter-spacing: 0.1em;
+
+    text-transform: uppercase;
+  }
+
+  .modularity-copy h3 {
+    margin: 0 0 12px;
+
+    color: var(--text);
+
+    font-size: 1.3rem;
+  }
+
+  .modularity-copy p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 0.94rem;
+
+    line-height: 1.75;
+  }
+
+
+  /* IMAGE */
+
+  .modularity-image-wrap {
+    position: relative;
+
+    min-height: 320px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 18px;
+
+    background:
+      linear-gradient(
+        135deg,
+        rgba(94, 181, 255, 0.07),
+        transparent
+      ),
+      #0b1520;
+  }
+
+  .modularity-image {
+    width: 100%;
+    height: 100%;
+
+    max-height: 360px;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+  }
+
+
+  /* MISSING IMAGE MESSAGE */
+
+  .image-fallback {
+    display: none;
+
+    color: var(--muted);
+
+    font-size: 0.85rem;
+
+    text-align: center;
+  }
+
+  .modularity-image-wrap.missing .image-fallback {
+    display: block;
+  }
+
+
+  /* ALTERNATING DESKTOP LAYOUT */
+
+  .modularity-row.image-left .modularity-image-wrap {
+    order: 1;
+  }
+
+  .modularity-row.image-left .modularity-copy {
+    order: 2;
+  }
+
+
+  /* MOBILE */
+
+  @media (max-width: 700px) {
+
+    .modularity-row {
+      grid-template-columns: 1fr;
+    }
+
+    .modularity-copy {
+      order: 1 !important;
+
+      padding: 25px;
+    }
+
+    .modularity-image-wrap {
+      order: 2 !important;
+
+      min-height: 240px;
+    }
+
+    .modularity-image {
+      max-height: 300px;
+    }
+
+  }
+
+</style>
+
+
+<section class="project-section">
+
+  <div class="container">
+
+    <div class="section-number">
+      04 — Modularity
+    </div>
+
+    <h2>
+      A CNC Designed to Change Size
+    </h2>
+
+    <p>
+      Modularity was one of the primary design
+      requirements. Rather than designing the CNC
+      around a single fixed footprint, the mechanical
+      structure, workholding, limit switches, base,
+      and cable-management system were developed so
+      the machine could adapt to different workspace
+      and machining requirements.
+    </p>
+
+
+    <div class="modularity-showcase">
+
+
+      <!-- ================================================
+           01 — EXPANDABLE RAILS
+      ================================================= -->
+
+      <div class="modularity-row">
+
+        <div class="modularity-copy">
+
+          <div class="modularity-label">
+            01 — Structural Expansion
+          </div>
+
+          <h3>
+            Expandable T-Slot Rails
+          </h3>
+
+          <p>
+            The X and Y axes were designed to operate
+            at approximately 2 ft in the compact
+            configuration and expand to roughly
+            3.5 ft when a larger machining area was
+            required.
+
+            Two-foot and 1.5-foot aluminum T-slot
+            sections are connected using straight
+            brackets, allowing the machine envelope
+            to increase without replacing the entire
+            structural frame.
+          </p>
+
         </div>
 
-        <h2>
-          A CNC Designed to Change Size
-        </h2>
 
-        <p>
+        <div class="modularity-image-wrap">
 
-          Modularity was one of the primary design
-          requirements. The X and Y axes were designed
-          to operate at approximately 2 ft in the
-          compact configuration and expand to roughly
-          3.5 ft using additional aluminum rails.
+          <img
+            src="images/cnc-expandable-rails.png"
+            alt="Expandable aluminum T-slot rail system used on the CNC machine"
+            class="modularity-image"
+            onerror="
+              this.style.display='none';
+              this.parentElement.classList.add('missing');
+            "
+          />
 
-          This allowed the CNC to occupy less storage
-          space when a large machining envelope was
-          unnecessary.
-
-        </p>
-
-
-        <div class="feature-list">
-
-
-          <div class="feature-item">
-
-            <div class="feature-title">
-              Expandable Rails
-            </div>
-
-            <div class="feature-description">
-              Two-foot and 1.5-foot T-slot rail sections
-              connect using aluminum straight brackets,
-              allowing the machine footprint to be
-              expanded or contracted.
-            </div>
-
-          </div>
-
-
-          <div class="feature-item">
-
-            <div class="feature-title">
-              Modular Base
-            </div>
-
-            <div class="feature-description">
-              Multiple 2 ft × 2 ft wooden base sections
-              can be aligned to support the expanded
-              workspace.
-            </div>
-
-          </div>
-
-
-          <div class="feature-item">
-
-            <div class="feature-title">
-              Rail Alignment
-            </div>
-
-            <div class="feature-description">
-              M5 guide bolts along the base provide
-              alignment points so the T-slot rails and
-              wooden base sections remain positioned
-              correctly during expansion.
-            </div>
-
-          </div>
-
-
-          <div class="feature-item">
-
-            <div class="feature-title">
-              Adjustable Workholding
-            </div>
-
-            <div class="feature-description">
-              The custom clamp design uses multiple
-              mounting positions and angular adjustment
-              to accommodate different foam geometries.
-            </div>
-
-          </div>
-
-
-          <div class="feature-item">
-
-            <div class="feature-title">
-              Repositionable Limit Switches
-            </div>
-
-            <div class="feature-description">
-              Limit-switch mounts can be moved to the
-              ends of the rails as the machine changes
-              size, preserving homing and machine-limit
-              functionality.
-            </div>
-
-          </div>
-
-
-          <div class="feature-item">
-
-            <div class="feature-title">
-              Expandable Cable Management
-            </div>
-
-            <div class="feature-description">
-              Drag chains and wire routing were sized
-              with the machine's maximum configuration
-              in mind so expansion would not require
-              complete rewiring.
-            </div>
-
-          </div>
-
-
-        </div>
-
-
-        <div class="image-placeholder">
-
-          <div>
-            <strong>Suggested images:</strong>
-            Rail connection, base alignment, clamp adjustability,
-            and limit-switch mounting
+          <div class="image-fallback">
+            Add image:<br>
+            cnc-expandable-rails.png
           </div>
 
         </div>
 
       </div>
 
-    </section>
 
+
+      <!-- ================================================
+           02 — MODULAR BASE
+      ================================================= -->
+
+      <div class="modularity-row image-left">
+
+
+        <div class="modularity-copy">
+
+          <div class="modularity-label">
+            02 — Expandable Work Area
+          </div>
+
+          <h3>
+            Modular Wooden Base
+          </h3>
+
+          <p>
+            The work surface was divided into multiple
+            2 ft × 2 ft wooden sections rather than
+            using one permanently oversized base.
+
+            Additional sections can be added when the
+            machine is expanded, allowing the physical
+            work area to grow with the rail system while
+            keeping the compact configuration easier to
+            store and transport.
+          </p>
+
+        </div>
+
+
+        <div class="modularity-image-wrap">
+
+          <img
+            src="images/cnc-modular-base.png"
+            alt="Modular wooden base sections for the CNC machine"
+            class="modularity-image"
+            onerror="
+              this.style.display='none';
+              this.parentElement.classList.add('missing');
+            "
+          />
+
+          <div class="image-fallback">
+            Add image:<br>
+            cnc-modular-base.png
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- ================================================
+           03 — RAIL ALIGNMENT
+      ================================================= -->
+
+      <div class="modularity-row">
+
+        <div class="modularity-copy">
+
+          <div class="modularity-label">
+            03 — Repeatable Alignment
+          </div>
+
+          <h3>
+            Rail and Base Alignment
+          </h3>
+
+          <p>
+            Expanding the machine required a method of
+            maintaining alignment between the
+            structural rails and removable base
+            sections.
+
+            M5 guide bolts were incorporated along the
+            base to provide repeatable reference
+            locations and help position the T-slot
+            rails correctly when the CNC was assembled
+            in different configurations.
+          </p>
+
+        </div>
+
+
+        <div class="modularity-image-wrap">
+
+          <img
+            src="images/cnc-rail-alignment.png"
+            alt="M5 guide bolt and rail alignment system for the modular CNC"
+            class="modularity-image"
+            onerror="
+              this.style.display='none';
+              this.parentElement.classList.add('missing');
+            "
+          />
+
+          <div class="image-fallback">
+            Add image:<br>
+            cnc-rail-alignment.png
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ================================================
+           04 — ADJUSTABLE WORKHOLDING
+      ================================================= -->
+
+      <div class="modularity-row image-left">
+
+
+        <div class="modularity-copy">
+
+          <div class="modularity-label">
+            04 — Workholding
+          </div>
+
+          <h3>
+            Adjustable 3D-Printed Clamps
+          </h3>
+
+          <p>
+            Custom workholding clamps were designed so
+            they could be repositioned around the
+            modular base instead of being permanently
+            fixed to one location.
+
+            The clamp geometry also provides angular
+            adjustment, allowing different foam sizes
+            and geometries to be secured while
+            maintaining the flexibility required from
+            the expandable machine.
+          </p>
+
+        </div>
+
+
+        <div class="modularity-image-wrap">
+
+          <img
+            src="images/cnc-adjustable-clamp.png"
+            alt="Adjustable 3D-printed workholding clamp designed for the CNC machine"
+            class="modularity-image"
+            onerror="
+              this.style.display='none';
+              this.parentElement.classList.add('missing');
+            "
+          />
+
+          <div class="image-fallback">
+            Add image:<br>
+            cnc-adjustable-clamp.png
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- ================================================
+           05 — LIMIT SWITCHES
+      ================================================= -->
+
+      <div class="modularity-row">
+
+        <div class="modularity-copy">
+
+          <div class="modularity-label">
+            05 — Machine Limits
+          </div>
+
+          <h3>
+            Repositionable Limit Switches
+          </h3>
+
+          <p>
+            A fixed limit-switch position would only
+            work for one machine size.
+
+            The limit-switch mounts were therefore
+            designed so they could be repositioned at
+            the ends of the rails whenever the machine
+            was expanded or contracted.
+
+            This allowed homing and travel-limit
+            functionality to remain compatible with
+            multiple CNC configurations.
+          </p>
+
+        </div>
+
+
+        <div class="modularity-image-wrap">
+
+          <img
+            src="images/cnc-limit-switch.png"
+            alt="Repositionable limit-switch mount on the modular CNC machine"
+            class="modularity-image"
+            onerror="
+              this.style.display='none';
+              this.parentElement.classList.add('missing');
+            "
+          />
+
+          <div class="image-fallback">
+            Add image:<br>
+            cnc-limit-switch.png
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ================================================
+           06 — CABLE MANAGEMENT
+      ================================================= -->
+
+      <div class="modularity-row image-left">
+
+
+        <div class="modularity-copy">
+
+          <div class="modularity-label">
+            06 — Electrical Modularity
+          </div>
+
+          <h3>
+            Expandable Cable Management
+          </h3>
+
+          <p>
+            Mechanical expansion also required the
+            electrical system to accommodate the
+            machine's maximum travel.
+
+            Drag chains and wire routing were therefore
+            planned around the expanded configuration,
+            ensuring that increasing the machine size
+            would not require the motors, limit
+            switches, and controller wiring to be
+            completely replaced.
+          </p>
+
+        </div>
+
+
+        <div class="modularity-image-wrap">
+
+          <img
+            src="images/cnc-cable-management.png"
+            alt="Drag chain and cable management system on the modular CNC machine"
+            class="modularity-image"
+            onerror="
+              this.style.display='none';
+              this.parentElement.classList.add('missing');
+            "
+          />
+
+          <div class="image-fallback">
+            Add image:<br>
+            cnc-cable-management.png
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
 
     <!-- ====================================================
          05 — 3D PRINTING & MATERIAL SELECTION
