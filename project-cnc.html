@@ -77,6 +77,10 @@
       max-width: 100%;
     }
 
+    button {
+      font: inherit;
+    }
+
     .container {
       width: min(
         calc(100% - 40px),
@@ -791,72 +795,204 @@
 
 
     /* =========================================================
-       PAHT-CF TEST IMAGE GRID
+       PAHT-CF AUTOMATIC CAROUSEL
     ========================================================= */
 
-    .material-test-grid {
+    .material-carousel {
+      position: relative;
+
       width: 100%;
+      height: 380px;
 
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-      gap: 12px;
-    }
-
-    .material-test-item {
-      min-width: 0;
-
-      display: flex;
-      flex-direction: column;
-
-      gap: 8px;
-    }
-
-    .material-test-image {
-      width: 100%;
-      height: 250px;
-
-      object-fit: contain;
+      overflow: hidden;
 
       border: 1px solid var(--border);
 
-      border-radius: 9px;
+      border-radius: 12px;
 
       background: #ffffff;
     }
 
-    .material-test-caption {
-      color: var(--muted);
+    .material-carousel-slide {
+      position: absolute;
 
-      font-size: 0.76rem;
+      inset: 0;
 
-      text-align: center;
-    }
-
-    .material-test-fallback {
-      min-height: 250px;
-
-      display: none;
+      display: flex;
       align-items: center;
       justify-content: center;
 
-      padding: 15px;
+      opacity: 0;
 
-      border: 1px dashed #36506b;
+      pointer-events: none;
 
-      border-radius: 9px;
+      transition:
+        opacity 0.65s ease;
+    }
 
-      color: var(--muted);
+    .material-carousel-slide.active {
+      opacity: 1;
 
-      font-size: 0.78rem;
+      pointer-events: auto;
+    }
+
+    .material-carousel-image {
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+
+      background: #ffffff;
+    }
+
+    .material-carousel-fallback {
+      display: none;
+
+      padding: 30px;
+
+      color: #46596c;
 
       text-align: center;
     }
 
-    .material-test-item.missing .material-test-fallback {
+    .material-carousel-slide.missing
+    .material-carousel-fallback {
+      display: block;
+    }
+
+
+    /* =========================================================
+       CAROUSEL CAPTION
+    ========================================================= */
+
+    .material-carousel-caption {
+      position: absolute;
+
+      left: 50%;
+      bottom: 46px;
+
+      z-index: 4;
+
+      transform: translateX(-50%);
+
+      padding: 5px 10px;
+
+      border-radius: 7px;
+
+      background: rgba(7, 16, 25, 0.86);
+
+      color: #ffffff;
+
+      font-size: 0.74rem;
+
+      white-space: nowrap;
+    }
+
+
+    /* =========================================================
+       CAROUSEL ARROWS
+    ========================================================= */
+
+    .material-carousel-button {
+      position: absolute;
+
+      top: 50%;
+
+      z-index: 5;
+
+      width: 38px;
+      height: 38px;
+
       display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transform: translateY(-50%);
+
+      border: 1px solid rgba(255, 255, 255, 0.18);
+
+      border-radius: 50%;
+
+      background: rgba(7, 16, 25, 0.82);
+
+      color: #ffffff;
+
+      font-size: 1.3rem;
+
+      cursor: pointer;
+
+      transition:
+        background 0.2s,
+        border-color 0.2s,
+        color 0.2s;
+    }
+
+    .material-carousel-button:hover {
+      background: rgba(7, 16, 25, 0.96);
+
+      border-color: var(--accent);
+
+      color: var(--accent);
+    }
+
+    .material-carousel-prev {
+      left: 12px;
+    }
+
+    .material-carousel-next {
+      right: 12px;
+    }
+
+
+    /* =========================================================
+       CAROUSEL DOTS
+    ========================================================= */
+
+    .material-carousel-dots {
+      position: absolute;
+
+      left: 50%;
+      bottom: 14px;
+
+      z-index: 5;
+
+      display: flex;
+
+      gap: 8px;
+
+      transform: translateX(-50%);
+    }
+
+    .material-carousel-dot {
+      width: 9px;
+      height: 9px;
+
+      padding: 0;
+
+      border: 1px solid rgba(255, 255, 255, 0.75);
+
+      border-radius: 50%;
+
+      background: rgba(7, 16, 25, 0.65);
+
+      cursor: pointer;
+
+      transition:
+        transform 0.2s,
+        background 0.2s,
+        border-color 0.2s;
+    }
+
+    .material-carousel-dot:hover {
+      border-color: var(--accent);
+    }
+
+    .material-carousel-dot.active {
+      transform: scale(1.25);
+
+      border-color: var(--accent);
+
+      background: var(--accent);
     }
 
 
@@ -1092,15 +1228,18 @@
       text-align: center;
     }
 
-    .analysis-image-wrap.missing .analysis-image-fallback {
+    .analysis-image-wrap.missing
+    .analysis-image-fallback {
       display: block;
     }
 
-    .analysis-row.image-left .analysis-image-wrap {
+    .analysis-row.image-left
+    .analysis-image-wrap {
       order: 1;
     }
 
-    .analysis-row.image-left .analysis-row-copy {
+    .analysis-row.image-left
+    .analysis-row-copy {
       order: 2;
     }
 
@@ -1508,18 +1647,8 @@
         max-height: 320px;
       }
 
-      .material-test-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .material-test-image {
-        height: auto;
-
-        max-height: 340px;
-      }
-
-      .material-test-fallback {
-        min-height: 220px;
+      .material-carousel {
+        height: 320px;
       }
 
       .analysis-row-image {
@@ -2840,82 +2969,150 @@
 
             <div class="material-image-wrap">
 
-              <div class="material-test-grid">
+
+              <!-- ==========================================
+                   PAHT-CF AUTOMATIC SLIDESHOW
+              =========================================== -->
+
+              <div
+                class="material-carousel"
+                id="pahtcf-carousel"
+              >
 
 
-                <div class="material-test-item">
+                <!-- TEST 1 -->
+
+                <div class="material-carousel-slide active">
 
                   <img
                     src="images/cnc-pahtcf-test-1.png"
                     alt="PAHT-CF tensile test 1"
-                    class="material-test-image"
+                    class="material-carousel-image"
                     onerror="
                       this.style.display='none';
                       this.parentElement.classList.add('missing');
                     "
                   />
 
-                  <div class="material-test-fallback">
+                  <div class="material-carousel-fallback">
                     Add image:<br>
                     cnc-pahtcf-test-1.png
                   </div>
 
-                  <div class="material-test-caption">
-                    PAHT-CF Test 1
+                  <div class="material-carousel-caption">
+                    PAHT-CF Tensile Test 1
                   </div>
 
                 </div>
 
 
-                <div class="material-test-item">
+                <!-- TEST 2 -->
+
+                <div class="material-carousel-slide">
 
                   <img
                     src="images/cnc-pahtcf-test-2.png"
                     alt="PAHT-CF tensile test 2"
-                    class="material-test-image"
+                    class="material-carousel-image"
                     onerror="
                       this.style.display='none';
                       this.parentElement.classList.add('missing');
                     "
                   />
 
-                  <div class="material-test-fallback">
+                  <div class="material-carousel-fallback">
                     Add image:<br>
                     cnc-pahtcf-test-2.png
                   </div>
 
-                  <div class="material-test-caption">
-                    PAHT-CF Test 2
+                  <div class="material-carousel-caption">
+                    PAHT-CF Tensile Test 2
                   </div>
 
                 </div>
 
 
-                <div class="material-test-item">
+                <!-- TEST 3 -->
+
+                <div class="material-carousel-slide">
 
                   <img
                     src="images/cnc-pahtcf-test-3.png"
                     alt="PAHT-CF tensile test 3"
-                    class="material-test-image"
+                    class="material-carousel-image"
                     onerror="
                       this.style.display='none';
                       this.parentElement.classList.add('missing');
                     "
                   />
 
-                  <div class="material-test-fallback">
+                  <div class="material-carousel-fallback">
                     Add image:<br>
                     cnc-pahtcf-test-3.png
                   </div>
 
-                  <div class="material-test-caption">
-                    PAHT-CF Test 3
+                  <div class="material-carousel-caption">
+                    PAHT-CF Tensile Test 3
                   </div>
+
+                </div>
+
+
+                <!-- PREVIOUS BUTTON -->
+
+                <button
+                  class="
+                    material-carousel-button
+                    material-carousel-prev
+                  "
+                  type="button"
+                  aria-label="Previous PAHT-CF tensile test"
+                >
+                  ‹
+                </button>
+
+
+                <!-- NEXT BUTTON -->
+
+                <button
+                  class="
+                    material-carousel-button
+                    material-carousel-next
+                  "
+                  type="button"
+                  aria-label="Next PAHT-CF tensile test"
+                >
+                  ›
+                </button>
+
+
+                <!-- NAVIGATION DOTS -->
+
+                <div class="material-carousel-dots">
+
+                  <button
+                    class="material-carousel-dot active"
+                    type="button"
+                    aria-label="Show PAHT-CF test 1"
+                  ></button>
+
+                  <button
+                    class="material-carousel-dot"
+                    type="button"
+                    aria-label="Show PAHT-CF test 2"
+                  ></button>
+
+                  <button
+                    class="material-carousel-dot"
+                    type="button"
+                    aria-label="Show PAHT-CF test 3"
+                  ></button>
 
                 </div>
 
 
               </div>
+
 
             </div>
 
@@ -4211,8 +4408,205 @@
 
   <script>
 
+    /* =========================================================
+       CURRENT YEAR
+    ========================================================= */
+
     document.getElementById("year").textContent =
       new Date().getFullYear();
+
+
+    /* =========================================================
+       PAHT-CF AUTOMATIC CAROUSEL
+    ========================================================= */
+
+    const materialCarousel =
+      document.getElementById("pahtcf-carousel");
+
+    if (materialCarousel) {
+
+      const slides =
+        materialCarousel.querySelectorAll(
+          ".material-carousel-slide"
+        );
+
+      const dots =
+        materialCarousel.querySelectorAll(
+          ".material-carousel-dot"
+        );
+
+      const previousButton =
+        materialCarousel.querySelector(
+          ".material-carousel-prev"
+        );
+
+      const nextButton =
+        materialCarousel.querySelector(
+          ".material-carousel-next"
+        );
+
+      let currentSlide = 0;
+
+      let carouselTimer;
+
+
+      /* =======================================================
+         SHOW SELECTED SLIDE
+      ======================================================= */
+
+      function showMaterialSlide(index) {
+
+        if (index < 0) {
+          index = slides.length - 1;
+        }
+
+        if (index >= slides.length) {
+          index = 0;
+        }
+
+        slides.forEach(
+          function(slide) {
+            slide.classList.remove("active");
+          }
+        );
+
+        dots.forEach(
+          function(dot) {
+            dot.classList.remove("active");
+          }
+        );
+
+        slides[index].classList.add("active");
+
+        dots[index].classList.add("active");
+
+        currentSlide = index;
+
+      }
+
+
+      /* =======================================================
+         NEXT SLIDE
+      ======================================================= */
+
+      function nextMaterialSlide() {
+
+        showMaterialSlide(
+          currentSlide + 1
+        );
+
+      }
+
+
+      /* =======================================================
+         PREVIOUS SLIDE
+      ======================================================= */
+
+      function previousMaterialSlide() {
+
+        showMaterialSlide(
+          currentSlide - 1
+        );
+
+      }
+
+
+      /* =======================================================
+         AUTOMATIC ROTATION
+      ======================================================= */
+
+      function startMaterialCarousel() {
+
+        clearInterval(carouselTimer);
+
+        carouselTimer =
+          setInterval(
+            nextMaterialSlide,
+            4500
+          );
+
+      }
+
+
+      function stopMaterialCarousel() {
+
+        clearInterval(carouselTimer);
+
+      }
+
+
+      /* =======================================================
+         ARROW CONTROLS
+      ======================================================= */
+
+      previousButton.addEventListener(
+        "click",
+        function() {
+
+          previousMaterialSlide();
+
+          startMaterialCarousel();
+
+        }
+      );
+
+
+      nextButton.addEventListener(
+        "click",
+        function() {
+
+          nextMaterialSlide();
+
+          startMaterialCarousel();
+
+        }
+      );
+
+
+      /* =======================================================
+         DOT CONTROLS
+      ======================================================= */
+
+      dots.forEach(
+        function(dot, index) {
+
+          dot.addEventListener(
+            "click",
+            function() {
+
+              showMaterialSlide(index);
+
+              startMaterialCarousel();
+
+            }
+          );
+
+        }
+      );
+
+
+      /* =======================================================
+         PAUSE WHILE HOVERING
+      ======================================================= */
+
+      materialCarousel.addEventListener(
+        "mouseenter",
+        stopMaterialCarousel
+      );
+
+      materialCarousel.addEventListener(
+        "mouseleave",
+        startMaterialCarousel
+      );
+
+
+      /* =======================================================
+         START CAROUSEL
+      ======================================================= */
+
+      startMaterialCarousel();
+
+    }
 
   </script>
 
