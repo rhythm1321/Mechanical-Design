@@ -666,6 +666,265 @@
 
 
     /* =========================================================
+       SECTION 05 — MATERIAL SELECTION
+    ========================================================= */
+
+    .material-showcase {
+      display: grid;
+
+      gap: 22px;
+
+      margin-top: 32px;
+    }
+
+    .material-row {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      min-height: 340px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background: var(--card);
+    }
+
+    .material-copy {
+      padding: 34px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .material-label {
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+
+      letter-spacing: 0.1em;
+
+      text-transform: uppercase;
+    }
+
+    .material-copy h3 {
+      margin: 0 0 12px;
+
+      color: var(--text);
+
+      font-size: 1.3rem;
+    }
+
+    .material-copy p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.94rem;
+
+      line-height: 1.75;
+    }
+
+    .material-image-wrap {
+      position: relative;
+
+      min-height: 340px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 18px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.07),
+          transparent
+        ),
+        #0b1520;
+    }
+
+    .material-image {
+      width: 100%;
+      height: 100%;
+
+      max-height: 400px;
+
+      object-fit: contain;
+
+      border-radius: 10px;
+
+      background: #ffffff;
+    }
+
+    .material-image-fallback {
+      display: none;
+
+      color: var(--muted);
+
+      font-size: 0.85rem;
+
+      text-align: center;
+    }
+
+    .material-image-wrap.missing .material-image-fallback {
+      display: block;
+    }
+
+    .material-row.image-left .material-image-wrap {
+      order: 1;
+    }
+
+    .material-row.image-left .material-copy {
+      order: 2;
+    }
+
+
+    /* =========================================================
+       PAHT-CF TEST IMAGE GRID
+    ========================================================= */
+
+    .material-test-grid {
+      width: 100%;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 12px;
+    }
+
+    .material-test-item {
+      min-width: 0;
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 8px;
+    }
+
+    .material-test-image {
+      width: 100%;
+      height: 250px;
+
+      object-fit: contain;
+
+      border: 1px solid var(--border);
+
+      border-radius: 9px;
+
+      background: #ffffff;
+    }
+
+    .material-test-caption {
+      color: var(--muted);
+
+      font-size: 0.76rem;
+
+      text-align: center;
+    }
+
+    .material-test-fallback {
+      min-height: 250px;
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      padding: 15px;
+
+      border: 1px dashed #36506b;
+
+      border-radius: 9px;
+
+      color: var(--muted);
+
+      font-size: 0.78rem;
+
+      text-align: center;
+    }
+
+    .material-test-item.missing .material-test-fallback {
+      display: flex;
+    }
+
+
+    /* =========================================================
+       MATERIAL TEST RESULT
+    ========================================================= */
+
+    .material-result {
+      margin-top: 22px;
+
+      padding: 30px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.06),
+          transparent 60%
+        ),
+        var(--card);
+    }
+
+    .material-result h3 {
+      margin: 0 0 12px;
+
+      font-size: 1.3rem;
+    }
+
+    .material-result p {
+      max-width: 900px;
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.94rem;
+
+      line-height: 1.75;
+    }
+
+    .material-results-list {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      margin-top: 18px;
+    }
+
+    .material-result-value {
+      padding: 8px 12px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: var(--accent);
+
+      font-size: 0.82rem;
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
        ANALYSIS / RESULTS
     ========================================================= */
 
@@ -1214,17 +1473,19 @@
 
 
     /* =========================================================
-       MODULARITY / ANALYSIS MOBILE
+       MODULARITY / MATERIAL / ANALYSIS MOBILE
     ========================================================= */
 
     @media (max-width: 700px) {
 
       .modularity-row,
+      .material-row,
       .analysis-row {
         grid-template-columns: 1fr;
       }
 
       .modularity-copy,
+      .material-copy,
       .analysis-row-copy {
         order: 1 !important;
 
@@ -1232,6 +1493,7 @@
       }
 
       .modularity-image-wrap,
+      .material-image-wrap,
       .analysis-image-wrap {
         order: 2 !important;
 
@@ -1242,10 +1504,29 @@
         max-height: 300px;
       }
 
+      .material-image {
+        max-height: 320px;
+      }
+
+      .material-test-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .material-test-image {
+        height: auto;
+
+        max-height: 340px;
+      }
+
+      .material-test-fallback {
+        min-height: 220px;
+      }
+
       .analysis-row-image {
         max-height: 320px;
       }
 
+      .material-result,
       .vibration-analysis-box {
         padding: 25px;
       }
@@ -2450,58 +2731,194 @@
           mounts, brackets, and tool mounts to be
           manufactured quickly and at relatively low cost.
 
-          Rather than selecting filament only from
-          manufacturer specifications, tensile testing
-          was performed on PETG and carbon-fibre-reinforced
-          filament to support material selection and
-          SolidWorks simulation inputs.
+          Tensile testing was performed on PETG and
+          carbon-fibre-reinforced PAHT-CF to obtain
+          mechanical-property data that could support
+          material selection and SolidWorks simulation.
 
         </p>
 
 
-        <div class="two-column-grid">
+        <div class="material-showcase">
 
 
-          <div class="content-card">
+          <!-- ================================================
+               01 — PETG
+          ================================================= -->
 
-            <h3>
-              PETG
-            </h3>
+          <div class="material-row">
 
-            <p>
 
-              PETG was used for components that required
-              durability but were not subjected to the
-              highest structural loads, including
-              limit-switch mounts, Proxxon mounts,
-              L-brackets, and clamps.
+            <div class="material-copy">
 
-              Testing was performed at both 10% and
-              100% infill.
+              <div class="material-label">
+                01 — PETG
+              </div>
 
-            </p>
+              <h3>
+                General-Purpose Printed Components
+              </h3>
+
+              <p>
+                PETG was selected for printed components
+                that required durability and ease of
+                manufacturing but were not subjected to
+                the highest structural loads.
+
+                These components included limit-switch
+                mounts, Proxxon tool mounts, L-brackets,
+                and adjustable workholding clamps.
+
+                Tensile testing provided experimental
+                material data that could be used to
+                better represent the printed material
+                during design and simulation.
+              </p>
+
+            </div>
+
+
+            <div class="material-image-wrap">
+
+              <img
+                src="images/cnc-petg-tensile-test.png"
+                alt="PETG tensile test results used for CNC material characterization"
+                class="material-image"
+                onerror="
+                  this.style.display='none';
+                  this.parentElement.classList.add('missing');
+                "
+              />
+
+              <div class="material-image-fallback">
+                Add image:<br>
+                cnc-petg-tensile-test.png
+              </div>
+
+            </div>
+
 
           </div>
 
 
-          <div class="content-card">
+          <!-- ================================================
+               02 — PAHT-CF
+          ================================================= -->
 
-            <h3>
-              PAHT-CF
-            </h3>
+          <div class="material-row image-left">
 
-            <p>
 
-              Carbon-fibre-reinforced filament was
-              selected for more highly loaded components
-              such as motor and bearing housings.
+            <div class="material-copy">
 
-              Testing produced an average tensile
-              strength of approximately 44.91 MPa and
-              supported the use of the material for
-              structural printed components.
+              <div class="material-label">
+                02 — PAHT-CF
+              </div>
 
-            </p>
+              <h3>
+                Structural Printed Components
+              </h3>
+
+              <p>
+                Carbon-fibre-reinforced PAHT-CF was
+                selected for more highly loaded printed
+                components such as motor and bearing
+                housings.
+
+                Three tensile specimens were tested to
+                characterize the material across
+                multiple samples rather than relying on
+                a single test result.
+
+                The resulting strength data supported
+                the use of PAHT-CF for structural
+                printed components within the CNC
+                assembly.
+              </p>
+
+            </div>
+
+
+            <div class="material-image-wrap">
+
+              <div class="material-test-grid">
+
+
+                <div class="material-test-item">
+
+                  <img
+                    src="images/cnc-pahtcf-test-1.png"
+                    alt="PAHT-CF tensile test 1"
+                    class="material-test-image"
+                    onerror="
+                      this.style.display='none';
+                      this.parentElement.classList.add('missing');
+                    "
+                  />
+
+                  <div class="material-test-fallback">
+                    Add image:<br>
+                    cnc-pahtcf-test-1.png
+                  </div>
+
+                  <div class="material-test-caption">
+                    PAHT-CF Test 1
+                  </div>
+
+                </div>
+
+
+                <div class="material-test-item">
+
+                  <img
+                    src="images/cnc-pahtcf-test-2.png"
+                    alt="PAHT-CF tensile test 2"
+                    class="material-test-image"
+                    onerror="
+                      this.style.display='none';
+                      this.parentElement.classList.add('missing');
+                    "
+                  />
+
+                  <div class="material-test-fallback">
+                    Add image:<br>
+                    cnc-pahtcf-test-2.png
+                  </div>
+
+                  <div class="material-test-caption">
+                    PAHT-CF Test 2
+                  </div>
+
+                </div>
+
+
+                <div class="material-test-item">
+
+                  <img
+                    src="images/cnc-pahtcf-test-3.png"
+                    alt="PAHT-CF tensile test 3"
+                    class="material-test-image"
+                    onerror="
+                      this.style.display='none';
+                      this.parentElement.classList.add('missing');
+                    "
+                  />
+
+                  <div class="material-test-fallback">
+                    Add image:<br>
+                    cnc-pahtcf-test-3.png
+                  </div>
+
+                  <div class="material-test-caption">
+                    PAHT-CF Test 3
+                  </div>
+
+                </div>
+
+
+              </div>
+
+            </div>
+
 
           </div>
 
@@ -2509,14 +2926,45 @@
         </div>
 
 
-        <div class="image-placeholder">
+        <!-- ================================================
+             MATERIAL SELECTION RESULT
+        ================================================= -->
 
-          <div>
-            <strong>Suggested image:</strong>
-            PETG and carbon-fibre tensile-test results
+        <div class="material-result">
+
+          <div class="material-label">
+            Material Selection Result
+          </div>
+
+          <h3>
+            Matching Material to Component Loading
+          </h3>
+
+          <p>
+            The tensile testing supported a two-material
+            approach for the 3D-printed components.
+
+            PETG was retained for lower-loaded brackets,
+            mounts, and workholding components, while
+            PAHT-CF was selected for components where
+            greater structural performance was required.
+          </p>
+
+
+          <div class="material-results-list">
+
+            <div class="material-result-value">
+              PAHT-CF Average Tensile Strength: ≈ 44.91 MPa
+            </div>
+
+            <div class="material-result-value">
+              PAHT-CF Average Yield Strength: ≈ 29.35 MPa
+            </div>
+
           </div>
 
         </div>
+
 
       </div>
 
