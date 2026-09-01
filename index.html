@@ -14,10 +14,6 @@
 
   <style>
 
-    /* =========================================================
-       GLOBAL
-    ========================================================= */
-
     :root {
       --background: #071019;
       --sidebar: #0c1722;
@@ -80,12 +76,11 @@
 
 
     /* =========================================================
-       PAGE LAYOUT
+       PAGE
     ========================================================= */
 
     .page {
       display: grid;
-
       grid-template-columns: 305px 1fr;
 
       min-height: 100vh;
@@ -191,7 +186,7 @@
 
 
     /* =========================================================
-       SIDEBAR LINKS
+       SOCIAL LINKS
     ========================================================= */
 
     .social-links {
@@ -259,18 +254,13 @@
     .section-title {
       margin: 0 0 14px;
 
-      font-size:
-        clamp(
-          1.8rem,
-          4vw,
-          2.45rem
-        );
+      font-size: clamp(1.8rem, 4vw, 2.45rem);
 
       line-height: 1.2;
     }
 
     .section-description {
-      max-width: 760px;
+      max-width: 800px;
 
       margin: 0 0 30px;
 
@@ -279,7 +269,7 @@
 
 
     /* =========================================================
-       INTRO / HERO
+       INTRO
     ========================================================= */
 
     .hero {
@@ -389,14 +379,13 @@
 
 
     /* =========================================================
-       ABOUT
+       PROFILE
     ========================================================= */
 
     .about-grid {
       display: grid;
 
-      grid-template-columns:
-        1.15fr 0.85fr;
+      grid-template-columns: 1.15fr 0.85fr;
 
       gap: 22px;
     }
@@ -486,11 +475,6 @@
       grid-column: span 2;
     }
 
-
-    /* =========================================================
-       PROJECT IMAGES
-    ========================================================= */
-
     .project-image-container {
       position: relative;
 
@@ -527,10 +511,38 @@
       transform: scale(1.025);
     }
 
+    .project-image-placeholder {
+      position: absolute;
 
-    /* =========================================================
-       PROJECT CONTENT
-    ========================================================= */
+      inset: 0;
+
+      display: none;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      color: var(--muted);
+
+      font-size: 0.84rem;
+
+      font-weight: 650;
+
+      text-align: center;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.08em;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.12),
+          transparent 60%
+        ),
+        #0b1520;
+    }
 
     .project-content {
       padding: 24px;
@@ -622,7 +634,7 @@
 
 
     /* =========================================================
-       EXPERIENCE
+       PROFESSIONAL EXPERIENCE
     ========================================================= */
 
     .experience-container {
@@ -696,6 +708,106 @@
 
 
     /* =========================================================
+       TMFR ROLE TIMELINE
+    ========================================================= */
+
+    .tmfr-summary {
+      max-width: 850px;
+
+      margin-bottom: 32px;
+
+      color: var(--muted);
+
+      font-size: 1rem;
+    }
+
+    .role-timeline {
+      display: grid;
+
+      gap: 18px;
+    }
+
+    .role-card {
+      display: grid;
+
+      grid-template-columns: 190px 1fr;
+
+      gap: 28px;
+
+      padding: 26px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background: var(--card);
+
+      transition:
+        transform 0.2s,
+        border-color 0.2s,
+        background 0.2s;
+    }
+
+    .role-card:hover {
+      transform: translateY(-2px);
+
+      border-color: #365575;
+
+      background: var(--card-hover);
+    }
+
+    .role-period {
+      color: var(--accent);
+
+      font-size: 0.82rem;
+
+      font-weight: 750;
+    }
+
+    .role-name {
+      margin: 4px 0 5px;
+
+      font-size: 1.05rem;
+
+      font-weight: 750;
+    }
+
+    .role-category {
+      color: var(--muted);
+
+      font-size: 0.82rem;
+    }
+
+    .role-content h3 {
+      margin: 0 0 12px;
+
+      font-size: 1.2rem;
+    }
+
+    .role-content p {
+      margin: 0 0 12px;
+
+      color: var(--muted);
+    }
+
+    .role-content ul {
+      margin: 0;
+
+      padding-left: 20px;
+
+      color: var(--muted);
+    }
+
+    .role-content li {
+      margin: 8px 0;
+    }
+
+    .role-content li::marker {
+      color: var(--accent);
+    }
+
+
+    /* =========================================================
        SKILLS
     ========================================================= */
 
@@ -720,7 +832,9 @@
 
     .skill-icon {
       min-width: 38px;
+
       width: fit-content;
+
       height: 38px;
 
       padding: 0 9px;
@@ -728,6 +842,7 @@
       margin-bottom: 16px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
@@ -772,8 +887,7 @@
     .education-card {
       display: grid;
 
-      grid-template-columns:
-        1fr auto;
+      grid-template-columns: 1fr auto;
 
       gap: 20px;
 
@@ -804,8 +918,15 @@
       font-size: 1.15rem;
     }
 
-    .education-school {
+    .education-school,
+    .education-detail {
       color: var(--muted);
+    }
+
+    .education-detail {
+      margin-top: 5px;
+
+      font-size: 0.9rem;
     }
 
     .education-date {
@@ -843,6 +964,14 @@
       margin-bottom: 23px;
 
       color: var(--muted);
+    }
+
+    .contact-buttons {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 12px;
     }
 
 
@@ -931,6 +1060,12 @@
           repeat(2, minmax(0, 1fr));
       }
 
+      .role-card {
+        grid-template-columns: 1fr;
+
+        gap: 14px;
+      }
+
     }
 
 
@@ -954,6 +1089,7 @@
 
       .hero {
         padding-top: 50px;
+
         padding-bottom: 10px;
       }
 
@@ -987,6 +1123,7 @@
     }
 
   </style>
+
 </head>
 
 
@@ -1068,18 +1205,14 @@
           GitHub
         </a>
 
-        <!--
-        ADD YOUR LINKEDIN HERE LATER
-
         <a
           class="social-link"
-          href="YOUR-LINKEDIN-URL"
+          href="https://www.linkedin.com/in/rhythm-patel1321"
           target="_blank"
           rel="noopener noreferrer"
         >
           LinkedIn
         </a>
-        -->
 
       </div>
 
@@ -1108,15 +1241,18 @@
             Mechanical & Mechatronics Engineering
           </div>
 
+
           <p class="hero-description">
 
             I am a Mechanical Engineering graduate and
             Master of Engineering student at Toronto
             Metropolitan University with a background in
-            mechatronics. My experience spans mechanical
-            design, FEA, manufacturing, Formula SAE EV
-            development, CNC systems, automation, embedded
-            hardware, controls, and engineering leadership.
+            mechatronics.
+
+            My experience spans mechanical design,
+            FEA, manufacturing, Formula SAE EV development,
+            CNC systems, automation, embedded hardware,
+            controls, and engineering leadership.
 
           </p>
 
@@ -1202,7 +1338,6 @@
           <div class="about-card">
 
             <div class="qualification-list">
-
 
               <div class="qualification-item">
 
@@ -1319,8 +1454,10 @@
           A selection of engineering projects involving
           mechanical design, structural analysis,
           manufacturing, mechatronics, controls, and
-          testing. Select a project to explore its full
-          design and development process.
+          testing.
+
+          Select a project to explore its full design
+          and development process.
 
         </p>
 
@@ -1328,9 +1465,7 @@
         <div class="project-grid">
 
 
-          <!-- ==================================================
-               PROJECT 1 — CNC
-          =================================================== -->
+          <!-- CNC -->
 
           <article class="project-card featured">
 
@@ -1338,10 +1473,18 @@
             <div class="project-image-container">
 
               <img
-                src="images/cnc-main.jpg"
+                src="images/cnc-main.JPG"
                 alt="Modular foam-cutting CNC machine"
                 class="project-image"
+                onerror="
+                  this.style.display='none';
+                  this.nextElementSibling.style.display='flex';
+                "
               />
+
+              <div class="project-image-placeholder">
+                CNC project image coming soon
+              </div>
 
             </div>
 
@@ -1361,10 +1504,12 @@
                 Designed and built a modular CNC machine
                 for manufacturing aerodynamic foam molds
                 for the Toronto Metropolitan Formula Racing
-                vehicle. The machine was developed within
-                a $700 budget while emphasizing scalability,
-                repairability, and the use of off-the-shelf
-                hardware.
+                vehicle.
+
+                The machine was developed within a $700
+                budget while emphasizing scalability,
+                repairability, and the use of
+                off-the-shelf hardware.
 
               </p>
 
@@ -1410,9 +1555,7 @@
           </article>
 
 
-          <!-- ==================================================
-               PROJECT 2 — BATTERY MOUNTS
-          =================================================== -->
+          <!-- BATTERY MOUNTS -->
 
           <article class="project-card">
 
@@ -1423,7 +1566,15 @@
                 src="images/battery-mounts-main.jpg"
                 alt="Formula SAE electric vehicle battery pack mounting system"
                 class="project-image"
+                onerror="
+                  this.style.display='none';
+                  this.nextElementSibling.style.display='flex';
+                "
               />
+
+              <div class="project-image-placeholder">
+                Battery mount project image coming soon
+              </div>
 
             </div>
 
@@ -1440,12 +1591,12 @@
 
               <p>
 
-                Designed the mounting system for the
-                Formula SAE electric vehicle battery
-                pack and conducted structural FEA to
-                verify the design under 40 g lateral
-                and longitudinal acceleration and
-                20 g vertical acceleration.
+                Designed the structural mounting system
+                for the Formula SAE electric vehicle
+                accumulator and conducted FEA to verify
+                performance under 40 g lateral and
+                longitudinal acceleration and 20 g
+                vertical acceleration.
 
               </p>
 
@@ -1487,9 +1638,7 @@
           </article>
 
 
-          <!-- ==================================================
-               PROJECT 3 — WING TOPOLOGY
-          =================================================== -->
+          <!-- WING TOPOLOGY -->
 
           <article class="project-card">
 
@@ -1500,7 +1649,15 @@
                 src="images/wing-topology-main.jpg"
                 alt="Formula SAE wing mount topology optimization"
                 class="project-image"
+                onerror="
+                  this.style.display='none';
+                  this.nextElementSibling.style.display='flex';
+                "
               />
+
+              <div class="project-image-placeholder">
+                Wing topology project image coming soon
+              </div>
 
             </div>
 
@@ -1520,7 +1677,7 @@
                 Conducted topology optimization studies
                 on Formula SAE wing mounts and structural
                 ribs to identify opportunities to reduce
-                component weight while maintaining a
+                component mass while maintaining a
                 minimum factor of safety of 2.
 
               </p>
@@ -1583,9 +1740,12 @@
         </h2>
 
         <p class="section-description">
-          Engineering and production experience focused
+
+          Production and engineering experience focused
           on safety, manufacturing efficiency, production
-          improvement, and cross-functional collaboration.
+          improvement, ergonomics, and cross-functional
+          collaboration.
+
         </p>
 
 
@@ -1608,7 +1768,7 @@
               </div>
 
               <div class="experience-date">
-                September 2022 - December 2023
+                March 2019 – Present
               </div>
 
             </div>
@@ -1660,97 +1820,714 @@
       <section id="tmfr">
 
         <div class="section-label">
-          Extracurricular Engineering
+          Formula SAE
         </div>
 
         <h2 class="section-title">
           Toronto Metropolitan Formula Racing
         </h2>
 
-        <p class="section-description">
-          Toronto Metropolitan University
-          · September 2021 – June 2025
+        <p class="tmfr-summary">
+
+          I joined Toronto Metropolitan Formula Racing
+          in 2020 as a general member and progressed
+          through a wide range of technical and leadership
+          positions involving aerodynamics, accumulator
+          structures, electrical enclosures, composites,
+          CAD management, finance, project management,
+          and overall team leadership.
+
+          My progression culminated in serving as
+          Team Captain for the 2024–2025 season.
+
         </p>
 
 
-        <div class="experience-container">
+        <div class="role-timeline">
 
-          <article class="experience-card">
 
-            <div class="experience-header">
+          <!-- TEAM CAPTAIN -->
 
-              <div>
+          <article class="role-card">
 
-                <div class="experience-company">
-                  Formula SAE
-                </div>
+            <div>
 
-                <h3 class="experience-role">
-                  Engineering Leadership & Vehicle Development
-                </h3>
-
+              <div class="role-period">
+                Jul. 2024 – Jul. 2025
               </div>
 
-              <div class="experience-date">
-                Sept. 2021 – June 2025
+              <div class="role-name">
+                Team Captain
+              </div>
+
+              <div class="role-category">
+                Team Leadership
               </div>
 
             </div>
 
 
-            <ul class="experience-list">
+            <div class="role-content">
 
-              <li>
-                Led a group of approximately 50 students
-                through the design and manufacturing of
-                a Formula SAE vehicle while coordinating
-                deadlines and ensuring engineering
-                decisions supported overall team goals.
-              </li>
+              <h3>
+                Team Captain
+              </h3>
 
+              <ul>
 
-              <li>
-                Organized the team's GrabCAD environment
-                to improve collaborative design efficiency,
-                assisted members with design methodology,
-                and resolved assembly errors and component
-                redesigns.
-              </li>
+                <li>
+                  Managed a team of 30+ students from
+                  multiple disciplines to design and
+                  manufacture an electric Formula SAE
+                  vehicle.
+                </li>
 
+                <li>
+                  Prepared instructional documentation,
+                  led team meetings, and managed technical
+                  and organizational tasks.
+                </li>
 
-              <li>
-                Designed battery pack mounts and conducted
-                FEA to verify a minimum factor of safety
-                of 2.5 under 20 g vertical and 40 g lateral
-                and longitudinal acceleration.
-              </li>
+                <li>
+                  Designed and tested physical prototypes
+                  while documenting design flaws and
+                  identifying opportunities for improvement.
+                </li>
 
+                <li>
+                  Communicated with suppliers to develop
+                  partnerships and obtain quotes for
+                  vehicle materials and services.
+                </li>
 
-              <li>
-                Communicated with WIHA Tools and secured
-                sponsorship to procure safety tools
-                required for work on the electric vehicle.
-              </li>
+              </ul>
 
-
-              <li>
-                Assisted in developing and conducting
-                structural testing plans to compare
-                FEA-predicted deflections with
-                experimentally measured deflections.
-              </li>
-
-
-              <li>
-                Conducted topology studies on Formula SAE
-                wing mounts and ribs to reduce component
-                weight while maintaining a minimum
-                factor of safety of 2.
-              </li>
-
-            </ul>
+            </div>
 
           </article>
+
+
+          <!-- FINANCE LEAD -->
+
+          <article class="role-card">
+
+            <div>
+
+              <div class="role-period">
+                Jul. 2023 – Aug. 2024
+              </div>
+
+              <div class="role-name">
+                Finance Lead
+              </div>
+
+              <div class="role-category">
+                Finance & Budgeting
+              </div>
+
+            </div>
+
+
+            <div class="role-content">
+
+              <h3>
+                Finance Lead
+              </h3>
+
+              <ul>
+
+                <li>
+                  Conducted cost analysis to estimate
+                  the cost of an entire Formula SAE
+                  season and determine required
+                  sponsorship targets.
+                </li>
+
+                <li>
+                  Approved team purchases and worked
+                  to keep all vehicle systems within
+                  their assigned budgets.
+                </li>
+
+                <li>
+                  Reviewed purchases and rejected
+                  unnecessary or excessive expenses.
+                </li>
+
+                <li>
+                  Tracked incoming and outgoing team
+                  finances.
+                </li>
+
+              </ul>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT MANAGER -->
+
+          <article class="role-card">
+
+            <div>
+
+              <div class="role-period">
+                Jul. 2023 – Aug. 2024
+              </div>
+
+              <div class="role-name">
+                Project Manager
+              </div>
+
+              <div class="role-category">
+                Project Management
+              </div>
+
+            </div>
+
+
+            <div class="role-content">
+
+              <h3>
+                Project Manager
+              </h3>
+
+              <ul>
+
+                <li>
+                  Ensured the team remained on track
+                  with the overall project timeline so
+                  the racecar could be designed and
+                  manufactured according to schedule.
+                </li>
+
+                <li>
+                  Maintained relationships with TMU,
+                  faculty, departments, MUES, and other
+                  key stakeholders.
+                </li>
+
+                <li>
+                  Managed Formula SAE competition
+                  logistics.
+                </li>
+
+                <li>
+                  Created a procurement system for
+                  designers to populate with required
+                  components and services.
+                </li>
+
+                <li>
+                  Organized outsourced manufacturing
+                  orders.
+                </li>
+
+                <li>
+                  Assisted with procurement of products
+                  and services required by the team.
+                </li>
+
+                <li>
+                  Ensured required competition documents
+                  were submitted to FSAEOnline on time.
+                </li>
+
+                <li>
+                  Oversaw team finances and budgets.
+                </li>
+
+                <li>
+                  Created budget proposals for MUES and
+                  FEAS and participated in budget meetings.
+                </li>
+
+                <li>
+                  Coordinated team participation in
+                  critical university and organizational
+                  events.
+                </li>
+
+              </ul>
+
+            </div>
+
+          </article>
+
+
+          <!-- NOSECONE LEAD -->
+
+          <article class="role-card">
+
+            <div>
+
+              <div class="role-period">
+                Dec. 2021 – Aug. 2024
+              </div>
+
+              <div class="role-name">
+                Nosecone Lead
+              </div>
+
+              <div class="role-category">
+                Composites & Aerodynamics
+              </div>
+
+            </div>
+
+
+            <div class="role-content">
+
+              <h3>
+                Nosecone Lead
+              </h3>
+
+              <ul>
+
+                <li>
+                  Used SolidWorks surface-modeling tools
+                  to design a rules-compliant Formula SAE
+                  nosecone.
+                </li>
+
+                <li>
+                  Worked with the livery lead to determine
+                  an appropriate livery application method.
+                </li>
+
+                <li>
+                  Contacted companies to pursue mold and
+                  carbon-fiber sponsorship opportunities.
+                </li>
+
+                <li>
+                  Sanded the male mold to 3000 grit,
+                  produced a female mold using fiberglass
+                  and chopped mat, and finished the female
+                  mold to 3000 grit.
+                </li>
+
+                <li>
+                  Performed a carbon-fiber layup using the
+                  finished female mold to manufacture the
+                  nosecone.
+                </li>
+
+              </ul>
+
+            </div>
+
+          </article>
+
+
+          <!-- CAD LEAD -->
+
+          <article class="role-card">
+
+            <div>
+
+              <div class="role-period">
+                Jul. 2022 – Jul. 2023
+              </div>
+
+              <div class="role-name">
+                CAD Lead
+              </div>
+
+              <div class="role-category">
+                CAD Management
+              </div>
+
+            </div>
+
+
+            <div class="role-content">
+
+              <h3>
+                CAD Lead
+              </h3>
+
+              <ul>
+
+                <li>
+                  Produced and communicated CAD rules
+                  and best practices to improve file
+                  accuracy, usability, and consistency.
+                </li>
+
+                <li>
+                  Set up the team's CAD assembly and
+                  GrabCAD environment.
+                </li>
+
+                <li>
+                  Worked with system leads to ensure
+                  assembly errors were identified and
+                  corrected.
+                </li>
+
+                <li>
+                  Ran tutorials to teach team members
+                  CAD skills and design best practices.
+                </li>
+
+                <li>
+                  Ensured components within the vehicle
+                  assembly were properly mated.
+                </li>
+
+              </ul>
+
+            </div>
+
+          </article>
+
+
+          <!-- ACCUMULATOR CONTAINER LEAD -->
+
+          <article class="role-card">
+
+            <div>
+
+              <div class="role-period">
+                Jul. 2022 – Jul. 2023
+              </div>
+
+              <div class="role-name">
+                Accumulator Container Lead
+              </div>
+
+              <div class="role-category">
+                EV Structural Design
+              </div>
+
+            </div>
+
+
+            <div class="role-content">
+
+              <h3>
+                Accumulator Container Lead
+              </h3>
+
+              <ul>
+
+                <li>
+                  Worked with the battery and frame leads
+                  to create an accumulator container
+                  capable of housing the battery modules
+                  while fitting within the vehicle frame.
+                </li>
+
+                <li>
+                  Determined practical manufacturing
+                  methods for the accumulator container.
+                </li>
+
+                <li>
+                  Designed an IP65-rated lid and selected
+                  installation methods for wall, floor,
+                  and top insulation.
+                </li>
+
+                <li>
+                  Worked with the AMS and accumulator
+                  teams to package low-voltage and
+                  high-voltage wiring.
+                </li>
+
+                <li>
+                  Conducted FEA on the container under
+                  20 g vertical and 40 g longitudinal
+                  and lateral acceleration and modified
+                  the design based on simulation results.
+                </li>
+
+                <li>
+                  Coordinated with ground low-voltage,
+                  shutdown-circuit, and motor subsystems
+                  to package electrical components and
+                  wiring.
+                </li>
+
+              </ul>
+
+            </div>
+
+          </article>
+
+
+          <!-- ENCLOSURE DESIGNER -->
+
+          <article class="role-card">
+
+            <div>
+
+              <div class="role-period">
+                May 2021 – Nov. 2021
+              </div>
+
+              <div class="role-name">
+                Enclosure Designer
+              </div>
+
+              <div class="role-category">
+                Electrical Packaging
+              </div>
+
+            </div>
+
+
+            <div class="role-content">
+
+              <h3>
+                Enclosure Designer
+              </h3>
+
+              <ul>
+
+                <li>
+                  Designed protective enclosures for
+                  electrical systems including the
+                  shutdown circuit, TSAL, and TSMP.
+                </li>
+
+                <li>
+                  3D printed enclosures using PLA,
+                  PETG, and ABS.
+                </li>
+
+                <li>
+                  Conducted water testing to verify
+                  compliance with IP65 requirements.
+                </li>
+
+              </ul>
+
+            </div>
+
+          </article>
+
+
+          <!-- SPONSORSHIP MEMBER -->
+
+          <article class="role-card">
+
+            <div>
+
+              <div class="role-period">
+                Jun. 2021 – Jul. 2021
+              </div>
+
+              <div class="role-name">
+                Sponsorship Member
+              </div>
+
+              <div class="role-category">
+                Sponsorship
+              </div>
+
+            </div>
+
+
+            <div class="role-content">
+
+              <h3>
+                Sponsorship Member
+              </h3>
+
+              <ul>
+
+                <li>
+                  Contacted companies regarding sponsorship
+                  for high-voltage insulated tools.
+                </li>
+
+                <li>
+                  Successfully helped obtain a sponsorship
+                  with Wiha Tools.
+                </li>
+
+                <li>
+                  Worked alongside four other members to
+                  create a sponsorship pitch presentation.
+                </li>
+
+              </ul>
+
+            </div>
+
+          </article>
+
+
+          <!-- ACCUMULATOR STRUCTURAL APPRENTICE -->
+
+          <article class="role-card">
+
+            <div>
+
+              <div class="role-period">
+                Mar. 2021 – May 2021
+              </div>
+
+              <div class="role-name">
+                Accumulator Structural Apprentice
+              </div>
+
+              <div class="role-category">
+                EV Structural Design
+              </div>
+
+            </div>
+
+
+            <div class="role-content">
+
+              <h3>
+                Accumulator Structural Apprentice
+              </h3>
+
+              <ul>
+
+                <li>
+                  Designed accumulator mounts and
+                  conducted SolidWorks FEA to verify
+                  a minimum factor of safety of 2.5
+                  under 20 g vertical and 40 g lateral
+                  and longitudinal acceleration.
+                </li>
+
+                <li>
+                  Designed a waterproof accumulator lid
+                  to satisfy IP65 requirements.
+                </li>
+
+                <li>
+                  Conducted FEA on the accumulator
+                  container to verify a minimum factor
+                  of safety of 1.5 under the required
+                  acceleration loads.
+                </li>
+
+              </ul>
+
+            </div>
+
+          </article>
+
+
+          <!-- AERODYNAMICS STRUCTURAL APPRENTICE -->
+
+          <article class="role-card">
+
+            <div>
+
+              <div class="role-period">
+                Jan. 2021 – May 2021
+              </div>
+
+              <div class="role-name">
+                Aerodynamics Structural Apprentice
+              </div>
+
+              <div class="role-category">
+                Aerodynamics Structures
+              </div>
+
+            </div>
+
+
+            <div class="role-content">
+
+              <h3>
+                Aerodynamics Structural Apprentice
+              </h3>
+
+              <ul>
+
+                <li>
+                  Designed wing mounts and chassis tabs
+                  required to attach the aerodynamic
+                  package to the racecar.
+                </li>
+
+                <li>
+                  Designed jigs used to assist with
+                  mounting and frame-welding operations.
+                </li>
+
+                <li>
+                  Assisted front- and rear-wing leads
+                  with structural wing-rib design.
+                </li>
+
+                <li>
+                  Designed mounting systems for the
+                  front and rear wings.
+                </li>
+
+                <li>
+                  Used SolidWorks and Ansys to conduct
+                  FEA and verify a minimum factor of
+                  safety of 2.
+                </li>
+
+                <li>
+                  Conducted topology studies on wing
+                  mounts and ribs to reduce material
+                  weight while maintaining a factor
+                  of safety of 2.
+                </li>
+
+              </ul>
+
+            </div>
+
+          </article>
+
+
+          <!-- GENERAL MEMBER -->
+
+          <article class="role-card">
+
+            <div>
+
+              <div class="role-period">
+                Sep. 2020 – Jan. 2021
+              </div>
+
+              <div class="role-name">
+                General Member
+              </div>
+
+              <div class="role-category">
+                Formula SAE
+              </div>
+
+            </div>
+
+
+            <div class="role-content">
+
+              <h3>
+                General Member
+              </h3>
+
+              <p>
+
+                Joined Toronto Metropolitan Formula Racing
+                as a general member before progressing into
+                structural, electrical packaging, CAD,
+                composites, management, finance, and
+                team-leadership responsibilities.
+
+              </p>
+
+            </div>
+
+          </article>
+
 
         </div>
 
@@ -1889,9 +2666,9 @@
 
             <p>
               Project coordination, design reviews,
-              team leadership, multidisciplinary
-              collaboration, technical communication,
-              and deadline management
+              procurement, budgeting, team leadership,
+              multidisciplinary collaboration, technical
+              communication, and deadline management
             </p>
 
           </div>
@@ -1929,7 +2706,8 @@
               </div>
 
               <h3>
-                Master of Engineering — Mechanical Engineering
+                Master of Engineering —
+                Mechanical Engineering
               </h3>
 
               <div class="education-school">
@@ -1956,12 +2734,17 @@
 
               <h3>
                 Bachelor of Engineering —
-                Mechanical Engineering (Mechatronics)
+                Mechanical Engineering
               </h3>
 
               <div class="education-school">
                 Toronto Metropolitan University
                 · Toronto, Ontario
+              </div>
+
+              <div class="education-detail">
+                Mechatronics Specialization
+                · Minor in Computer Science
               </div>
 
             </div>
@@ -1982,7 +2765,34 @@
               </div>
 
               <h3>
-                CSWP — Mechanical Design
+                Certified SOLIDWORKS Professional
+                in Mechanical Design (CSWP)
+              </h3>
+
+              <div class="education-school">
+                SOLIDWORKS
+              </div>
+
+            </div>
+
+            <div class="education-date">
+              July 2023
+            </div>
+
+          </div>
+
+
+          <div class="education-card">
+
+            <div>
+
+              <div class="education-type">
+                SOLIDWORKS Certification
+              </div>
+
+              <h3>
+                Certified SOLIDWORKS Associate
+                in Mechanical Design (CSWA)
               </h3>
 
               <div class="education-school">
@@ -2029,14 +2839,27 @@
           </p>
 
 
-          <a
-            class="button button-primary"
-            href="https://github.com/rhythm1321"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View GitHub
-          </a>
+          <div class="contact-buttons">
+
+            <a
+              class="button button-primary"
+              href="https://www.linkedin.com/in/rhythm-patel1321"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View LinkedIn
+            </a>
+
+            <a
+              class="button button-secondary"
+              href="https://github.com/rhythm1321"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View GitHub
+            </a>
+
+          </div>
 
         </div>
 
