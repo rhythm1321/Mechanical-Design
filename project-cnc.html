@@ -505,41 +505,163 @@
 
 
     /* =========================================================
-       MODULARITY
+       SECTION 04 — MODULARITY
     ========================================================= */
 
-    .feature-list {
+    .modularity-showcase {
       display: grid;
 
-      gap: 14px;
+      gap: 22px;
 
-      margin-top: 25px;
+      margin-top: 32px;
     }
 
-    .feature-item {
-      padding: 20px 22px;
-
+    .modularity-row {
       display: grid;
 
-      grid-template-columns: 160px 1fr;
+      grid-template-columns:
+        1fr 1fr;
 
-      gap: 20px;
+      min-height: 320px;
+
+      overflow: hidden;
 
       border: 1px solid var(--border);
 
-      border-radius: 13px;
+      border-radius: 16px;
 
       background: var(--card);
     }
 
-    .feature-title {
-      color: var(--accent);
+    .modularity-copy {
+      padding: 34px;
 
-      font-weight: 750;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    .feature-description {
+    .modularity-label {
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+
+      letter-spacing: 0.1em;
+
+      text-transform: uppercase;
+    }
+
+    .modularity-copy h3 {
+      margin: 0 0 12px;
+
+      color: var(--text);
+
+      font-size: 1.3rem;
+    }
+
+    .modularity-copy p {
+      margin: 0;
+
       color: var(--muted);
+
+      font-size: 0.94rem;
+
+      line-height: 1.75;
+    }
+
+    .modularity-image-wrap {
+      position: relative;
+
+      min-height: 320px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 18px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.07),
+          transparent
+        ),
+        #0b1520;
+    }
+
+    .modularity-image {
+      width: 100%;
+      height: 100%;
+
+      max-height: 360px;
+
+      object-fit: contain;
+
+      border-radius: 10px;
+    }
+
+    .modularity-source-link {
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-fallback {
+      display: none;
+
+      color: var(--muted);
+
+      font-size: 0.85rem;
+
+      text-align: center;
+    }
+
+    .modularity-image-wrap.missing .image-fallback {
+      display: block;
+    }
+
+    .modularity-image-wrap.missing .modularity-source-link {
+      display: none;
+    }
+
+    .image-credit {
+      position: absolute;
+
+      left: 18px;
+      bottom: 10px;
+
+      padding: 5px 9px;
+
+      border-radius: 6px;
+
+      background: rgba(7, 16, 25, 0.9);
+
+      color: #cbd7e2;
+
+      font-size: 0.7rem;
+
+      line-height: 1.4;
+    }
+
+    .image-credit a {
+      color: var(--accent);
+
+      font-weight: 700;
+    }
+
+    .modularity-row.image-left .modularity-image-wrap {
+      order: 1;
+    }
+
+    .modularity-row.image-left .modularity-copy {
+      order: 2;
     }
 
 
@@ -602,29 +724,184 @@
 
 
     /* =========================================================
-       ENGINEERING ANALYSIS DETAILS
+       SECTION 06 — ENGINEERING ANALYSIS
     ========================================================= */
 
-    .analysis-detail {
-      margin-top: 18px;
+    .analysis-showcase {
+      display: grid;
 
-      padding: 25px;
+      gap: 22px;
+
+      margin-top: 32px;
+    }
+
+    .analysis-row {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      min-height: 320px;
+
+      overflow: hidden;
 
       border: 1px solid var(--border);
 
-      border-radius: 14px;
+      border-radius: 16px;
 
       background: var(--card);
     }
 
-    .analysis-detail h3 {
-      margin: 0 0 10px;
+    .analysis-row-copy {
+      padding: 34px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    .analysis-detail p {
+    .analysis-row-label {
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+
+      letter-spacing: 0.1em;
+
+      text-transform: uppercase;
+    }
+
+    .analysis-row-copy h3 {
+      margin: 0 0 12px;
+
+      color: var(--text);
+
+      font-size: 1.3rem;
+    }
+
+    .analysis-row-copy p {
       margin: 0;
 
       color: var(--muted);
+
+      font-size: 0.94rem;
+
+      line-height: 1.75;
+    }
+
+    .analysis-image-wrap {
+      position: relative;
+
+      min-height: 320px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 18px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.07),
+          transparent
+        ),
+        #0b1520;
+    }
+
+    .analysis-row-image {
+      width: 100%;
+      height: 100%;
+
+      max-height: 380px;
+
+      object-fit: contain;
+
+      border-radius: 10px;
+    }
+
+    .analysis-image-fallback {
+      display: none;
+
+      color: var(--muted);
+
+      font-size: 0.85rem;
+
+      text-align: center;
+    }
+
+    .analysis-image-wrap.missing .analysis-image-fallback {
+      display: block;
+    }
+
+    .analysis-row.image-left .analysis-image-wrap {
+      order: 1;
+    }
+
+    .analysis-row.image-left .analysis-row-copy {
+      order: 2;
+    }
+
+    .vibration-analysis-box {
+      margin-top: 22px;
+
+      padding: 30px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.06),
+          transparent 60%
+        ),
+        var(--card);
+    }
+
+    .vibration-analysis-box h3 {
+      margin: 0 0 12px;
+
+      font-size: 1.3rem;
+    }
+
+    .vibration-analysis-box p {
+      max-width: 900px;
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.94rem;
+
+      line-height: 1.75;
+    }
+
+    .vibration-results {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      margin-top: 18px;
+    }
+
+    .vibration-result {
+      padding: 8px 12px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: var(--accent);
+
+      font-size: 0.82rem;
+
+      font-weight: 700;
     }
 
 
@@ -937,6 +1214,46 @@
 
 
     /* =========================================================
+       MODULARITY / ANALYSIS MOBILE
+    ========================================================= */
+
+    @media (max-width: 700px) {
+
+      .modularity-row,
+      .analysis-row {
+        grid-template-columns: 1fr;
+      }
+
+      .modularity-copy,
+      .analysis-row-copy {
+        order: 1 !important;
+
+        padding: 25px;
+      }
+
+      .modularity-image-wrap,
+      .analysis-image-wrap {
+        order: 2 !important;
+
+        min-height: 240px;
+      }
+
+      .modularity-image {
+        max-height: 300px;
+      }
+
+      .analysis-row-image {
+        max-height: 320px;
+      }
+
+      .vibration-analysis-box {
+        padding: 25px;
+      }
+
+    }
+
+
+    /* =========================================================
        MOBILE
     ========================================================= */
 
@@ -963,12 +1280,6 @@
       .recommendations-grid,
       .workflow {
         grid-template-columns: 1fr;
-      }
-
-      .feature-item {
-        grid-template-columns: 1fr;
-
-        gap: 5px;
       }
 
       .cost-highlight {
@@ -1074,7 +1385,7 @@
 
         <img
           src="images/cnc-image.jpg"
-          alt="Modular foam-cutting CNC machine prototype"
+          alt="Modular foam-cutting CNC machine"
           class="hero-image"
         />
 
@@ -1261,240 +1572,243 @@
     </section>
 
 
-<!-- ====================================================
-     02 — DESIGN PROCESS
-===================================================== -->
+    <!-- ====================================================
+         02 — DESIGN PROCESS
+    ===================================================== -->
 
-<section class="project-section">
+    <section class="project-section">
 
-  <div class="container">
+      <div class="container">
 
-    <div class="section-number">
-      02 — Design Process
-    </div>
-
-    <h2>
-      From Requirements to a Physical Prototype
-    </h2>
-
-    <p>
-      The development process began with research
-      into existing CNC systems and common failure
-      modes. Design concepts were then generated
-      for each major machine function and evaluated
-      against the project's cost, modularity,
-      maintainability, dimensional, and compatibility
-      requirements.
-    </p>
-
-
-    <div class="process-grid">
-
-
-      <div class="process-card">
-
-        <div class="process-number">
-          01
+        <div class="section-number">
+          02 — Design Process
         </div>
 
-        <h3>
-          Define Requirements
-        </h3>
+        <h2>
+          From Requirements to a Physical Prototype
+        </h2>
 
         <p>
-          Established machine size, budget,
-          modularity, maintainability, and foam
-          machining requirements.
+
+          The development process began with research
+          into existing CNC systems and common failure
+          modes. Design concepts were then generated
+          for each major machine function and evaluated
+          against the project's cost, modularity,
+          maintainability, dimensional, and compatibility
+          requirements.
+
         </p>
 
-      </div>
+
+        <div class="process-grid">
 
 
-      <div class="process-card">
+          <div class="process-card">
 
-        <div class="process-number">
-          02
+            <div class="process-number">
+              01
+            </div>
+
+            <h3>
+              Define Requirements
+            </h3>
+
+            <p>
+              Established machine size, budget,
+              modularity, maintainability, and foam
+              machining requirements.
+            </p>
+
+          </div>
+
+
+          <div class="process-card">
+
+            <div class="process-number">
+              02
+            </div>
+
+            <h3>
+              Research Existing Systems
+            </h3>
+
+            <p>
+              Evaluated commercial and DIY CNC
+              designs, motion systems, structures,
+              electronics, workholding, and software.
+            </p>
+
+          </div>
+
+
+          <div class="process-card">
+
+            <div class="process-number">
+              03
+            </div>
+
+            <h3>
+              Generate Concepts
+            </h3>
+
+            <p>
+              Used a morphological chart to compare
+              possible solutions for each CNC function.
+            </p>
+
+          </div>
+
+
+          <div class="process-card">
+
+            <div class="process-number">
+              04
+            </div>
+
+            <h3>
+              Select Components
+            </h3>
+
+            <p>
+              Selected components based on cost,
+              compatibility, performance, modularity,
+              and ease of maintenance.
+            </p>
+
+          </div>
+
+
+          <div class="process-card">
+
+            <div class="process-number">
+              05
+            </div>
+
+            <h3>
+              Analyze & Model
+            </h3>
+
+            <p>
+              Performed structural, motor, vibration,
+              thermal, and material calculations before
+              finalizing the CAD assembly.
+            </p>
+
+          </div>
+
+
+          <div class="process-card">
+
+            <div class="process-number">
+              06
+            </div>
+
+            <h3>
+              Manufacture & Test
+            </h3>
+
+            <p>
+              Fabricated the prototype and tested
+              mechanical motion, electronics, firmware,
+              and G-code execution.
+            </p>
+
+          </div>
+
+
         </div>
 
-        <h3>
-          Research Existing Systems
-        </h3>
 
-        <p>
-          Evaluated commercial and DIY CNC
-          designs, motion systems, structures,
-          electronics, workholding, and software.
-        </p>
+        <!-- ==================================================
+             MORPHOLOGICAL CHART
+        =================================================== -->
 
-      </div>
-
-
-      <div class="process-card">
-
-        <div class="process-number">
-          03
-        </div>
-
-        <h3>
-          Generate Concepts
-        </h3>
-
-        <p>
-          Used a morphological chart to compare
-          possible solutions for each CNC function.
-        </p>
-
-      </div>
-
-
-      <div class="process-card">
-
-        <div class="process-number">
-          04
-        </div>
-
-        <h3>
-          Select Components
-        </h3>
-
-        <p>
-          Selected components based on cost,
-          compatibility, performance, modularity,
-          and ease of maintenance.
-        </p>
-
-      </div>
-
-
-      <div class="process-card">
-
-        <div class="process-number">
-          05
-        </div>
-
-        <h3>
-          Analyze & Model
-        </h3>
-
-        <p>
-          Performed structural, motor, vibration,
-          thermal, and material calculations before
-          finalizing the CAD assembly.
-        </p>
-
-      </div>
-
-
-      <div class="process-card">
-
-        <div class="process-number">
-          06
-        </div>
-
-        <h3>
-          Manufacture & Test
-        </h3>
-
-        <p>
-          Fabricated the prototype and tested
-          mechanical motion, electronics, firmware,
-          and G-code execution.
-        </p>
-
-      </div>
-
-
-    </div>
-
-
-    <!-- ==================================================
-         MORPHOLOGICAL CHART
-    =================================================== -->
-
-    <div
-      style="
-        margin-top: 35px;
-      "
-    >
-
-      <div
-        style="
-          height: 650px;
-          width: 100%;
-
-          overflow-y: scroll;
-          overflow-x: hidden;
-
-          border: 1px solid var(--border);
-          border-radius: 15px;
-
-          background: white;
-
-          scrollbar-gutter: stable;
-        "
-      >
-
-        <img
-          src="images/morphological-chart.png"
-          alt="Morphological chart used to evaluate CNC design concepts"
-
+        <div
           style="
-            width: 100%;
-            height: auto;
-
-            display: block;
-
-            margin: 0;
-            padding: 0;
+            margin-top: 35px;
           "
-        />
+        >
+
+          <div
+            style="
+              height: 650px;
+              width: 100%;
+
+              overflow-y: auto;
+              overflow-x: hidden;
+
+              border: 1px solid var(--border);
+              border-radius: 15px;
+
+              background: white;
+
+              scrollbar-gutter: stable;
+            "
+          >
+
+            <img
+              src="images/morphological-chart.png"
+              alt="Morphological chart used to evaluate CNC design concepts"
+              style="
+                width: 100%;
+                height: auto;
+
+                display: block;
+
+                margin: 0;
+                padding: 0;
+              "
+            />
+
+          </div>
+
+
+          <p
+            style="
+              margin: 10px 0 0;
+
+              color: var(--accent);
+
+              font-size: 0.78rem;
+
+              text-align: center;
+            "
+          >
+            Hover over the chart and scroll to view the complete design matrix
+          </p>
+
+
+          <p
+            style="
+              max-width: 900px;
+
+              margin: 6px auto 0;
+
+              color: var(--muted);
+
+              font-size: 0.84rem;
+
+              line-height: 1.6;
+
+              text-align: center;
+            "
+          >
+            Morphological chart used during concept generation to compare
+            alternative solutions for the CNC machine's frame structure,
+            linear guides, motors, motor drivers, spindle, software,
+            cooling, workholding, vibration mitigation, controller,
+            power supply, drive system, and modularity.
+          </p>
+
+        </div>
+
 
       </div>
 
-
-      <p
-        style="
-          margin: 10px 0 0;
-
-          color: var(--accent);
-
-          font-size: 0.78rem;
-
-          text-align: center;
-        "
-      >
-        Hover over the chart and scroll to view the complete design matrix
-      </p>
+    </section>
 
 
-      <p
-        style="
-          max-width: 900px;
-
-          margin: 6px auto 0;
-
-          color: var(--muted);
-
-          font-size: 0.84rem;
-
-          line-height: 1.6;
-
-          text-align: center;
-        "
-      >
-        Morphological chart used during concept generation to compare
-        alternative solutions for the CNC machine's frame structure,
-        linear guides, motors, motor drivers, spindle, software,
-        cooling, workholding, vibration mitigation, controller,
-        power supply, drive system, and modularity.
-      </p>
-
-    </div>
-
-
-  </div>
-
-</section>
     <!-- ====================================================
          03 — FINAL DESIGN
     ===================================================== -->
@@ -1712,567 +2026,406 @@
     </section>
 
 
-  <!-- ====================================================
-     04 — MODULAR MECHANICAL DESIGN
-===================================================== -->
+    <!-- ====================================================
+         04 — MODULAR MECHANICAL DESIGN
+    ===================================================== -->
 
-<style>
+    <section class="project-section">
 
-  /* =========================================================
-     SECTION 04 — MODULARITY IMAGE/TEXT ROWS
-  ========================================================= */
+      <div class="container">
 
-  .modularity-showcase {
-    display: grid;
-    gap: 22px;
-    margin-top: 32px;
-  }
-
-  .modularity-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    min-height: 320px;
-
-    overflow: hidden;
-
-    border: 1px solid var(--border);
-    border-radius: 16px;
-
-    background: var(--card);
-  }
-
-
-  /* TEXT */
-
-  .modularity-copy {
-    padding: 34px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .modularity-label {
-    margin-bottom: 7px;
-
-    color: var(--accent);
-
-    font-size: 0.72rem;
-    font-weight: 750;
-
-    letter-spacing: 0.1em;
-
-    text-transform: uppercase;
-  }
-
-  .modularity-copy h3 {
-    margin: 0 0 12px;
-
-    color: var(--text);
-
-    font-size: 1.3rem;
-  }
-
-  .modularity-copy p {
-    margin: 0;
-
-    color: var(--muted);
-
-    font-size: 0.94rem;
-
-    line-height: 1.75;
-  }
-
-
-  /* IMAGE */
-
-  .modularity-image-wrap {
-    position: relative;
-
-    min-height: 320px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 18px;
-
-    background:
-      linear-gradient(
-        135deg,
-        rgba(94, 181, 255, 0.07),
-        transparent
-      ),
-      #0b1520;
-  }
-
-  .modularity-image {
-    width: 100%;
-    height: 100%;
-
-    max-height: 360px;
-
-    object-fit: contain;
-
-    border-radius: 10px;
-  }
-
-
-  /* MISSING IMAGE MESSAGE */
-
-  .image-fallback {
-    display: none;
-
-    color: var(--muted);
-
-    font-size: 0.85rem;
-
-    text-align: center;
-  }
-
-  .modularity-image-wrap.missing .image-fallback {
-    display: block;
-  }
-
-
-  /* ALTERNATING DESKTOP LAYOUT */
-
-  .modularity-row.image-left .modularity-image-wrap {
-    order: 1;
-  }
-
-  .modularity-row.image-left .modularity-copy {
-    order: 2;
-  }
-
-
-  /* MOBILE */
-
-  @media (max-width: 700px) {
-
-    .modularity-row {
-      grid-template-columns: 1fr;
-    }
-
-    .modularity-copy {
-      order: 1 !important;
-
-      padding: 25px;
-    }
-
-    .modularity-image-wrap {
-      order: 2 !important;
-
-      min-height: 240px;
-    }
-
-    .modularity-image {
-      max-height: 300px;
-    }
-
-  }
-
-</style>
-
-
-<section class="project-section">
-
-  <div class="container">
-
-    <div class="section-number">
-      04 — Modularity
-    </div>
-
-    <h2>
-      A CNC Designed to Change Size
-    </h2>
-
-    <p>
-      Modularity was one of the primary design
-      requirements. Rather than designing the CNC
-      around a single fixed footprint, the mechanical
-      structure, workholding, limit switches, base,
-      and cable-management system were developed so
-      the machine could adapt to different workspace
-      and machining requirements.
-    </p>
-
-
-    <div class="modularity-showcase">
-
-
-      <!-- ================================================
-           01 — EXPANDABLE RAILS
-      ================================================= -->
-
-      <div class="modularity-row">
-
-        <div class="modularity-copy">
-
-          <div class="modularity-label">
-            01 — Structural Expansion
-          </div>
-
-          <h3>
-            Expandable T-Slot Rails
-          </h3>
-
-          <p>
-            The X and Y axes were designed to operate
-            at approximately 2 ft in the compact
-            configuration and expand to roughly
-            3.5 ft when a larger machining area was
-            required.
-
-            Two-foot and 1.5-foot aluminum T-slot
-            sections are connected using straight
-            brackets, allowing the machine envelope
-            to increase without replacing the entire
-            structural frame.
-          </p>
-
+        <div class="section-number">
+          04 — Modularity
         </div>
 
-        <div class="modularity-image-wrap">
+        <h2>
+          A CNC Designed to Change Size
+        </h2>
 
-          <img
-            src="images/cnc-expandable-rails.png"
-            alt="Expandable aluminum T-slot rail system used on the CNC machine"
-            class="modularity-image"
-            onerror="
-              this.style.display='none';
-              this.parentElement.classList.add('missing');
-            "
-          />
+        <p>
 
-          <div class="image-fallback">
-            Add image:<br>
-            cnc-expandable-rails.png
+          Modularity was one of the primary design
+          requirements. Rather than designing the CNC
+          around a single fixed footprint, the mechanical
+          structure, workholding, limit switches, base,
+          and cable-management system were developed so
+          the machine could adapt to different workspace
+          and machining requirements.
+
+        </p>
+
+
+        <div class="modularity-showcase">
+
+
+          <!-- ================================================
+               01 — EXPANDABLE RAILS
+          ================================================= -->
+
+          <div class="modularity-row">
+
+
+            <div class="modularity-copy">
+
+              <div class="modularity-label">
+                01 — Structural Expansion
+              </div>
+
+              <h3>
+                Expandable T-Slot Rails
+              </h3>
+
+              <p>
+                The X and Y axes were designed to operate
+                at approximately 2 ft in the compact
+                configuration and expand to roughly
+                3.5 ft when a larger machining area was
+                required.
+
+                Two-foot and 1.5-foot aluminum T-slot
+                sections are connected using straight
+                brackets, allowing the machine envelope
+                to increase without replacing the entire
+                structural frame.
+              </p>
+
+            </div>
+
+
+            <div class="modularity-image-wrap">
+
+              <img
+                src="images/cnc-expandable-rails.png"
+                alt="Expandable aluminum T-slot rail system used on the CNC machine"
+                class="modularity-image"
+                onerror="
+                  this.style.display='none';
+                  this.parentElement.classList.add('missing');
+                "
+              />
+
+              <div class="image-fallback">
+                Add image:<br>
+                cnc-expandable-rails.png
+              </div>
+
+            </div>
+
+
           </div>
 
-        </div>
 
-      </div>
+          <!-- ================================================
+               02 — MODULAR BASE
+          ================================================= -->
 
-      </div>
-
-
-      <!-- ================================================
-           02 — MODULAR BASE
-      ================================================= -->
-
-      <div class="modularity-row image-left">
+          <div class="modularity-row image-left">
 
 
-        <div class="modularity-copy">
+            <div class="modularity-copy">
 
-          <div class="modularity-label">
-            02 — Expandable Work Area
+              <div class="modularity-label">
+                02 — Expandable Work Area
+              </div>
+
+              <h3>
+                Modular Wooden Base
+              </h3>
+
+              <p>
+                The work surface was divided into multiple
+                2 ft × 2 ft wooden sections rather than
+                using one permanently oversized base.
+
+                Additional sections can be added when the
+                machine is expanded, allowing the physical
+                work area to grow with the rail system while
+                keeping the compact configuration easier to
+                store and transport.
+              </p>
+
+            </div>
+
+
+            <div class="modularity-image-wrap">
+
+              <img
+                src="images/cnc-modular-base.png"
+                alt="Modular wooden base sections for the CNC machine"
+                class="modularity-image"
+                onerror="
+                  this.style.display='none';
+                  this.parentElement.classList.add('missing');
+                "
+              />
+
+              <div class="image-fallback">
+                Add image:<br>
+                cnc-modular-base.png
+              </div>
+
+            </div>
+
+
           </div>
 
-          <h3>
-            Modular Wooden Base
-          </h3>
 
-          <p>
-            The work surface was divided into multiple
-            2 ft × 2 ft wooden sections rather than
-            using one permanently oversized base.
+          <!-- ================================================
+               03 — RAIL ALIGNMENT
+          ================================================= -->
 
-            Additional sections can be added when the
-            machine is expanded, allowing the physical
-            work area to grow with the rail system while
-            keeping the compact configuration easier to
-            store and transport.
-          </p>
-
-        </div>
+          <div class="modularity-row">
 
 
-        <div class="modularity-image-wrap">
+            <div class="modularity-copy">
 
-          <img
-            src="images/cnc-modular-base.png"
-            alt="Modular wooden base sections for the CNC machine"
-            class="modularity-image"
-            onerror="
-              this.style.display='none';
-              this.parentElement.classList.add('missing');
-            "
-          />
+              <div class="modularity-label">
+                03 — Repeatable Alignment
+              </div>
 
-          <div class="image-fallback">
-            Add image:<br>
-            cnc-modular-base.png
+              <h3>
+                Rail and Base Alignment
+              </h3>
+
+              <p>
+                Expanding the machine required a method of
+                maintaining alignment between the
+                structural rails and removable base
+                sections.
+
+                M5 guide bolts were incorporated along the
+                base to provide repeatable reference
+                locations and help position the T-slot
+                rails correctly when the CNC was assembled
+                in different configurations.
+              </p>
+
+            </div>
+
+
+            <div class="modularity-image-wrap">
+
+              <img
+                src="images/cnc-rail-alignment.png"
+                alt="M5 guide bolt and rail alignment system for the modular CNC"
+                class="modularity-image"
+                onerror="
+                  this.style.display='none';
+                  this.parentElement.classList.add('missing');
+                "
+              />
+
+              <div class="image-fallback">
+                Add image:<br>
+                cnc-rail-alignment.png
+              </div>
+
+            </div>
+
+
           </div>
 
-        </div>
+
+          <!-- ================================================
+               04 — ADJUSTABLE WORKHOLDING
+          ================================================= -->
+
+          <div class="modularity-row image-left">
 
 
-      </div>
+            <div class="modularity-copy">
+
+              <div class="modularity-label">
+                04 — Workholding
+              </div>
+
+              <h3>
+                Adjustable 3D-Printed Clamps
+              </h3>
+
+              <p>
+                Custom workholding clamps were designed so
+                they could be repositioned around the
+                modular base instead of being permanently
+                fixed to one location.
+
+                The clamp geometry also provides angular
+                adjustment, allowing different foam sizes
+                and geometries to be secured while
+                maintaining the flexibility required from
+                the expandable machine.
+              </p>
+
+            </div>
 
 
+            <div class="modularity-image-wrap">
 
-      <!-- ================================================
-           03 — RAIL ALIGNMENT
-      ================================================= -->
+              <img
+                src="images/cnc-adjustable-clamp.png"
+                alt="Adjustable 3D-printed workholding clamp designed for the CNC machine"
+                class="modularity-image"
+                onerror="
+                  this.style.display='none';
+                  this.parentElement.classList.add('missing');
+                "
+              />
 
-      <div class="modularity-row">
+              <div class="image-fallback">
+                Add image:<br>
+                cnc-adjustable-clamp.png
+              </div>
 
-        <div class="modularity-copy">
+            </div>
 
-          <div class="modularity-label">
-            03 — Repeatable Alignment
+
           </div>
 
-          <h3>
-            Rail and Base Alignment
-          </h3>
 
-          <p>
-            Expanding the machine required a method of
-            maintaining alignment between the
-            structural rails and removable base
-            sections.
+          <!-- ================================================
+               05 — LIMIT SWITCHES
+          ================================================= -->
 
-            M5 guide bolts were incorporated along the
-            base to provide repeatable reference
-            locations and help position the T-slot
-            rails correctly when the CNC was assembled
-            in different configurations.
-          </p>
-
-        </div>
+          <div class="modularity-row">
 
 
-        <div class="modularity-image-wrap">
+            <div class="modularity-copy">
 
-          <img
-            src="images/cnc-rail-alignment.png"
-            alt="M5 guide bolt and rail alignment system for the modular CNC"
-            class="modularity-image"
-            onerror="
-              this.style.display='none';
-              this.parentElement.classList.add('missing');
-            "
-          />
+              <div class="modularity-label">
+                05 — Machine Limits
+              </div>
 
-          <div class="image-fallback">
-            Add image:<br>
-            cnc-rail-alignment.png
+              <h3>
+                Repositionable Limit Switches
+              </h3>
+
+              <p>
+                A fixed limit-switch position would only
+                work for one machine size.
+
+                The limit-switch mounts were therefore
+                designed so they could be repositioned at
+                the ends of the rails whenever the machine
+                was expanded or contracted.
+
+                This allowed homing and travel-limit
+                functionality to remain compatible with
+                multiple CNC configurations.
+              </p>
+
+            </div>
+
+
+            <div class="modularity-image-wrap">
+
+              <img
+                src="images/cnc-limit-switch.png"
+                alt="Repositionable limit-switch mount on the modular CNC machine"
+                class="modularity-image"
+                onerror="
+                  this.style.display='none';
+                  this.parentElement.classList.add('missing');
+                "
+              />
+
+              <div class="image-fallback">
+                Add image:<br>
+                cnc-limit-switch.png
+              </div>
+
+            </div>
+
+
           </div>
 
-        </div>
 
-      </div>
+          <!-- ================================================
+               06 — CABLE MANAGEMENT
+          ================================================= -->
 
-
-
-      <!-- ================================================
-           04 — ADJUSTABLE WORKHOLDING
-      ================================================= -->
-
-      <div class="modularity-row image-left">
+          <div class="modularity-row image-left">
 
 
-        <div class="modularity-copy">
+            <div class="modularity-copy">
 
-          <div class="modularity-label">
-            04 — Workholding
+              <div class="modularity-label">
+                06 — Electrical Modularity
+              </div>
+
+              <h3>
+                Expandable Cable Management
+              </h3>
+
+              <p>
+                Mechanical expansion also required the
+                electrical system to accommodate the
+                machine's maximum travel.
+
+                Drag chains and wire routing were therefore
+                planned around the expanded configuration,
+                ensuring that increasing the machine size
+                would not require the motors, limit
+                switches, and controller wiring to be
+                completely replaced.
+              </p>
+
+            </div>
+
+
+            <div class="modularity-image-wrap">
+
+              <a
+                href="https://toms3d.org/2020/03/02/bad-and-great-3d-printer-wire-management-explained/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="modularity-source-link"
+              >
+
+                <img
+                  src="images/cnc-cable-management.png"
+                  alt="Reference example of cable management using a drag chain"
+                  class="modularity-image"
+                  onerror="
+                    this.style.display='none';
+                    this.closest('.modularity-image-wrap').classList.add('missing');
+                  "
+                />
+
+              </a>
+
+
+              <div class="image-credit">
+
+                Reference image:
+
+                <a
+                  href="https://toms3d.org/2020/03/02/bad-and-great-3d-printer-wire-management-explained/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Tom's 3D
+                </a>
+
+              </div>
+
+
+              <div class="image-fallback">
+                Add image:<br>
+                cnc-cable-management.png
+              </div>
+
+            </div>
+
+
           </div>
 
-          <h3>
-            Adjustable 3D-Printed Clamps
-          </h3>
-
-          <p>
-            Custom workholding clamps were designed so
-            they could be repositioned around the
-            modular base instead of being permanently
-            fixed to one location.
-
-            The clamp geometry also provides angular
-            adjustment, allowing different foam sizes
-            and geometries to be secured while
-            maintaining the flexibility required from
-            the expandable machine.
-          </p>
-
-        </div>
-
-
-        <div class="modularity-image-wrap">
-
-          <img
-            src="images/cnc-adjustable-clamp.png"
-            alt="Adjustable 3D-printed workholding clamp designed for the CNC machine"
-            class="modularity-image"
-            onerror="
-              this.style.display='none';
-              this.parentElement.classList.add('missing');
-            "
-          />
-
-          <div class="image-fallback">
-            Add image:<br>
-            cnc-adjustable-clamp.png
-          </div>
-
-        </div>
-
-
-      </div>
-
-
-
-      <!-- ================================================
-           05 — LIMIT SWITCHES
-      ================================================= -->
-
-      <div class="modularity-row">
-
-        <div class="modularity-copy">
-
-          <div class="modularity-label">
-            05 — Machine Limits
-          </div>
-
-          <h3>
-            Repositionable Limit Switches
-          </h3>
-
-          <p>
-            A fixed limit-switch position would only
-            work for one machine size.
-
-            The limit-switch mounts were therefore
-            designed so they could be repositioned at
-            the ends of the rails whenever the machine
-            was expanded or contracted.
-
-            This allowed homing and travel-limit
-            functionality to remain compatible with
-            multiple CNC configurations.
-          </p>
-
-        </div>
-
-
-        <div class="modularity-image-wrap">
-
-          <img
-            src="images/cnc-limit-switch.png"
-            alt="Repositionable limit-switch mount on the modular CNC machine"
-            class="modularity-image"
-            onerror="
-              this.style.display='none';
-              this.parentElement.classList.add('missing');
-            "
-          />
-
-          <div class="image-fallback">
-            Add image:<br>
-            cnc-limit-switch.png
-          </div>
 
         </div>
 
       </div>
 
+    </section>
 
-
-      <!-- ================================================
-           06 — CABLE MANAGEMENT
-      ================================================= -->
-
-      <div class="modularity-row image-left">
-
-
-        <div class="modularity-copy">
-
-          <div class="modularity-label">
-            06 — Electrical Modularity
-          </div>
-
-          <h3>
-            Expandable Cable Management
-          </h3>
-
-          <p>
-            Mechanical expansion also required the
-            electrical system to accommodate the
-            machine's maximum travel.
-
-            Drag chains and wire routing were therefore
-            planned around the expanded configuration,
-            ensuring that increasing the machine size
-            would not require the motors, limit
-            switches, and controller wiring to be
-            completely replaced.
-          </p>
-
-        </div>
-
-<div class="modularity-image-wrap">
-
-          <a
-            href="https://toms3d.org/2020/03/02/bad-and-great-3d-printer-wire-management-explained/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-
-            <img
-              src="images/cnc-cable-management.png"
-              alt="Reference example of cable management using a drag chain"
-              class="modularity-image"
-              onerror="
-                this.style.display='none';
-                this.closest('.modularity-image-wrap').classList.add('missing');
-              "
-            />
-
-          </a>
-
-          <div
-            style="
-              position: absolute;
-              left: 18px;
-              bottom: 10px;
-              padding: 5px 9px;
-              border-radius: 6px;
-              background: rgba(7, 16, 25, 0.9);
-              color: #cbd7e2;
-              font-size: 0.7rem;
-              line-height: 1.4;
-            "
-          >
-            Reference image:
-            <a
-              href="https://toms3d.org/2020/03/02/bad-and-great-3d-printer-wire-management-explained/"
-              target="_blank"
-              rel="noopener noreferrer"
-              style="color: var(--accent); font-weight: 700;"
-            >
-              Tom's 3D
-            </a>
-          </div>
-
-          <div class="image-fallback">
-            Add image:<br>
-            cnc-cable-management.png
-          </div>
-
-        </div>
-
-      </div>
-
-
-    </div>
-
-  </div>
-
-</section>
 
     <!-- ====================================================
          05 — 3D PRINTING & MATERIAL SELECTION
@@ -2400,6 +2553,10 @@
 
         </p>
 
+
+        <!-- ================================================
+             SUMMARY RESULTS
+        ================================================= -->
 
         <div class="analysis-grid">
 
@@ -2571,83 +2728,247 @@
         </div>
 
 
-        <div class="analysis-detail">
+        <!-- ================================================
+             DETAILED ANALYSIS
+        ================================================= -->
 
-          <h3>
-            Structural Verification
-          </h3>
+        <div class="analysis-showcase">
 
-          <p>
 
-            At maximum rail expansion, hand calculations
-            predicted approximately 0.0070 mm of
-            deflection at the weakest rail connection.
+          <!-- ================================================
+               01 — RAIL DEFLECTION
+          ================================================= -->
 
-            SolidWorks FEA produced a similar result of
-            approximately 0.0052 mm, providing additional
-            confidence that the selected aluminum
-            T-slot structure was sufficiently rigid for
-            the foam-cutting application.
+          <div class="analysis-row">
 
-          </p>
+
+            <div class="analysis-row-copy">
+
+              <div class="analysis-row-label">
+                01 — Structural Verification
+              </div>
+
+              <h3>
+                Rail Deflection Analysis
+              </h3>
+
+              <p>
+                The expandable rail configuration was
+                evaluated using both hand calculations
+                and SolidWorks finite element analysis.
+
+                At maximum expansion, hand calculations
+                predicted approximately 0.0070 mm of
+                deflection at the rail connection.
+
+                SolidWorks FEA produced a similar result
+                of approximately 0.0052 mm under the
+                7.15 N tool-head load, providing
+                additional confidence that the aluminum
+                T-slot structure provided sufficient
+                rigidity for foam machining.
+              </p>
+
+            </div>
+
+
+            <div class="analysis-image-wrap">
+
+              <img
+                src="images/cnc-rail-fea.png"
+                alt="SolidWorks finite element analysis of the CNC aluminum rail"
+                class="analysis-row-image"
+                onerror="
+                  this.style.display='none';
+                  this.parentElement.classList.add('missing');
+                "
+              />
+
+              <div class="analysis-image-fallback">
+                Add image:<br>
+                cnc-rail-fea.png
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+          <!-- ================================================
+               02 — STRUCTURAL FEA
+          ================================================= -->
+
+          <div class="analysis-row image-left">
+
+
+            <div class="analysis-row-copy">
+
+              <div class="analysis-row-label">
+                02 — Component Verification
+              </div>
+
+              <h3>
+                Structural Component FEA
+              </h3>
+
+              <p>
+                Structural components were also
+                evaluated in SolidWorks Simulation to
+                identify areas of increased stress and
+                deformation before the parts were
+                manufactured.
+
+                These simulations helped verify that
+                the selected geometry and materials
+                were appropriate for the expected CNC
+                loading conditions while maintaining
+                the project's lightweight and low-cost
+                design goals.
+              </p>
+
+            </div>
+
+
+            <div class="analysis-image-wrap">
+
+              <img
+                src="images/cnc-structural-fea.png"
+                alt="SolidWorks structural finite element analysis of a CNC component"
+                class="analysis-row-image"
+                onerror="
+                  this.style.display='none';
+                  this.parentElement.classList.add('missing');
+                "
+              />
+
+              <div class="analysis-image-fallback">
+                Add image:<br>
+                cnc-structural-fea.png
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+          <!-- ================================================
+               03 — MOTOR & DRIVE SELECTION
+          ================================================= -->
+
+          <div class="analysis-row">
+
+
+            <div class="analysis-row-copy">
+
+              <div class="analysis-row-label">
+                03 — Motion System
+              </div>
+
+              <h3>
+                Motor & Lead-Screw Selection
+              </h3>
+
+              <p>
+                Motor sizing was performed using a
+                conservative 6 kg estimate for the
+                vertical assembly and the TR8×8
+                lead-screw drive system.
+
+                The calculated torque requirement was
+                approximately 0.331 N·m per motor.
+
+                The selected NEMA 17 stepper motors
+                provided approximately 0.45 N·m of
+                holding torque, exceeding the
+                calculated requirement and providing
+                sufficient torque for the intended
+                vertical motion.
+              </p>
+
+            </div>
+
+
+            <div class="analysis-image-wrap">
+
+              <img
+                src="images/cnc-motor-drive.png"
+                alt="NEMA 17 stepper motor and lead-screw drive system used on the CNC"
+                class="analysis-row-image"
+                onerror="
+                  this.style.display='none';
+                  this.parentElement.classList.add('missing');
+                "
+              />
+
+              <div class="analysis-image-fallback">
+                Add image:<br>
+                cnc-motor-drive.png
+              </div>
+
+            </div>
+
+
+          </div>
+
 
         </div>
 
 
-        <div class="analysis-detail">
+        <!-- ================================================
+             04 — VIBRATION ANALYSIS
+        ================================================= -->
+
+        <div class="vibration-analysis-box">
+
+          <div class="analysis-row-label">
+            04 — Dynamic Analysis
+          </div>
 
           <h3>
-            Motor Selection
+            Vibration Analysis
           </h3>
 
           <p>
+            Vibration analysis was performed to
+            evaluate the dynamic response of the CNC
+            structure during machining.
 
-            A conservative 6 kg vertical load was used
-            when evaluating the TR8×8 lead-screw drive.
+            The estimated natural frequency of the
+            frame was approximately 50.3 Hz, while the
+            predicted vibration amplitude under the
+            analyzed cutting conditions was
+            approximately 0.1908 µm.
 
-            The calculated required torque was
-            approximately 0.331 N·m per motor, below
-            the selected NEMA 17 motor's 0.45 N·m
-            holding torque.
-
+            The analysis indicated that the primary
+            operating conditions were sufficiently
+            separated from the identified resonance
+            region. The report recommended avoiding
+            operation too close to the minimum spindle
+            speed and increasing the minimum operating
+            speed to approximately 6,000 RPM.
           </p>
 
-        </div>
 
+          <div class="vibration-results">
 
-        <div class="analysis-detail">
+            <div class="vibration-result">
+              Natural Frequency: 50.3 Hz
+            </div>
 
-          <h3>
-            Vibration
-          </h3>
+            <div class="vibration-result">
+              Predicted Amplitude: 0.1908 µm
+            </div>
 
-          <p>
+            <div class="vibration-result">
+              Recommended Minimum: ≈ 6,000 RPM
+            </div>
 
-            The frame's estimated natural frequency was
-            approximately 50.3 Hz.
-
-            The vibration analysis indicated that the
-            primary operating conditions were sufficiently
-            separated from this resonance region, although
-            the report recommended avoiding operation too
-            close to the minimum spindle speed and
-            increasing the minimum to approximately
-            6,000 RPM.
-
-          </p>
-
-        </div>
-
-
-        <div class="image-placeholder">
-
-          <div>
-            <strong>Suggested images:</strong>
-            SolidWorks rail deflection FEA and structural
-            bracket FEA results
           </div>
 
         </div>
+
 
       </div>
 
