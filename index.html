@@ -9,19 +9,18 @@
 
   <meta
     name="description"
-    content="Engineering portfolio of Rhythm Patel, a Mechanical Engineering graduate and Master of Engineering student specializing in mechanical design, mechatronics, FEA, manufacturing, Formula SAE EV development, CNC systems, and automation."
+    content="Engineering portfolio of Rhythm Patel featuring mechanical design, mechatronics, FEA, manufacturing, Formula SAE EV development, CNC systems, automation, and controls."
   />
 
   <style>
+
     /* =========================================================
-       GLOBAL VARIABLES
+       GLOBAL
     ========================================================= */
 
     :root {
       --background: #071019;
-      --background-secondary: #0a1420;
       --sidebar: #0c1722;
-
       --card: #101c29;
       --card-hover: #142335;
 
@@ -34,9 +33,7 @@
 
       --border: #213247;
 
-      --success: #7bd8b0;
-
-      --max-content-width: 1200px;
+      --max-width: 1200px;
     }
 
     * {
@@ -81,6 +78,7 @@
       max-width: 100%;
     }
 
+
     /* =========================================================
        PAGE LAYOUT
     ========================================================= */
@@ -92,6 +90,7 @@
 
       min-height: 100vh;
     }
+
 
     /* =========================================================
        SIDEBAR
@@ -155,6 +154,7 @@
       font-size: 0.94rem;
     }
 
+
     /* =========================================================
        NAVIGATION
     ========================================================= */
@@ -188,6 +188,7 @@
 
       transform: translateX(3px);
     }
+
 
     /* =========================================================
        SIDEBAR LINKS
@@ -224,17 +225,17 @@
       background: var(--accent-soft);
     }
 
+
     /* =========================================================
-       MAIN CONTENT
+       MAIN
     ========================================================= */
 
     main {
       width: 100%;
 
-      max-width: var(--max-content-width);
+      max-width: var(--max-width);
 
-      padding:
-        0 60px 60px;
+      padding: 0 60px 60px;
     }
 
     section {
@@ -276,12 +277,13 @@
       color: var(--muted);
     }
 
+
     /* =========================================================
        HERO
     ========================================================= */
 
     .hero {
-      min-height: 86vh;
+      min-height: 82vh;
 
       display: flex;
       align-items: center;
@@ -291,6 +293,7 @@
 
     .hero-content {
       width: 100%;
+
       max-width: 930px;
     }
 
@@ -352,9 +355,12 @@
       flex-wrap: wrap;
 
       gap: 12px;
-
-      margin-bottom: 42px;
     }
+
+
+    /* =========================================================
+       BUTTONS
+    ========================================================= */
 
     .button {
       min-height: 46px;
@@ -397,52 +403,6 @@
       transform: translateY(-2px);
     }
 
-    /* =========================================================
-       HERO STATISTICS
-    ========================================================= */
-
-    .hero-stats {
-      display: grid;
-
-      grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 14px;
-
-      overflow: hidden;
-
-      background: var(--card);
-    }
-
-    .hero-stat {
-      padding: 20px;
-
-      border-right:
-        1px solid var(--border);
-    }
-
-    .hero-stat:last-child {
-      border-right: none;
-    }
-
-    .hero-stat-number {
-      color: var(--accent);
-
-      font-size: 1.55rem;
-
-      font-weight: 750;
-    }
-
-    .hero-stat-label {
-      margin-top: 2px;
-
-      color: var(--muted);
-
-      font-size: 0.82rem;
-    }
 
     /* =========================================================
        ABOUT
@@ -497,8 +457,9 @@
       font-weight: 800;
     }
 
+
     /* =========================================================
-       FEATURED PROJECTS
+       PROJECTS
     ========================================================= */
 
     .project-grid {
@@ -507,32 +468,25 @@
       grid-template-columns:
         repeat(2, minmax(0, 1fr));
 
-      gap: 20px;
+      gap: 22px;
     }
 
     .project-card {
-      position: relative;
-
       overflow: hidden;
 
-      padding: 26px;
+      display: flex;
+      flex-direction: column;
 
       border: 1px solid var(--border);
 
       border-radius: 16px;
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(94, 181, 255, 0.04),
-          transparent 45%
-        ),
-        var(--card);
+      background: var(--card);
 
       transition:
         transform 0.22s,
         border-color 0.22s,
-        background 0.22s;
+        box-shadow 0.22s;
     }
 
     .project-card:hover {
@@ -540,100 +494,91 @@
 
       border-color: #365575;
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(94, 181, 255, 0.08),
-          transparent 45%
-        ),
-        var(--card-hover);
+      box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.28);
     }
 
     .project-card.featured {
-      grid-column:
-        span 2;
+      grid-column: span 2;
     }
 
-    .project-top {
+
+    /* =========================================================
+       PROJECT IMAGES
+    ========================================================= */
+
+    .project-image-container {
+      position: relative;
+
+      width: 100%;
+      height: 250px;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.12),
+          transparent 60%
+        ),
+        #0b1520;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-card.featured .project-image-container {
+      height: 340px;
+    }
+
+    .project-image {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      transition: transform 0.35s ease;
+    }
+
+    .project-card:hover .project-image {
+      transform: scale(1.025);
+    }
+
+
+    /* =========================================================
+       PROJECT CONTENT
+    ========================================================= */
+
+    .project-content {
+      padding: 24px;
+
       display: flex;
+      flex-direction: column;
 
-      align-items: flex-start;
-      justify-content: space-between;
-
-      gap: 18px;
+      flex: 1;
     }
 
     .project-number {
       color: var(--accent);
 
-      font-size: 0.77rem;
+      font-size: 0.76rem;
 
       font-weight: 750;
 
       letter-spacing: 0.11em;
+
+      text-transform: uppercase;
     }
 
-    .project-metric {
-      padding: 7px 10px;
-
-      border: 1px solid var(--border);
-
-      border-radius: 8px;
-
-      color: var(--accent-light);
-
-      background: var(--accent-soft);
-
-      font-size: 0.8rem;
-
-      white-space: nowrap;
-    }
-
-    .project-card h3 {
-      margin: 12px 0 10px;
+    .project-content h3 {
+      margin: 8px 0 11px;
 
       font-size: 1.35rem;
     }
 
-    .project-card p {
+    .project-content p {
       margin: 0;
 
       color: var(--muted);
-    }
-
-    .project-details {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-      gap: 12px;
-
-      margin-top: 23px;
-    }
-
-    .project-detail {
-      padding: 15px;
-
-      border: 1px solid var(--border);
-
-      border-radius: 10px;
-
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .project-detail-value {
-      color: var(--text);
-
-      font-weight: 750;
-    }
-
-    .project-detail-label {
-      color: var(--muted);
-
-      font-size: 0.78rem;
-
-      margin-top: 2px;
     }
 
     .tags {
@@ -642,7 +587,7 @@
 
       gap: 7px;
 
-      margin-top: 20px;
+      margin-top: 18px;
     }
 
     .tag {
@@ -656,6 +601,41 @@
 
       font-size: 0.77rem;
     }
+
+    .project-button {
+      margin-top: 22px;
+
+      align-self: flex-start;
+
+      display: inline-flex;
+      align-items: center;
+
+      padding: 10px 15px;
+
+      border: 1px solid var(--accent);
+
+      border-radius: 9px;
+
+      color: var(--accent);
+
+      font-size: 0.9rem;
+
+      font-weight: 700;
+
+      transition:
+        background 0.2s,
+        color 0.2s,
+        transform 0.2s;
+    }
+
+    .project-button:hover {
+      background: var(--accent);
+
+      color: #06111b;
+
+      transform: translateY(-2px);
+    }
+
 
     /* =========================================================
        EXPERIENCE
@@ -730,6 +710,7 @@
       color: var(--accent);
     }
 
+
     /* =========================================================
        SKILLS
     ========================================================= */
@@ -754,8 +735,11 @@
     }
 
     .skill-icon {
-      width: 38px;
+      min-width: 38px;
+      width: fit-content;
       height: 38px;
+
+      padding: 0 9px;
 
       margin-bottom: 16px;
 
@@ -772,6 +756,8 @@
       background: var(--accent-soft);
 
       font-weight: 800;
+
+      font-size: 0.82rem;
     }
 
     .skill-card h3 {
@@ -787,6 +773,7 @@
 
       font-size: 0.91rem;
     }
+
 
     /* =========================================================
        EDUCATION
@@ -845,6 +832,7 @@
       font-size: 0.88rem;
     }
 
+
     /* =========================================================
        CONTACT
     ========================================================= */
@@ -873,6 +861,7 @@
       color: var(--muted);
     }
 
+
     /* =========================================================
        FOOTER
     ========================================================= */
@@ -888,6 +877,7 @@
 
       font-size: 0.86rem;
     }
+
 
     /* =========================================================
        TABLET
@@ -920,8 +910,7 @@
       }
 
       main {
-        padding:
-          0 30px 50px;
+        padding: 0 30px 50px;
       }
 
       .hero {
@@ -931,27 +920,15 @@
 
         padding-bottom: 25px;
       }
+
     }
+
 
     /* =========================================================
        SMALL TABLET
     ========================================================= */
 
     @media (max-width: 800px) {
-
-      .hero-stats {
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
-      }
-
-      .hero-stat:nth-child(2) {
-        border-right: none;
-      }
-
-      .hero-stat:nth-child(1),
-      .hero-stat:nth-child(2) {
-        border-bottom: 1px solid var(--border);
-      }
 
       .about-grid {
         grid-template-columns: 1fr;
@@ -965,11 +942,17 @@
         grid-column: span 1;
       }
 
+      .project-card.featured .project-image-container {
+        height: 250px;
+      }
+
       .skills-grid {
         grid-template-columns:
           repeat(2, minmax(0, 1fr));
       }
+
     }
+
 
     /* =========================================================
        MOBILE
@@ -982,8 +965,7 @@
       }
 
       main {
-        padding:
-          0 20px 40px;
+        padding: 0 20px 40px;
       }
 
       section {
@@ -1003,23 +985,9 @@
         font-size: 1rem;
       }
 
-      .hero-stats {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-stat {
-        border-right: none !important;
-
-        border-bottom:
-          1px solid var(--border);
-      }
-
-      .hero-stat:last-child {
-        border-bottom: none;
-      }
-
-      .project-details {
-        grid-template-columns: 1fr;
+      .project-image-container,
+      .project-card.featured .project-image-container {
+        height: 210px;
       }
 
       .skills-grid {
@@ -1037,7 +1005,9 @@
 
         gap: 8px;
       }
+
     }
+
   </style>
 </head>
 
@@ -1045,6 +1015,7 @@
 <body>
 
   <div class="page">
+
 
     <!-- ======================================================
          SIDEBAR
@@ -1073,6 +1044,7 @@
         mechatronics, automation, and hands-on
         engineering development.
       </p>
+
 
       <nav class="nav">
 
@@ -1119,9 +1091,7 @@
         </a>
 
         <!--
-
-        WHEN YOU GIVE ME YOUR LINKEDIN URL,
-        WE CAN ENABLE THIS:
+        ADD YOUR LINKEDIN HERE LATER
 
         <a
           class="social-link"
@@ -1131,7 +1101,6 @@
         >
           LinkedIn
         </a>
-
         -->
 
       </div>
@@ -1177,10 +1146,9 @@
             mechatronics.
 
             My experience spans mechanical design,
-            FEA, manufacturing, Formula SAE EV
-            development, CNC systems, automation,
-            embedded hardware, and engineering
-            leadership.
+            FEA, manufacturing, Formula SAE EV development,
+            CNC systems, automation, embedded hardware,
+            controls, and engineering leadership.
 
           </p>
 
@@ -1203,69 +1171,13 @@
 
           </div>
 
-
-          <div class="hero-stats">
-
-            <div class="hero-stat">
-
-              <div class="hero-stat-number">
-                50
-              </div>
-
-              <div class="hero-stat-label">
-                Student FSAE team members led
-              </div>
-
-            </div>
-
-
-            <div class="hero-stat">
-
-              <div class="hero-stat-number">
-                40 g
-              </div>
-
-              <div class="hero-stat-label">
-                Battery mount design load
-              </div>
-
-            </div>
-
-
-            <div class="hero-stat">
-
-              <div class="hero-stat-number">
-                2.5+
-              </div>
-
-              <div class="hero-stat-label">
-                Target factor of safety
-              </div>
-
-            </div>
-
-
-            <div class="hero-stat">
-
-              <div class="hero-stat-number">
-                $700
-              </div>
-
-              <div class="hero-stat-label">
-                CNC capstone budget
-              </div>
-
-            </div>
-
-          </div>
-
         </div>
 
       </section>
 
 
       <!-- ====================================================
-           ABOUT / QUALIFICATIONS
+           ABOUT
       ===================================================== -->
 
       <section>
@@ -1275,7 +1187,7 @@
         </div>
 
         <h2 class="section-title">
-          Engineering by design, analysis,
+          Engineering through design, analysis,
           manufacturing, and testing.
         </h2>
 
@@ -1297,13 +1209,12 @@
             <p>
 
               Through Toronto Metropolitan Formula Racing,
-              academic design projects, and my work at
-              General Motors Oshawa Assembly, I have
+              academic design projects, and my experience
+              at General Motors Oshawa Assembly, I have
               worked on projects ranging from structural
-              FEA and topology optimization to CNC
-              machines, manufacturing improvements,
-              electric vehicle systems, and production
-              problem solving.
+              FEA and topology optimization to CNC systems,
+              manufacturing improvements, electric vehicle
+              systems, and production problem solving.
 
             </p>
 
@@ -1311,10 +1222,9 @@
 
               I enjoy taking engineering problems through
               the full development process: defining the
-              requirements, designing the solution,
+              requirements, designing a solution,
               analyzing its performance, manufacturing
-              the components, and validating the final
-              result.
+              components, and validating the final result.
 
             </p>
 
@@ -1362,9 +1272,9 @@
                 </span>
 
                 <span>
-                  Mechanical manufacturing,
-                  machining, composites, welding,
-                  soldering, and rapid prototyping
+                  CNC machining, fabrication,
+                  composites, welding, soldering,
+                  and rapid prototyping
                 </span>
 
               </div>
@@ -1377,8 +1287,8 @@
                 </span>
 
                 <span>
-                  Mechanical, electrical, and
-                  programming knowledge through
+                  Mechanical, electrical, programming,
+                  and control-system knowledge through
                   a mechatronics-focused background
                 </span>
 
@@ -1392,8 +1302,8 @@
                 </span>
 
                 <span>
-                  Professional communication in
-                  English and French
+                  Professional verbal and written
+                  communication in English and French
                 </span>
 
               </div>
@@ -1423,7 +1333,7 @@
 
 
       <!-- ====================================================
-           FEATURED PROJECTS
+           PROJECTS
       ===================================================== -->
 
       <section id="projects">
@@ -1438,9 +1348,11 @@
 
         <p class="section-description">
 
-          Selected projects highlighting mechanical
-          design, structural analysis, manufacturing,
-          mechatronics, and engineering validation.
+          A selection of engineering projects involving
+          mechanical design, structural analysis,
+          manufacturing, mechatronics, controls, and
+          testing. Select a project to explore its full
+          design and development process.
 
         </p>
 
@@ -1448,295 +1360,242 @@
         <div class="project-grid">
 
 
-          <!-- ================================================
-               CNC CAPSTONE
-          ================================================= -->
+          <!-- ==================================================
+               PROJECT 1 — CNC
+          =================================================== -->
 
           <article class="project-card featured">
 
-            <div class="project-top">
 
-              <span class="project-number">
-                PROJECT 01
-              </span>
+            <div class="project-image-container">
 
-              <span class="project-metric">
-                $700 Design Budget
-              </span>
+              <img
+                src="images/cnc-main.jpg"
+                alt="Modular foam-cutting CNC machine"
+                class="project-image"
+              />
 
             </div>
 
 
-            <h3>
-              Modular Foam-Cutting CNC Machine
-            </h3>
+            <div class="project-content">
+
+              <span class="project-number">
+                Project 01
+              </span>
+
+              <h3>
+                Modular Foam-Cutting CNC Machine
+              </h3>
+
+              <p>
+
+                Designed and built a modular CNC machine
+                for manufacturing aerodynamic foam molds
+                for the Toronto Metropolitan Formula Racing
+                vehicle.
+
+                The machine was developed within a $700
+                budget while emphasizing scalability,
+                repairability, and the use of
+                off-the-shelf hardware.
+
+              </p>
 
 
-            <p>
+              <div class="tags">
 
-              Led the development of a modular CNC
-              machine designed to manufacture
-              aerodynamic mold components for the
-              TMFR Formula SAE racecar.
+                <span class="tag">
+                  Mechanical Design
+                </span>
 
-              The system was designed around
-              scalability, repairability, and
-              low-cost off-the-shelf components.
+                <span class="tag">
+                  CNC
+                </span>
 
-            </p>
+                <span class="tag">
+                  Fusion 360
+                </span>
 
-
-            <div class="project-details">
-
-              <div class="project-detail">
-
-                <div class="project-detail-value">
-                  2 ft → 4 ft+
-                </div>
-
-                <div class="project-detail-label">
-                  Scalable machine footprint
-                </div>
-
-              </div>
-
-
-              <div class="project-detail">
-
-                <div class="project-detail-value">
+                <span class="tag">
                   Arduino Mega
-                </div>
+                </span>
 
-                <div class="project-detail-label">
-                  Control hardware
-                </div>
-
-              </div>
-
-
-              <div class="project-detail">
-
-                <div class="project-detail-value">
+                <span class="tag">
                   GRBL
-                </div>
+                </span>
 
-                <div class="project-detail-label">
-                  Real-time motion control
-                </div>
+                <span class="tag">
+                  G-code
+                </span>
 
               </div>
 
-            </div>
 
-
-            <div class="tags">
-
-              <span class="tag">
-                Mechanical Design
-              </span>
-
-              <span class="tag">
-                CNC
-              </span>
-
-              <span class="tag">
-                Fusion 360
-              </span>
-
-              <span class="tag">
-                G-code
-              </span>
-
-              <span class="tag">
-                Arduino Mega
-              </span>
-
-              <span class="tag">
-                RAMPS 1.4
-              </span>
-
-              <span class="tag">
-                NEMA 17
-              </span>
-
-              <span class="tag">
-                GRBL
-              </span>
-
-              <span class="tag">
-                UGS
-              </span>
+              <a
+                href="project-cnc.html"
+                class="project-button"
+              >
+                View Project →
+              </a>
 
             </div>
 
           </article>
 
 
-          <!-- ================================================
-               BATTERY MOUNTS
-          ================================================= -->
+          <!-- ==================================================
+               PROJECT 2 — BATTERY MOUNTS
+          =================================================== -->
 
           <article class="project-card">
 
-            <div class="project-top">
+
+            <div class="project-image-container">
+
+              <img
+                src="images/battery-mounts-main.jpg"
+                alt="Formula SAE electric vehicle battery pack mounting system"
+                class="project-image"
+              />
+
+            </div>
+
+
+            <div class="project-content">
 
               <span class="project-number">
-                PROJECT 02
+                Project 02
               </span>
 
-              <span class="project-metric">
-                FOS ≥ 2.5
-              </span>
+              <h3>
+                Formula SAE EV Battery Pack Mounts
+              </h3>
 
-            </div>
+              <p>
 
+                Designed the mounting system for the
+                Formula SAE electric vehicle battery
+                pack and conducted structural FEA to
+                verify the design under 40 g lateral
+                and longitudinal acceleration and
+                20 g vertical acceleration.
 
-            <h3>
-              Formula SAE EV Battery Pack Mounts
-            </h3>
-
-
-            <p>
-
-              Designed the mounting system for the
-              Formula SAE electric vehicle battery pack
-              and conducted structural FEA to verify
-              performance under high-acceleration
-              loading conditions.
-
-            </p>
+              </p>
 
 
-            <div class="project-details">
+              <div class="tags">
 
-              <div class="project-detail">
+                <span class="tag">
+                  SolidWorks
+                </span>
 
-                <div class="project-detail-value">
-                  40 g
-                </div>
+                <span class="tag">
+                  FEA
+                </span>
 
-                <div class="project-detail-label">
-                  Longitudinal load
-                </div>
+                <span class="tag">
+                  Structural Design
+                </span>
+
+                <span class="tag">
+                  Formula SAE EV
+                </span>
+
+                <span class="tag">
+                  Design Validation
+                </span>
 
               </div>
 
 
-              <div class="project-detail">
-
-                <div class="project-detail-value">
-                  40 g
-                </div>
-
-                <div class="project-detail-label">
-                  Lateral load
-                </div>
-
-              </div>
-
-
-              <div class="project-detail">
-
-                <div class="project-detail-value">
-                  20 g
-                </div>
-
-                <div class="project-detail-label">
-                  Vertical load
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="tags">
-
-              <span class="tag">
-                SolidWorks
-              </span>
-
-              <span class="tag">
-                FEA
-              </span>
-
-              <span class="tag">
-                Structural Design
-              </span>
-
-              <span class="tag">
-                Formula SAE EV
-              </span>
-
-              <span class="tag">
-                Design Validation
-              </span>
+              <a
+                href="project-battery-mounts.html"
+                class="project-button"
+              >
+                View Project →
+              </a>
 
             </div>
 
           </article>
 
 
-          <!-- ================================================
-               TOPOLOGY STUDY
-          ================================================= -->
+          <!-- ==================================================
+               PROJECT 3 — WING TOPOLOGY
+          =================================================== -->
 
           <article class="project-card">
 
-            <div class="project-top">
 
-              <span class="project-number">
-                PROJECT 03
-              </span>
+            <div class="project-image-container">
 
-              <span class="project-metric">
-                FOS ≥ 2.0
-              </span>
+              <img
+                src="images/wing-topology-main.jpg"
+                alt="Formula SAE wing mount topology optimization"
+                class="project-image"
+              />
 
             </div>
 
 
-            <h3>
-              FSAE Wing Mount Topology Study
-            </h3>
+            <div class="project-content">
 
-
-            <p>
-
-              Conducted topology optimization studies
-              on Formula SAE wing mounts and ribs to
-              identify opportunities to reduce material
-              and component weight while maintaining
-              structural requirements.
-
-            </p>
-
-
-            <div class="tags">
-
-              <span class="tag">
-                Topology Optimization
+              <span class="project-number">
+                Project 03
               </span>
 
-              <span class="tag">
-                FEA
-              </span>
+              <h3>
+                FSAE Wing Mount Topology Optimization
+              </h3>
 
-              <span class="tag">
-                Lightweight Design
-              </span>
+              <p>
 
-              <span class="tag">
-                SolidWorks
-              </span>
+                Conducted topology optimization studies
+                on Formula SAE wing mounts and structural
+                ribs to identify opportunities to reduce
+                component weight while maintaining a
+                minimum factor of safety of 2.
 
-              <span class="tag">
-                Formula SAE
-              </span>
+              </p>
+
+
+              <div class="tags">
+
+                <span class="tag">
+                  Topology Optimization
+                </span>
+
+                <span class="tag">
+                  FEA
+                </span>
+
+                <span class="tag">
+                  Lightweight Design
+                </span>
+
+                <span class="tag">
+                  SolidWorks
+                </span>
+
+                <span class="tag">
+                  Formula SAE
+                </span>
+
+              </div>
+
+
+              <a
+                href="project-wing-topology.html"
+                class="project-button"
+              >
+                View Project →
+              </a>
 
             </div>
 
           </article>
+
 
         </div>
 
@@ -1744,7 +1603,7 @@
 
 
       <!-- ====================================================
-           WORK EXPERIENCE
+           GENERAL MOTORS
       ===================================================== -->
 
       <section id="experience">
@@ -1756,6 +1615,12 @@
         <h2 class="section-title">
           General Motors
         </h2>
+
+        <p class="section-description">
+          Engineering and production experience focused
+          on safety, manufacturing efficiency, production
+          improvement, and cross-functional collaboration.
+        </p>
 
 
         <div class="experience-container">
@@ -1787,43 +1652,37 @@
 
               <li>
 
-                Work toward optimizing daily
-                SPQRCE principles including Safety,
-                People, Quality, Responsiveness,
-                Cost, and Environment.
+                Work toward optimizing daily SPQRCE
+                principles including Safety, People,
+                Quality, Responsiveness, Cost, and
+                Environment.
 
               </li>
-
 
               <li>
 
-                Identify and advocate for design
-                changes to production tools to
-                improve operator safety and
-                ergonomics.
+                Identify and advocate for design changes
+                to production tools to improve operator
+                safety and ergonomics.
 
               </li>
-
 
               <li>
 
                 Analyze potential vehicle-production
-                bottlenecks and develop solutions
-                for presentation during bi-weekly
-                Throughput Improvement Presentation
-                meetings.
+                bottlenecks and develop solutions for
+                presentation during bi-weekly Throughput
+                Improvement Presentation meetings.
 
               </li>
-
 
               <li>
 
                 Create Plant Floor Change Management
-                requests to initiate collaboration
-                with Manufacturing Engineers,
-                Controls Engineers, and other
-                stakeholders on proposed production
-                improvements.
+                requests to initiate collaboration with
+                Manufacturing Engineers, Controls
+                Engineers, and other stakeholders on
+                proposed production improvements.
 
               </li>
 
@@ -1837,7 +1696,7 @@
 
 
       <!-- ====================================================
-           TMFR EXPERIENCE
+           TMFR
       ===================================================== -->
 
       <section id="tmfr">
@@ -1885,65 +1744,61 @@
 
               <li>
 
-                Led a team of approximately 50
-                students through the design and
-                manufacturing of a Formula SAE
-                vehicle while coordinating deadlines
-                and ensuring engineering decisions
-                supported overall team objectives.
+                Led a group of approximately 50 students
+                through the design and manufacturing of
+                a Formula SAE vehicle while coordinating
+                deadlines and ensuring engineering
+                decisions supported overall team goals.
 
               </li>
 
 
               <li>
 
-                Organized and maintained the team's
-                GrabCAD environment to improve
-                collaborative design efficiency,
-                resolve assembly issues, and assist
-                members with component redesign.
+                Organized the team's GrabCAD environment
+                to improve collaborative design efficiency,
+                assisted members with design methodology,
+                and resolved assembly errors and component
+                redesigns.
 
               </li>
 
 
               <li>
 
-                Designed battery pack mounts and
-                conducted FEA to verify a minimum
-                factor of safety of 2.5 under
-                20 g vertical and 40 g lateral and
-                longitudinal acceleration.
+                Designed battery pack mounts and conducted
+                FEA to verify a minimum factor of safety
+                of 2.5 under 20 g vertical and 40 g lateral
+                and longitudinal acceleration.
 
               </li>
 
 
               <li>
 
-                Worked with WIHA Tools to secure
-                sponsorship and obtain safety tools
-                required for electric vehicle
-                development.
+                Communicated with WIHA Tools and secured
+                sponsorship to procure safety tools
+                required for work on the electric vehicle.
 
               </li>
 
 
               <li>
 
-                Assisted in developing structural
-                testing plans used to compare
-                FEA-predicted deflections against
-                measured physical deflections.
+                Assisted in developing and conducting
+                structural testing plans to compare
+                FEA-predicted deflections with
+                experimentally measured deflections.
 
               </li>
 
 
               <li>
 
-                Conducted topology studies on
-                Formula SAE wing mounts and ribs
-                to reduce material weight while
-                maintaining a factor of safety
-                of at least 2.
+                Conducted topology studies on Formula SAE
+                wing mounts and ribs to reduce component
+                weight while maintaining a minimum
+                factor of safety of 2.
 
               </li>
 
@@ -1957,7 +1812,7 @@
 
 
       <!-- ====================================================
-           TECHNICAL SKILLS
+           SKILLS
       ===================================================== -->
 
       <section id="skills">
@@ -1995,7 +1850,7 @@
             <p>
               SolidWorks, Ansys, detailed 2D and
               3D CAD, FEA, topology studies,
-              GD&amp;T, engineering drawings
+              GD&amp;T, and engineering drawings
             </p>
 
           </div>
@@ -2095,6 +1950,7 @@
 
           </div>
 
+
         </div>
 
       </section>
@@ -2131,7 +1987,8 @@
               </h3>
 
               <div class="education-school">
-                Toronto Metropolitan University · Toronto, Ontario
+                Toronto Metropolitan University
+                · Toronto, Ontario
               </div>
 
             </div>
@@ -2152,12 +2009,13 @@
               </div>
 
               <h3>
-                Bachelor of Engineering — Mechanical Engineering
-                (Mechatronics)
+                Bachelor of Engineering —
+                Mechanical Engineering (Mechatronics)
               </h3>
 
               <div class="education-school">
-                Toronto Metropolitan University · Toronto, Ontario
+                Toronto Metropolitan University
+                · Toronto, Ontario
               </div>
 
             </div>
@@ -2174,15 +2032,15 @@
             <div>
 
               <div class="education-type">
-                Professional Certification
+                SOLIDWORKS Certification
               </div>
 
               <h3>
-                Certified SOLIDWORKS Professional (CSWP)
+                CSWP — Mechanical Design
               </h3>
 
               <div class="education-school">
-                Mechanical Design
+                SOLIDWORKS
               </div>
 
             </div>
@@ -2192,6 +2050,7 @@
             </div>
 
           </div>
+
 
         </div>
 
@@ -2211,7 +2070,7 @@
           </div>
 
           <h2 class="section-title">
-            Let's build something.
+            Let's connect.
           </h2>
 
           <p>
@@ -2233,13 +2092,6 @@
             View GitHub
           </a>
 
-          <!--
-
-          ONCE YOU GIVE ME YOUR EMAIL AND LINKEDIN,
-          WE WILL ADD THEM HERE.
-
-          -->
-
         </div>
 
       </section>
@@ -2257,6 +2109,7 @@
         · Mechanical Engineering Portfolio
 
       </footer>
+
 
     </main>
 
