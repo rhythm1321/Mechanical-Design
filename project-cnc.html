@@ -1261,7 +1261,7 @@
     </section>
 
 
-    <!-- ====================================================
+<!-- ====================================================
      02 — DESIGN PROCESS
 ===================================================== -->
 
@@ -1278,7 +1278,6 @@
     </h2>
 
     <p>
-
       The development process began with research
       into existing CNC systems and common failure
       modes. Design concepts were then generated
@@ -1286,7 +1285,6 @@
       against the project's cost, modularity,
       maintainability, dimensional, and compatibility
       requirements.
-
     </p>
 
 
@@ -1409,41 +1407,48 @@
     </div>
 
 
-    <!-- MORPHOLOGICAL CHART -->
+    <!-- ==================================================
+         MORPHOLOGICAL CHART
+    =================================================== -->
 
-    <div class="project-figure">
+    <div
+      style="
+        margin-top: 35px;
+      "
+    >
 
       <div
         style="
+          height: 650px;
           width: 100%;
-          max-height: 720px;
-          overflow-y: auto;
+
+          overflow-y: scroll;
           overflow-x: hidden;
-          margin-top: 30px;
+
           border: 1px solid var(--border);
           border-radius: 15px;
+
           background: white;
+
+          scrollbar-gutter: stable;
+          overscroll-behavior: contain;
         "
       >
 
-        <a
-          href="images/morphological-chart.png"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <img
+          src="images/morphological-chart.png"
+          alt="Morphological chart used to evaluate CNC design concepts"
 
-          <img
-            src="images/morphological-chart.png"
-            alt="Morphological chart used to evaluate CNC design concepts"
-            style="
-              width: 100%;
-              height: auto;
-              display: block;
-              cursor: zoom-in;
-            "
-          />
+          style="
+            width: 100%;
+            height: auto;
 
-        </a>
+            display: block;
+
+            margin: 0;
+            padding: 0;
+          "
+        />
 
       </div>
 
@@ -1451,21 +1456,38 @@
       <p
         style="
           margin: 10px 0 0;
+
           color: var(--accent);
+
           font-size: 0.78rem;
+
           text-align: center;
         "
       >
-        Scroll to view the complete chart · Click the chart to open full size
+        Hover over the chart and scroll to view the complete design matrix
       </p>
 
 
-      <p class="figure-caption">
+      <p
+        style="
+          max-width: 900px;
+
+          margin: 6px auto 0;
+
+          color: var(--muted);
+
+          font-size: 0.84rem;
+
+          line-height: 1.6;
+
+          text-align: center;
+        "
+      >
         Morphological chart used during concept generation to compare
-        alternative solutions for the CNC machine's structure,
-        linear-motion system, motors, motor drivers, cutting tool,
-        software, cooling, workholding, vibration mitigation,
-        control board, power supply, drive system, and modularity.
+        alternative solutions for the CNC machine's frame structure,
+        linear guides, motors, motor drivers, spindle, software,
+        cooling, workholding, vibration mitigation, controller,
+        power supply, drive system, and modularity.
       </p>
 
     </div>
