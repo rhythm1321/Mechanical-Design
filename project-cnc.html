@@ -415,6 +415,42 @@
 
 
     /* =========================================================
+       PROJECT FIGURES
+    ========================================================= */
+
+    .project-figure {
+      margin-top: 30px;
+    }
+
+    .section-image {
+      width: 100%;
+      height: auto;
+
+      display: block;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background: #ffffff;
+    }
+
+    .figure-caption {
+      max-width: 900px;
+
+      margin: 12px auto 0;
+
+      color: var(--muted);
+
+      font-size: 0.84rem;
+
+      line-height: 1.6;
+
+      text-align: center;
+    }
+
+
+    /* =========================================================
        COMPONENT GRID
     ========================================================= */
 
@@ -1373,14 +1409,25 @@
         </div>
 
 
-        <div class="image-placeholder">
+        <!-- MORPHOLOGICAL CHART -->
 
-          <div>
-            <strong>Suggested image:</strong>
-            Morphological chart or design-process diagram
-          </div>
+        <div class="project-figure">
+
+          <img
+            src="images/morphological-chart.png"
+            alt="Morphological chart used to evaluate CNC design concepts"
+            class="section-image"
+          />
+
+          <p class="figure-caption">
+            Morphological chart used during concept generation to compare
+            alternative solutions for the CNC machine's structure, motion
+            system, electronics, cutting tool, controls, workholding,
+            cooling, and modularity.
+          </p>
 
         </div>
+
 
       </div>
 
