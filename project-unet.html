@@ -358,6 +358,29 @@
 
 
     /* =========================================================
+       DATASET LINK
+    ========================================================= */
+
+    .dataset-link {
+      color: var(--accent);
+
+      font-weight: 700;
+
+      border-bottom: 1px solid transparent;
+
+      transition:
+        color 0.2s,
+        border-color 0.2s;
+    }
+
+    .dataset-link:hover {
+      color: var(--accent-light);
+
+      border-color: var(--accent-light);
+    }
+
+
+    /* =========================================================
        DATASET / RESULT CARDS
     ========================================================= */
 
@@ -1592,8 +1615,16 @@
 
         <p>
 
-          The project used the Magnetic Tile Surface
-          Defects dataset, containing grayscale magnetic
+          The project used the
+          <a
+            href="https://www.kaggle.com/datasets/alex000kim/magnetic-tile-surface-defects"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="dataset-link"
+          >
+            Magnetic Tile Surface Defects dataset
+          </a>
+          from Kaggle, containing grayscale magnetic
           tile images organized into six categories.
 
           Five categories contained surface defects,
@@ -2287,8 +2318,6 @@
         </p>
 
 
-        <!-- LOSS -->
-
         <figure class="project-figure">
 
           <div class="section-image-wrap">
@@ -2308,8 +2337,6 @@
 
         </figure>
 
-
-        <!-- DICE / IOU + PRECISION / RECALL -->
 
         <div class="training-figure-grid">
 
@@ -2624,8 +2651,6 @@
         >
 
 
-          <!-- FRAY -->
-
           <div class="segmentation-slide active">
 
             <img
@@ -2649,8 +2674,6 @@
 
           </div>
 
-
-          <!-- BREAK -->
 
           <div class="segmentation-slide">
 
@@ -2676,8 +2699,6 @@
           </div>
 
 
-          <!-- CRACK -->
-
           <div class="segmentation-slide">
 
             <img
@@ -2701,8 +2722,6 @@
 
           </div>
 
-
-          <!-- BLOWHOLE -->
 
           <div class="segmentation-slide">
 
@@ -2728,8 +2747,6 @@
           </div>
 
 
-          <!-- UNEVEN -->
-
           <div class="segmentation-slide">
 
             <img
@@ -2754,8 +2771,6 @@
           </div>
 
 
-          <!-- PREVIOUS -->
-
           <button
             class="
               segmentation-button
@@ -2768,8 +2783,6 @@
           </button>
 
 
-          <!-- NEXT -->
-
           <button
             class="
               segmentation-button
@@ -2781,8 +2794,6 @@
             ›
           </button>
 
-
-          <!-- DOTS -->
 
           <div class="segmentation-dots">
 
@@ -2856,8 +2867,6 @@
         <div class="finding-showcase">
 
 
-          <!-- PRECISION -->
-
           <div class="finding-row">
 
             <div class="finding-copy">
@@ -2906,8 +2915,6 @@
 
           </div>
 
-
-          <!-- FRAY -->
 
           <div class="finding-row stat-left">
 
@@ -2958,8 +2965,6 @@
           </div>
 
 
-          <!-- CRACK -->
-
           <div class="finding-row">
 
             <div class="finding-copy">
@@ -3006,8 +3011,6 @@
 
           </div>
 
-
-          <!-- FALSE POSITIVE -->
 
           <div class="finding-row stat-left">
 
@@ -3318,10 +3321,6 @@
       let isAnimating = false;
 
 
-      /* =======================================================
-         SHOW SELECTED SLIDE
-      ======================================================= */
-
       function showSegmentationSlide(
         index,
         direction
@@ -3387,12 +3386,6 @@
         );
 
 
-        /*
-          Force the browser to render the incoming
-          slide at its starting position before
-          beginning the animation.
-        */
-
         incomingSlide.offsetWidth;
 
 
@@ -3445,10 +3438,6 @@
       }
 
 
-      /* =======================================================
-         NEXT SLIDE
-      ======================================================= */
-
       function nextSegmentationSlide() {
 
         showSegmentationSlide(
@@ -3459,10 +3448,6 @@
       }
 
 
-      /* =======================================================
-         PREVIOUS SLIDE
-      ======================================================= */
-
       function previousSegmentationSlide() {
 
         showSegmentationSlide(
@@ -3472,10 +3457,6 @@
 
       }
 
-
-      /* =======================================================
-         AUTOMATIC ROTATION
-      ======================================================= */
 
       function startSegmentationCarousel() {
 
@@ -3496,10 +3477,6 @@
 
       }
 
-
-      /* =======================================================
-         ARROW CONTROLS
-      ======================================================= */
 
       previousButton.addEventListener(
         "click",
@@ -3524,10 +3501,6 @@
         }
       );
 
-
-      /* =======================================================
-         DOT CONTROLS
-      ======================================================= */
 
       dots.forEach(
         function(dot, index) {
@@ -3562,10 +3535,6 @@
       );
 
 
-      /* =======================================================
-         PAUSE WHILE HOVERING
-      ======================================================= */
-
       segmentationCarousel.addEventListener(
         "mouseenter",
         stopSegmentationCarousel
@@ -3576,10 +3545,6 @@
         startSegmentationCarousel
       );
 
-
-      /* =======================================================
-         START CAROUSEL
-      ======================================================= */
 
       startSegmentationCarousel();
 
