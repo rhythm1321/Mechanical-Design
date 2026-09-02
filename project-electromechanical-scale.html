@@ -1,0 +1,2847 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    Electromechanical Weighing Station | Rhythm Patel
+  </title>
+
+  <meta
+    name="description"
+    content="Design and development of an electromechanical weighing station integrating a load cell, NI USB-6001 DAQ, rotary feedback, LabVIEW signal processing, and PID motor control."
+  />
+
+
+  <style>
+
+    /* =========================================================
+       VARIABLES
+    ========================================================= */
+
+    :root {
+
+      --background: #071019;
+      --sidebar: #0c1722;
+
+      --card: #101c29;
+      --card-hover: #142335;
+
+      --text: #f2f6fa;
+      --muted: #9eafbf;
+
+      --accent: #5eb5ff;
+      --accent-light: #8bcbff;
+      --accent-soft: rgba(94, 181, 255, 0.11);
+
+      --border: #213247;
+
+      --success: #77d8a4;
+
+      --max-width: 1180px;
+
+    }
+
+
+    /* =========================================================
+       RESET
+    ========================================================= */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+
+      margin: 0;
+
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      color: var(--text);
+
+      line-height: 1.65;
+
+      background:
+
+        radial-gradient(
+          circle at 90% 0%,
+          rgba(94, 181, 255, 0.08),
+          transparent 30%
+        ),
+
+        var(--background);
+
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+
+    /* =========================================================
+       PAGE LAYOUT
+    ========================================================= */
+
+    .page {
+
+      display: grid;
+
+      grid-template-columns: 280px 1fr;
+
+      min-height: 100vh;
+
+    }
+
+
+    /* =========================================================
+       SIDEBAR
+    ========================================================= */
+
+    .sidebar {
+
+      position: sticky;
+
+      top: 0;
+
+      height: 100vh;
+
+      padding: 34px 28px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      background: rgba(12, 23, 34, 0.97);
+
+      border-right: 1px solid var(--border);
+
+      z-index: 20;
+
+    }
+
+
+    .back-link {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      width: fit-content;
+
+      margin-bottom: 34px;
+
+      color: var(--muted);
+
+      font-size: 0.9rem;
+
+      font-weight: 650;
+
+      transition:
+        color 0.2s,
+        transform 0.2s;
+
+    }
+
+    .back-link:hover {
+
+      color: var(--accent);
+
+      transform: translateX(-3px);
+
+    }
+
+
+    .sidebar-project-label {
+
+      color: var(--accent);
+
+      font-size: 0.74rem;
+
+      font-weight: 800;
+
+      letter-spacing: 0.12em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .sidebar-title {
+
+      margin: 8px 0 12px;
+
+      font-size: 1.35rem;
+
+      line-height: 1.3;
+
+    }
+
+
+    .sidebar-description {
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.9rem;
+
+    }
+
+
+    /* =========================================================
+       SIDEBAR NAV
+    ========================================================= */
+
+    .project-nav {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 4px;
+
+      margin-top: 30px;
+
+    }
+
+    .project-nav a {
+
+      padding: 8px 10px;
+
+      border-radius: 8px;
+
+      color: var(--muted);
+
+      font-size: 0.89rem;
+
+      transition:
+        color 0.2s,
+        background 0.2s,
+        transform 0.2s;
+
+    }
+
+    .project-nav a:hover {
+
+      color: var(--text);
+
+      background: var(--accent-soft);
+
+      transform: translateX(3px);
+
+    }
+
+
+    .sidebar-footer {
+
+      margin-top: auto;
+
+      padding-top: 22px;
+
+      border-top: 1px solid var(--border);
+
+      color: var(--muted);
+
+      font-size: 0.79rem;
+
+    }
+
+
+    /* =========================================================
+       MAIN
+    ========================================================= */
+
+    main {
+
+      width: 100%;
+
+      max-width: var(--max-width);
+
+      padding: 0 56px 70px;
+
+    }
+
+
+    section {
+
+      padding-top: 92px;
+
+      scroll-margin-top: 20px;
+
+    }
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .hero {
+
+      padding-top: 54px;
+
+    }
+
+
+    .hero-top {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 14px;
+
+      margin-bottom: 26px;
+
+    }
+
+
+    .hero-eyebrow {
+
+      color: var(--accent);
+
+      font-size: 0.79rem;
+
+      font-weight: 800;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.13em;
+
+    }
+
+
+    .hero-date {
+
+      color: var(--muted);
+
+      font-size: 0.9rem;
+
+      font-weight: 650;
+
+    }
+
+
+    .hero h1 {
+
+      max-width: 900px;
+
+      margin: 0;
+
+      font-size: clamp(
+        2.4rem,
+        6vw,
+        4.7rem
+      );
+
+      line-height: 1.03;
+
+      letter-spacing: -0.045em;
+
+    }
+
+
+    .hero-intro {
+
+      max-width: 870px;
+
+      margin: 28px 0 30px;
+
+      color: #c3d0dc;
+
+      font-size: 1.14rem;
+
+      line-height: 1.8;
+
+    }
+
+
+    .hero-tags {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin-bottom: 34px;
+
+    }
+
+
+    .tag {
+
+      padding: 6px 10px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: #cbd7e2;
+
+      background: rgba(255, 255, 255, 0.015);
+
+      font-size: 0.78rem;
+
+    }
+
+
+    /* =========================================================
+       HERO IMAGE
+    ========================================================= */
+
+    .hero-image {
+
+      position: relative;
+
+      width: 100%;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 18px;
+
+      background: var(--card);
+
+      box-shadow:
+        0 24px 65px rgba(0, 0, 0, 0.3);
+
+    }
+
+
+    .hero-image img {
+
+      width: 100%;
+
+      max-height: 690px;
+
+      object-fit: cover;
+
+    }
+
+
+    .hero-image-caption {
+
+      padding: 13px 17px;
+
+      color: var(--muted);
+
+      border-top: 1px solid var(--border);
+
+      background: var(--card);
+
+      font-size: 0.82rem;
+
+    }
+
+
+    /* =========================================================
+       SECTION HEADINGS
+    ========================================================= */
+
+    .section-label {
+
+      margin-bottom: 8px;
+
+      color: var(--accent);
+
+      font-size: 0.75rem;
+
+      font-weight: 800;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.14em;
+
+    }
+
+
+    .section-title {
+
+      max-width: 850px;
+
+      margin: 0 0 18px;
+
+      font-size: clamp(
+        1.9rem,
+        4vw,
+        2.65rem
+      );
+
+      line-height: 1.18;
+
+      letter-spacing: -0.02em;
+
+    }
+
+
+    .section-description {
+
+      max-width: 850px;
+
+      margin: 0 0 34px;
+
+      color: var(--muted);
+
+      font-size: 1rem;
+
+    }
+
+
+    /* =========================================================
+       OVERVIEW STATS
+    ========================================================= */
+
+    .stats-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 14px;
+
+      margin-top: 34px;
+
+    }
+
+
+    .stat-card {
+
+      padding: 22px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: var(--card);
+
+    }
+
+
+    .stat-value {
+
+      margin-bottom: 5px;
+
+      color: var(--accent);
+
+      font-size: 1.7rem;
+
+      font-weight: 800;
+
+      line-height: 1.2;
+
+    }
+
+
+    .stat-label {
+
+      color: var(--muted);
+
+      font-size: 0.87rem;
+
+    }
+
+
+    /* =========================================================
+       CONTENT CARDS
+    ========================================================= */
+
+    .content-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 18px;
+
+    }
+
+
+    .content-card {
+
+      padding: 25px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background: var(--card);
+
+    }
+
+
+    .content-card h3 {
+
+      margin: 0 0 10px;
+
+      font-size: 1.08rem;
+
+    }
+
+
+    .content-card p {
+
+      margin: 0;
+
+      color: var(--muted);
+
+    }
+
+
+    .content-card ul {
+
+      margin: 0;
+
+      padding-left: 20px;
+
+      color: var(--muted);
+
+    }
+
+
+    .content-card li {
+
+      margin: 8px 0;
+
+    }
+
+
+    .content-card li::marker {
+
+      color: var(--accent);
+
+    }
+
+
+    /* =========================================================
+       DESIGN REQUIREMENTS
+    ========================================================= */
+
+    .requirements-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 18px;
+
+    }
+
+
+    .requirement {
+
+      display: flex;
+
+      gap: 14px;
+
+      padding: 22px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: var(--card);
+
+    }
+
+
+    .requirement-number {
+
+      flex: 0 0 auto;
+
+      width: 36px;
+
+      height: 36px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border: 1px solid var(--border);
+
+      border-radius: 9px;
+
+      color: var(--accent);
+
+      background: var(--accent-soft);
+
+      font-size: 0.82rem;
+
+      font-weight: 800;
+
+    }
+
+
+    .requirement h3 {
+
+      margin: 0 0 5px;
+
+      font-size: 1rem;
+
+    }
+
+
+    .requirement p {
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.91rem;
+
+    }
+
+
+    /* =========================================================
+       IMAGE / FIGURE
+    ========================================================= */
+
+    .figure {
+
+      margin: 30px 0 0;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background: var(--card);
+
+    }
+
+
+    .figure-media {
+
+      width: 100%;
+
+      padding: 18px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background: #ffffff;
+
+    }
+
+
+    .figure-media.dark {
+
+      background: #0b1520;
+
+    }
+
+
+    .figure-media img {
+
+      width: 100%;
+
+      max-height: 820px;
+
+      object-fit: contain;
+
+    }
+
+
+    .figure figcaption {
+
+      padding: 14px 18px;
+
+      border-top: 1px solid var(--border);
+
+      color: var(--muted);
+
+      font-size: 0.84rem;
+
+    }
+
+
+    /* =========================================================
+       TWO FIGURES
+    ========================================================= */
+
+    .figure-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 18px;
+
+      margin-top: 30px;
+
+    }
+
+
+    .figure-grid .figure {
+
+      margin-top: 0;
+
+    }
+
+
+    /* =========================================================
+       CALLOUT
+    ========================================================= */
+
+    .callout {
+
+      margin-top: 26px;
+
+      padding: 24px 25px;
+
+      border: 1px solid rgba(94, 181, 255, 0.3);
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          120deg,
+          rgba(94, 181, 255, 0.11),
+          transparent 65%
+        ),
+        var(--card);
+
+    }
+
+
+    .callout strong {
+
+      color: var(--accent-light);
+
+    }
+
+
+    .callout p {
+
+      margin: 0;
+
+      color: #c4d0db;
+
+    }
+
+
+    /* =========================================================
+       CALIBRATION RESULTS
+    ========================================================= */
+
+    .results-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+
+      margin-top: 28px;
+
+    }
+
+
+    .result-card {
+
+      padding: 22px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: var(--card);
+
+    }
+
+
+    .result-value {
+
+      color: var(--success);
+
+      font-size: 1.45rem;
+
+      font-weight: 800;
+
+    }
+
+
+    .result-name {
+
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 0.86rem;
+
+    }
+
+
+    /* =========================================================
+       LABVIEW PIPELINE
+    ========================================================= */
+
+    .pipeline {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+      gap: 10px;
+
+      margin-top: 28px;
+
+    }
+
+
+    .pipeline-step {
+
+      position: relative;
+
+      padding: 18px 15px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 12px;
+
+      background: var(--card);
+
+      text-align: center;
+
+    }
+
+
+    .pipeline-step:not(:last-child)::after {
+
+      content: "→";
+
+      position: absolute;
+
+      right: -14px;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      color: var(--accent);
+
+      font-weight: 800;
+
+      z-index: 3;
+
+    }
+
+
+    .pipeline-number {
+
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.73rem;
+
+      font-weight: 800;
+
+      letter-spacing: 0.08em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .pipeline-step span:last-child {
+
+      font-size: 0.88rem;
+
+      font-weight: 650;
+
+    }
+
+
+    /* =========================================================
+       FINAL SUMMARY
+    ========================================================= */
+
+    .final-card {
+
+      padding: 34px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 18px;
+
+      background:
+
+        linear-gradient(
+          120deg,
+          rgba(94, 181, 255, 0.13),
+          transparent 65%
+        ),
+
+        var(--card);
+
+    }
+
+
+    .final-card h2 {
+
+      margin: 0 0 15px;
+
+      font-size: 2rem;
+
+    }
+
+
+    .final-card p {
+
+      max-width: 830px;
+
+      margin: 0;
+
+      color: #c2cfda;
+
+    }
+
+
+    /* =========================================================
+       NEXT / BACK
+    ========================================================= */
+
+    .bottom-navigation {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 18px;
+
+      margin-top: 70px;
+
+      padding-top: 28px;
+
+      border-top: 1px solid var(--border);
+
+    }
+
+
+    .bottom-link {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      color: var(--accent);
+
+      font-weight: 700;
+
+      transition: transform 0.2s;
+
+    }
+
+
+    .bottom-link:hover {
+
+      transform: translateY(-2px);
+
+    }
+
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    footer {
+
+      margin-top: 50px;
+
+      color: var(--muted);
+
+      font-size: 0.84rem;
+
+    }
+
+
+    /* =========================================================
+       TABLET
+    ========================================================= */
+
+    @media (max-width: 1050px) {
+
+      .page {
+
+        grid-template-columns: 1fr;
+
+      }
+
+
+      .sidebar {
+
+        position: static;
+
+        height: auto;
+
+        border-right: none;
+
+        border-bottom: 1px solid var(--border);
+
+      }
+
+
+      .project-nav {
+
+        flex-direction: row;
+
+        flex-wrap: wrap;
+
+      }
+
+
+      .sidebar-footer {
+
+        display: none;
+
+      }
+
+
+      main {
+
+        padding: 0 30px 60px;
+
+      }
+
+
+      .stats-grid {
+
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+
+      }
+
+
+      .pipeline {
+
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+
+      }
+
+
+      .pipeline-step:not(:last-child)::after {
+
+        display: none;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       SMALL TABLET
+    ========================================================= */
+
+    @media (max-width: 760px) {
+
+      section {
+
+        padding-top: 72px;
+
+      }
+
+
+      .hero {
+
+        padding-top: 42px;
+
+      }
+
+
+      .content-grid,
+      .requirements-grid,
+      .figure-grid {
+
+        grid-template-columns: 1fr;
+
+      }
+
+
+      .results-grid {
+
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+
+      }
+
+
+      .hero-image img {
+
+        max-height: none;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media (max-width: 520px) {
+
+      .sidebar {
+
+        padding: 25px 20px;
+
+      }
+
+
+      main {
+
+        padding: 0 18px 45px;
+
+      }
+
+
+      .hero h1 {
+
+        font-size: 2.35rem;
+
+      }
+
+
+      .hero-intro {
+
+        font-size: 1rem;
+
+      }
+
+
+      .stats-grid,
+      .results-grid,
+      .pipeline {
+
+        grid-template-columns: 1fr;
+
+      }
+
+
+      .figure-media {
+
+        padding: 8px;
+
+      }
+
+
+      .final-card {
+
+        padding: 25px;
+
+      }
+
+
+      .bottom-navigation {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <div class="page">
+
+
+    <!-- ======================================================
+         SIDEBAR
+    ======================================================= -->
+
+    <aside class="sidebar">
+
+      <a
+        href="index.html#projects"
+        class="back-link"
+      >
+        ← Back to Portfolio
+      </a>
+
+
+      <div class="sidebar-project-label">
+        MEC 751 Design Project
+      </div>
+
+
+      <h2 class="sidebar-title">
+        Electromechanical
+        Weighing Station
+      </h2>
+
+
+      <p class="sidebar-description">
+
+        Load-cell sensing, mechanical range extension,
+        LabVIEW signal processing, rotary feedback,
+        and closed-loop PID motor control.
+
+      </p>
+
+
+      <nav class="project-nav">
+
+        <a href="#overview">
+          Overview
+        </a>
+
+        <a href="#requirements">
+          Requirements
+        </a>
+
+        <a href="#mechanical">
+          Mechanical Design
+        </a>
+
+        <a href="#electrical">
+          Electrical System
+        </a>
+
+        <a href="#calibration">
+          Calibration
+        </a>
+
+        <a href="#dynamic">
+          Dynamic Response
+        </a>
+
+        <a href="#control">
+          LabVIEW Control
+        </a>
+
+        <a href="#results">
+          Results
+        </a>
+
+      </nav>
+
+
+      <div class="sidebar-footer">
+
+        Rhythm Patel
+        <br />
+        Mechanical Engineering
+        <br />
+        Mechatronics
+
+      </div>
+
+    </aside>
+
+
+    <!-- ======================================================
+         MAIN
+    ======================================================= -->
+
+    <main>
+
+
+      <!-- ====================================================
+           HERO
+      ===================================================== -->
+
+      <section
+        class="hero"
+        id="overview"
+      >
+
+
+        <div class="hero-top">
+
+          <div class="hero-eyebrow">
+            Mechatronics · Instrumentation · Controls
+          </div>
+
+          <div class="hero-date">
+            2024
+          </div>
+
+        </div>
+
+
+        <h1>
+          Electromechanical
+          Weighing Station
+          &amp; PID Control
+        </h1>
+
+
+        <p class="hero-intro">
+
+          This project involved the design and
+          implementation of an electromechanical
+          weighing system capable of measuring loads
+          from 0 to 1 kg while driving a physical
+          rotary indicator.
+
+          The system combined mechanical design,
+          load-cell sensing, NI USB-6001 data
+          acquisition, LabVIEW signal processing,
+          rotary position feedback, and closed-loop
+          motor control.
+
+        </p>
+
+
+        <div class="hero-tags">
+
+          <span class="tag">
+            Mechatronics
+          </span>
+
+          <span class="tag">
+            LabVIEW
+          </span>
+
+          <span class="tag">
+            PID Control
+          </span>
+
+          <span class="tag">
+            NI USB-6001
+          </span>
+
+          <span class="tag">
+            Load Cell
+          </span>
+
+          <span class="tag">
+            Sensor Calibration
+          </span>
+
+          <span class="tag">
+            Signal Processing
+          </span>
+
+          <span class="tag">
+            SolidWorks
+          </span>
+
+        </div>
+
+
+        <div class="hero-image">
+
+          <img
+            src="images/electromechanical-scale-prototype.png"
+            alt="Completed electromechanical weighing station with analog rotary indicator"
+          />
+
+          <div class="hero-image-caption">
+
+            Physical prototype integrating the
+            weighing platform, rotary indicator,
+            motor, electronics, and NI data-acquisition
+            hardware.
+
+          </div>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+
+          <div class="stat-card">
+
+            <div class="stat-value">
+              0–1 kg
+            </div>
+
+            <div class="stat-label">
+              Required measurement range
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-value">
+              10 g
+            </div>
+
+            <div class="stat-label">
+              Target measurement resolution
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-value">
+              ±8 g
+            </div>
+
+            <div class="stat-label">
+              Reported measurement deviation
+            </div>
+
+          </div>
+
+
+          <div class="stat-card">
+
+            <div class="stat-value">
+              1.1%
+            </div>
+
+            <div class="stat-label">
+              Dynamic percent overshoot
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- ====================================================
+           PROJECT CHALLENGE
+      ===================================================== -->
+
+      <section id="requirements">
+
+        <div class="section-label">
+          01 — Design Requirements
+        </div>
+
+        <h2 class="section-title">
+          Converting a limited sensor into a
+          complete 1 kg weighing system.
+        </h2>
+
+
+        <p class="section-description">
+
+          The project required more than simply reading
+          a load cell. The final system needed to
+          measure weight, convert the sensor signal
+          into a meaningful physical value, and
+          reproduce that measurement through a
+          motor-driven analog dial.
+
+        </p>
+
+
+        <div class="requirements-grid">
+
+
+          <div class="requirement">
+
+            <div class="requirement-number">
+              01
+            </div>
+
+            <div>
+
+              <h3>
+                0–1 kg measurement range
+              </h3>
+
+              <p>
+
+                The weighing station had to support
+                and measure objects across a full
+                one-kilogram range.
+
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="requirement">
+
+            <div class="requirement-number">
+              02
+            </div>
+
+            <div>
+
+              <h3>
+                10 g resolution
+              </h3>
+
+              <p>
+
+                The system needed sufficient sensing
+                and calibration precision to distinguish
+                relatively small changes in applied mass.
+
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="requirement">
+
+            <div class="requirement-number">
+              03
+            </div>
+
+            <div>
+
+              <h3>
+                Mechanical analog display
+              </h3>
+
+              <p>
+
+                The measured weight had to be represented
+                physically through a motor-driven rotary
+                pointer rather than only displayed
+                digitally.
+
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="requirement">
+
+            <div class="requirement-number">
+              04
+            </div>
+
+            <div>
+
+              <h3>
+                Closed-loop feedback
+              </h3>
+
+              <p>
+
+                Position feedback was required so
+                the controller could continuously
+                correct the indicator position and
+                improve repeatability.
+
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="requirement">
+
+            <div class="requirement-number">
+              05
+            </div>
+
+            <div>
+
+              <h3>
+                NI USB-6001 integration
+              </h3>
+
+              <p>
+
+                Data acquisition and motor-control
+                signals were implemented through
+                the required National Instruments
+                DAQ hardware.
+
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="requirement">
+
+            <div class="requirement-number">
+              06
+            </div>
+
+            <div>
+
+              <h3>
+                Restricted 3D-print mass
+              </h3>
+
+              <p>
+
+                The design was limited to a maximum
+                of 25 g of 3D-printed material,
+                requiring selective use of printed
+                components.
+
+              </p>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- ====================================================
+           MECHANICAL DESIGN
+      ===================================================== -->
+
+      <section id="mechanical">
+
+        <div class="section-label">
+          02 — Mechanical Design
+        </div>
+
+        <h2 class="section-title">
+          Extending the load-cell range
+          mechanically.
+        </h2>
+
+
+        <p class="section-description">
+
+          One of the main design challenges was that
+          the available load cell could not directly
+          support the full required 1 kg measurement
+          range.
+
+          A spring was incorporated into the
+          weighing structure so that part of the
+          applied force was carried mechanically
+          instead of being transferred entirely
+          through the sensor.
+
+        </p>
+
+
+        <div class="content-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Weighing Platform
+            </h3>
+
+            <p>
+
+              An acrylic weighing surface transferred
+              the applied mass into the load-cell
+              structure while providing a practical
+              area for placing test weights.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Spring-Assisted Range Extension
+            </h3>
+
+            <p>
+
+              A spring connected between the structure
+              and the free side of the weighing system
+              absorbed part of the applied force,
+              allowing the limited-capacity sensor to
+              participate in measurements approaching
+              the required 1 kg range.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Motor-Driven Indicator
+            </h3>
+
+            <p>
+
+              A DC motor rotated the analog pointer,
+              turning the electronically measured
+              weight into a physical dial position.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Position Feedback
+            </h3>
+
+            <p>
+
+              Rotary position sensing allowed the
+              controller to determine the current
+              pointer angle and compare it against
+              the angle corresponding to the
+              measured load.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <figure class="figure">
+
+          <div class="figure-media">
+
+            <img
+              src="images/assembly-drawing.png"
+              alt="SolidWorks assembly drawing and bill of materials for the electromechanical weighing station"
+            />
+
+          </div>
+
+          <figcaption>
+
+            SolidWorks assembly drawing showing
+            the base, weighing platform, load cell,
+            spring, motor, rotary encoder, pointer,
+            DAQ, and supporting components.
+
+          </figcaption>
+
+        </figure>
+
+
+        <div class="callout">
+
+          <p>
+
+            <strong>Design constraint:</strong>
+            the load cell itself was rated below
+            the required full-scale measurement range.
+            Mechanical load sharing and subsequent
+            calibration were therefore essential parts
+            of the system design.
+
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ====================================================
+           ELECTRICAL
+      ===================================================== -->
+
+      <section id="electrical">
+
+        <div class="section-label">
+          03 — Electrical Integration
+        </div>
+
+        <h2 class="section-title">
+          Sensor acquisition, feedback,
+          and motor actuation.
+        </h2>
+
+
+        <p class="section-description">
+
+          The NI USB-6001 DAQ served as the bridge
+          between the physical system and the
+          LabVIEW control program.
+
+          Sensor voltages were acquired from the
+          load-cell and rotary-feedback systems,
+          processed in software, and converted into
+          control signals for the DC motor.
+
+        </p>
+
+
+        <figure class="figure">
+
+          <div class="figure-media">
+
+            <img
+              src="images/electrical-wiring-diagram.png"
+              alt="Electrical wiring diagram for the load cell DAQ and motor control system"
+            />
+
+          </div>
+
+          <figcaption>
+
+            Electrical architecture connecting the
+            sensing hardware, motor-control electronics,
+            and National Instruments DAQ.
+
+          </figcaption>
+
+        </figure>
+
+
+        <div class="content-grid" style="margin-top: 24px;">
+
+
+          <div class="content-card">
+
+            <h3>
+              Load Cell
+            </h3>
+
+            <p>
+
+              Mechanical deformation produced an
+              electrical output that could be
+              acquired and calibrated into a
+              corresponding mass measurement.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              NI USB-6001 DAQ
+            </h3>
+
+            <p>
+
+              The DAQ acquired sensor data and
+              provided the interface between
+              the physical hardware and the
+              LabVIEW control environment.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Rotary Feedback
+            </h3>
+
+            <p>
+
+              Voltage from the rotary position
+              sensor was converted into angular
+              displacement so the current pointer
+              position could be monitored.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              DC Motor Control
+            </h3>
+
+            <p>
+
+              Motor direction and effective drive
+              level were controlled based on the
+              difference between desired and
+              measured pointer positions.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- ====================================================
+           STATIC CALIBRATION
+      ===================================================== -->
+
+      <section id="calibration">
+
+        <div class="section-label">
+          04 — Sensor Calibration
+        </div>
+
+        <h2 class="section-title">
+          Converting sensor voltage into
+          usable weight measurements.
+        </h2>
+
+
+        <p class="section-description">
+
+          Multiple loading and unloading cycles
+          were conducted using known masses.
+          The measured voltage was compared
+          against the applied mass to determine
+          the sensor relationship and evaluate
+          linearity, hysteresis, and repeatability.
+
+        </p>
+
+
+        <figure class="figure">
+
+          <div class="figure-media">
+
+            <img
+              src="images/load-cell-calibration-curve.png"
+              alt="Average load cell voltage versus mass calibration curve"
+            />
+
+          </div>
+
+          <figcaption>
+
+            Average calibration response across
+            the tested mass range. The reported
+            linear fit was approximately
+            y = 0.0005x + 0.0025 with
+            R² = 0.9986.
+
+          </figcaption>
+
+        </figure>
+
+
+        <div class="results-grid">
+
+
+          <div class="result-card">
+
+            <div class="result-value">
+              0.0005 V/g
+            </div>
+
+            <div class="result-name">
+              Approximate calibration sensitivity
+            </div>
+
+          </div>
+
+
+          <div class="result-card">
+
+            <div class="result-value">
+              0.9986
+            </div>
+
+            <div class="result-name">
+              Calibration R²
+            </div>
+
+          </div>
+
+
+          <div class="result-card">
+
+            <div class="result-value">
+              ±8 g
+            </div>
+
+            <div class="result-name">
+              Approximate reported measurement deviation
+            </div>
+
+          </div>
+
+
+          <div class="result-card">
+
+            <div class="result-value">
+              3
+            </div>
+
+            <div class="result-name">
+              Calibration cycles
+            </div>
+
+          </div>
+
+
+          <div class="result-card">
+
+            <div class="result-value">
+              8.83 g
+            </div>
+
+            <div class="result-name">
+              Maximum reported repeatability error
+            </div>
+
+          </div>
+
+
+          <div class="result-card">
+
+            <div class="result-value">
+              1 kg
+            </div>
+
+            <div class="result-name">
+              Full tested mass range
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="callout">
+
+          <p>
+
+            Static calibration was also used to
+            evaluate <strong>hysteresis,
+            nonlinearity, and repeatability</strong>.
+            These measurements helped identify
+            limitations caused by the mechanical
+            structure, sensor behavior, and
+            measurement resolution.
+
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ====================================================
+           DYNAMIC RESPONSE
+      ===================================================== -->
+
+      <section id="dynamic">
+
+        <div class="section-label">
+          05 — Dynamic Calibration
+        </div>
+
+        <h2 class="section-title">
+          Characterizing transient response.
+        </h2>
+
+
+        <p class="section-description">
+
+          Dynamic testing was performed by applying
+          a step input using a 450 g weight and
+          observing the resulting voltage response.
+
+          The transient response was used to
+          estimate ringing frequency, rise time,
+          settling time, percent overshoot,
+          damping ratio, and natural frequency.
+
+        </p>
+
+
+        <figure class="figure">
+
+          <div class="figure-media">
+
+            <img
+              src="images/dynamic-response.png"
+              alt="Dynamic calibration voltage response versus time"
+            />
+
+          </div>
+
+          <figcaption>
+
+            Measured transient response following
+            application of a 450 g step input.
+
+          </figcaption>
+
+        </figure>
+
+
+        <div class="results-grid">
+
+
+          <div class="result-card">
+
+            <div class="result-value">
+              0.29 s
+            </div>
+
+            <div class="result-name">
+              90% rise time
+            </div>
+
+          </div>
+
+
+          <div class="result-card">
+
+            <div class="result-value">
+              1.1 s
+            </div>
+
+            <div class="result-name">
+              ±10% settling time
+            </div>
+
+          </div>
+
+
+          <div class="result-card">
+
+            <div class="result-value">
+              1.1%
+            </div>
+
+            <div class="result-name">
+              Percent overshoot
+            </div>
+
+          </div>
+
+
+          <div class="result-card">
+
+            <div class="result-value">
+              0.436
+            </div>
+
+            <div class="result-name">
+              Calculated damping ratio
+            </div>
+
+          </div>
+
+
+          <div class="result-card">
+
+            <div class="result-value">
+              10.13 rad/s
+            </div>
+
+            <div class="result-name">
+              Damped ringing frequency
+            </div>
+
+          </div>
+
+
+          <div class="result-card">
+
+            <div class="result-value">
+              11.26 rad/s
+            </div>
+
+            <div class="result-name">
+              Calculated natural frequency
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- ====================================================
+           CONTROL SYSTEM
+      ===================================================== -->
+
+      <section id="control">
+
+        <div class="section-label">
+          06 — LabVIEW Control System
+        </div>
+
+        <h2 class="section-title">
+          From raw voltage to
+          closed-loop pointer control.
+        </h2>
+
+
+        <p class="section-description">
+
+          The LabVIEW program combined sensor
+          acquisition, filtering, calibration,
+          unit conversion, feedback comparison,
+          PID control, motor-direction logic,
+          and duty-cycle generation.
+
+        </p>
+
+
+        <div class="pipeline">
+
+
+          <div class="pipeline-step">
+
+            <div class="pipeline-number">
+              Step 01
+            </div>
+
+            <span>
+              Acquire sensor data
+            </span>
+
+          </div>
+
+
+          <div class="pipeline-step">
+
+            <div class="pipeline-number">
+              Step 02
+            </div>
+
+            <span>
+              Filter signals
+            </span>
+
+          </div>
+
+
+          <div class="pipeline-step">
+
+            <div class="pipeline-number">
+              Step 03
+            </div>
+
+            <span>
+              Convert voltage
+            </span>
+
+          </div>
+
+
+          <div class="pipeline-step">
+
+            <div class="pipeline-number">
+              Step 04
+            </div>
+
+            <span>
+              Calculate position error
+            </span>
+
+          </div>
+
+
+          <div class="pipeline-step">
+
+            <div class="pipeline-number">
+              Step 05
+            </div>
+
+            <span>
+              Drive motor
+            </span>
+
+          </div>
+
+
+        </div>
+
+
+        <!-- FLOWCHART -->
+
+        <figure class="figure">
+
+          <div class="figure-media">
+
+            <img
+              src="images/labview-control-flowchart.png"
+              alt="LabVIEW electromechanical weighing station control flowchart"
+            />
+
+          </div>
+
+          <figcaption>
+
+            Detailed program flow showing parallel
+            load-cell and encoder processing,
+            angle comparison, motor-direction logic,
+            PID control, and duty-cycle generation.
+
+          </figcaption>
+
+        </figure>
+
+
+        <!-- BLOCK DIAGRAM -->
+
+        <figure class="figure">
+
+          <div class="figure-media">
+
+            <img
+              src="images/control-system-block-diagram.png"
+              alt="High level control system block diagram"
+            />
+
+          </div>
+
+          <figcaption>
+
+            High-level control architecture from
+            load-cell voltage acquisition through
+            signal processing and control logic
+            to final pointer position.
+
+          </figcaption>
+
+        </figure>
+
+
+        <div class="content-grid" style="margin-top: 24px;">
+
+
+          <div class="content-card">
+
+            <h3>
+              Signal Conditioning
+            </h3>
+
+            <p>
+
+              Low-pass Butterworth filtering was
+              applied to the load-cell and encoder
+              signals to reduce measurement noise
+              before control calculations were
+              performed.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Zero / Reset Function
+            </h3>
+
+            <p>
+
+              The program included a scale-reset
+              function that compensated for the
+              current signal offset and established
+              a new zero reference.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Weight-to-Angle Conversion
+            </h3>
+
+            <p>
+
+              Calibrated load-cell measurements
+              were converted from voltage to grams
+              and then mapped into a corresponding
+              0–360° dial position.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Encoder Angle
+            </h3>
+
+            <p>
+
+              Rotary sensor voltage was adjusted
+              for individual revolutions and
+              converted into the current pointer
+              angle.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              PID Error Correction
+            </h3>
+
+            <p>
+
+              Desired dial position from the
+              load cell was compared against
+              the measured encoder position.
+              The resulting error was processed
+              by the PID controller.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Direction &amp; Duty Cycle
+            </h3>
+
+            <p>
+
+              The sign and magnitude of the
+              position error were used to
+              determine motor direction and
+              the required motor drive level.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <!-- MAIN VI -->
+
+        <figure class="figure">
+
+          <div class="figure-media">
+
+            <img
+              src="images/labview-main-vi.png"
+              alt="Main LabVIEW VI block diagram for electromechanical weighing station"
+            />
+
+          </div>
+
+          <figcaption>
+
+            Main LabVIEW VI integrating NI DAQ
+            acquisition, load-cell filtering,
+            encoder filtering, SubVIs, PID control,
+            direction selection, and motor-speed
+            output.
+
+          </figcaption>
+
+        </figure>
+
+      </section>
+
+
+      <!-- ====================================================
+           RESULTS
+      ===================================================== -->
+
+      <section id="results">
+
+        <div class="section-label">
+          07 — Results &amp; Evaluation
+        </div>
+
+        <h2 class="section-title">
+          Integrating mechanics, sensing,
+          software, and feedback control.
+        </h2>
+
+
+        <p class="section-description">
+
+          The completed system successfully combined
+          the load-cell measurement system with a
+          motor-driven physical indicator.
+
+          Calibration established a strong linear
+          relationship between applied mass and
+          sensor voltage, while feedback from the
+          rotary sensor allowed the controller to
+          continuously correct dial position.
+
+        </p>
+
+
+        <div class="content-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Measurement
+            </h3>
+
+            <ul>
+
+              <li>
+                Tested across the required
+                0–1 kg range.
+              </li>
+
+              <li>
+                Reported measurement deviations
+                remained approximately within ±8 g.
+              </li>
+
+              <li>
+                The average calibration curve
+                produced an R² of approximately
+                0.9986.
+              </li>
+
+            </ul>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Control
+            </h3>
+
+            <ul>
+
+              <li>
+                Rotary feedback provided real-time
+                indicator position.
+              </li>
+
+              <li>
+                PID tuning reduced oscillatory
+                motor behavior.
+              </li>
+
+              <li>
+                Reduced motor speed improved
+                pointer stability and precision.
+              </li>
+
+            </ul>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Error Mitigation
+            </h3>
+
+            <ul>
+
+              <li>
+                Low-pass filtering reduced
+                electrical and sensor noise.
+              </li>
+
+              <li>
+                Repeated calibration measurements
+                were used to evaluate hysteresis
+                and repeatability.
+              </li>
+
+              <li>
+                Mechanical components were secured
+                to reduce vibration and movement.
+              </li>
+
+            </ul>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Engineering Takeaways
+            </h3>
+
+            <ul>
+
+              <li>
+                Sensor calibration is central to
+                converting raw electrical signals
+                into reliable physical measurements.
+              </li>
+
+              <li>
+                Mechanical design can compensate
+                for limitations in available
+                sensing hardware.
+              </li>
+
+              <li>
+                Feedback control requires iterative
+                tuning to balance speed, stability,
+                and overshoot.
+              </li>
+
+            </ul>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="final-card" style="margin-top: 32px;">
+
+          <h2>
+            Final Outcome
+          </h2>
+
+          <p>
+
+            The project demonstrated a complete
+            mechatronic development cycle:
+            mechanical design, sensor integration,
+            electrical interfacing, calibration,
+            signal processing, dynamic testing,
+            feedback control, and physical validation.
+
+            The finished system transformed an
+            applied weight into a calibrated
+            electrical measurement and then used
+            closed-loop motor control to reproduce
+            that measurement on a physical analog dial.
+
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ====================================================
+           NAVIGATION
+      ===================================================== -->
+
+      <div class="bottom-navigation">
+
+        <a
+          href="index.html#projects"
+          class="bottom-link"
+        >
+          ← Back to Projects
+        </a>
+
+        <a
+          href="#overview"
+          class="bottom-link"
+        >
+          Back to Top ↑
+        </a>
+
+      </div>
+
+
+      <!-- ====================================================
+           FOOTER
+      ===================================================== -->
+
+      <footer>
+
+        ©
+        <span id="year"></span>
+        Rhythm Patel
+        · Mechanical Engineering Portfolio
+
+      </footer>
+
+
+    </main>
+
+  </div>
+
+
+  <script>
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+  </script>
+
+
+</body>
+
+</html>
