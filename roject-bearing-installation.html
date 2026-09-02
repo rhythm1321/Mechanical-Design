@@ -1,0 +1,3694 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    Automated Pneumatic Bearing Installation System | Rhythm Patel
+  </title>
+
+  <meta
+    name="description"
+    content="Design of an automated pneumatic bearing installation system integrating mechanical design, Festo pneumatic actuators, Allen-Bradley PLC control, ladder logic, sensors, custom end effectors, SolidWorks FEA, and machine safety."
+  />
+
+
+  <style>
+
+
+    /* =========================================================
+       GLOBAL
+    ========================================================= */
+
+    :root {
+
+      --background: #071019;
+      --card: #101c29;
+      --card-hover: #142335;
+
+      --text: #f2f6fa;
+      --muted: #9eafbf;
+
+      --accent: #5eb5ff;
+      --accent-light: #8bcbff;
+      --accent-soft: rgba(94, 181, 255, 0.11);
+
+      --border: #213247;
+
+      --max-width: 1080px;
+
+    }
+
+
+    * {
+
+      box-sizing: border-box;
+
+    }
+
+
+    html {
+
+      scroll-behavior: smooth;
+
+    }
+
+
+    body {
+
+      margin: 0;
+
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 90% 0%,
+          rgba(94, 181, 255, 0.08),
+          transparent 28%
+        ),
+        var(--background);
+
+      color: var(--text);
+
+      line-height: 1.7;
+
+    }
+
+
+    a {
+
+      color: inherit;
+
+      text-decoration: none;
+
+    }
+
+
+    img {
+
+      display: block;
+
+      max-width: 100%;
+
+    }
+
+
+    .container {
+
+      width: min(
+        calc(100% - 40px),
+        var(--max-width)
+      );
+
+      margin: 0 auto;
+
+    }
+
+
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    header {
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 100;
+
+      background: rgba(7, 16, 25, 0.94);
+
+      backdrop-filter: blur(12px);
+
+      border-bottom: 1px solid var(--border);
+
+    }
+
+
+    .header-inner {
+
+      min-height: 70px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 20px;
+
+    }
+
+
+    .name {
+
+      font-size: 1rem;
+
+      font-weight: 750;
+
+    }
+
+
+    .back-link {
+
+      color: var(--muted);
+
+      font-size: 0.9rem;
+
+      transition: color 0.2s;
+
+    }
+
+
+    .back-link:hover {
+
+      color: var(--accent);
+
+    }
+
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .project-hero {
+
+      padding: 80px 0 48px;
+
+    }
+
+
+    .project-label {
+
+      margin-bottom: 12px;
+
+      color: var(--accent);
+
+      font-size: 0.78rem;
+
+      font-weight: 750;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.13em;
+
+    }
+
+
+    .project-hero h1 {
+
+      max-width: 980px;
+
+      margin: 0 0 24px;
+
+      font-size:
+        clamp(
+          2.7rem,
+          7vw,
+          5rem
+        );
+
+      line-height: 1;
+
+      letter-spacing: -0.04em;
+
+    }
+
+
+    .project-summary {
+
+      max-width: 900px;
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 1.12rem;
+
+    }
+
+
+
+    /* =========================================================
+       HERO IMAGE
+    ========================================================= */
+
+    .hero-image {
+
+      width: 100%;
+
+      max-height: 650px;
+
+      object-fit: contain;
+
+      border: 1px solid var(--border);
+
+      border-radius: 18px;
+
+      background: #ffffff;
+
+    }
+
+
+
+    /* =========================================================
+       PROJECT INFORMATION
+    ========================================================= */
+
+    .project-info-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-top: 24px;
+
+    }
+
+
+    .info-card {
+
+      padding: 18px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 12px;
+
+      background: var(--card);
+
+    }
+
+
+    .info-label {
+
+      color: var(--muted);
+
+      font-size: 0.72rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.08em;
+
+    }
+
+
+    .info-value {
+
+      margin-top: 5px;
+
+      color: var(--text);
+
+      font-weight: 700;
+
+    }
+
+
+
+    /* =========================================================
+       SECTIONS
+    ========================================================= */
+
+    .project-section {
+
+      padding-top: 90px;
+
+    }
+
+
+    .section-number {
+
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.76rem;
+
+      font-weight: 750;
+
+      letter-spacing: 0.13em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .project-section h2 {
+
+      margin: 0 0 18px;
+
+      font-size:
+        clamp(
+          1.8rem,
+          4vw,
+          2.5rem
+        );
+
+      line-height: 1.2;
+
+    }
+
+
+    .project-section > .container > p {
+
+      max-width: 900px;
+
+      color: var(--muted);
+
+    }
+
+
+
+    /* =========================================================
+       CARDS & GRIDS
+    ========================================================= */
+
+    .two-column-grid {
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 18px;
+
+      margin-top: 26px;
+
+    }
+
+
+    .three-column-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+
+      margin-top: 26px;
+
+    }
+
+
+    .content-card {
+
+      padding: 25px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: var(--card);
+
+    }
+
+
+    .content-card h3 {
+
+      margin: 0 0 10px;
+
+      font-size: 1.08rem;
+
+    }
+
+
+    .content-card p {
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.94rem;
+
+    }
+
+
+
+    /* =========================================================
+       REQUIREMENTS
+    ========================================================= */
+
+    .requirements {
+
+      display: grid;
+
+      gap: 12px;
+
+      margin-top: 8px;
+
+    }
+
+
+    .requirement {
+
+      display: flex;
+
+      gap: 11px;
+
+      color: var(--muted);
+
+    }
+
+
+    .requirement-marker {
+
+      color: var(--accent);
+
+      font-weight: 800;
+
+    }
+
+
+
+    /* =========================================================
+       METRICS
+    ========================================================= */
+
+    .metric-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 14px;
+
+      margin-top: 28px;
+
+    }
+
+
+    .metric-card {
+
+      padding: 22px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(94, 181, 255, 0.05),
+          transparent 55%
+        ),
+        var(--card);
+
+    }
+
+
+    .metric-value {
+
+      color: var(--accent);
+
+      font-size: 1.45rem;
+
+      font-weight: 800;
+
+      line-height: 1.2;
+
+    }
+
+
+    .metric-title {
+
+      margin-top: 7px;
+
+      color: var(--text);
+
+      font-weight: 700;
+
+    }
+
+
+    .metric-description {
+
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 0.84rem;
+
+    }
+
+
+
+    /* =========================================================
+       ANALYSIS BOX
+    ========================================================= */
+
+    .analysis-box {
+
+      margin-top: 26px;
+
+      padding: 28px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.06),
+          transparent 60%
+        ),
+        var(--card);
+
+    }
+
+
+    .analysis-box h3 {
+
+      margin: 0 0 12px;
+
+      font-size: 1.2rem;
+
+    }
+
+
+    .analysis-box p {
+
+      margin: 0;
+
+      color: var(--muted);
+
+    }
+
+
+    .equation {
+
+      margin: 18px 0;
+
+      padding: 16px 18px;
+
+      overflow-x: auto;
+
+      border-left: 3px solid var(--accent);
+
+      border-radius: 8px;
+
+      background: #0b1520;
+
+      color: var(--text);
+
+      font-family:
+        "Cambria Math",
+        "Times New Roman",
+        serif;
+
+      font-size: 1.05rem;
+
+    }
+
+
+
+    /* =========================================================
+       COMPONENT CARDS
+    ========================================================= */
+
+    .component-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 16px;
+
+      margin-top: 28px;
+
+    }
+
+
+    .component-card {
+
+      padding: 25px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background: var(--card);
+
+    }
+
+
+    .component-label {
+
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.1em;
+
+    }
+
+
+    .component-card h3 {
+
+      margin: 0 0 12px;
+
+      font-size: 1.2rem;
+
+    }
+
+
+    .component-card p {
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.93rem;
+
+    }
+
+
+    .component-facts {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 7px;
+
+      margin-top: 17px;
+
+    }
+
+
+    .component-fact {
+
+      padding: 6px 9px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: #ccd8e2;
+
+      font-size: 0.75rem;
+
+    }
+
+
+
+    /* =========================================================
+       FIGURES
+    ========================================================= */
+
+    .project-figure {
+
+      margin: 0;
+
+    }
+
+
+    .section-image {
+
+      width: 100%;
+
+      height: 100%;
+
+      max-height: 560px;
+
+      object-fit: contain;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: #ffffff;
+
+    }
+
+
+    .figure-caption {
+
+      max-width: 900px;
+
+      margin: 11px auto 0;
+
+      color: var(--muted);
+
+      font-size: 0.83rem;
+
+      line-height: 1.6;
+
+      text-align: center;
+
+    }
+
+
+    .figure-grid-two {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 18px;
+
+      margin-top: 30px;
+
+    }
+
+
+    .figure-grid-three {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 16px;
+
+      margin-top: 30px;
+
+    }
+
+
+    .figure-card {
+
+      padding: 13px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background: var(--card);
+
+    }
+
+
+    .figure-card .section-image {
+
+      min-height: 220px;
+
+    }
+
+
+    .full-figure {
+
+      margin-top: 30px;
+
+      padding: 13px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background: var(--card);
+
+    }
+
+
+
+    /* =========================================================
+       FEATURE SHOWCASE
+    ========================================================= */
+
+    .feature-showcase {
+
+      display: grid;
+
+      gap: 22px;
+
+      margin-top: 32px;
+
+    }
+
+
+    .feature-row {
+
+      display: grid;
+
+      grid-template-columns:
+        0.9fr 1.1fr;
+
+      min-height: 330px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background: var(--card);
+
+    }
+
+
+    .feature-copy {
+
+      padding: 34px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+    }
+
+
+    .feature-label {
+
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.1em;
+
+    }
+
+
+    .feature-copy h3 {
+
+      margin: 0 0 12px;
+
+      font-size: 1.3rem;
+
+    }
+
+
+    .feature-copy p {
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.94rem;
+
+      line-height: 1.75;
+
+    }
+
+
+    .feature-image-wrap {
+
+      min-height: 330px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 16px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.06),
+          transparent
+        ),
+        #0b1520;
+
+    }
+
+
+    .feature-image {
+
+      width: 100%;
+
+      height: 100%;
+
+      max-height: 440px;
+
+      object-fit: contain;
+
+      border-radius: 10px;
+
+      background: #ffffff;
+
+    }
+
+
+    .feature-row.image-left .feature-image-wrap {
+
+      order: 1;
+
+    }
+
+
+    .feature-row.image-left .feature-copy {
+
+      order: 2;
+
+    }
+
+
+
+    /* =========================================================
+       SEQUENCE
+    ========================================================= */
+
+    .sequence-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-top: 28px;
+
+    }
+
+
+    .sequence-card {
+
+      position: relative;
+
+      padding: 20px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 13px;
+
+      background: var(--card);
+
+    }
+
+
+    .sequence-number {
+
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+
+    }
+
+
+    .sequence-card h3 {
+
+      margin: 6px 0 7px;
+
+      font-size: 0.95rem;
+
+    }
+
+
+    .sequence-card p {
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.83rem;
+
+    }
+
+
+
+    /* =========================================================
+       RESULTS
+    ========================================================= */
+
+    .result-highlight {
+
+      margin-top: 28px;
+
+      padding: 32px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background:
+        linear-gradient(
+          125deg,
+          rgba(94, 181, 255, 0.13),
+          transparent 60%
+        ),
+        var(--card);
+
+    }
+
+
+    .result-highlight h3 {
+
+      margin: 0 0 12px;
+
+      font-size: 1.35rem;
+
+    }
+
+
+    .result-highlight p {
+
+      max-width: 920px;
+
+      margin: 0;
+
+      color: var(--muted);
+
+    }
+
+
+    .result-values {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      margin-top: 20px;
+
+    }
+
+
+    .result-value {
+
+      padding: 8px 12px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: var(--accent);
+
+      font-size: 0.82rem;
+
+      font-weight: 700;
+
+    }
+
+
+
+    /* =========================================================
+       TAGS
+    ========================================================= */
+
+    .tags {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin-top: 26px;
+
+    }
+
+
+    .tag {
+
+      padding: 6px 10px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: #ccd8e2;
+
+      font-size: 0.8rem;
+
+    }
+
+
+
+    /* =========================================================
+       BOTTOM NAVIGATION
+    ========================================================= */
+
+    .bottom-navigation {
+
+      margin-top: 100px;
+
+      padding: 35px 0;
+
+      border-top: 1px solid var(--border);
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 20px;
+
+    }
+
+
+    .nav-button {
+
+      min-height: 44px;
+
+      padding: 0 16px;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border: 1px solid var(--border);
+
+      border-radius: 9px;
+
+      color: var(--muted);
+
+      font-weight: 650;
+
+      transition: 0.2s;
+
+    }
+
+
+    .nav-button:hover {
+
+      color: var(--text);
+
+      border-color: var(--accent);
+
+      background: var(--accent-soft);
+
+    }
+
+
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    footer {
+
+      padding: 25px 0 45px;
+
+      color: var(--muted);
+
+      font-size: 0.86rem;
+
+    }
+
+
+
+    /* =========================================================
+       TABLET
+    ========================================================= */
+
+    @media (max-width: 900px) {
+
+      .project-info-grid {
+
+        grid-template-columns:
+          repeat(3, minmax(0, 1fr));
+
+      }
+
+
+      .metric-grid {
+
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+
+      }
+
+
+      .component-grid {
+
+        grid-template-columns: 1fr;
+
+      }
+
+
+      .sequence-grid {
+
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+
+      }
+
+
+      .figure-grid-three {
+
+        grid-template-columns: 1fr;
+
+      }
+
+    }
+
+
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media (max-width: 700px) {
+
+      .feature-row,
+      .feature-row.image-left {
+
+        grid-template-columns: 1fr;
+
+      }
+
+
+      .feature-copy {
+
+        order: 1 !important;
+
+        padding: 25px;
+
+      }
+
+
+      .feature-image-wrap {
+
+        order: 2 !important;
+
+        min-height: 240px;
+
+      }
+
+
+      .figure-grid-two {
+
+        grid-template-columns: 1fr;
+
+      }
+
+    }
+
+
+    @media (max-width: 650px) {
+
+      .container {
+
+        width: min(
+          calc(100% - 30px),
+          var(--max-width)
+        );
+
+      }
+
+
+      .project-hero {
+
+        padding-top: 55px;
+
+      }
+
+
+      .project-info-grid,
+      .two-column-grid,
+      .three-column-grid,
+      .metric-grid,
+      .sequence-grid {
+
+        grid-template-columns: 1fr;
+
+      }
+
+
+      .bottom-navigation {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+      }
+
+    }
+
+
+  </style>
+
+</head>
+
+
+
+<body>
+
+
+  <!-- ======================================================
+       HEADER
+  ======================================================= -->
+
+  <header>
+
+    <div class="container header-inner">
+
+      <a
+        href="index.html"
+        class="name"
+      >
+        Rhythm Patel
+      </a>
+
+
+      <a
+        href="index.html#projects"
+        class="back-link"
+      >
+        ← Back to Portfolio
+      </a>
+
+    </div>
+
+  </header>
+
+
+
+  <main>
+
+
+    <!-- ====================================================
+         HERO
+    ===================================================== -->
+
+    <section class="project-hero">
+
+      <div class="container">
+
+        <div class="project-label">
+          MEC617 Engineering Project · Automation &amp; Machine Design
+        </div>
+
+
+        <h1>
+          Automated Pneumatic Bearing Installation System
+        </h1>
+
+
+        <p class="project-summary">
+
+          Designed an automated system for picking,
+          positioning, and press-fitting bearings into
+          electric motor housings using pneumatic actuation
+          and PLC-based sequential control.
+
+          The project integrated mechanical design,
+          pneumatic actuator sizing, a rotating transfer
+          mechanism, custom bearing-handling end effectors,
+          SolidWorks finite element analysis, proximity
+          and limit-switch feedback, ladder logic,
+          and industrial machine-safety considerations.
+
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         HERO IMAGE & QUICK INFO
+    ===================================================== -->
+
+    <section>
+
+      <div class="container">
+
+
+        <img
+          src="images/bearing-installation-assembly.png"
+          alt="Final CAD assembly of the automated pneumatic bearing installation system"
+          class="hero-image"
+        />
+
+
+        <div class="project-info-grid">
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Timeline
+            </div>
+
+            <div class="info-value">
+              Fall 2024
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Control System
+            </div>
+
+            <div class="info-value">
+              MicroLogix 1400
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Actuation
+            </div>
+
+            <div class="info-value">
+              Pneumatic
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Press Force
+            </div>
+
+            <div class="info-value">
+              100 lbf
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Cycle Target
+            </div>
+
+            <div class="info-value">
+              &lt; 30 s
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="tags">
+
+          <span class="tag">
+            Machine Design
+          </span>
+
+          <span class="tag">
+            Pneumatics
+          </span>
+
+          <span class="tag">
+            PLC
+          </span>
+
+          <span class="tag">
+            Ladder Logic
+          </span>
+
+          <span class="tag">
+            SolidWorks
+          </span>
+
+          <span class="tag">
+            FEA
+          </span>
+
+          <span class="tag">
+            Sensors
+          </span>
+
+          <span class="tag">
+            Industrial Automation
+          </span>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         01 — ENGINEERING PROBLEM
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          01 — The Engineering Problem
+        </div>
+
+
+        <h2>
+          Automating Bearing Installation Into an Electric Motor Housing
+        </h2>
+
+
+        <p>
+
+          Bearing installation requires controlled
+          alignment and force. The machine needed to
+          retrieve a bearing from an existing feeder,
+          transfer it to an electric motor housing,
+          place it accurately, and press-fit it into the
+          housing without damaging the bearing.
+
+          The design also had to integrate with an
+          existing workstation and use pneumatic motion
+          controlled by an Allen-Bradley PLC.
+
+        </p>
+
+
+        <div class="two-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Handling Challenge
+            </h3>
+
+            <p>
+
+              The bearing had to be picked up using its
+              inner race, transferred between two
+              workstation locations, and released into
+              the motor housing while maintaining
+              alignment.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Press-Fit Challenge
+            </h3>
+
+            <p>
+
+              A separate pressing operation was required
+              to apply approximately 100 lbf while
+              contacting only the outer race of the
+              bearing to reduce the risk of component
+              damage.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="full-figure">
+
+          <figure class="project-figure">
+
+            <img
+              src="images/bearing-existing-workstation.png"
+              alt="Existing bearing assembly workstation dimensions and layout"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Existing bearing assembly workstation used as
+              the dimensional basis for the machine design.
+            </figcaption>
+
+          </figure>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         02 — DESIGN REQUIREMENTS
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          02 — Design Requirements
+        </div>
+
+
+        <h2>
+          Converting the Manufacturing Process Into Design Constraints
+        </h2>
+
+
+        <p>
+
+          The system requirements established the mechanical,
+          pneumatic, controls, and safety constraints that
+          guided the design. The machine had to mount directly
+          to the existing workstation and complete all major
+          motions pneumatically.
+
+        </p>
+
+
+        <div class="metric-grid">
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              100 lbf
+            </div>
+
+            <div class="metric-title">
+              Required Press Force
+            </div>
+
+            <div class="metric-description">
+              Minimum force required to press-fit the bearing.
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              &lt; 30 s
+            </div>
+
+            <div class="metric-title">
+              Cycle Time
+            </div>
+
+            <div class="metric-description">
+              Maximum allowable operating-cycle target.
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              90 psi
+            </div>
+
+            <div class="metric-title">
+              Supply Pressure
+            </div>
+
+            <div class="metric-description">
+              Maximum pneumatic supply pressure available.
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              2.000 in
+            </div>
+
+            <div class="metric-title">
+              Bearing OD
+            </div>
+
+            <div class="metric-description">
+              Bearing outer diameter used for press-tool design.
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="two-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Mechanical Requirements
+            </h3>
+
+            <div class="requirements">
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Mount directly to the pre-existing workstation.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Pick the bearing up by its inner race.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Place the bearing into the motor housing.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Apply press force only to the outer race.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Use pneumatic actuation for machine motion.</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Controls &amp; Safety Requirements
+            </h3>
+
+            <div class="requirements">
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Allen-Bradley MicroLogix 1400 PLC.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>24 V PLC-compatible sensor system.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Festo DSNU-series pneumatic cylinders.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Operator guarding and machine-safety features.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Two-hand and foot-pedal cycle initiation.</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         03 — DESIGN CONCEPT
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          03 — Design Concept
+        </div>
+
+
+        <h2>
+          Using a Rotating Assembly Instead of a Large Linear Transfer System
+        </h2>
+
+
+        <p>
+
+          A rotating architecture was selected because
+          of the dimensional constraints of the existing
+          workstation. A central shaft supports two
+          separate arms: one carrying the gripper cylinder
+          and the other carrying the press-fit cylinder.
+
+          A third pneumatic cylinder rotates the entire
+          shaft assembly between the bearing feeder and
+          motor-housing positions.
+
+        </p>
+
+
+        <div class="figure-grid-two">
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-design-schematic.png"
+              alt="Initial schematic of the rotating bearing installation system"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Initial machine concept showing the main shaft,
+              gripper, press cylinder, and workstation.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-rotating-mechanism.png"
+              alt="Schematic used to calculate the pneumatic rotating mechanism geometry"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Rotating-mechanism geometry used to relate
+              cylinder stroke to shaft rotation.
+            </figcaption>
+
+          </figure>
+
+
+        </div>
+
+
+        <div class="analysis-box">
+
+          <h3>
+            Rotational Geometry
+          </h3>
+
+          <p>
+
+            The gripper and press locations required
+            approximately 118.7° of shaft rotation.
+            A 100 mm stroke movement cylinder was selected,
+            and the corresponding moment-arm geometry was
+            determined using the chord-length relationship.
+
+          </p>
+
+          <div class="equation">
+            L<sub>chord</sub> = 2r sin(θ)
+          </div>
+
+          <p>
+
+            The resulting moment-arm distance from the
+            shaft center was approximately 2.288 in.
+            Dynamic analysis was then used to estimate
+            the pneumatic force required to rotate the
+            assembly.
+
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         04 — MECHANICAL ARCHITECTURE
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          04 — Mechanical Architecture
+        </div>
+
+
+        <h2>
+          A 4130 Steel Shaft Supporting the Gripping and Pressing Systems
+        </h2>
+
+
+        <p>
+
+          The primary structure consists of a vertical
+          4130 steel tube mounted to the workstation
+          through a flange-bearing support. Two arms
+          extend from the shaft and position the pneumatic
+          tooling over the required working locations.
+
+          The geometry was selected to provide sufficient
+          motor-housing clearance while maintaining a
+          compact workstation footprint.
+
+        </p>
+
+
+        <div class="three-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Main Shaft
+            </h3>
+
+            <p>
+
+              4130 steel round tubing with a 2 in outer
+              diameter, 1.875 in inner diameter, and
+              approximately 26 in overall length.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Gripper Arm
+            </h3>
+
+            <p>
+
+              Extends approximately 11.391 in from the
+              center of the main shaft and supports the
+              vertical bearing-handling cylinder.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Press Arm
+            </h3>
+
+            <p>
+
+              Extends approximately 11.418 in from the
+              shaft center and supports the cylinder
+              responsible for press-fitting the bearing.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="feature-showcase">
+
+
+          <div class="feature-row image-left">
+
+            <div class="feature-image-wrap">
+
+              <img
+                src="images/bearing-main-shaft-drawing.png"
+                alt="Engineering drawing of the bearing installation system main shaft"
+                class="feature-image"
+              />
+
+            </div>
+
+
+            <div class="feature-copy">
+
+              <div class="feature-label">
+                Structural Component
+              </div>
+
+              <h3>
+                Main Shaft Design
+              </h3>
+
+              <p>
+
+                The main shaft serves as the common
+                structural and rotational element of the
+                machine. It carries both vertical pneumatic
+                cylinders while transmitting the motion
+                generated by the horizontal movement
+                cylinder.
+
+              </p>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         05 — PNEUMATIC CYLINDER SELECTION
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          05 — Pneumatic Cylinder Selection
+        </div>
+
+
+        <h2>
+          Sizing Three Pneumatic Actuators for Handling, Pressing, and Rotation
+        </h2>
+
+
+        <p>
+
+          Each pneumatic cylinder was sized according
+          to its specific force, stroke, motion, and
+          packaging requirements. All primary actuators
+          were selected from the Festo DSNU family.
+
+        </p>
+
+
+        <div class="component-grid">
+
+
+          <div class="component-card">
+
+            <div class="component-label">
+              CYL-A · Bearing Handling
+            </div>
+
+            <h3>
+              DSNU-20-300-PPV-A
+            </h3>
+
+            <p>
+
+              Moves the pneumatic gripper vertically
+              between its raised position and the bearing
+              or motor housing.
+
+            </p>
+
+            <div class="component-facts">
+
+              <span class="component-fact">
+                20 mm piston
+              </span>
+
+              <span class="component-fact">
+                300 mm stroke
+              </span>
+
+              <span class="component-fact">
+                Double acting
+              </span>
+
+              <span class="component-fact">
+                PPV cushioning
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="component-card">
+
+            <div class="component-label">
+              CYL-B · Press Fit
+            </div>
+
+            <h3>
+              DSNU-32-300-P-A-S10
+            </h3>
+
+            <p>
+
+              Provides the force required to press the
+              bearing into the motor housing while using
+              a custom end effector that contacts the
+              outer race.
+
+            </p>
+
+            <div class="component-facts">
+
+              <span class="component-fact">
+                32 mm piston
+              </span>
+
+              <span class="component-fact">
+                300 mm stroke
+              </span>
+
+              <span class="component-fact">
+                Slow uniform motion
+              </span>
+
+              <span class="component-fact">
+                P cushioning
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="component-card">
+
+            <div class="component-label">
+              CYL-C · Rotating Assembly
+            </div>
+
+            <h3>
+              DSNU-63-100-PPV-A
+            </h3>
+
+            <p>
+
+              Rotates the main shaft between the bearing
+              feeder and motor-housing positions through
+              a clevis-connected moment arm.
+
+            </p>
+
+            <div class="component-facts">
+
+              <span class="component-fact">
+                63 mm piston
+              </span>
+
+              <span class="component-fact">
+                100 mm stroke
+              </span>
+
+              <span class="component-fact">
+                Double acting
+              </span>
+
+              <span class="component-fact">
+                PPV cushioning
+              </span>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="analysis-box">
+
+          <h3>
+            Press Cylinder Sizing
+          </h3>
+
+          <p>
+
+            A minimum piston diameter was calculated
+            from the required 100 lbf press force and
+            the maximum 90 psi supply pressure.
+
+          </p>
+
+          <div class="equation">
+            P = F / A
+            &nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;
+            d = √(4F / πP)
+          </div>
+
+          <p>
+
+            The calculated minimum diameter was
+            approximately 30.2 mm, leading to selection
+            of the next available 32 mm DSNU cylinder.
+
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         06 — END EFFECTORS
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          06 — Custom End Effectors
+        </div>
+
+
+        <h2>
+          Handling the Inner Race and Pressing Only the Outer Race
+        </h2>
+
+
+        <p>
+
+          Two different end effectors were required
+          because bearing handling and bearing pressing
+          place very different mechanical demands on the
+          component.
+
+          The gripper interfaces with the inner race,
+          while the press tool transfers force exclusively
+          through the outer race.
+
+        </p>
+
+
+        <div class="feature-showcase">
+
+
+          <div class="feature-row">
+
+            <div class="feature-copy">
+
+              <div class="feature-label">
+                Bearing Pickup
+              </div>
+
+              <h3>
+                Custom Gripper Fingers
+              </h3>
+
+              <p>
+
+                A pneumatic parallel gripper was fitted
+                with custom 4130 steel fingers designed
+                to expand against the inside surface of
+                the bearing.
+
+                The ends of the fingers were shaped to
+                better conform to the bearing geometry,
+                and the removable design allowed damaged
+                fingers to be replaced independently.
+
+              </p>
+
+            </div>
+
+
+            <div class="feature-image-wrap">
+
+              <img
+                src="images/bearing-finger-drawing.png"
+                alt="Engineering drawing of the custom bearing gripper finger"
+                class="feature-image"
+              />
+
+            </div>
+
+          </div>
+
+
+          <div class="feature-row image-left">
+
+            <div class="feature-image-wrap">
+
+              <img
+                src="images/bearing-stamper-drawing.png"
+                alt="Engineering drawing of the custom bearing press stamper"
+                class="feature-image"
+              />
+
+            </div>
+
+
+            <div class="feature-copy">
+
+              <div class="feature-label">
+                Press-Fit Tooling
+              </div>
+
+              <h3>
+                Outer-Race Bearing Stamper
+              </h3>
+
+              <p>
+
+                A custom hollow press attachment was
+                designed to thread onto the press-cylinder
+                rod.
+
+                The annular contact geometry aligns with
+                the bearing's outer race, allowing the
+                required press force to be transferred
+                without loading the inner race.
+
+              </p>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         07 — PNEUMATIC SEQUENCE
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          07 — Pneumatic Sequence
+        </div>
+
+
+        <h2>
+          Coordinating the Complete Pick, Transfer, Place, and Press Cycle
+        </h2>
+
+
+        <p>
+
+          The process was arranged as a sequential
+          pneumatic cycle. Sensor and limit-switch
+          feedback determines when each motion has
+          completed before the PLC advances to the
+          next operation.
+
+        </p>
+
+
+        <div class="sequence-grid">
+
+
+          <div class="sequence-card">
+
+            <div class="sequence-number">
+              STEP 01
+            </div>
+
+            <h3>
+              CYL-Grip +
+            </h3>
+
+            <p>
+              Lower the gripper toward the bearing feeder.
+            </p>
+
+          </div>
+
+
+          <div class="sequence-card">
+
+            <div class="sequence-number">
+              STEP 02
+            </div>
+
+            <h3>
+              Gripper +
+            </h3>
+
+            <p>
+              Grip the bearing through its inner race.
+            </p>
+
+          </div>
+
+
+          <div class="sequence-card">
+
+            <div class="sequence-number">
+              STEP 03
+            </div>
+
+            <h3>
+              CYL-Grip −
+            </h3>
+
+            <p>
+              Raise the bearing clear of the feeder.
+            </p>
+
+          </div>
+
+
+          <div class="sequence-card">
+
+            <div class="sequence-number">
+              STEP 04
+            </div>
+
+            <h3>
+              CYL-Move +
+            </h3>
+
+            <p>
+              Rotate the assembly toward the motor housing.
+            </p>
+
+          </div>
+
+
+          <div class="sequence-card">
+
+            <div class="sequence-number">
+              STEP 05
+            </div>
+
+            <h3>
+              CYL-Grip +
+            </h3>
+
+            <p>
+              Lower the bearing into the motor housing.
+            </p>
+
+          </div>
+
+
+          <div class="sequence-card">
+
+            <div class="sequence-number">
+              STEP 06
+            </div>
+
+            <h3>
+              Gripper −
+            </h3>
+
+            <p>
+              Release the bearing into the housing.
+            </p>
+
+          </div>
+
+
+          <div class="sequence-card">
+
+            <div class="sequence-number">
+              STEP 07
+            </div>
+
+            <h3>
+              CYL-Grip −
+            </h3>
+
+            <p>
+              Retract the gripper clear of the housing.
+            </p>
+
+          </div>
+
+
+          <div class="sequence-card">
+
+            <div class="sequence-number">
+              STEP 08
+            </div>
+
+            <h3>
+              CYL-Move −
+            </h3>
+
+            <p>
+              Rotate the assembly back to its initial position.
+            </p>
+
+          </div>
+
+
+          <div class="sequence-card">
+
+            <div class="sequence-number">
+              STEP 09
+            </div>
+
+            <h3>
+              CYL-Press +
+            </h3>
+
+            <p>
+              Extend the press and install the bearing.
+            </p>
+
+          </div>
+
+
+          <div class="sequence-card">
+
+            <div class="sequence-number">
+              STEP 10
+            </div>
+
+            <h3>
+              CYL-Press −
+            </h3>
+
+            <p>
+              Retract the press cylinder and finish the cycle.
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="full-figure">
+
+          <figure class="project-figure">
+
+            <img
+              src="images/bearing-pneumatic-schematic.png"
+              alt="Pneumatic schematic for the bearing installation machine"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Pneumatic schematic showing the cylinders,
+              valves, and system connections used to implement
+              the operating sequence.
+            </figcaption>
+
+          </figure>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         08 — PLC CONTROL
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          08 — PLC Control &amp; Sensor Logic
+        </div>
+
+
+        <h2>
+          Translating the Pneumatic Sequence Into Ladder Logic
+        </h2>
+
+
+        <p>
+
+          The automation sequence was implemented using
+          an Allen-Bradley MicroLogix 1400 PLC architecture.
+
+          Push buttons, a foot pedal, proximity sensors,
+          gripper feedback, and cylinder limit switches
+          were used as inputs. The combination of active
+          inputs determines which pneumatic output is
+          allowed to operate.
+
+        </p>
+
+
+        <div class="two-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Sensor Feedback
+            </h3>
+
+            <div class="requirements">
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Motor-housing proximity detection.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Gripper proximity sensing.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Bearing contact detection.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Inner and outer cylinder limit switches.</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              PLC Functions
+            </h3>
+
+            <div class="requirements">
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Condition-based sequential operation.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Timers for the press-fit operation.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Counters for repeated gripper motions.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Safety-dependent machine initiation.</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="analysis-box">
+
+          <h3>
+            Press-Fit Timing
+          </h3>
+
+          <p>
+
+            A physical sensor could not be conveniently
+            installed at the bottom of the motor housing
+            to directly detect the completed press stroke.
+
+            The PLC model therefore uses a timer to
+            control the pressing operation, allowing
+            approximately six seconds for the press-fit
+            before commanding cylinder retraction.
+
+          </p>
+
+        </div>
+
+
+        <div class="figure-grid-two">
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-plc-ladder-logic.png"
+              alt="PLC ladder logic program for the automated bearing installation system"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Ladder-logic sequence controlling the
+              pneumatic installation process.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-plc-wiring.png"
+              alt="PLC wiring diagram for the bearing installation machine"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              PLC wiring diagram showing the control-system
+              input and output architecture.
+            </figcaption>
+
+          </figure>
+
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         09 — STRUCTURAL FEA
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          09 — Main Shaft Structural Analysis
+        </div>
+
+
+        <h2>
+          Checking the Rotating Structure Under Pneumatic Loading
+        </h2>
+
+
+        <p>
+
+          SolidWorks Simulation was used to evaluate
+          the main shaft under the loading produced by
+          both the bearing-handling cylinder and the
+          larger press-fit cylinder.
+
+          Stress, displacement, and factor of safety
+          were reviewed to determine whether the
+          supporting structure could withstand the
+          expected pneumatic loads.
+
+        </p>
+
+
+        <div class="result-highlight">
+
+          <h3>
+            Gripper-Cylinder Load Case
+          </h3>
+
+          <p>
+
+            The report documented a maximum displacement
+            of approximately 1.269 mm and a minimum
+            factor of safety of approximately 1.549 for
+            the shaft under the gripper-cylinder load case.
+
+          </p>
+
+          <div class="result-values">
+
+            <span class="result-value">
+              Displacement ≈ 1.269 mm
+            </span>
+
+            <span class="result-value">
+              Minimum FOS ≈ 1.549
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="figure-grid-three">
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-gripper-stress.png"
+              alt="Von Mises stress result for the main shaft under gripper-cylinder loading"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Main-shaft Von Mises stress under
+              gripper-cylinder loading.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-gripper-displacement.png"
+              alt="Displacement result for the main shaft under gripper-cylinder loading"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Main-shaft displacement under
+              gripper-cylinder loading.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-gripper-fos.png"
+              alt="Factor of safety result for the main shaft under gripper-cylinder loading"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Main-shaft factor of safety under
+              gripper-cylinder loading.
+            </figcaption>
+
+          </figure>
+
+
+        </div>
+
+
+        <div class="result-highlight">
+
+          <h3>
+            Press-Cylinder Load Case
+          </h3>
+
+          <p>
+
+            The press-cylinder loading represented the
+            larger operating force. The report documented
+            a maximum shaft displacement of approximately
+            2.964 mm and a minimum factor of safety of
+            approximately 5.979 for this simulation case.
+
+          </p>
+
+          <div class="result-values">
+
+            <span class="result-value">
+              Displacement ≈ 2.964 mm
+            </span>
+
+            <span class="result-value">
+              Minimum FOS ≈ 5.979
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="figure-grid-three">
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-press-stress.png"
+              alt="Von Mises stress result for the main shaft under press-cylinder loading"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Main-shaft Von Mises stress under
+              press-cylinder loading.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-press-displacement.png"
+              alt="Displacement result for the main shaft under press-cylinder loading"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Main-shaft displacement under
+              press-cylinder loading.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-press-fos.png"
+              alt="Factor of safety result for the main shaft under press-cylinder loading"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Main-shaft factor of safety under
+              press-cylinder loading.
+            </figcaption>
+
+          </figure>
+
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         10 — STAMPER FEA
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          10 — Bearing Stamper Analysis
+        </div>
+
+
+        <h2>
+          Verifying the Custom Press Tool Under the Required Bearing Load
+        </h2>
+
+
+        <p>
+
+          The custom stamper was analyzed independently
+          because it directly transfers the press-cylinder
+          load into the bearing.
+
+          The study applied opposing forces representative
+          of the pneumatic press load and bearing reaction
+          force to evaluate stress, deformation, and
+          structural safety.
+
+        </p>
+
+
+        <div class="result-highlight">
+
+          <h3>
+            Stamper Structural Performance
+          </h3>
+
+          <p>
+
+            The report documented approximately
+            0.003 mm maximum displacement and a minimum
+            factor of safety of approximately 3.6,
+            supporting the selected steel geometry for
+            the press-fit operation.
+
+          </p>
+
+          <div class="result-values">
+
+            <span class="result-value">
+              Displacement ≈ 0.003 mm
+            </span>
+
+            <span class="result-value">
+              Minimum FOS ≈ 3.6
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="figure-grid-three">
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-stamper-stress.png"
+              alt="Von Mises stress result for the custom bearing stamper"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Von Mises stress distribution in the
+              custom bearing stamper.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-stamper-displacement.png"
+              alt="Displacement result for the custom bearing stamper"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Predicted deformation of the bearing stamper.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-stamper-fos.png"
+              alt="Factor of safety result for the custom bearing stamper"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Factor of safety of the custom press tool.
+            </figcaption>
+
+          </figure>
+
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         11 — SAFETY
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          11 — Machine Safety
+        </div>
+
+
+        <h2>
+          Designing Operator Protection Into the Automation System
+        </h2>
+
+
+        <p>
+
+          The project incorporated safety features intended
+          to reduce exposure to pinch points, uncontrolled
+          pneumatic movement, hazardous energy, and
+          accidental machine activation.
+
+          Guarding and control-system safety were treated
+          as part of the machine design rather than as
+          separate additions.
+
+        </p>
+
+
+        <div class="metric-grid">
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              2
+            </div>
+
+            <div class="metric-title">
+              Hand Controls
+            </div>
+
+            <div class="metric-description">
+              Both hands remain away from the machine
+              during cycle operation.
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              E-Stop
+            </div>
+
+            <div class="metric-title">
+              Emergency Shutdown
+            </div>
+
+            <div class="metric-description">
+              Stops motion and depressurizes pneumatic
+              components.
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              Interlock
+            </div>
+
+            <div class="metric-title">
+              Guarding
+            </div>
+
+            <div class="metric-description">
+              Operation is prevented when the enclosure
+              is not secured.
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              LOTO
+            </div>
+
+            <div class="metric-title">
+              Maintenance Safety
+            </div>
+
+            <div class="metric-description">
+              Hazardous energy can be isolated during
+              maintenance operations.
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="two-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Protective Features
+            </h3>
+
+            <div class="requirements">
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Transparent machine enclosure.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Pinch-point warning labels.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Two-hand push-button control.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Foot-pedal cycle initiation.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Emergency-stop button.</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Fail-Safe Considerations
+            </h3>
+
+            <div class="requirements">
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Safe pneumatic behavior during power loss.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Safe behavior during air-pressure loss.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Keyed maintenance lockout system.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Pneumatic exhaust mufflers.</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Housing-presence verification before operation.</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="full-figure">
+
+          <figure class="project-figure">
+
+            <img
+              src="images/bearing-enclosure-drawing.png"
+              alt="Engineering drawing of the safety enclosure for the bearing installation machine"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Safety-enclosure drawing developed to isolate
+              the operator from moving pneumatic components
+              and pinch points.
+            </figcaption>
+
+          </figure>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         12 — ENGINEERING DRAWINGS
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          12 — Engineering Documentation
+        </div>
+
+
+        <h2>
+          Detailing the Custom Components and Final Machine Assembly
+        </h2>
+
+
+        <p>
+
+          Engineering drawings were developed for the
+          custom machine components to define geometry,
+          dimensions, assembly relationships, and
+          manufacturing intent.
+
+          These drawings complement the system-level CAD
+          model and provide documentation for the enclosure,
+          controls, tooling, movement mechanism, structural
+          shaft, and final assembly.
+
+        </p>
+
+
+        <div class="figure-grid-two">
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-control-panel-drawing.png"
+              alt="Engineering drawing of the bearing installation machine control panel"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Control-panel drawing showing operator
+              push buttons and emergency-stop layout.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-stamper-drawing.png"
+              alt="Engineering drawing of the bearing stamper"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Detailed drawing of the custom outer-race
+              bearing stamper.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-finger-drawing.png"
+              alt="Engineering drawing of the custom bearing gripper finger"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Custom gripper-finger drawing.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-move-cylinder-bracket-drawing.png"
+              alt="Engineering drawing of the movement cylinder mounting bracket"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Bracket used to connect and support the
+              pneumatic movement cylinder.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-main-shaft-drawing.png"
+              alt="Engineering drawing of the rotating main shaft"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Detailed main-shaft drawing showing the
+              rotating structural assembly.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/bearing-assembly-drawing.png"
+              alt="Final assembly drawing of the automated bearing installation machine"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Final assembly drawing and component
+              bill of materials.
+            </figcaption>
+
+          </figure>
+
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         13 — FINAL DESIGN
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          13 — Final Design
+        </div>
+
+
+        <h2>
+          Integrating Mechanical Design, Pneumatics, and PLC Control
+        </h2>
+
+
+        <p>
+
+          The completed design combines three pneumatic
+          motion systems with custom bearing-handling
+          tooling and a PLC-controlled sequence.
+
+          The rotating architecture reduces the number
+          of linear transfer axes required while allowing
+          the gripper and press cylinders to share the
+          same central structural assembly.
+
+          According to the project report, the developed
+          concept satisfied the target press force and
+          sub-30-second cycle requirement while integrating
+          sensor feedback and machine-safety features.
+
+        </p>
+
+
+        <div class="full-figure">
+
+          <figure class="project-figure">
+
+            <img
+              src="images/bearing-installation-assembly.png"
+              alt="Final CAD model of the automated bearing installation system"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Final CAD assembly of the automated pneumatic
+              bearing installation machine.
+            </figcaption>
+
+          </figure>
+
+        </div>
+
+
+        <div class="result-highlight">
+
+          <h3>
+            Engineering Outcome
+          </h3>
+
+          <p>
+
+            The project demonstrates the complete design
+            workflow for an automated manufacturing system:
+            defining process requirements, developing a
+            mechanical concept, sizing pneumatic components,
+            designing custom tooling, validating structural
+            components with FEA, developing PLC logic, and
+            incorporating operator-safety considerations.
+
+          </p>
+
+
+          <div class="result-values">
+
+            <span class="result-value">
+              Pneumatic Automation
+            </span>
+
+            <span class="result-value">
+              PLC Control
+            </span>
+
+            <span class="result-value">
+              100 lbf Press Force
+            </span>
+
+            <span class="result-value">
+              &lt; 30 s Cycle Target
+            </span>
+
+            <span class="result-value">
+              Custom Tooling
+            </span>
+
+            <span class="result-value">
+              SolidWorks FEA
+            </span>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         BOTTOM NAVIGATION
+    ===================================================== -->
+
+    <div class="container bottom-navigation">
+
+
+      <a
+        href="index.html#projects"
+        class="nav-button"
+      >
+        ← All Projects
+      </a>
+
+
+      <a
+        href="index.html"
+        class="nav-button"
+      >
+        Back to Portfolio ↑
+      </a>
+
+
+    </div>
+
+
+  </main>
+
+
+
+  <!-- ======================================================
+       FOOTER
+  ======================================================= -->
+
+  <footer>
+
+    <div class="container">
+
+      ©
+      <span id="year"></span>
+      Rhythm Patel
+      · Mechanical Engineering Portfolio
+
+    </div>
+
+  </footer>
+
+
+
+  <script>
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+  </script>
+
+
+</body>
+
+</html>
