@@ -1404,43 +1404,6 @@
     }
 
 
-    /* =========================================================
-       MANUFACTURING
-    ========================================================= */
-
-    .manufacturing-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-      gap: 15px;
-
-      margin-top: 26px;
-    }
-
-    .manufacturing-card {
-      padding: 23px;
-
-      border: 1px solid var(--border);
-
-      border-radius: 14px;
-
-      background: var(--card);
-    }
-
-    .manufacturing-card h3 {
-      margin: 0 0 8px;
-    }
-
-    .manufacturing-card p {
-      margin: 0;
-
-      color: var(--muted);
-
-      font-size: 0.9rem;
-    }
-
 
     /* =========================================================
        IMAGE PLACEHOLDERS
@@ -1741,7 +1704,6 @@
       .component-grid,
       .analysis-grid,
       .process-grid,
-      .manufacturing-grid,
       .recommendations-grid,
       .workflow {
         grid-template-columns: 1fr;
@@ -3923,7 +3885,7 @@
 
 
     <!-- ====================================================
-         09 — MANUFACTURING
+         09 — COST
     ===================================================== -->
 
     <section class="project-section">
@@ -3931,131 +3893,7 @@
       <div class="container">
 
         <div class="section-number">
-          09 — Manufacturing & Assembly
-        </div>
-
-        <h2>
-          Building the Prototype
-        </h2>
-
-        <p>
-
-          After the detailed design was finalized, the
-          team spent approximately one month fabricating
-          and integrating the physical prototype.
-
-          The manufacturing process combined
-          conventional fabrication, off-the-shelf
-          hardware, additive manufacturing, mechanical
-          assembly, wiring, and controller integration.
-
-        </p>
-
-
-        <div class="manufacturing-grid">
-
-
-          <div class="manufacturing-card">
-
-            <h3>
-              Wooden Base
-            </h3>
-
-            <p>
-
-              Base sections were cut and drilled before
-              M5 threaded inserts were installed to
-              create reusable mounting and alignment
-              locations.
-
-            </p>
-
-          </div>
-
-
-          <div class="manufacturing-card">
-
-            <h3>
-              3D-Printed Housings
-            </h3>
-
-            <p>
-
-              Bearing housings and custom brackets were
-              modeled in SolidWorks, converted to STL,
-              printed, assembled with bearings and
-              fasteners, and checked for smooth rail
-              movement.
-
-            </p>
-
-          </div>
-
-
-          <div class="manufacturing-card">
-
-            <h3>
-              Mechanical Frame
-            </h3>
-
-            <p>
-
-              Aluminum rails, lead screws, bearing
-              housings, brackets, motors, and couplers
-              were aligned and assembled into the
-              three-axis structure.
-
-            </p>
-
-          </div>
-
-
-          <div class="manufacturing-card">
-
-            <h3>
-              Electrical Integration
-            </h3>
-
-            <p>
-
-              Motor drivers, stepper motors, limit
-              switches, power connections, the RAMPS
-              shield, controller, and rotary tool were
-              integrated into the final machine.
-
-            </p>
-
-          </div>
-
-
-        </div>
-
-
-        <div class="image-placeholder">
-
-          <div>
-            <strong>Suggested images:</strong>
-            Assembly process, printed bearing housings,
-            frame construction, and wiring
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ====================================================
-         10 — COST
-    ===================================================== -->
-
-    <section class="project-section">
-
-      <div class="container">
-
-        <div class="section-number">
-          10 — Cost Analysis
+          09 — Cost Analysis
         </div>
 
         <h2>
@@ -4108,7 +3946,7 @@
 
 
     <!-- ====================================================
-         11 — TESTING
+         10 — TESTING
     ===================================================== -->
 
     <section class="project-section">
@@ -4116,7 +3954,7 @@
       <div class="container">
 
         <div class="section-number">
-          11 — Testing & System Integration
+          10 — Testing & System Integration
         </div>
 
         <h2>
@@ -4125,10 +3963,11 @@
 
         <p>
 
-          The completed prototype was used to validate
-          integration of the mechanical motion system,
-          controller electronics, motors, limit
-          switches, firmware, and G-code workflow.
+          Following approximately one month of
+          fabrication and integration, the completed
+          prototype was used to validate the mechanical
+          motion system, controller electronics, motors,
+          limit switches, firmware, and G-code workflow.
 
           Motor movement was successfully commanded
           using G-code through GRBL, confirming that
@@ -4181,6 +4020,29 @@
         </div>
 
 
+        <div class="tags">
+
+          <span class="tag">Mechanical Design</span>
+          <span class="tag">SolidWorks</span>
+          <span class="tag">FEA</span>
+          <span class="tag">Mechatronics</span>
+          <span class="tag">CNC</span>
+          <span class="tag">3D Printing</span>
+          <span class="tag">PAHT-CF</span>
+          <span class="tag">PETG</span>
+          <span class="tag">Arduino Mega</span>
+          <span class="tag">RAMPS 1.4</span>
+          <span class="tag">A4988</span>
+          <span class="tag">NEMA 17</span>
+          <span class="tag">Proxxon 60/E</span>
+          <span class="tag">GRBL</span>
+          <span class="tag">Fusion 360</span>
+          <span class="tag">G-code</span>
+          <span class="tag">Manufacturing</span>
+
+        </div>
+
+
         <div class="image-placeholder">
 
           <div>
@@ -4197,7 +4059,7 @@
 
 
     <!-- ====================================================
-         12 — LIMITATIONS / FUTURE WORK
+         11 — LIMITATIONS / FUTURE WORK
     ===================================================== -->
 
     <section class="project-section">
@@ -4205,7 +4067,7 @@
       <div class="container">
 
         <div class="section-number">
-          12 — Future Development
+          11 — Future Development
         </div>
 
         <h2>
@@ -4333,78 +4195,6 @@
 
           </div>
 
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ====================================================
-         13 — FINAL RESULT
-    ===================================================== -->
-
-    <section class="project-section">
-
-      <div class="container">
-
-        <div class="section-number">
-          13 — Final Result
-        </div>
-
-        <h2>
-          A Functional, Expandable CNC Prototype
-        </h2>
-
-        <p>
-
-          The project resulted in a physical,
-          Arduino-controlled CNC prototype that
-          demonstrated the feasibility of producing
-          a cost-effective and expandable foam
-          machining platform for student engineering
-          teams.
-
-          The final system brought together mechanical
-          design, CAD, FEA, material testing,
-          manufacturing, electronics, motor control,
-          thermal analysis, CAM, G-code, and physical
-          validation within the project's cost and
-          dimensional constraints.
-
-        </p>
-
-
-        <div class="tags">
-
-          <span class="tag">Mechanical Design</span>
-          <span class="tag">SolidWorks</span>
-          <span class="tag">FEA</span>
-          <span class="tag">Mechatronics</span>
-          <span class="tag">CNC</span>
-          <span class="tag">3D Printing</span>
-          <span class="tag">PAHT-CF</span>
-          <span class="tag">PETG</span>
-          <span class="tag">Arduino Mega</span>
-          <span class="tag">RAMPS 1.4</span>
-          <span class="tag">A4988</span>
-          <span class="tag">NEMA 17</span>
-          <span class="tag">Proxxon 60/E</span>
-          <span class="tag">GRBL</span>
-          <span class="tag">Fusion 360</span>
-          <span class="tag">G-code</span>
-          <span class="tag">Manufacturing</span>
-
-        </div>
-
-
-        <div class="image-placeholder">
-
-          <div>
-            <strong>Suggested final image:</strong>
-            Best photograph of the completed CNC machine
-          </div>
 
         </div>
 
