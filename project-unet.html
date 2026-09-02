@@ -1,1 +1,3682 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Surface Defect Detection Using U-Net | Rhythm Patel</title>
+
+  <meta
+    name="description"
+    content="Machine learning and computer vision project using a U-Net convolutional neural network for semantic segmentation of magnetic tile surface defects."
+  />
+
+  <style>
+
+    /* =========================================================
+       GLOBAL
+    ========================================================= */
+
+    :root {
+      --background: #071019;
+      --card: #101c29;
+      --card-hover: #142335;
+
+      --text: #f2f6fa;
+      --muted: #9eafbf;
+
+      --accent: #5eb5ff;
+      --accent-light: #8bcbff;
+      --accent-soft: rgba(94, 181, 255, 0.11);
+
+      --border: #213247;
+
+      --max-width: 1080px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 90% 0%,
+          rgba(94, 181, 255, 0.08),
+          transparent 28%
+        ),
+        var(--background);
+
+      color: var(--text);
+
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(
+        calc(100% - 40px),
+        var(--max-width)
+      );
+
+      margin: 0 auto;
+    }
+
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    header {
+      position: sticky;
+      top: 0;
+
+      z-index: 100;
+
+      background: rgba(7, 16, 25, 0.94);
+
+      backdrop-filter: blur(12px);
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      min-height: 70px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+    }
+
+    .name {
+      font-size: 1rem;
+      font-weight: 750;
+    }
+
+    .back-link {
+      color: var(--muted);
+
+      font-size: 0.9rem;
+
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .project-hero {
+      padding: 80px 0 48px;
+    }
+
+    .project-label {
+      margin-bottom: 12px;
+
+      color: var(--accent);
+
+      font-size: 0.78rem;
+
+      font-weight: 750;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.13em;
+    }
+
+    .project-hero h1 {
+      max-width: 900px;
+
+      margin: 0 0 24px;
+
+      font-size:
+        clamp(
+          2.7rem,
+          7vw,
+          5rem
+        );
+
+      line-height: 1;
+
+      letter-spacing: -0.04em;
+    }
+
+    .project-summary {
+      max-width: 850px;
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 1.12rem;
+    }
+
+
+    /* =========================================================
+       HERO IMAGE
+    ========================================================= */
+
+    .hero-image {
+      width: 100%;
+
+      max-height: 650px;
+
+      object-fit: cover;
+
+      border: 1px solid var(--border);
+
+      border-radius: 18px;
+    }
+
+
+    /* =========================================================
+       PROJECT INFORMATION
+    ========================================================= */
+
+    .project-info-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-top: 24px;
+    }
+
+    .info-card {
+      padding: 18px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 12px;
+
+      background: var(--card);
+    }
+
+    .info-label {
+      color: var(--muted);
+
+      font-size: 0.72rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.08em;
+    }
+
+    .info-value {
+      margin-top: 5px;
+
+      color: var(--text);
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       SECTIONS
+    ========================================================= */
+
+    .project-section {
+      padding-top: 90px;
+    }
+
+    .section-number {
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.76rem;
+
+      font-weight: 750;
+
+      letter-spacing: 0.13em;
+
+      text-transform: uppercase;
+    }
+
+    .project-section h2 {
+      margin: 0 0 18px;
+
+      font-size:
+        clamp(
+          1.8rem,
+          4vw,
+          2.5rem
+        );
+
+      line-height: 1.2;
+    }
+
+    .project-section > .container > p {
+      max-width: 850px;
+
+      color: var(--muted);
+    }
+
+
+    /* =========================================================
+       GENERIC CARDS
+    ========================================================= */
+
+    .two-column-grid {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 18px;
+
+      margin-top: 26px;
+    }
+
+    .three-column-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+
+      margin-top: 26px;
+    }
+
+    .content-card {
+      padding: 25px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: var(--card);
+    }
+
+    .content-card h3 {
+      margin: 0 0 10px;
+
+      font-size: 1.08rem;
+    }
+
+    .content-card p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.94rem;
+    }
+
+
+    /* =========================================================
+       DATASET CARDS
+    ========================================================= */
+
+    .dataset-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+
+      margin-top: 28px;
+    }
+
+    .dataset-card {
+      padding: 22px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(94, 181, 255, 0.05),
+          transparent 55%
+        ),
+        var(--card);
+    }
+
+    .dataset-value {
+      color: var(--accent);
+
+      font-size: 1.55rem;
+
+      font-weight: 800;
+
+      line-height: 1.2;
+    }
+
+    .dataset-title {
+      margin-top: 7px;
+
+      color: var(--text);
+
+      font-weight: 700;
+    }
+
+    .dataset-description {
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 0.85rem;
+    }
+
+
+    /* =========================================================
+       WORKFLOW
+    ========================================================= */
+
+    .workflow {
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+      gap: 10px;
+
+      margin-top: 28px;
+    }
+
+    .workflow-step {
+      position: relative;
+
+      padding: 19px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 12px;
+
+      background: var(--card);
+    }
+
+    .workflow-step-number {
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+    }
+
+    .workflow-step h3 {
+      margin: 7px 0 5px;
+
+      font-size: 0.92rem;
+    }
+
+    .workflow-step p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.79rem;
+    }
+
+
+    /* =========================================================
+       ARCHITECTURE SHOWCASE
+    ========================================================= */
+
+    .architecture-showcase {
+      display: grid;
+
+      gap: 22px;
+
+      margin-top: 32px;
+    }
+
+    .architecture-row {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      min-height: 320px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background: var(--card);
+    }
+
+    .architecture-copy {
+      padding: 34px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .architecture-label {
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+
+      letter-spacing: 0.1em;
+
+      text-transform: uppercase;
+    }
+
+    .architecture-copy h3 {
+      margin: 0 0 12px;
+
+      color: var(--text);
+
+      font-size: 1.3rem;
+    }
+
+    .architecture-copy p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.94rem;
+
+      line-height: 1.75;
+    }
+
+    .architecture-image-wrap {
+      position: relative;
+
+      min-height: 320px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 18px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.07),
+          transparent
+        ),
+        #0b1520;
+    }
+
+    .architecture-image {
+      width: 100%;
+      height: 100%;
+
+      max-height: 390px;
+
+      object-fit: contain;
+
+      border-radius: 10px;
+
+      background: #ffffff;
+    }
+
+    .architecture-fallback {
+      display: none;
+
+      color: var(--muted);
+
+      font-size: 0.85rem;
+
+      text-align: center;
+    }
+
+    .architecture-image-wrap.missing
+    .architecture-fallback {
+      display: block;
+    }
+
+    .architecture-row.image-left
+    .architecture-image-wrap {
+      order: 1;
+    }
+
+    .architecture-row.image-left
+    .architecture-copy {
+      order: 2;
+    }
+
+
+    /* =========================================================
+       MODEL STAGE GRID
+    ========================================================= */
+
+    .model-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+
+      margin-top: 26px;
+    }
+
+    .model-card {
+      padding: 21px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 13px;
+
+      background: var(--card);
+    }
+
+    .model-category {
+      margin-bottom: 5px;
+
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+
+      letter-spacing: 0.08em;
+
+      text-transform: uppercase;
+    }
+
+    .model-card h3 {
+      margin: 0 0 7px;
+
+      font-size: 1rem;
+    }
+
+    .model-card p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.89rem;
+    }
+
+
+    /* =========================================================
+       TRAINING IMAGE
+    ========================================================= */
+
+    .project-figure {
+      margin-top: 30px;
+    }
+
+    .section-image {
+      width: 100%;
+      height: auto;
+
+      display: block;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background: #ffffff;
+    }
+
+    .figure-caption {
+      max-width: 900px;
+
+      margin: 12px auto 0;
+
+      color: var(--muted);
+
+      font-size: 0.84rem;
+
+      line-height: 1.6;
+
+      text-align: center;
+    }
+
+
+    /* =========================================================
+       RESULTS METRICS
+    ========================================================= */
+
+    .analysis-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+      gap: 15px;
+
+      margin-top: 28px;
+    }
+
+    .analysis-card {
+      padding: 22px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(94, 181, 255, 0.05),
+          transparent 55%
+        ),
+        var(--card);
+    }
+
+    .analysis-value {
+      color: var(--accent);
+
+      font-size: 1.55rem;
+
+      font-weight: 800;
+
+      line-height: 1.2;
+    }
+
+    .analysis-title {
+      margin-top: 7px;
+
+      color: var(--text);
+
+      font-weight: 700;
+    }
+
+    .analysis-description {
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 0.85rem;
+    }
+
+
+    /* =========================================================
+       DEFECT TABLE
+    ========================================================= */
+
+    .results-table-wrap {
+      margin-top: 28px;
+
+      overflow-x: auto;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: var(--card);
+    }
+
+    .results-table {
+      width: 100%;
+
+      border-collapse: collapse;
+
+      min-width: 700px;
+    }
+
+    .results-table th,
+    .results-table td {
+      padding: 15px 18px;
+
+      text-align: left;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .results-table th {
+      color: var(--accent);
+
+      font-size: 0.78rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.08em;
+    }
+
+    .results-table td {
+      color: var(--muted);
+
+      font-size: 0.92rem;
+    }
+
+    .results-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .results-table tbody tr:hover {
+      background: rgba(94, 181, 255, 0.04);
+    }
+
+
+    /* =========================================================
+       SEGMENTATION PUSH CAROUSEL
+    ========================================================= */
+
+    .segmentation-carousel {
+      position: relative;
+
+      width: 100%;
+      height: 610px;
+
+      margin-top: 30px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background: #ffffff;
+    }
+
+    .segmentation-slide {
+      position: absolute;
+
+      inset: 0;
+
+      z-index: 1;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transform: translateX(100%);
+
+      visibility: hidden;
+
+      pointer-events: none;
+
+      will-change: transform;
+
+      backface-visibility: hidden;
+
+      transition:
+        transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .segmentation-slide.active {
+      z-index: 2;
+
+      transform: translateX(0);
+
+      visibility: visible;
+
+      pointer-events: auto;
+    }
+
+    .segmentation-slide.slide-in-right {
+      transform: translateX(100%);
+
+      visibility: visible;
+
+      transition: none;
+    }
+
+    .segmentation-slide.slide-in-left {
+      transform: translateX(-100%);
+
+      visibility: visible;
+
+      transition: none;
+    }
+
+    .segmentation-slide.slide-out-left {
+      z-index: 1;
+
+      transform: translateX(-100%);
+
+      visibility: visible;
+    }
+
+    .segmentation-slide.slide-out-right {
+      z-index: 1;
+
+      transform: translateX(100%);
+
+      visibility: visible;
+    }
+
+    .segmentation-image {
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+
+      background: #ffffff;
+    }
+
+    .segmentation-fallback {
+      display: none;
+
+      padding: 30px;
+
+      color: #46596c;
+
+      text-align: center;
+    }
+
+    .segmentation-slide.missing
+    .segmentation-fallback {
+      display: block;
+    }
+
+
+    /* =========================================================
+       CAROUSEL CAPTION
+    ========================================================= */
+
+    .segmentation-caption {
+      position: absolute;
+
+      left: 50%;
+      bottom: 48px;
+
+      z-index: 4;
+
+      transform: translateX(-50%);
+
+      padding: 6px 12px;
+
+      border-radius: 7px;
+
+      background: rgba(7, 16, 25, 0.88);
+
+      color: #ffffff;
+
+      font-size: 0.76rem;
+
+      white-space: nowrap;
+    }
+
+
+    /* =========================================================
+       CAROUSEL BUTTONS
+    ========================================================= */
+
+    .segmentation-button {
+      position: absolute;
+
+      top: 50%;
+
+      z-index: 5;
+
+      width: 42px;
+      height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transform: translateY(-50%);
+
+      border: 1px solid rgba(255, 255, 255, 0.18);
+
+      border-radius: 50%;
+
+      background: rgba(7, 16, 25, 0.82);
+
+      color: #ffffff;
+
+      font-size: 1.4rem;
+
+      cursor: pointer;
+
+      transition:
+        background 0.2s,
+        border-color 0.2s,
+        color 0.2s;
+    }
+
+    .segmentation-button:hover {
+      background: rgba(7, 16, 25, 0.96);
+
+      border-color: var(--accent);
+
+      color: var(--accent);
+    }
+
+    .segmentation-prev {
+      left: 14px;
+    }
+
+    .segmentation-next {
+      right: 14px;
+    }
+
+
+    /* =========================================================
+       CAROUSEL DOTS
+    ========================================================= */
+
+    .segmentation-dots {
+      position: absolute;
+
+      left: 50%;
+      bottom: 15px;
+
+      z-index: 5;
+
+      display: flex;
+
+      gap: 8px;
+
+      transform: translateX(-50%);
+    }
+
+    .segmentation-dot {
+      width: 9px;
+      height: 9px;
+
+      padding: 0;
+
+      border: 1px solid rgba(255, 255, 255, 0.75);
+
+      border-radius: 50%;
+
+      background: rgba(7, 16, 25, 0.65);
+
+      cursor: pointer;
+    }
+
+    .segmentation-dot.active {
+      transform: scale(1.25);
+
+      border-color: var(--accent);
+
+      background: var(--accent);
+    }
+
+
+    /* =========================================================
+       FINDINGS
+    ========================================================= */
+
+    .finding-showcase {
+      display: grid;
+
+      gap: 22px;
+
+      margin-top: 32px;
+    }
+
+    .finding-row {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      min-height: 300px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background: var(--card);
+    }
+
+    .finding-copy {
+      padding: 34px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .finding-label {
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+
+      letter-spacing: 0.1em;
+
+      text-transform: uppercase;
+    }
+
+    .finding-copy h3 {
+      margin: 0 0 12px;
+
+      color: var(--text);
+
+      font-size: 1.3rem;
+    }
+
+    .finding-copy p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.94rem;
+
+      line-height: 1.75;
+    }
+
+    .finding-stat {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 30px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.08),
+          transparent
+        ),
+        #0b1520;
+    }
+
+    .finding-stat-inner {
+      text-align: center;
+    }
+
+    .finding-stat-value {
+      color: var(--accent);
+
+      font-size: clamp(2.6rem, 7vw, 5rem);
+
+      font-weight: 800;
+
+      line-height: 1;
+    }
+
+    .finding-stat-label {
+      margin-top: 12px;
+
+      color: var(--muted);
+
+      font-size: 0.9rem;
+    }
+
+    .finding-row.stat-left
+    .finding-stat {
+      order: 1;
+    }
+
+    .finding-row.stat-left
+    .finding-copy {
+      order: 2;
+    }
+
+
+    /* =========================================================
+       FUTURE DEVELOPMENT
+    ========================================================= */
+
+    .recommendations-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 15px;
+
+      margin-top: 26px;
+    }
+
+
+    /* =========================================================
+       TAGS
+    ========================================================= */
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin-top: 25px;
+    }
+
+    .tag {
+      padding: 6px 10px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: #ccd8e2;
+
+      font-size: 0.8rem;
+    }
+
+
+    /* =========================================================
+       BOTTOM NAVIGATION
+    ========================================================= */
+
+    .bottom-navigation {
+      margin-top: 100px;
+
+      padding: 35px 0;
+
+      border-top: 1px solid var(--border);
+
+      display: flex;
+
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 20px;
+    }
+
+    .nav-button {
+      min-height: 44px;
+
+      padding: 0 16px;
+
+      display: inline-flex;
+      align-items: center;
+
+      border: 1px solid var(--border);
+
+      border-radius: 9px;
+
+      color: var(--muted);
+
+      font-weight: 650;
+
+      transition: 0.2s;
+    }
+
+    .nav-button:hover {
+      color: var(--text);
+
+      border-color: var(--accent);
+
+      background: var(--accent-soft);
+    }
+
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    footer {
+      padding: 25px 0 45px;
+
+      color: var(--muted);
+
+      font-size: 0.86rem;
+    }
+
+
+    /* =========================================================
+       TABLET
+    ========================================================= */
+
+    @media (max-width: 900px) {
+
+      .project-info-grid {
+        grid-template-columns:
+          repeat(3, minmax(0, 1fr));
+      }
+
+      .dataset-grid,
+      .model-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .analysis-grid {
+        grid-template-columns:
+          repeat(3, minmax(0, 1fr));
+      }
+
+      .workflow {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+
+    /* =========================================================
+       MOBILE LAYOUT
+    ========================================================= */
+
+    @media (max-width: 700px) {
+
+      .architecture-row,
+      .finding-row {
+        grid-template-columns: 1fr;
+      }
+
+      .architecture-copy,
+      .finding-copy {
+        order: 1 !important;
+
+        padding: 25px;
+      }
+
+      .architecture-image-wrap,
+      .finding-stat {
+        order: 2 !important;
+
+        min-height: 240px;
+      }
+
+      .segmentation-carousel {
+        height: 430px;
+      }
+
+    }
+
+
+    @media (max-width: 650px) {
+
+      .container {
+        width: min(
+          calc(100% - 30px),
+          var(--max-width)
+        );
+      }
+
+      .project-hero {
+        padding-top: 55px;
+      }
+
+      .project-info-grid,
+      .two-column-grid,
+      .three-column-grid,
+      .dataset-grid,
+      .model-grid,
+      .analysis-grid,
+      .recommendations-grid,
+      .workflow {
+        grid-template-columns: 1fr;
+      }
+
+      .bottom-navigation {
+        flex-direction: column;
+
+        align-items: stretch;
+      }
+
+      .nav-button {
+        justify-content: center;
+      }
+
+      .segmentation-caption {
+        font-size: 0.68rem;
+
+        white-space: normal;
+
+        text-align: center;
+
+        width: calc(100% - 100px);
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- ======================================================
+       HEADER
+  ======================================================= -->
+
+  <header>
+
+    <div class="container header-inner">
+
+      <a
+        href="index.html"
+        class="name"
+      >
+        Rhythm Patel
+      </a>
+
+
+      <a
+        href="index.html#projects"
+        class="back-link"
+      >
+        ← Back to Portfolio
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+
+    <!-- ====================================================
+         HERO
+    ===================================================== -->
+
+    <section class="project-hero">
+
+      <div class="container">
+
+        <div class="project-label">
+          Neural Networks · Computer Vision · EE8204
+        </div>
+
+        <h1>
+          Surface Defect Detection Using U-Net
+        </h1>
+
+        <p class="project-summary">
+
+          Developed and trained a U-Net convolutional
+          neural network to perform pixel-level semantic
+          segmentation of manufacturing defects on
+          magnetic tile surfaces.
+
+          The project combined image preprocessing,
+          dataset management, convolutional neural
+          networks, model training, performance
+          evaluation, and qualitative analysis to
+          investigate automated visual inspection
+          for industrial manufacturing.
+
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         HERO IMAGE & QUICK INFO
+    ===================================================== -->
+
+    <section>
+
+      <div class="container">
+
+        <img
+          src="images/unet-defect-detection.jpg"
+          alt="U-Net magnetic tile surface defect segmentation project"
+          class="hero-image"
+          onerror="
+            this.style.display='none';
+          "
+        />
+
+
+        <div class="project-info-grid">
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Model
+            </div>
+
+            <div class="info-value">
+              U-Net
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Framework
+            </div>
+
+            <div class="info-value">
+              TensorFlow
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Input
+            </div>
+
+            <div class="info-value">
+              256 × 256 Grayscale
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Dataset
+            </div>
+
+            <div class="info-value">
+              1,344 Images
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Task
+            </div>
+
+            <div class="info-value">
+              Semantic Segmentation
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         01 — THE PROBLEM
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          01 — The Problem
+        </div>
+
+        <h2>
+          Automating Surface Defect Inspection
+        </h2>
+
+        <p>
+
+          Surface inspection is an important part of
+          manufacturing because defects can affect product
+          quality, reliability, and performance.
+
+          Traditional inspection methods can require
+          significant manual effort and may become less
+          consistent when defects are small, low contrast,
+          or visually similar to the surrounding material.
+
+        </p>
+
+
+        <div class="two-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Why Segmentation?
+            </h3>
+
+            <p>
+
+              Classification can determine whether an
+              image contains a defect, but it does not
+              identify the exact position or shape of
+              that defect.
+
+              Semantic segmentation instead assigns
+              every image pixel to either the defect or
+              background class, making it more useful
+              for visual inspection and downstream
+              manufacturing decisions.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Project Objective
+            </h3>
+
+            <p>
+
+              Train a neural network capable of taking
+              a grayscale magnetic tile image as input
+              and producing a binary mask identifying
+              the location and shape of surface defects.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         02 — DATASET
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          02 — Dataset
+        </div>
+
+        <h2>
+          Magnetic Tile Surface Defects
+        </h2>
+
+        <p>
+
+          The project used the Magnetic Tile Surface
+          Defects dataset containing grayscale images
+          organized into six categories.
+
+          Five categories contained visible manufacturing
+          defects, while the free category contained
+          defect-free magnetic tile surfaces.
+
+          Each defective image was paired with a
+          ground-truth mask showing the exact defect
+          region.
+
+        </p>
+
+
+        <div class="dataset-grid">
+
+
+          <div class="dataset-card">
+
+            <div class="dataset-value">
+              1,344
+            </div>
+
+            <div class="dataset-title">
+              Total Images
+            </div>
+
+            <div class="dataset-description">
+              Complete magnetic tile image dataset.
+            </div>
+
+          </div>
+
+
+          <div class="dataset-card">
+
+            <div class="dataset-value">
+              392
+            </div>
+
+            <div class="dataset-title">
+              Defective Images
+            </div>
+
+            <div class="dataset-description">
+              Images containing one of five surface
+              defect categories.
+            </div>
+
+          </div>
+
+
+          <div class="dataset-card">
+
+            <div class="dataset-value">
+              952
+            </div>
+
+            <div class="dataset-title">
+              Defect-Free Images
+            </div>
+
+            <div class="dataset-description">
+              Background-only samples from the free
+              category.
+            </div>
+
+          </div>
+
+
+          <div class="dataset-card">
+
+            <div class="dataset-value">
+              115
+            </div>
+
+            <div class="dataset-title">
+              Blowhole
+            </div>
+
+            <div class="dataset-description">
+              Largest individual defective category.
+            </div>
+
+          </div>
+
+
+          <div class="dataset-card">
+
+            <div class="dataset-value">
+              85
+            </div>
+
+            <div class="dataset-title">
+              Break
+            </div>
+
+            <div class="dataset-description">
+              Images containing break-type defects.
+            </div>
+
+          </div>
+
+
+          <div class="dataset-card">
+
+            <div class="dataset-value">
+              57
+            </div>
+
+            <div class="dataset-title">
+              Crack
+            </div>
+
+            <div class="dataset-description">
+              Thin crack defects requiring detailed
+              spatial detection.
+            </div>
+
+          </div>
+
+
+          <div class="dataset-card">
+
+            <div class="dataset-value">
+              32
+            </div>
+
+            <div class="dataset-title">
+              Fray
+            </div>
+
+            <div class="dataset-description">
+              Smallest defective category in the
+              dataset.
+            </div>
+
+          </div>
+
+
+          <div class="dataset-card">
+
+            <div class="dataset-value">
+              103
+            </div>
+
+            <div class="dataset-title">
+              Uneven
+            </div>
+
+            <div class="dataset-description">
+              Images containing uneven surface defects.
+            </div>
+
+          </div>
+
+
+          <div class="dataset-card">
+
+            <div class="dataset-value">
+              897
+            </div>
+
+            <div class="dataset-title">
+              Reserved Free Images
+            </div>
+
+            <div class="dataset-description">
+              Used separately to measure false-positive
+              behavior.
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         03 — DATA PREPARATION
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          03 — Data Preparation
+        </div>
+
+        <h2>
+          Preparing Images for Supervised Segmentation
+        </h2>
+
+        <p>
+
+          Each defective category was split separately
+          into approximately 70% training, 15%
+          validation, and 15% testing data.
+
+          This ensured that all five defect categories
+          were represented across the model-development
+          stages.
+
+        </p>
+
+
+        <div class="workflow">
+
+
+          <div class="workflow-step">
+
+            <div class="workflow-step-number">
+              STEP 01
+            </div>
+
+            <h3>
+              Load Images
+            </h3>
+
+            <p>
+              Read magnetic tile images and their
+              corresponding ground-truth masks.
+            </p>
+
+          </div>
+
+
+          <div class="workflow-step">
+
+            <div class="workflow-step-number">
+              STEP 02
+            </div>
+
+            <h3>
+              Resize
+            </h3>
+
+            <p>
+              Resize inputs to 256 × 256 pixels.
+            </p>
+
+          </div>
+
+
+          <div class="workflow-step">
+
+            <div class="workflow-step-number">
+              STEP 03
+            </div>
+
+            <h3>
+              Normalize
+            </h3>
+
+            <p>
+              Convert grayscale intensities from
+              0–255 to 0–1.
+            </p>
+
+          </div>
+
+
+          <div class="workflow-step">
+
+            <div class="workflow-step-number">
+              STEP 04
+            </div>
+
+            <h3>
+              Binarize Masks
+            </h3>
+
+            <p>
+              Defect pixels become 1 and background
+              pixels become 0.
+            </p>
+
+          </div>
+
+
+          <div class="workflow-step">
+
+            <div class="workflow-step-number">
+              STEP 05
+            </div>
+
+            <h3>
+              Batch Training
+            </h3>
+
+            <p>
+              Shuffle image-mask pairs and process
+              them in batches of eight.
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="two-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Class Imbalance
+            </h3>
+
+            <p>
+
+              The free category contained substantially
+              more images than all five defective
+              categories combined.
+
+              Using all defect-free images during
+              training could cause the network to
+              overemphasize background pixels.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Balanced Training Strategy
+            </h3>
+
+            <p>
+
+              The defective training set contained
+              274 image-mask pairs.
+
+              Only 55 defect-free samples were added
+              to training, approximately 20% of the
+              number of defective training images.
+
+              The remaining 897 free images were
+              reserved for a separate false-positive
+              evaluation.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         04 — U-NET ARCHITECTURE
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          04 — U-Net Architecture
+        </div>
+
+        <h2>
+          Encoder-Decoder Segmentation Network
+        </h2>
+
+        <p>
+
+          The model implemented for this project was a
+          standard U-Net convolutional neural network.
+
+          U-Net combines a contracting encoder path
+          that learns image features with an expanding
+          decoder path that reconstructs spatial
+          information and produces a pixel-level
+          segmentation mask.
+
+        </p>
+
+
+        <div class="architecture-showcase">
+
+
+          <div class="architecture-row">
+
+
+            <div class="architecture-copy">
+
+              <div class="architecture-label">
+                Encoder
+              </div>
+
+              <h3>
+                Learning Defect Features
+              </h3>
+
+              <p>
+
+                The encoder contained four stages using
+                32, 64, 128, and 256 filters.
+
+                Each convolutional block used two
+                3 × 3 convolutional layers followed by
+                batch normalization and ReLU activation.
+
+                A 2 × 2 max-pooling layer reduced the
+                image dimensions after each stage,
+                allowing the network to learn
+                increasingly abstract defect features.
+
+              </p>
+
+            </div>
+
+
+            <div class="architecture-image-wrap">
+
+              <img
+                src="images/unet-architecture.png"
+                alt="U-Net architecture diagram"
+                class="architecture-image"
+                onerror="
+                  this.style.display='none';
+                  this.parentElement.classList.add('missing');
+                "
+              />
+
+              <div class="architecture-fallback">
+                Add image:<br>
+                unet-architecture.png
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+          <div class="architecture-row image-left">
+
+
+            <div class="architecture-copy">
+
+              <div class="architecture-label">
+                Decoder
+              </div>
+
+              <h3>
+                Recovering Spatial Detail
+              </h3>
+
+              <p>
+
+                The decoder used transposed convolutions
+                to increase feature-map dimensions.
+
+                Decoder stages used 256, 128, 64, and
+                32 filters.
+
+                At each level, the decoder features were
+                concatenated with the corresponding
+                encoder features using skip connections.
+
+                These connections help preserve spatial
+                details needed to locate small defects
+                and identify defect boundaries.
+
+              </p>
+
+            </div>
+
+
+            <div class="architecture-image-wrap">
+
+              <img
+                src="images/unet-skip-connections.png"
+                alt="U-Net skip connection visualization"
+                class="architecture-image"
+                onerror="
+                  this.style.display='none';
+                  this.parentElement.classList.add('missing');
+                "
+              />
+
+              <div class="architecture-fallback">
+                Add image:<br>
+                unet-skip-connections.png
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+        <div class="model-grid">
+
+
+          <div class="model-card">
+
+            <div class="model-category">
+              Encoder 1
+            </div>
+
+            <h3>
+              32 Filters
+            </h3>
+
+            <p>
+              Initial low-level image feature extraction.
+            </p>
+
+          </div>
+
+
+          <div class="model-card">
+
+            <div class="model-category">
+              Encoder 2
+            </div>
+
+            <h3>
+              64 Filters
+            </h3>
+
+            <p>
+              Increased feature complexity after
+              downsampling.
+            </p>
+
+          </div>
+
+
+          <div class="model-card">
+
+            <div class="model-category">
+              Encoder 3
+            </div>
+
+            <h3>
+              128 Filters
+            </h3>
+
+            <p>
+              Deeper representation of defect patterns.
+            </p>
+
+          </div>
+
+
+          <div class="model-card">
+
+            <div class="model-category">
+              Encoder 4
+            </div>
+
+            <h3>
+              256 Filters
+            </h3>
+
+            <p>
+              High-level spatial and texture features.
+            </p>
+
+          </div>
+
+
+          <div class="model-card">
+
+            <div class="model-category">
+              Bottleneck
+            </div>
+
+            <h3>
+              512 Filters
+            </h3>
+
+            <p>
+              Deepest network representation with
+              dropout rate of 0.3.
+            </p>
+
+          </div>
+
+
+          <div class="model-card">
+
+            <div class="model-category">
+              Output
+            </div>
+
+            <h3>
+              Sigmoid Mask
+            </h3>
+
+            <p>
+              1 × 1 convolution produces a
+              256 × 256 × 1 defect-probability map.
+            </p>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         05 — TRAINING CONFIGURATION
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          05 — Training Configuration
+        </div>
+
+        <h2>
+          Optimizing Pixel-Level Defect Detection
+        </h2>
+
+        <p>
+
+          Training combined binary cross-entropy with
+          Dice loss.
+
+          Binary cross-entropy evaluated individual
+          pixel predictions, while Dice loss encouraged
+          overlap between the predicted segmentation
+          mask and the ground-truth defect region.
+
+        </p>
+
+
+        <div class="three-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Optimizer
+            </h3>
+
+            <p>
+              Adam optimizer with an initial learning
+              rate of 0.001.
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Batch Size
+            </h3>
+
+            <p>
+              Training samples were processed in
+              batches of eight image-mask pairs.
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Training Length
+            </h3>
+
+            <p>
+              Training was limited to a maximum of
+              30 epochs.
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Loss Function
+            </h3>
+
+            <p>
+              Combined binary cross-entropy and
+              Dice loss.
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Early Stopping
+            </h3>
+
+            <p>
+              Configured to stop after seven epochs
+              without improvement in validation Dice.
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Learning Rate Reduction
+            </h3>
+
+            <p>
+              Reduced by a factor of 0.5 after three
+              epochs without validation-loss
+              improvement.
+            </p>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         06 — TRAINING PERFORMANCE
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          06 — Training Performance
+        </div>
+
+        <h2>
+          Monitoring Generalization Across 30 Epochs
+        </h2>
+
+        <p>
+
+          Training continued for all 30 scheduled epochs.
+
+          The highest validation Dice coefficient
+          occurred during epoch 29, and the corresponding
+          saved weights were restored for final testing.
+
+          Training performance continued improving near
+          the end of training while validation
+          performance decreased slightly during the
+          final epoch, indicating mild overfitting.
+
+        </p>
+
+
+        <figure class="project-figure">
+
+          <img
+            src="images/unet-training-loss.png"
+            alt="U-Net training and validation loss"
+            class="section-image"
+          />
+
+          <figcaption class="figure-caption">
+            Training and validation loss over 30 epochs.
+          </figcaption>
+
+        </figure>
+
+
+        <figure class="project-figure">
+
+          <img
+            src="images/unet-dice-iou.png"
+            alt="U-Net Dice coefficient and IoU training history"
+            class="section-image"
+          />
+
+          <figcaption class="figure-caption">
+            Training and validation Dice coefficient
+            and Intersection over Union.
+          </figcaption>
+
+        </figure>
+
+
+        <figure class="project-figure">
+
+          <img
+            src="images/unet-precision-recall.png"
+            alt="U-Net precision and recall training history"
+            class="section-image"
+          />
+
+          <figcaption class="figure-caption">
+            Defect-pixel precision and recall throughout
+            training.
+          </figcaption>
+
+        </figure>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         07 — TEST RESULTS
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          07 — Test Results
+        </div>
+
+        <h2>
+          Combined Defective Test Performance
+        </h2>
+
+        <p>
+
+          The final network was evaluated on 59
+          defective test images that were not used
+          during training or validation.
+
+          Performance was measured primarily using
+          defect-focused metrics rather than ordinary
+          pixel accuracy because background pixels
+          dominated the images.
+
+        </p>
+
+
+        <div class="analysis-grid">
+
+
+          <div class="analysis-card">
+
+            <div class="analysis-value">
+              79.64%
+            </div>
+
+            <div class="analysis-title">
+              Precision
+            </div>
+
+            <div class="analysis-description">
+              Percentage of predicted defect pixels
+              that matched ground-truth defects.
+            </div>
+
+          </div>
+
+
+          <div class="analysis-card">
+
+            <div class="analysis-value">
+              55.28%
+            </div>
+
+            <div class="analysis-title">
+              Recall
+            </div>
+
+            <div class="analysis-description">
+              Percentage of actual defect pixels
+              detected by the model.
+            </div>
+
+          </div>
+
+
+          <div class="analysis-card">
+
+            <div class="analysis-value">
+              57.28%
+            </div>
+
+            <div class="analysis-title">
+              Dice
+            </div>
+
+            <div class="analysis-description">
+              Measures overlap between predicted and
+              ground-truth defect regions.
+            </div>
+
+          </div>
+
+
+          <div class="analysis-card">
+
+            <div class="analysis-value">
+              41.80%
+            </div>
+
+            <div class="analysis-title">
+              IoU
+            </div>
+
+            <div class="analysis-description">
+              Intersection over Union between predicted
+              and ground-truth masks.
+            </div>
+
+          </div>
+
+
+          <div class="analysis-card">
+
+            <div class="analysis-value">
+              0.8453%
+            </div>
+
+            <div class="analysis-title">
+              False-Positive Rate
+            </div>
+
+            <div class="analysis-description">
+              Defect pixels incorrectly predicted
+              across 897 reserved defect-free images.
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         08 — PER-DEFECT PERFORMANCE
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          08 — Defect-Level Performance
+        </div>
+
+        <h2>
+          Performance Varied by Defect Type
+        </h2>
+
+        <p>
+
+          The test images were also evaluated
+          separately for each defect category.
+
+          This analysis showed that some surface
+          patterns were considerably easier for the
+          U-Net to segment than others.
+
+        </p>
+
+
+        <div class="results-table-wrap">
+
+          <table class="results-table">
+
+            <thead>
+
+              <tr>
+                <th>Defect</th>
+                <th>Precision</th>
+                <th>Recall</th>
+                <th>Dice</th>
+                <th>IoU</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <tr>
+                <td>Blowhole</td>
+                <td>0.3958</td>
+                <td>0.5354</td>
+                <td>0.3013</td>
+                <td>0.1958</td>
+              </tr>
+
+              <tr>
+                <td>Break</td>
+                <td>0.7046</td>
+                <td>0.6181</td>
+                <td>0.6521</td>
+                <td>0.4843</td>
+              </tr>
+
+              <tr>
+                <td>Crack</td>
+                <td>0.4921</td>
+                <td>0.3574</td>
+                <td>0.5887</td>
+                <td>0.4456</td>
+              </tr>
+
+              <tr>
+                <td>Fray</td>
+                <td>0.7063</td>
+                <td>0.7014</td>
+                <td>0.7039</td>
+                <td>0.5430</td>
+              </tr>
+
+              <tr>
+                <td>Uneven</td>
+                <td>0.8674</td>
+                <td>0.5130</td>
+                <td>0.6448</td>
+                <td>0.4758</td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         09 — SEGMENTATION EXAMPLES
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          09 — Segmentation Examples
+        </div>
+
+        <h2>
+          Original Image → Ground Truth → Prediction
+        </h2>
+
+        <p>
+
+          Visual inspection of the predicted masks
+          provides context that numerical performance
+          metrics alone cannot show.
+
+          The examples below compare the magnetic tile
+          input image, manually labelled ground-truth
+          region, and U-Net prediction.
+
+        </p>
+
+
+        <div
+          class="segmentation-carousel"
+          id="segmentation-carousel"
+        >
+
+
+          <!-- FRAY -->
+
+          <div class="segmentation-slide active">
+
+            <img
+              src="images/unet-fray-result.png"
+              alt="Fray defect original image, ground truth, and U-Net prediction"
+              class="segmentation-image"
+              onerror="
+                this.style.display='none';
+                this.parentElement.classList.add('missing');
+              "
+            />
+
+            <div class="segmentation-fallback">
+              Add image:<br>
+              unet-fray-result.png
+            </div>
+
+            <div class="segmentation-caption">
+              Fray — Original · Ground Truth · Prediction
+            </div>
+
+          </div>
+
+
+          <!-- BREAK -->
+
+          <div class="segmentation-slide">
+
+            <img
+              src="images/unet-break-result.png"
+              alt="Break defect original image, ground truth, and U-Net prediction"
+              class="segmentation-image"
+              onerror="
+                this.style.display='none';
+                this.parentElement.classList.add('missing');
+              "
+            />
+
+            <div class="segmentation-fallback">
+              Add image:<br>
+              unet-break-result.png
+            </div>
+
+            <div class="segmentation-caption">
+              Break — Original · Ground Truth · Prediction
+            </div>
+
+          </div>
+
+
+          <!-- CRACK -->
+
+          <div class="segmentation-slide">
+
+            <img
+              src="images/unet-crack-result.png"
+              alt="Crack defect original image, ground truth, and U-Net prediction"
+              class="segmentation-image"
+              onerror="
+                this.style.display='none';
+                this.parentElement.classList.add('missing');
+              "
+            />
+
+            <div class="segmentation-fallback">
+              Add image:<br>
+              unet-crack-result.png
+            </div>
+
+            <div class="segmentation-caption">
+              Crack — Original · Ground Truth · Prediction
+            </div>
+
+          </div>
+
+
+          <!-- BLOWHOLE -->
+
+          <div class="segmentation-slide">
+
+            <img
+              src="images/unet-blowhole-result.png"
+              alt="Blowhole defect original image, ground truth, and U-Net prediction"
+              class="segmentation-image"
+              onerror="
+                this.style.display='none';
+                this.parentElement.classList.add('missing');
+              "
+            />
+
+            <div class="segmentation-fallback">
+              Add image:<br>
+              unet-blowhole-result.png
+            </div>
+
+            <div class="segmentation-caption">
+              Blowhole — Original · Ground Truth · Prediction
+            </div>
+
+          </div>
+
+
+          <!-- UNEVEN -->
+
+          <div class="segmentation-slide">
+
+            <img
+              src="images/unet-uneven-result.png"
+              alt="Uneven defect original image, ground truth, and U-Net prediction"
+              class="segmentation-image"
+              onerror="
+                this.style.display='none';
+                this.parentElement.classList.add('missing');
+              "
+            />
+
+            <div class="segmentation-fallback">
+              Add image:<br>
+              unet-uneven-result.png
+            </div>
+
+            <div class="segmentation-caption">
+              Uneven — Original · Ground Truth · Prediction
+            </div>
+
+          </div>
+
+
+          <!-- PREVIOUS -->
+
+          <button
+            class="
+              segmentation-button
+              segmentation-prev
+            "
+            type="button"
+            aria-label="Previous segmentation result"
+          >
+            ‹
+          </button>
+
+
+          <!-- NEXT -->
+
+          <button
+            class="
+              segmentation-button
+              segmentation-next
+            "
+            type="button"
+            aria-label="Next segmentation result"
+          >
+            ›
+          </button>
+
+
+          <!-- DOTS -->
+
+          <div class="segmentation-dots">
+
+            <button
+              class="segmentation-dot active"
+              type="button"
+              aria-label="Show fray result"
+            ></button>
+
+            <button
+              class="segmentation-dot"
+              type="button"
+              aria-label="Show break result"
+            ></button>
+
+            <button
+              class="segmentation-dot"
+              type="button"
+              aria-label="Show crack result"
+            ></button>
+
+            <button
+              class="segmentation-dot"
+              type="button"
+              aria-label="Show blowhole result"
+            ></button>
+
+            <button
+              class="segmentation-dot"
+              type="button"
+              aria-label="Show uneven result"
+            ></button>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         10 — FINDINGS
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          10 — Analysis & Findings
+        </div>
+
+        <h2>
+          What the Model Learned — and Where It Struggled
+        </h2>
+
+        <p>
+
+          The results show that the U-Net was capable
+          of learning meaningful spatial information
+          about manufacturing defects, but its
+          segmentation quality depended strongly on
+          defect appearance and size.
+
+        </p>
+
+
+        <div class="finding-showcase">
+
+
+          <div class="finding-row">
+
+
+            <div class="finding-copy">
+
+              <div class="finding-label">
+                Precision vs Recall
+              </div>
+
+              <h3>
+                Conservative Defect Predictions
+              </h3>
+
+              <p>
+
+                Precision was substantially higher than
+                recall.
+
+                This means that when the network
+                predicted a pixel as defective, that
+                prediction was usually correct.
+
+                However, the lower recall indicates that
+                many ground-truth defect pixels were not
+                detected, causing some predicted masks
+                to capture only part of the true defect.
+
+              </p>
+
+            </div>
+
+
+            <div class="finding-stat">
+
+              <div class="finding-stat-inner">
+
+                <div class="finding-stat-value">
+                  79.64%
+                </div>
+
+                <div class="finding-stat-label">
+                  Combined Test Precision
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+          <div class="finding-row stat-left">
+
+
+            <div class="finding-copy">
+
+              <div class="finding-label">
+                Best Overlap
+              </div>
+
+              <h3>
+                Fray Produced the Highest Dice Score
+              </h3>
+
+              <p>
+
+                Fray defects achieved the strongest
+                overall overlap between predicted and
+                ground-truth masks.
+
+                The category produced a Dice coefficient
+                of 0.7039 and IoU of 0.5430.
+
+                Because the fray test set contained only
+                five images, however, the category-level
+                result is sensitive to individual
+                samples.
+
+              </p>
+
+            </div>
+
+
+            <div class="finding-stat">
+
+              <div class="finding-stat-inner">
+
+                <div class="finding-stat-value">
+                  70.39%
+                </div>
+
+                <div class="finding-stat-label">
+                  Fray Dice Coefficient
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+          <div class="finding-row">
+
+
+            <div class="finding-copy">
+
+              <div class="finding-label">
+                Small Defects
+              </div>
+
+              <h3>
+                Thin Cracks Were Difficult to Preserve
+              </h3>
+
+              <p>
+
+                Crack defects produced comparatively
+                low recall.
+
+                One contributing factor may be the
+                resizing of every image to 256 × 256
+                pixels.
+
+                Thin cracks occupy relatively little
+                image area and may lose important
+                visual information when downsampled,
+                making them more difficult for the
+                network to segment completely.
+
+              </p>
+
+            </div>
+
+
+            <div class="finding-stat">
+
+              <div class="finding-stat-inner">
+
+                <div class="finding-stat-value">
+                  35.74%
+                </div>
+
+                <div class="finding-stat-label">
+                  Crack Recall
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+          <div class="finding-row stat-left">
+
+
+            <div class="finding-copy">
+
+              <div class="finding-label">
+                Defect-Free Evaluation
+              </div>
+
+              <h3>
+                Low False-Positive Pixel Rate
+              </h3>
+
+              <p>
+
+                The network was also tested on 897
+                reserved defect-free images.
+
+                Across more than 58 million evaluated
+                background pixels, approximately
+                496,928 pixels were incorrectly
+                predicted as defective.
+
+                This corresponds to a false-positive
+                pixel rate below 1%.
+
+              </p>
+
+            </div>
+
+
+            <div class="finding-stat">
+
+              <div class="finding-stat-inner">
+
+                <div class="finding-stat-value">
+                  0.8453%
+                </div>
+
+                <div class="finding-stat-label">
+                  False-Positive Pixel Rate
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         11 — FUTURE DEVELOPMENT
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          11 — Future Development
+        </div>
+
+        <h2>
+          Improving Segmentation Performance
+        </h2>
+
+        <p>
+
+          The project successfully established a
+          complete supervised segmentation pipeline,
+          but several areas could be improved in future
+          versions of the system.
+
+        </p>
+
+
+        <div class="recommendations-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Data Augmentation
+            </h3>
+
+            <p>
+
+              Introduce controlled image augmentation
+              to increase training diversity and reduce
+              the effect of the relatively small
+              labelled dataset.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Higher Image Resolution
+            </h3>
+
+            <p>
+
+              Train using higher-resolution inputs to
+              preserve thin cracks and small defect
+              regions that may be lost after resizing
+              to 256 × 256.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Attention-Based U-Net
+            </h3>
+
+            <p>
+
+              Investigate attention mechanisms or
+              more advanced U-Net variants to improve
+              the model's ability to focus on subtle
+              surface-defect features.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Larger Dataset
+            </h3>
+
+            <p>
+
+              Additional labelled magnetic tile images
+              would improve category balance and reduce
+              sensitivity to individual validation and
+              test samples.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Hyperparameter Exploration
+            </h3>
+
+            <p>
+
+              Greater GPU availability would allow
+              additional experiments involving
+              learning rates, batch sizes, architectures,
+              loss weighting, and training duration.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              More Detailed Error Analysis
+            </h3>
+
+            <p>
+
+              Evaluate false-positive predictions at
+              the image level in addition to the pixel
+              level to determine whether errors are
+              concentrated in a small number of
+              defect-free samples.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="tags">
+
+          <span class="tag">Python</span>
+          <span class="tag">TensorFlow</span>
+          <span class="tag">Machine Learning</span>
+          <span class="tag">Deep Learning</span>
+          <span class="tag">Computer Vision</span>
+          <span class="tag">U-Net</span>
+          <span class="tag">CNN</span>
+          <span class="tag">Semantic Segmentation</span>
+          <span class="tag">Image Processing</span>
+          <span class="tag">Binary Cross-Entropy</span>
+          <span class="tag">Dice Loss</span>
+          <span class="tag">Adam Optimizer</span>
+          <span class="tag">Manufacturing Inspection</span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         BOTTOM NAVIGATION
+    ===================================================== -->
+
+    <div class="container">
+
+      <div class="bottom-navigation">
+
+        <a
+          href="index.html#projects"
+          class="nav-button"
+        >
+          ← Back to Projects
+        </a>
+
+        <a
+          href="index.html"
+          class="nav-button"
+        >
+          Portfolio Home
+        </a>
+
+      </div>
+
+    </div>
+
+
+  </main>
+
+
+  <!-- ======================================================
+       FOOTER
+  ======================================================= -->
+
+  <footer>
+
+    <div class="container">
+
+      ©
+      <span id="year"></span>
+      Rhythm Patel
+      · Mechanical Engineering Portfolio
+
+    </div>
+
+  </footer>
+
+
+  <script>
+
+    /* =========================================================
+       CURRENT YEAR
+    ========================================================= */
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+
+    /* =========================================================
+       SEGMENTATION AUTOMATIC PUSH CAROUSEL
+    ========================================================= */
+
+    const segmentationCarousel =
+      document.getElementById("segmentation-carousel");
+
+    if (segmentationCarousel) {
+
+      const slides =
+        segmentationCarousel.querySelectorAll(
+          ".segmentation-slide"
+        );
+
+      const dots =
+        segmentationCarousel.querySelectorAll(
+          ".segmentation-dot"
+        );
+
+      const previousButton =
+        segmentationCarousel.querySelector(
+          ".segmentation-prev"
+        );
+
+      const nextButton =
+        segmentationCarousel.querySelector(
+          ".segmentation-next"
+        );
+
+      let currentSlide = 0;
+
+      let carouselTimer;
+
+      let isAnimating = false;
+
+
+      /* =======================================================
+         SHOW SELECTED SLIDE
+      ======================================================= */
+
+      function showSegmentationSlide(
+        index,
+        direction
+      ) {
+
+        if (isAnimating) {
+          return;
+        }
+
+
+        if (index < 0) {
+          index = slides.length - 1;
+        }
+
+        if (index >= slides.length) {
+          index = 0;
+        }
+
+
+        if (index === currentSlide) {
+          return;
+        }
+
+
+        isAnimating = true;
+
+
+        const outgoingSlide =
+          slides[currentSlide];
+
+        const incomingSlide =
+          slides[index];
+
+
+        const incomingClass =
+          direction > 0
+            ? "slide-in-right"
+            : "slide-in-left";
+
+
+        const outgoingClass =
+          direction > 0
+            ? "slide-out-left"
+            : "slide-out-right";
+
+
+        slides.forEach(
+          function(slide) {
+
+            slide.classList.remove(
+              "slide-in-right",
+              "slide-in-left",
+              "slide-out-left",
+              "slide-out-right"
+            );
+
+          }
+        );
+
+
+        incomingSlide.classList.add(
+          incomingClass
+        );
+
+
+        incomingSlide.offsetWidth;
+
+
+        outgoingSlide.classList.remove(
+          "active"
+        );
+
+        outgoingSlide.classList.add(
+          outgoingClass
+        );
+
+
+        incomingSlide.classList.remove(
+          incomingClass
+        );
+
+        incomingSlide.classList.add(
+          "active"
+        );
+
+
+        dots.forEach(
+          function(dot) {
+            dot.classList.remove("active");
+          }
+        );
+
+
+        dots[index].classList.add(
+          "active"
+        );
+
+
+        currentSlide = index;
+
+
+        window.setTimeout(
+          function() {
+
+            outgoingSlide.classList.remove(
+              outgoingClass
+            );
+
+            isAnimating = false;
+
+          },
+          420
+        );
+
+      }
+
+
+      /* =======================================================
+         NEXT SLIDE
+      ======================================================= */
+
+      function nextSegmentationSlide() {
+
+        showSegmentationSlide(
+          currentSlide + 1,
+          1
+        );
+
+      }
+
+
+      /* =======================================================
+         PREVIOUS SLIDE
+      ======================================================= */
+
+      function previousSegmentationSlide() {
+
+        showSegmentationSlide(
+          currentSlide - 1,
+          -1
+        );
+
+      }
+
+
+      /* =======================================================
+         AUTOMATIC ROTATION
+      ======================================================= */
+
+      function startSegmentationCarousel() {
+
+        clearInterval(carouselTimer);
+
+        carouselTimer =
+          setInterval(
+            nextSegmentationSlide,
+            3000
+          );
+
+      }
+
+
+      function stopSegmentationCarousel() {
+
+        clearInterval(carouselTimer);
+
+      }
+
+
+      /* =======================================================
+         ARROW CONTROLS
+      ======================================================= */
+
+      previousButton.addEventListener(
+        "click",
+        function() {
+
+          previousSegmentationSlide();
+
+          startSegmentationCarousel();
+
+        }
+      );
+
+
+      nextButton.addEventListener(
+        "click",
+        function() {
+
+          nextSegmentationSlide();
+
+          startSegmentationCarousel();
+
+        }
+      );
+
+
+      /* =======================================================
+         DOT CONTROLS
+      ======================================================= */
+
+      dots.forEach(
+        function(dot, index) {
+
+          dot.addEventListener(
+            "click",
+            function() {
+
+              const direction =
+                index > currentSlide
+                  ? 1
+                  : -1;
+
+
+              showSegmentationSlide(
+                index,
+                direction
+              );
+
+
+              startSegmentationCarousel();
+
+            }
+          );
+
+        }
+      );
+
+
+      /* =======================================================
+         PAUSE WHILE HOVERING
+      ======================================================= */
+
+      segmentationCarousel.addEventListener(
+        "mouseenter",
+        stopSegmentationCarousel
+      );
+
+      segmentationCarousel.addEventListener(
+        "mouseleave",
+        startSegmentationCarousel
+      );
+
+
+      /* =======================================================
+         START
+      ======================================================= */
+
+      startSegmentationCarousel();
+
+    }
+
+  </script>
+
+
+</body>
+
+</html>
