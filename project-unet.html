@@ -190,16 +190,33 @@
        HERO IMAGE
     ========================================================= */
 
-    .hero-image {
+    .hero-image-wrap {
       width: 100%;
 
-      max-height: 650px;
+      padding: 16px;
 
-      object-fit: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
 
       border: 1px solid var(--border);
 
       border-radius: 18px;
+
+      background: #ffffff;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: auto;
+
+      max-height: 680px;
+
+      object-fit: contain;
+
+      background: #ffffff;
     }
 
 
@@ -341,10 +358,10 @@
 
 
     /* =========================================================
-       DATASET CARDS
+       DATASET / RESULT CARDS
     ========================================================= */
 
-    .dataset-grid {
+    .metric-grid {
       display: grid;
 
       grid-template-columns:
@@ -355,7 +372,7 @@
       margin-top: 28px;
     }
 
-    .dataset-card {
+    .metric-card {
       padding: 22px;
 
       border: 1px solid var(--border);
@@ -371,7 +388,7 @@
         var(--card);
     }
 
-    .dataset-value {
+    .metric-value {
       color: var(--accent);
 
       font-size: 1.55rem;
@@ -381,7 +398,7 @@
       line-height: 1.2;
     }
 
-    .dataset-title {
+    .metric-title {
       margin-top: 7px;
 
       color: var(--text);
@@ -389,7 +406,7 @@
       font-weight: 700;
     }
 
-    .dataset-description {
+    .metric-description {
       margin-top: 7px;
 
       color: var(--muted);
@@ -449,138 +466,10 @@
 
 
     /* =========================================================
-       ARCHITECTURE SHOWCASE
+       U-NET ARCHITECTURE
     ========================================================= */
 
-    .architecture-showcase {
-      display: grid;
-
-      gap: 22px;
-
-      margin-top: 32px;
-    }
-
-    .architecture-row {
-      display: grid;
-
-      grid-template-columns:
-        1fr 1fr;
-
-      min-height: 320px;
-
-      overflow: hidden;
-
-      border: 1px solid var(--border);
-
-      border-radius: 16px;
-
-      background: var(--card);
-    }
-
-    .architecture-copy {
-      padding: 34px;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .architecture-label {
-      margin-bottom: 7px;
-
-      color: var(--accent);
-
-      font-size: 0.72rem;
-
-      font-weight: 750;
-
-      letter-spacing: 0.1em;
-
-      text-transform: uppercase;
-    }
-
-    .architecture-copy h3 {
-      margin: 0 0 12px;
-
-      color: var(--text);
-
-      font-size: 1.3rem;
-    }
-
-    .architecture-copy p {
-      margin: 0;
-
-      color: var(--muted);
-
-      font-size: 0.94rem;
-
-      line-height: 1.75;
-    }
-
-    .architecture-image-wrap {
-      position: relative;
-
-      min-height: 320px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      padding: 18px;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(94, 181, 255, 0.07),
-          transparent
-        ),
-        #0b1520;
-    }
-
-    .architecture-image {
-      width: 100%;
-      height: 100%;
-
-      max-height: 390px;
-
-      object-fit: contain;
-
-      border-radius: 10px;
-
-      background: #ffffff;
-    }
-
-    .architecture-fallback {
-      display: none;
-
-      color: var(--muted);
-
-      font-size: 0.85rem;
-
-      text-align: center;
-    }
-
-    .architecture-image-wrap.missing
-    .architecture-fallback {
-      display: block;
-    }
-
-    .architecture-row.image-left
-    .architecture-image-wrap {
-      order: 1;
-    }
-
-    .architecture-row.image-left
-    .architecture-copy {
-      order: 2;
-    }
-
-
-    /* =========================================================
-       MODEL STAGE GRID
-    ========================================================= */
-
-    .model-grid {
+    .architecture-grid {
       display: grid;
 
       grid-template-columns:
@@ -588,21 +477,21 @@
 
       gap: 15px;
 
-      margin-top: 26px;
+      margin-top: 28px;
     }
 
-    .model-card {
-      padding: 21px;
+    .architecture-card {
+      padding: 25px;
 
       border: 1px solid var(--border);
 
-      border-radius: 13px;
+      border-radius: 14px;
 
       background: var(--card);
     }
 
-    .model-category {
-      margin-bottom: 5px;
+    .architecture-label {
+      margin-bottom: 6px;
 
       color: var(--accent);
 
@@ -610,32 +499,91 @@
 
       font-weight: 750;
 
-      letter-spacing: 0.08em;
-
       text-transform: uppercase;
+
+      letter-spacing: 0.08em;
     }
 
-    .model-card h3 {
-      margin: 0 0 7px;
+    .architecture-card h3 {
+      margin: 0 0 10px;
 
-      font-size: 1rem;
+      font-size: 1.1rem;
     }
 
-    .model-card p {
+    .architecture-card p {
       margin: 0;
 
       color: var(--muted);
 
-      font-size: 0.89rem;
+      font-size: 0.91rem;
+    }
+
+    .architecture-path {
+      margin-top: 22px;
+
+      padding: 26px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.06),
+          transparent 60%
+        ),
+        var(--card);
+    }
+
+    .architecture-path-label {
+      margin-bottom: 12px;
+
+      color: var(--muted);
+
+      font-size: 0.75rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.08em;
+    }
+
+    .architecture-path-values {
+      color: var(--accent);
+
+      font-size:
+        clamp(
+          1.05rem,
+          3vw,
+          1.5rem
+        );
+
+      font-weight: 800;
+
+      line-height: 1.7;
+
+      word-spacing: 6px;
     }
 
 
     /* =========================================================
-       TRAINING IMAGE
+       TRAINING FIGURES
     ========================================================= */
 
     .project-figure {
-      margin-top: 30px;
+      margin: 30px 0 0;
+    }
+
+    .section-image-wrap {
+      padding: 12px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background: #ffffff;
     }
 
     .section-image {
@@ -644,9 +592,7 @@
 
       display: block;
 
-      border: 1px solid var(--border);
-
-      border-radius: 15px;
+      object-fit: contain;
 
       background: #ffffff;
     }
@@ -665,12 +611,27 @@
       text-align: center;
     }
 
+    .training-figure-grid {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 18px;
+
+      margin-top: 30px;
+    }
+
+    .training-figure-grid .project-figure {
+      margin-top: 0;
+    }
+
 
     /* =========================================================
-       RESULTS METRICS
+       TEST RESULTS
     ========================================================= */
 
-    .analysis-grid {
+    .results-grid {
       display: grid;
 
       grid-template-columns:
@@ -681,7 +642,7 @@
       margin-top: 28px;
     }
 
-    .analysis-card {
+    .result-card {
       padding: 22px;
 
       border: 1px solid var(--border);
@@ -697,17 +658,17 @@
         var(--card);
     }
 
-    .analysis-value {
+    .result-value {
       color: var(--accent);
 
-      font-size: 1.55rem;
+      font-size: 1.5rem;
 
       font-weight: 800;
 
       line-height: 1.2;
     }
 
-    .analysis-title {
+    .result-title {
       margin-top: 7px;
 
       color: var(--text);
@@ -715,17 +676,17 @@
       font-weight: 700;
     }
 
-    .analysis-description {
+    .result-description {
       margin-top: 7px;
 
       color: var(--muted);
 
-      font-size: 0.85rem;
+      font-size: 0.82rem;
     }
 
 
     /* =========================================================
-       DEFECT TABLE
+       RESULTS TABLE
     ========================================================= */
 
     .results-table-wrap {
@@ -790,7 +751,7 @@
       position: relative;
 
       width: 100%;
-      height: 610px;
+      height: 430px;
 
       margin-top: 30px;
 
@@ -894,11 +855,6 @@
       display: block;
     }
 
-
-    /* =========================================================
-       CAROUSEL CAPTION
-    ========================================================= */
-
     .segmentation-caption {
       position: absolute;
 
@@ -921,11 +877,6 @@
 
       white-space: nowrap;
     }
-
-
-    /* =========================================================
-       CAROUSEL BUTTONS
-    ========================================================= */
 
     .segmentation-button {
       position: absolute;
@@ -977,11 +928,6 @@
       right: 14px;
     }
 
-
-    /* =========================================================
-       CAROUSEL DOTS
-    ========================================================= */
-
     .segmentation-dots {
       position: absolute;
 
@@ -1010,6 +956,15 @@
       background: rgba(7, 16, 25, 0.65);
 
       cursor: pointer;
+
+      transition:
+        transform 0.2s,
+        background 0.2s,
+        border-color 0.2s;
+    }
+
+    .segmentation-dot:hover {
+      border-color: var(--accent);
     }
 
     .segmentation-dot.active {
@@ -1114,7 +1069,12 @@
     .finding-stat-value {
       color: var(--accent);
 
-      font-size: clamp(2.6rem, 7vw, 5rem);
+      font-size:
+        clamp(
+          2.6rem,
+          7vw,
+          5rem
+        );
 
       font-weight: 800;
 
@@ -1253,13 +1213,13 @@
           repeat(3, minmax(0, 1fr));
       }
 
-      .dataset-grid,
-      .model-grid {
+      .metric-grid,
+      .architecture-grid {
         grid-template-columns:
           repeat(2, minmax(0, 1fr));
       }
 
-      .analysis-grid {
+      .results-grid {
         grid-template-columns:
           repeat(3, minmax(0, 1fr));
       }
@@ -1273,36 +1233,41 @@
 
 
     /* =========================================================
-       MOBILE LAYOUT
+       SMALL TABLET
     ========================================================= */
 
     @media (max-width: 700px) {
 
-      .architecture-row,
       .finding-row {
         grid-template-columns: 1fr;
       }
 
-      .architecture-copy,
       .finding-copy {
         order: 1 !important;
 
         padding: 25px;
       }
 
-      .architecture-image-wrap,
       .finding-stat {
         order: 2 !important;
 
-        min-height: 240px;
+        min-height: 220px;
+      }
+
+      .training-figure-grid {
+        grid-template-columns: 1fr;
       }
 
       .segmentation-carousel {
-        height: 430px;
+        height: 330px;
       }
 
     }
 
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
 
     @media (max-width: 650px) {
 
@@ -1320,12 +1285,30 @@
       .project-info-grid,
       .two-column-grid,
       .three-column-grid,
-      .dataset-grid,
-      .model-grid,
-      .analysis-grid,
+      .metric-grid,
+      .architecture-grid,
+      .results-grid,
       .recommendations-grid,
       .workflow {
         grid-template-columns: 1fr;
+      }
+
+      .hero-image {
+        max-height: 520px;
+      }
+
+      .segmentation-carousel {
+        height: 260px;
+      }
+
+      .segmentation-caption {
+        width: calc(100% - 100px);
+
+        white-space: normal;
+
+        text-align: center;
+
+        font-size: 0.68rem;
       }
 
       .bottom-navigation {
@@ -1336,16 +1319,6 @@
 
       .nav-button {
         justify-content: center;
-      }
-
-      .segmentation-caption {
-        font-size: 0.68rem;
-
-        white-space: normal;
-
-        text-align: center;
-
-        width: calc(100% - 100px);
       }
 
     }
@@ -1398,7 +1371,7 @@
       <div class="container">
 
         <div class="project-label">
-          Neural Networks · Computer Vision · EE8204
+          Neural Networks · Machine Learning · Computer Vision
         </div>
 
         <h1>
@@ -1434,14 +1407,15 @@
 
       <div class="container">
 
-        <img
-          src="images/unet-defect-detection.jpg"
-          alt="U-Net magnetic tile surface defect segmentation project"
-          class="hero-image"
-          onerror="
-            this.style.display='none';
-          "
-        />
+        <div class="hero-image-wrap">
+
+          <img
+            src="images/unet-defect-detection.png"
+            alt="Examples of magnetic tile images, ground-truth masks, and U-Net predictions"
+            class="hero-image"
+          />
+
+        </div>
 
 
         <div class="project-info-grid">
@@ -1538,13 +1512,14 @@
         <p>
 
           Surface inspection is an important part of
-          manufacturing because defects can affect product
-          quality, reliability, and performance.
+          manufacturing because defects can affect
+          product quality, reliability, and performance.
 
-          Traditional inspection methods can require
-          significant manual effort and may become less
-          consistent when defects are small, low contrast,
-          or visually similar to the surrounding material.
+          Manual inspection and conventional
+          image-processing methods may become less
+          consistent when defects are small, low
+          contrast, or visually similar to the
+          surrounding material.
 
         </p>
 
@@ -1560,16 +1535,14 @@
 
             <p>
 
-              Classification can determine whether an
-              image contains a defect, but it does not
-              identify the exact position or shape of
-              that defect.
+              Image classification can determine whether
+              an image contains a defect, but it does
+              not identify the exact position or shape
+              of that defect.
 
               Semantic segmentation instead assigns
-              every image pixel to either the defect or
-              background class, making it more useful
-              for visual inspection and downstream
-              manufacturing decisions.
+              each image pixel to either the defect or
+              background class.
 
             </p>
 
@@ -1586,7 +1559,7 @@
 
               Train a neural network capable of taking
               a grayscale magnetic tile image as input
-              and producing a binary mask identifying
+              and generating a binary mask identifying
               the location and shape of surface defects.
 
             </p>
@@ -1620,176 +1593,171 @@
         <p>
 
           The project used the Magnetic Tile Surface
-          Defects dataset containing grayscale images
-          organized into six categories.
+          Defects dataset, containing grayscale magnetic
+          tile images organized into six categories.
 
-          Five categories contained visible manufacturing
-          defects, while the free category contained
-          defect-free magnetic tile surfaces.
+          Five categories contained surface defects,
+          while the free category contained images
+          without visible defects.
 
-          Each defective image was paired with a
-          ground-truth mask showing the exact defect
-          region.
+          Defective images included corresponding
+          ground-truth masks identifying the exact
+          defect region.
 
         </p>
 
 
-        <div class="dataset-grid">
+        <div class="metric-grid">
 
 
-          <div class="dataset-card">
+          <div class="metric-card">
 
-            <div class="dataset-value">
+            <div class="metric-value">
               1,344
             </div>
 
-            <div class="dataset-title">
+            <div class="metric-title">
               Total Images
             </div>
 
-            <div class="dataset-description">
-              Complete magnetic tile image dataset.
+            <div class="metric-description">
+              Complete magnetic tile dataset.
             </div>
 
           </div>
 
 
-          <div class="dataset-card">
+          <div class="metric-card">
 
-            <div class="dataset-value">
+            <div class="metric-value">
               392
             </div>
 
-            <div class="dataset-title">
+            <div class="metric-title">
               Defective Images
             </div>
 
-            <div class="dataset-description">
-              Images containing one of five surface
-              defect categories.
+            <div class="metric-description">
+              Combined samples from five defect types.
             </div>
 
           </div>
 
 
-          <div class="dataset-card">
+          <div class="metric-card">
 
-            <div class="dataset-value">
+            <div class="metric-value">
               952
             </div>
 
-            <div class="dataset-title">
+            <div class="metric-title">
               Defect-Free Images
             </div>
 
-            <div class="dataset-description">
-              Background-only samples from the free
-              category.
+            <div class="metric-description">
+              Images from the free category.
             </div>
 
           </div>
 
 
-          <div class="dataset-card">
+          <div class="metric-card">
 
-            <div class="dataset-value">
+            <div class="metric-value">
               115
             </div>
 
-            <div class="dataset-title">
+            <div class="metric-title">
               Blowhole
             </div>
 
-            <div class="dataset-description">
-              Largest individual defective category.
+            <div class="metric-description">
+              Blowhole defect samples.
             </div>
 
           </div>
 
 
-          <div class="dataset-card">
+          <div class="metric-card">
 
-            <div class="dataset-value">
+            <div class="metric-value">
               85
             </div>
 
-            <div class="dataset-title">
+            <div class="metric-title">
               Break
             </div>
 
-            <div class="dataset-description">
-              Images containing break-type defects.
+            <div class="metric-description">
+              Break defect samples.
             </div>
 
           </div>
 
 
-          <div class="dataset-card">
+          <div class="metric-card">
 
-            <div class="dataset-value">
+            <div class="metric-value">
               57
             </div>
 
-            <div class="dataset-title">
+            <div class="metric-title">
               Crack
             </div>
 
-            <div class="dataset-description">
-              Thin crack defects requiring detailed
-              spatial detection.
+            <div class="metric-description">
+              Crack defect samples.
             </div>
 
           </div>
 
 
-          <div class="dataset-card">
+          <div class="metric-card">
 
-            <div class="dataset-value">
+            <div class="metric-value">
               32
             </div>
 
-            <div class="dataset-title">
+            <div class="metric-title">
               Fray
             </div>
 
-            <div class="dataset-description">
-              Smallest defective category in the
-              dataset.
+            <div class="metric-description">
+              Fray defect samples.
             </div>
 
           </div>
 
 
-          <div class="dataset-card">
+          <div class="metric-card">
 
-            <div class="dataset-value">
+            <div class="metric-value">
               103
             </div>
 
-            <div class="dataset-title">
+            <div class="metric-title">
               Uneven
             </div>
 
-            <div class="dataset-description">
-              Images containing uneven surface defects.
+            <div class="metric-description">
+              Uneven surface defect samples.
             </div>
 
           </div>
 
 
-          <div class="dataset-card">
+          <div class="metric-card">
 
-            <div class="dataset-value">
+            <div class="metric-value">
               897
             </div>
 
-            <div class="dataset-title">
+            <div class="metric-title">
               Reserved Free Images
             </div>
 
-            <div class="dataset-description">
-              Used separately to measure false-positive
-              behavior.
+            <div class="metric-description">
+              Used for separate false-positive testing.
             </div>
 
           </div>
@@ -1820,13 +1788,14 @@
 
         <p>
 
-          Each defective category was split separately
-          into approximately 70% training, 15%
-          validation, and 15% testing data.
+          Each of the five defective categories was
+          divided separately into approximately
+          70% training, 15% validation, and 15% testing
+          data.
 
-          This ensured that all five defect categories
-          were represented across the model-development
-          stages.
+          Splitting each category individually ensured
+          that every defect type remained represented
+          across all three datasets.
 
         </p>
 
@@ -1841,12 +1810,12 @@
             </div>
 
             <h3>
-              Load Images
+              Load
             </h3>
 
             <p>
-              Read magnetic tile images and their
-              corresponding ground-truth masks.
+              Read images and corresponding
+              ground-truth masks.
             </p>
 
           </div>
@@ -1863,7 +1832,8 @@
             </h3>
 
             <p>
-              Resize inputs to 256 × 256 pixels.
+              Convert inputs to
+              256 × 256 pixels.
             </p>
 
           </div>
@@ -1880,8 +1850,8 @@
             </h3>
 
             <p>
-              Convert grayscale intensities from
-              0–255 to 0–1.
+              Scale grayscale values
+              from 0–255 to 0–1.
             </p>
 
           </div>
@@ -1894,12 +1864,12 @@
             </div>
 
             <h3>
-              Binarize Masks
+              Binarize
             </h3>
 
             <p>
-              Defect pixels become 1 and background
-              pixels become 0.
+              Convert masks into defect
+              and background pixels.
             </p>
 
           </div>
@@ -1912,12 +1882,12 @@
             </div>
 
             <h3>
-              Batch Training
+              Batch
             </h3>
 
             <p>
-              Shuffle image-mask pairs and process
-              them in batches of eight.
+              Shuffle and train using
+              batches of eight.
             </p>
 
           </div>
@@ -1938,12 +1908,12 @@
             <p>
 
               The free category contained substantially
-              more images than all five defective
+              more samples than all five defective
               categories combined.
 
-              Using all defect-free images during
-              training could cause the network to
-              overemphasize background pixels.
+              Training on every defect-free image could
+              cause background-only samples to dominate
+              the training process.
 
             </p>
 
@@ -1953,7 +1923,7 @@
           <div class="content-card">
 
             <h3>
-              Balanced Training Strategy
+              Training Strategy
             </h3>
 
             <p>
@@ -1961,13 +1931,10 @@
               The defective training set contained
               274 image-mask pairs.
 
-              Only 55 defect-free samples were added
-              to training, approximately 20% of the
-              number of defective training images.
-
-              The remaining 897 free images were
-              reserved for a separate false-positive
-              evaluation.
+              Only 55 defect-free samples were included
+              in training, while the remaining 897 free
+              images were reserved for separate
+              false-positive evaluation.
 
             </p>
 
@@ -1999,211 +1966,51 @@
 
         <p>
 
-          The model implemented for this project was a
-          standard U-Net convolutional neural network.
+          The model was implemented as a standard U-Net
+          convolutional neural network.
 
-          U-Net combines a contracting encoder path
-          that learns image features with an expanding
-          decoder path that reconstructs spatial
-          information and produces a pixel-level
-          segmentation mask.
+          The encoder progressively reduced spatial
+          resolution while learning increasingly complex
+          image features.
+
+          The decoder then reconstructed the spatial
+          resolution and combined its features with
+          corresponding encoder outputs through skip
+          connections.
 
         </p>
 
 
-        <div class="architecture-showcase">
+        <div class="architecture-grid">
 
 
-          <div class="architecture-row">
+          <div class="architecture-card">
 
-
-            <div class="architecture-copy">
-
-              <div class="architecture-label">
-                Encoder
-              </div>
-
-              <h3>
-                Learning Defect Features
-              </h3>
-
-              <p>
-
-                The encoder contained four stages using
-                32, 64, 128, and 256 filters.
-
-                Each convolutional block used two
-                3 × 3 convolutional layers followed by
-                batch normalization and ReLU activation.
-
-                A 2 × 2 max-pooling layer reduced the
-                image dimensions after each stage,
-                allowing the network to learn
-                increasingly abstract defect features.
-
-              </p>
-
-            </div>
-
-
-            <div class="architecture-image-wrap">
-
-              <img
-                src="images/unet-architecture.png"
-                alt="U-Net architecture diagram"
-                class="architecture-image"
-                onerror="
-                  this.style.display='none';
-                  this.parentElement.classList.add('missing');
-                "
-              />
-
-              <div class="architecture-fallback">
-                Add image:<br>
-                unet-architecture.png
-              </div>
-
-            </div>
-
-
-          </div>
-
-
-          <div class="architecture-row image-left">
-
-
-            <div class="architecture-copy">
-
-              <div class="architecture-label">
-                Decoder
-              </div>
-
-              <h3>
-                Recovering Spatial Detail
-              </h3>
-
-              <p>
-
-                The decoder used transposed convolutions
-                to increase feature-map dimensions.
-
-                Decoder stages used 256, 128, 64, and
-                32 filters.
-
-                At each level, the decoder features were
-                concatenated with the corresponding
-                encoder features using skip connections.
-
-                These connections help preserve spatial
-                details needed to locate small defects
-                and identify defect boundaries.
-
-              </p>
-
-            </div>
-
-
-            <div class="architecture-image-wrap">
-
-              <img
-                src="images/unet-skip-connections.png"
-                alt="U-Net skip connection visualization"
-                class="architecture-image"
-                onerror="
-                  this.style.display='none';
-                  this.parentElement.classList.add('missing');
-                "
-              />
-
-              <div class="architecture-fallback">
-                Add image:<br>
-                unet-skip-connections.png
-              </div>
-
-            </div>
-
-
-          </div>
-
-
-        </div>
-
-
-        <div class="model-grid">
-
-
-          <div class="model-card">
-
-            <div class="model-category">
-              Encoder 1
+            <div class="architecture-label">
+              Encoder
             </div>
 
             <h3>
-              32 Filters
+              Feature Extraction
             </h3>
 
             <p>
-              Initial low-level image feature extraction.
+
+              Four encoder stages used 32, 64,
+              128, and 256 filters.
+
+              Each stage contained two 3 × 3
+              convolutional layers with batch
+              normalization and ReLU activation.
+
             </p>
 
           </div>
 
 
-          <div class="model-card">
+          <div class="architecture-card">
 
-            <div class="model-category">
-              Encoder 2
-            </div>
-
-            <h3>
-              64 Filters
-            </h3>
-
-            <p>
-              Increased feature complexity after
-              downsampling.
-            </p>
-
-          </div>
-
-
-          <div class="model-card">
-
-            <div class="model-category">
-              Encoder 3
-            </div>
-
-            <h3>
-              128 Filters
-            </h3>
-
-            <p>
-              Deeper representation of defect patterns.
-            </p>
-
-          </div>
-
-
-          <div class="model-card">
-
-            <div class="model-category">
-              Encoder 4
-            </div>
-
-            <h3>
-              256 Filters
-            </h3>
-
-            <p>
-              High-level spatial and texture features.
-            </p>
-
-          </div>
-
-
-          <div class="model-card">
-
-            <div class="model-category">
+            <div class="architecture-label">
               Bottleneck
             </div>
 
@@ -2212,30 +2019,117 @@
             </h3>
 
             <p>
-              Deepest network representation with
-              dropout rate of 0.3.
+
+              The deepest stage of the network
+              contained 512 filters followed by a
+              dropout layer with a dropout rate of 0.3.
+
             </p>
 
           </div>
 
 
-          <div class="model-card">
+          <div class="architecture-card">
 
-            <div class="model-category">
-              Output
+            <div class="architecture-label">
+              Decoder
             </div>
 
             <h3>
-              Sigmoid Mask
+              Spatial Reconstruction
             </h3>
 
             <p>
-              1 × 1 convolution produces a
-              256 × 256 × 1 defect-probability map.
+
+              Four decoder stages used 256, 128,
+              64, and 32 filters.
+
+              Transposed convolutions increased spatial
+              resolution while skip connections restored
+              encoder information.
+
             </p>
 
           </div>
 
+
+          <div class="architecture-card">
+
+            <div class="architecture-label">
+              Skip Connections
+            </div>
+
+            <h3>
+              Preserve Spatial Detail
+            </h3>
+
+            <p>
+
+              Matching encoder and decoder feature maps
+              were concatenated to preserve information
+              useful for locating small defects and
+              identifying defect boundaries.
+
+            </p>
+
+          </div>
+
+
+          <div class="architecture-card">
+
+            <div class="architecture-label">
+              Output Layer
+            </div>
+
+            <h3>
+              Binary Defect Mask
+            </h3>
+
+            <p>
+
+              A final 1 × 1 convolution with sigmoid
+              activation generated one defect
+              probability for every image pixel.
+
+            </p>
+
+          </div>
+
+
+          <div class="architecture-card">
+
+            <div class="architecture-label">
+              Classification Threshold
+            </div>
+
+            <h3>
+              Probability &gt; 0.5
+            </h3>
+
+            <p>
+
+              Output probabilities greater than 0.5
+              were classified as defect pixels and
+              converted into the final binary mask.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="architecture-path">
+
+          <div class="architecture-path-label">
+            Filter Progression
+          </div>
+
+          <div class="architecture-path-values">
+            32 → 64 → 128 → 256 → 512 →
+            256 → 128 → 64 → 32 → Output Mask
+          </div>
 
         </div>
 
@@ -2262,13 +2156,14 @@
 
         <p>
 
-          Training combined binary cross-entropy with
-          Dice loss.
+          The model was trained using the Adam optimizer
+          and a loss function combining binary
+          cross-entropy with Dice loss.
 
           Binary cross-entropy evaluated individual
           pixel predictions, while Dice loss encouraged
-          overlap between the predicted segmentation
-          mask and the ground-truth defect region.
+          overlap between predicted and ground-truth
+          defect regions.
 
         </p>
 
@@ -2279,12 +2174,11 @@
           <div class="content-card">
 
             <h3>
-              Optimizer
+              Adam Optimizer
             </h3>
 
             <p>
-              Adam optimizer with an initial learning
-              rate of 0.001.
+              Initial learning rate of 0.001.
             </p>
 
           </div>
@@ -2297,8 +2191,7 @@
             </h3>
 
             <p>
-              Training samples were processed in
-              batches of eight image-mask pairs.
+              Eight image-mask pairs per batch.
             </p>
 
           </div>
@@ -2311,8 +2204,7 @@
             </h3>
 
             <p>
-              Training was limited to a maximum of
-              30 epochs.
+              Maximum of 30 training epochs.
             </p>
 
           </div>
@@ -2325,7 +2217,7 @@
             </h3>
 
             <p>
-              Combined binary cross-entropy and
+              Binary cross-entropy combined with
               Dice loss.
             </p>
 
@@ -2340,7 +2232,7 @@
 
             <p>
               Configured to stop after seven epochs
-              without improvement in validation Dice.
+              without validation Dice improvement.
             </p>
 
           </div>
@@ -2354,8 +2246,7 @@
 
             <p>
               Reduced by a factor of 0.5 after three
-              epochs without validation-loss
-              improvement.
+              epochs without validation-loss improvement.
             </p>
 
           </div>
@@ -2381,7 +2272,7 @@
         </div>
 
         <h2>
-          Monitoring Generalization Across 30 Epochs
+          Monitoring Model Performance Across 30 Epochs
         </h2>
 
         <p>
@@ -2390,61 +2281,80 @@
 
           The highest validation Dice coefficient
           occurred during epoch 29, and the corresponding
-          saved weights were restored for final testing.
-
-          Training performance continued improving near
-          the end of training while validation
-          performance decreased slightly during the
-          final epoch, indicating mild overfitting.
+          saved model weights were restored for final
+          test-set evaluation.
 
         </p>
 
 
+        <!-- LOSS -->
+
         <figure class="project-figure">
 
-          <img
-            src="images/unet-training-loss.png"
-            alt="U-Net training and validation loss"
-            class="section-image"
-          />
+          <div class="section-image-wrap">
+
+            <img
+              src="images/unet-training-loss.png"
+              alt="Training and validation loss over 30 epochs"
+              class="section-image"
+            />
+
+          </div>
 
           <figcaption class="figure-caption">
-            Training and validation loss over 30 epochs.
+            Training and validation loss throughout
+            model training.
           </figcaption>
 
         </figure>
 
 
-        <figure class="project-figure">
+        <!-- DICE / IOU + PRECISION / RECALL -->
 
-          <img
-            src="images/unet-dice-iou.png"
-            alt="U-Net Dice coefficient and IoU training history"
-            class="section-image"
-          />
-
-          <figcaption class="figure-caption">
-            Training and validation Dice coefficient
-            and Intersection over Union.
-          </figcaption>
-
-        </figure>
+        <div class="training-figure-grid">
 
 
-        <figure class="project-figure">
+          <figure class="project-figure">
 
-          <img
-            src="images/unet-precision-recall.png"
-            alt="U-Net precision and recall training history"
-            class="section-image"
-          />
+            <div class="section-image-wrap">
 
-          <figcaption class="figure-caption">
-            Defect-pixel precision and recall throughout
-            training.
-          </figcaption>
+              <img
+                src="images/unet-dice-iou.png"
+                alt="Training and validation Dice coefficient and IoU"
+                class="section-image"
+              />
 
-        </figure>
+            </div>
+
+            <figcaption class="figure-caption">
+              Training and validation Dice coefficient
+              and Intersection over Union.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="project-figure">
+
+            <div class="section-image-wrap">
+
+              <img
+                src="images/unet-precision-recall.png"
+                alt="Training and validation defect precision and recall"
+                class="section-image"
+              />
+
+            </div>
+
+            <figcaption class="figure-caption">
+              Defect-pixel precision and recall
+              throughout training.
+            </figcaption>
+
+          </figure>
+
+
+        </div>
 
       </div>
 
@@ -2469,106 +2379,106 @@
 
         <p>
 
-          The final network was evaluated on 59
-          defective test images that were not used
-          during training or validation.
+          The final model was evaluated on 59 defective
+          images that had not been used during training
+          or validation.
 
-          Performance was measured primarily using
-          defect-focused metrics rather than ordinary
-          pixel accuracy because background pixels
-          dominated the images.
+          Precision, recall, Dice coefficient, and
+          Intersection over Union were used instead of
+          ordinary pixel accuracy because background
+          pixels represented the majority of each image.
 
         </p>
 
 
-        <div class="analysis-grid">
+        <div class="results-grid">
 
 
-          <div class="analysis-card">
+          <div class="result-card">
 
-            <div class="analysis-value">
+            <div class="result-value">
               79.64%
             </div>
 
-            <div class="analysis-title">
+            <div class="result-title">
               Precision
             </div>
 
-            <div class="analysis-description">
-              Percentage of predicted defect pixels
-              that matched ground-truth defects.
+            <div class="result-description">
+              Predicted defect pixels that correctly
+              matched the ground truth.
             </div>
 
           </div>
 
 
-          <div class="analysis-card">
+          <div class="result-card">
 
-            <div class="analysis-value">
+            <div class="result-value">
               55.28%
             </div>
 
-            <div class="analysis-title">
+            <div class="result-title">
               Recall
             </div>
 
-            <div class="analysis-description">
-              Percentage of actual defect pixels
-              detected by the model.
+            <div class="result-description">
+              Ground-truth defect pixels successfully
+              identified.
             </div>
 
           </div>
 
 
-          <div class="analysis-card">
+          <div class="result-card">
 
-            <div class="analysis-value">
+            <div class="result-value">
               57.28%
             </div>
 
-            <div class="analysis-title">
+            <div class="result-title">
               Dice
             </div>
 
-            <div class="analysis-description">
-              Measures overlap between predicted and
-              ground-truth defect regions.
+            <div class="result-description">
+              Overlap between predicted and
+              ground-truth masks.
             </div>
 
           </div>
 
 
-          <div class="analysis-card">
+          <div class="result-card">
 
-            <div class="analysis-value">
+            <div class="result-value">
               41.80%
             </div>
 
-            <div class="analysis-title">
+            <div class="result-title">
               IoU
             </div>
 
-            <div class="analysis-description">
-              Intersection over Union between predicted
-              and ground-truth masks.
+            <div class="result-description">
+              Intersection over Union of the predicted
+              and true defect regions.
             </div>
 
           </div>
 
 
-          <div class="analysis-card">
+          <div class="result-card">
 
-            <div class="analysis-value">
+            <div class="result-value">
               0.8453%
             </div>
 
-            <div class="analysis-title">
+            <div class="result-title">
               False-Positive Rate
             </div>
 
-            <div class="analysis-description">
-              Defect pixels incorrectly predicted
-              across 897 reserved defect-free images.
+            <div class="result-description">
+              False-positive defect pixels across
+              897 reserved defect-free images.
             </div>
 
           </div>
@@ -2599,12 +2509,13 @@
 
         <p>
 
-          The test images were also evaluated
-          separately for each defect category.
+          Test images were also evaluated separately
+          for each defect category.
 
-          This analysis showed that some surface
-          patterns were considerably easier for the
-          U-Net to segment than others.
+          The results showed that the network's
+          segmentation performance varied considerably
+          depending on defect geometry, size, contrast,
+          and appearance.
 
         </p>
 
@@ -2697,12 +2608,12 @@
         <p>
 
           Visual inspection of the predicted masks
-          provides context that numerical performance
-          metrics alone cannot show.
+          provides information that numerical metrics
+          alone cannot capture.
 
-          The examples below compare the magnetic tile
-          input image, manually labelled ground-truth
-          region, and U-Net prediction.
+          Each example compares the original magnetic
+          tile image, its ground-truth defect mask, and
+          the U-Net prediction.
 
         </p>
 
@@ -2719,7 +2630,7 @@
 
             <img
               src="images/unet-fray-result.png"
-              alt="Fray defect original image, ground truth, and U-Net prediction"
+              alt="Fray defect original image, ground-truth mask, and predicted mask"
               class="segmentation-image"
               onerror="
                 this.style.display='none';
@@ -2745,7 +2656,7 @@
 
             <img
               src="images/unet-break-result.png"
-              alt="Break defect original image, ground truth, and U-Net prediction"
+              alt="Break defect original image, ground-truth mask, and predicted mask"
               class="segmentation-image"
               onerror="
                 this.style.display='none';
@@ -2771,7 +2682,7 @@
 
             <img
               src="images/unet-crack-result.png"
-              alt="Crack defect original image, ground truth, and U-Net prediction"
+              alt="Crack defect original image, ground-truth mask, and predicted mask"
               class="segmentation-image"
               onerror="
                 this.style.display='none';
@@ -2797,7 +2708,7 @@
 
             <img
               src="images/unet-blowhole-result.png"
-              alt="Blowhole defect original image, ground truth, and U-Net prediction"
+              alt="Blowhole defect original image, ground-truth mask, and predicted mask"
               class="segmentation-image"
               onerror="
                 this.style.display='none';
@@ -2823,7 +2734,7 @@
 
             <img
               src="images/unet-uneven-result.png"
-              alt="Uneven defect original image, ground truth, and U-Net prediction"
+              alt="Uneven defect original image, ground-truth mask, and predicted mask"
               class="segmentation-image"
               onerror="
                 this.style.display='none';
@@ -2916,7 +2827,7 @@
 
 
     <!-- ====================================================
-         10 — FINDINGS
+         10 — ANALYSIS & FINDINGS
     ===================================================== -->
 
     <section class="project-section">
@@ -2933,11 +2844,11 @@
 
         <p>
 
-          The results show that the U-Net was capable
-          of learning meaningful spatial information
-          about manufacturing defects, but its
-          segmentation quality depended strongly on
-          defect appearance and size.
+          The results demonstrate that the U-Net learned
+          meaningful spatial information about the
+          magnetic tile defects, but segmentation
+          performance depended strongly on defect
+          appearance and size.
 
         </p>
 
@@ -2945,8 +2856,9 @@
         <div class="finding-showcase">
 
 
-          <div class="finding-row">
+          <!-- PRECISION -->
 
+          <div class="finding-row">
 
             <div class="finding-copy">
 
@@ -2964,13 +2876,12 @@
                 recall.
 
                 This means that when the network
-                predicted a pixel as defective, that
-                prediction was usually correct.
+                classified a pixel as defective, the
+                prediction was often correct.
 
                 However, the lower recall indicates that
-                many ground-truth defect pixels were not
-                detected, causing some predicted masks
-                to capture only part of the true defect.
+                some predicted masks captured only part
+                of the complete ground-truth defect.
 
               </p>
 
@@ -2993,17 +2904,17 @@
 
             </div>
 
-
           </div>
 
 
-          <div class="finding-row stat-left">
+          <!-- FRAY -->
 
+          <div class="finding-row stat-left">
 
             <div class="finding-copy">
 
               <div class="finding-label">
-                Best Overlap
+                Best Overall Overlap
               </div>
 
               <h3>
@@ -3017,12 +2928,11 @@
                 ground-truth masks.
 
                 The category produced a Dice coefficient
-                of 0.7039 and IoU of 0.5430.
+                of 0.7039 and an IoU of 0.5430.
 
-                Because the fray test set contained only
-                five images, however, the category-level
-                result is sensitive to individual
-                samples.
+                However, only five fray samples were
+                included in the test set, making the
+                result sensitive to individual images.
 
               </p>
 
@@ -3045,12 +2955,12 @@
 
             </div>
 
-
           </div>
 
 
-          <div class="finding-row">
+          <!-- CRACK -->
 
+          <div class="finding-row">
 
             <div class="finding-copy">
 
@@ -3059,7 +2969,7 @@
               </div>
 
               <h3>
-                Thin Cracks Were Difficult to Preserve
+                Thin Cracks Were Difficult to Detect
               </h3>
 
               <p>
@@ -3067,15 +2977,11 @@
                 Crack defects produced comparatively
                 low recall.
 
-                One contributing factor may be the
-                resizing of every image to 256 × 256
-                pixels.
-
-                Thin cracks occupy relatively little
-                image area and may lose important
-                visual information when downsampled,
-                making them more difficult for the
-                network to segment completely.
+                Thin cracks occupy a relatively small
+                number of image pixels, and resizing
+                every image to 256 × 256 may have
+                reduced some of the visual detail
+                required for complete segmentation.
 
               </p>
 
@@ -3098,12 +3004,12 @@
 
             </div>
 
-
           </div>
 
 
-          <div class="finding-row stat-left">
+          <!-- FALSE POSITIVE -->
 
+          <div class="finding-row stat-left">
 
             <div class="finding-copy">
 
@@ -3117,16 +3023,12 @@
 
               <p>
 
-                The network was also tested on 897
-                reserved defect-free images.
+                The network was separately evaluated
+                using 897 defect-free images.
 
-                Across more than 58 million evaluated
-                background pixels, approximately
-                496,928 pixels were incorrectly
-                predicted as defective.
-
-                This corresponds to a false-positive
-                pixel rate below 1%.
+                Across more than 58 million background
+                pixels, fewer than 1% were incorrectly
+                classified as defective.
 
               </p>
 
@@ -3148,7 +3050,6 @@
               </div>
 
             </div>
-
 
           </div>
 
@@ -3180,8 +3081,8 @@
 
           The project successfully established a
           complete supervised segmentation pipeline,
-          but several areas could be improved in future
-          versions of the system.
+          but several areas could be explored to
+          improve model performance in future work.
 
         </p>
 
@@ -3199,7 +3100,7 @@
 
               Introduce controlled image augmentation
               to increase training diversity and reduce
-              the effect of the relatively small
+              the effects of the relatively small
               labelled dataset.
 
             </p>
@@ -3215,10 +3116,10 @@
 
             <p>
 
-              Train using higher-resolution inputs to
+              Train using higher-resolution images to
               preserve thin cracks and small defect
-              regions that may be lost after resizing
-              to 256 × 256.
+              regions that may lose detail during
+              resizing.
 
             </p>
 
@@ -3233,10 +3134,10 @@
 
             <p>
 
-              Investigate attention mechanisms or
-              more advanced U-Net variants to improve
-              the model's ability to focus on subtle
-              surface-defect features.
+              Investigate attention mechanisms and
+              more advanced U-Net architectures to
+              improve detection of subtle surface
+              defects.
 
             </p>
 
@@ -3251,10 +3152,10 @@
 
             <p>
 
-              Additional labelled magnetic tile images
-              would improve category balance and reduce
+              Additional labelled defect samples would
+              improve category balance and reduce
               sensitivity to individual validation and
-              test samples.
+              test images.
 
             </p>
 
@@ -3269,10 +3170,10 @@
 
             <p>
 
-              Greater GPU availability would allow
-              additional experiments involving
-              learning rates, batch sizes, architectures,
-              loss weighting, and training duration.
+              Additional computational resources would
+              allow more extensive investigation of
+              learning rates, loss weighting, batch
+              sizes, and model architectures.
 
             </p>
 
@@ -3282,16 +3183,15 @@
           <div class="content-card">
 
             <h3>
-              More Detailed Error Analysis
+              Error Analysis
             </h3>
 
             <p>
 
-              Evaluate false-positive predictions at
-              the image level in addition to the pixel
-              level to determine whether errors are
-              concentrated in a small number of
-              defect-free samples.
+              Future testing could evaluate
+              false-positive behavior on an
+              image-by-image basis in addition to the
+              overall pixel-level false-positive rate.
 
             </p>
 
@@ -3487,6 +3387,12 @@
         );
 
 
+        /*
+          Force the browser to render the incoming
+          slide at its starting position before
+          beginning the animation.
+        */
+
         incomingSlide.offsetWidth;
 
 
@@ -3630,6 +3536,11 @@
             "click",
             function() {
 
+              if (index === currentSlide) {
+                return;
+              }
+
+
               const direction =
                 index > currentSlide
                   ? 1
@@ -3667,7 +3578,7 @@
 
 
       /* =======================================================
-         START
+         START CAROUSEL
       ======================================================= */
 
       startSegmentationCarousel();
