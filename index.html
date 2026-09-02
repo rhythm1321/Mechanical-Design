@@ -565,6 +565,23 @@
       text-transform: uppercase;
     }
 
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 8px 16px;
+    }
+
+    .project-date {
+      color: var(--muted);
+
+      font-size: 0.84rem;
+
+      font-weight: 650;
+    }
+
     .project-content h3 {
       margin: 8px 0 11px;
 
@@ -1446,15 +1463,14 @@
         </div>
 
         <h2 class="section-title">
-          Featured Projects
+          Projects
         </h2>
 
         <p class="section-description">
 
-          A selection of engineering projects involving
-          mechanical design, structural analysis,
-          manufacturing, mechatronics, controls, and
-          testing.
+          Engineering projects involving mechanical
+          design, manufacturing, mechatronics, controls,
+          and testing, presented from newest to oldest.
 
           Select a project to explore its full design
           and development process.
@@ -1467,7 +1483,10 @@
 
           <!-- CNC -->
 
-          <article class="project-card featured">
+          <article
+            class="project-card featured"
+            data-project-end="2025-04"
+          >
 
 
             <div class="project-image-container">
@@ -1491,9 +1510,19 @@
 
             <div class="project-content">
 
-              <span class="project-number">
-                Project 01
-              </span>
+              <div class="project-meta">
+
+                <span class="project-number">
+                  Project 01
+                </span>
+
+                <span class="project-date">
+                  <time datetime="2025-01">January 2025</time>
+                  –
+                  <time datetime="2025-04">April 2025</time>
+                </span>
+
+              </div>
 
               <h3>
                 Modular Foam-Cutting CNC Machine
@@ -1545,171 +1574,6 @@
 
               <a
                 href="project-cnc.html"
-                class="project-button"
-              >
-                View Project →
-              </a>
-
-            </div>
-
-          </article>
-
-
-          <!-- BATTERY MOUNTS -->
-
-          <article class="project-card">
-
-
-            <div class="project-image-container">
-
-              <img
-                src="images/battery-mounts-main.jpg"
-                alt="Formula SAE electric vehicle battery pack mounting system"
-                class="project-image"
-                onerror="
-                  this.style.display='none';
-                  this.nextElementSibling.style.display='flex';
-                "
-              />
-
-              <div class="project-image-placeholder">
-                Battery mount project image coming soon
-              </div>
-
-            </div>
-
-
-            <div class="project-content">
-
-              <span class="project-number">
-                Project 02
-              </span>
-
-              <h3>
-                Formula SAE EV Battery Pack Mounts
-              </h3>
-
-              <p>
-
-                Designed the structural mounting system
-                for the Formula SAE electric vehicle
-                accumulator and conducted FEA to verify
-                performance under 40 g lateral and
-                longitudinal acceleration and 20 g
-                vertical acceleration.
-
-              </p>
-
-
-              <div class="tags">
-
-                <span class="tag">
-                  SolidWorks
-                </span>
-
-                <span class="tag">
-                  FEA
-                </span>
-
-                <span class="tag">
-                  Structural Design
-                </span>
-
-                <span class="tag">
-                  Formula SAE EV
-                </span>
-
-                <span class="tag">
-                  Design Validation
-                </span>
-
-              </div>
-
-
-              <a
-                href="project-battery-mounts.html"
-                class="project-button"
-              >
-                View Project →
-              </a>
-
-            </div>
-
-          </article>
-
-
-          <!-- WING TOPOLOGY -->
-
-          <article class="project-card">
-
-
-            <div class="project-image-container">
-
-              <img
-                src="images/wing-topology-main.jpg"
-                alt="Formula SAE wing mount topology optimization"
-                class="project-image"
-                onerror="
-                  this.style.display='none';
-                  this.nextElementSibling.style.display='flex';
-                "
-              />
-
-              <div class="project-image-placeholder">
-                Wing topology project image coming soon
-              </div>
-
-            </div>
-
-
-            <div class="project-content">
-
-              <span class="project-number">
-                Project 03
-              </span>
-
-              <h3>
-                FSAE Wing Mount Topology Optimization
-              </h3>
-
-              <p>
-
-                Conducted topology optimization studies
-                on Formula SAE wing mounts and structural
-                ribs to identify opportunities to reduce
-                component mass while maintaining a
-                minimum factor of safety of 2.
-
-              </p>
-
-
-              <div class="tags">
-
-                <span class="tag">
-                  Topology Optimization
-                </span>
-
-                <span class="tag">
-                  FEA
-                </span>
-
-                <span class="tag">
-                  Lightweight Design
-                </span>
-
-                <span class="tag">
-                  SolidWorks
-                </span>
-
-                <span class="tag">
-                  Formula SAE
-                </span>
-
-              </div>
-
-
-              <a
-                href="project-wing-topology.html"
                 class="project-button"
               >
                 View Project →
@@ -2879,6 +2743,27 @@
 
     document.getElementById("year").textContent =
       new Date().getFullYear();
+
+    const projectGrid = document.querySelector(".project-grid");
+
+    if (projectGrid) {
+      const projects = [...projectGrid.querySelectorAll(".project-card")];
+
+      projects
+        .sort((a, b) =>
+          b.dataset.projectEnd.localeCompare(a.dataset.projectEnd)
+        )
+        .forEach((project, index) => {
+          const projectNumber = project.querySelector(".project-number");
+
+          if (projectNumber) {
+            projectNumber.textContent =
+              `Project ${String(index + 1).padStart(2, "0")}`;
+          }
+
+          projectGrid.appendChild(project);
+        });
+    }
 
   </script>
 
