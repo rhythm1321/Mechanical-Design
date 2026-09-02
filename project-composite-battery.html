@@ -1,1 +1,2455 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Composite Battery Enclosure | Rhythm Patel</title>
+
+  <meta
+    name="description"
+    content="Composite material selection, Classical Laminate Theory, Tsai-Wu failure analysis, thermal analysis, and SolidWorks FEA for a Formula SAE EV battery module enclosure."
+  />
+
+  <style>
+
+    /* =========================================================
+       GLOBAL
+    ========================================================= */
+
+    :root {
+      --background: #071019;
+      --card: #101c29;
+      --card-hover: #142335;
+
+      --text: #f2f6fa;
+      --muted: #9eafbf;
+
+      --accent: #5eb5ff;
+      --accent-light: #8bcbff;
+      --accent-soft: rgba(94, 181, 255, 0.11);
+
+      --border: #213247;
+
+      --max-width: 1080px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 90% 0%,
+          rgba(94, 181, 255, 0.08),
+          transparent 28%
+        ),
+        var(--background);
+
+      color: var(--text);
+
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(
+        calc(100% - 40px),
+        var(--max-width)
+      );
+
+      margin: 0 auto;
+    }
+
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    header {
+      position: sticky;
+      top: 0;
+
+      z-index: 100;
+
+      background: rgba(7, 16, 25, 0.94);
+
+      backdrop-filter: blur(12px);
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      min-height: 70px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+    }
+
+    .name {
+      font-size: 1rem;
+
+      font-weight: 750;
+    }
+
+    .back-link {
+      color: var(--muted);
+
+      font-size: 0.9rem;
+
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .project-hero {
+      padding: 80px 0 48px;
+    }
+
+    .project-label {
+      margin-bottom: 12px;
+
+      color: var(--accent);
+
+      font-size: 0.78rem;
+
+      font-weight: 750;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.13em;
+    }
+
+    .project-hero h1 {
+      max-width: 940px;
+
+      margin: 0 0 24px;
+
+      font-size:
+        clamp(
+          2.7rem,
+          7vw,
+          5rem
+        );
+
+      line-height: 1;
+
+      letter-spacing: -0.04em;
+    }
+
+    .project-summary {
+      max-width: 880px;
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 1.12rem;
+    }
+
+
+    /* =========================================================
+       HERO IMAGE
+    ========================================================= */
+
+    .hero-image {
+      width: 100%;
+      max-height: 650px;
+
+      object-fit: contain;
+
+      border: 1px solid var(--border);
+
+      border-radius: 18px;
+
+      background: #ffffff;
+    }
+
+
+    /* =========================================================
+       PROJECT INFORMATION
+    ========================================================= */
+
+    .project-info-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-top: 24px;
+    }
+
+    .info-card {
+      padding: 18px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 12px;
+
+      background: var(--card);
+    }
+
+    .info-label {
+      color: var(--muted);
+
+      font-size: 0.72rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.08em;
+    }
+
+    .info-value {
+      margin-top: 5px;
+
+      color: var(--text);
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       SECTIONS
+    ========================================================= */
+
+    .project-section {
+      padding-top: 90px;
+    }
+
+    .section-number {
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.76rem;
+
+      font-weight: 750;
+
+      letter-spacing: 0.13em;
+
+      text-transform: uppercase;
+    }
+
+    .project-section h2 {
+      margin: 0 0 18px;
+
+      font-size:
+        clamp(
+          1.8rem,
+          4vw,
+          2.5rem
+        );
+
+      line-height: 1.2;
+    }
+
+    .project-section > .container > p {
+      max-width: 880px;
+
+      color: var(--muted);
+    }
+
+
+    /* =========================================================
+       CARDS & GRIDS
+    ========================================================= */
+
+    .two-column-grid {
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 18px;
+
+      margin-top: 26px;
+    }
+
+    .three-column-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+
+      margin-top: 26px;
+    }
+
+    .content-card {
+      padding: 25px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: var(--card);
+    }
+
+    .content-card h3 {
+      margin: 0 0 10px;
+
+      font-size: 1.08rem;
+    }
+
+    .content-card p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.94rem;
+    }
+
+
+    /* =========================================================
+       REQUIREMENTS
+    ========================================================= */
+
+    .requirements {
+      display: grid;
+
+      gap: 12px;
+
+      margin-top: 8px;
+    }
+
+    .requirement {
+      display: flex;
+
+      gap: 11px;
+
+      color: var(--muted);
+    }
+
+    .requirement-marker {
+      color: var(--accent);
+
+      font-weight: 800;
+    }
+
+
+    /* =========================================================
+       METRICS
+    ========================================================= */
+
+    .metric-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 14px;
+
+      margin-top: 28px;
+    }
+
+    .metric-card {
+      padding: 22px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(94, 181, 255, 0.05),
+          transparent 55%
+        ),
+        var(--card);
+    }
+
+    .metric-value {
+      color: var(--accent);
+
+      font-size: 1.45rem;
+
+      font-weight: 800;
+
+      line-height: 1.2;
+    }
+
+    .metric-title {
+      margin-top: 7px;
+
+      color: var(--text);
+
+      font-weight: 700;
+    }
+
+    .metric-description {
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 0.84rem;
+    }
+
+
+    /* =========================================================
+       MATERIAL COMPARISON
+    ========================================================= */
+
+    .material-grid {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 18px;
+
+      margin-top: 28px;
+    }
+
+    .material-card {
+      padding: 28px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background: var(--card);
+    }
+
+    .material-label {
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.1em;
+    }
+
+    .material-card h3 {
+      margin: 0 0 12px;
+
+      font-size: 1.3rem;
+    }
+
+    .material-card p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.94rem;
+    }
+
+    .material-facts {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin-top: 18px;
+    }
+
+    .material-fact {
+      padding: 7px 10px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: #cbd7e2;
+
+      font-size: 0.78rem;
+    }
+
+
+    /* =========================================================
+       EQUATION / ANALYSIS BOXES
+    ========================================================= */
+
+    .analysis-box {
+      margin-top: 26px;
+
+      padding: 28px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.06),
+          transparent 60%
+        ),
+        var(--card);
+    }
+
+    .analysis-box h3 {
+      margin: 0 0 12px;
+
+      font-size: 1.2rem;
+    }
+
+    .analysis-box p {
+      margin: 0;
+
+      color: var(--muted);
+    }
+
+    .equation {
+      margin: 18px 0;
+
+      padding: 16px 18px;
+
+      overflow-x: auto;
+
+      border-left: 3px solid var(--accent);
+
+      border-radius: 8px;
+
+      background: #0b1520;
+
+      color: var(--text);
+
+      font-family:
+        "Cambria Math",
+        "Times New Roman",
+        serif;
+
+      font-size: 1.05rem;
+    }
+
+
+    /* =========================================================
+       FIGURES
+    ========================================================= */
+
+    .project-figure {
+      margin: 0;
+    }
+
+    .section-image {
+      width: 100%;
+      height: 100%;
+
+      max-height: 540px;
+
+      object-fit: contain;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: #ffffff;
+    }
+
+    .figure-caption {
+      max-width: 900px;
+
+      margin: 11px auto 0;
+
+      color: var(--muted);
+
+      font-size: 0.83rem;
+
+      line-height: 1.6;
+
+      text-align: center;
+    }
+
+    .figure-grid-two {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 18px;
+
+      margin-top: 30px;
+    }
+
+    .figure-grid-three {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 16px;
+
+      margin-top: 30px;
+    }
+
+    .figure-card {
+      padding: 13px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background: var(--card);
+    }
+
+    .figure-card .section-image {
+      min-height: 220px;
+    }
+
+
+    /* =========================================================
+       FEATURE ROWS
+    ========================================================= */
+
+    .feature-showcase {
+      display: grid;
+
+      gap: 22px;
+
+      margin-top: 32px;
+    }
+
+    .feature-row {
+      display: grid;
+
+      grid-template-columns:
+        0.9fr 1.1fr;
+
+      min-height: 330px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background: var(--card);
+    }
+
+    .feature-copy {
+      padding: 34px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .feature-label {
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.1em;
+    }
+
+    .feature-copy h3 {
+      margin: 0 0 12px;
+
+      font-size: 1.3rem;
+    }
+
+    .feature-copy p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.94rem;
+
+      line-height: 1.75;
+    }
+
+    .feature-image-wrap {
+      min-height: 330px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 16px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.06),
+          transparent
+        ),
+        #0b1520;
+    }
+
+    .feature-image {
+      width: 100%;
+      height: 100%;
+
+      max-height: 430px;
+
+      object-fit: contain;
+
+      border-radius: 10px;
+
+      background: #ffffff;
+    }
+
+    .feature-row.image-left .feature-image-wrap {
+      order: 1;
+    }
+
+    .feature-row.image-left .feature-copy {
+      order: 2;
+    }
+
+
+    /* =========================================================
+       RESULT HIGHLIGHT
+    ========================================================= */
+
+    .result-highlight {
+      margin-top: 28px;
+
+      padding: 32px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background:
+        linear-gradient(
+          125deg,
+          rgba(94, 181, 255, 0.13),
+          transparent 60%
+        ),
+        var(--card);
+    }
+
+    .result-highlight h3 {
+      margin: 0 0 12px;
+
+      font-size: 1.35rem;
+    }
+
+    .result-highlight p {
+      max-width: 920px;
+
+      margin: 0;
+
+      color: var(--muted);
+    }
+
+    .result-values {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      margin-top: 20px;
+    }
+
+    .result-value {
+      padding: 8px 12px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: var(--accent);
+
+      font-size: 0.82rem;
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       PROCESS
+    ========================================================= */
+
+    .process-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 14px;
+
+      margin-top: 28px;
+    }
+
+    .process-card {
+      padding: 22px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: var(--card);
+    }
+
+    .process-number {
+      color: var(--accent);
+
+      font-size: 0.73rem;
+
+      font-weight: 750;
+    }
+
+    .process-card h3 {
+      margin: 7px 0 8px;
+
+      font-size: 1rem;
+    }
+
+    .process-card p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.88rem;
+    }
+
+
+    /* =========================================================
+       TAGS
+    ========================================================= */
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin-top: 26px;
+    }
+
+    .tag {
+      padding: 6px 10px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: #ccd8e2;
+
+      font-size: 0.8rem;
+    }
+
+
+    /* =========================================================
+       BOTTOM NAVIGATION
+    ========================================================= */
+
+    .bottom-navigation {
+      margin-top: 100px;
+
+      padding: 35px 0;
+
+      border-top: 1px solid var(--border);
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 20px;
+    }
+
+    .nav-button {
+      min-height: 44px;
+
+      padding: 0 16px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+
+      border-radius: 9px;
+
+      color: var(--muted);
+
+      font-weight: 650;
+
+      transition: 0.2s;
+    }
+
+    .nav-button:hover {
+      color: var(--text);
+
+      border-color: var(--accent);
+
+      background: var(--accent-soft);
+    }
+
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    footer {
+      padding: 25px 0 45px;
+
+      color: var(--muted);
+
+      font-size: 0.86rem;
+    }
+
+
+    /* =========================================================
+       TABLET
+    ========================================================= */
+
+    @media (max-width: 900px) {
+
+      .project-info-grid {
+        grid-template-columns:
+          repeat(3, minmax(0, 1fr));
+      }
+
+      .metric-grid,
+      .process-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .figure-grid-three {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media (max-width: 700px) {
+
+      .feature-row,
+      .feature-row.image-left {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-copy {
+        order: 1 !important;
+
+        padding: 25px;
+      }
+
+      .feature-image-wrap {
+        order: 2 !important;
+
+        min-height: 240px;
+      }
+
+      .material-grid,
+      .figure-grid-two {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+    @media (max-width: 650px) {
+
+      .container {
+        width: min(
+          calc(100% - 30px),
+          var(--max-width)
+        );
+      }
+
+      .project-hero {
+        padding-top: 55px;
+      }
+
+      .project-info-grid,
+      .two-column-grid,
+      .three-column-grid,
+      .metric-grid,
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bottom-navigation {
+        flex-direction: column;
+
+        align-items: stretch;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- ======================================================
+       HEADER
+  ======================================================= -->
+
+  <header>
+
+    <div class="container header-inner">
+
+      <a
+        href="index.html"
+        class="name"
+      >
+        Rhythm Patel
+      </a>
+
+      <a
+        href="index.html#projects"
+        class="back-link"
+      >
+        ← Back to Portfolio
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+
+    <!-- ====================================================
+         HERO
+    ===================================================== -->
+
+    <section class="project-hero">
+
+      <div class="container">
+
+        <div class="project-label">
+          Graduate Engineering Project · Formula SAE EV
+        </div>
+
+        <h1>
+          Composite Battery Enclosure Design &amp; Structural Analysis
+        </h1>
+
+        <p class="project-summary">
+
+          Evaluated fiber-reinforced composite materials
+          for a Formula SAE electric-vehicle battery module
+          enclosure, with the goal of replacing a conventional
+          metallic structure with a lightweight, electrically
+          insulating, and structurally robust laminate.
+
+          The project combined material screening, Classical
+          Laminate Theory, Tsai-Wu failure analysis, thermal
+          expansion calculations, and SolidWorks finite element
+          analysis to compare E-glass and Kevlar 49 designs.
+
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         HERO IMAGE & QUICK INFO
+    ===================================================== -->
+
+    <section>
+
+      <div class="container">
+
+        <img
+          src="images/composite-battery-enclosure.png"
+          alt="Kevlar composite battery enclosure factor of safety under a 40 g longitudinal load case"
+          class="hero-image"
+        />
+
+
+        <div class="project-info-grid">
+
+          <div class="info-card">
+            <div class="info-label">
+              Timeline
+            </div>
+            <div class="info-value">
+              Jan – Apr 2026
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-label">
+              Application
+            </div>
+            <div class="info-value">
+              Formula SAE EV
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-label">
+              Analysis
+            </div>
+            <div class="info-value">
+              CLT + FEA
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-label">
+              Selected Material
+            </div>
+            <div class="info-value">
+              Kevlar 49
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-label">
+              Final Thickness
+            </div>
+            <div class="info-value">
+              3 mm
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         01 — THE ENGINEERING PROBLEM
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          01 — The Engineering Problem
+        </div>
+
+        <h2>
+          Protecting High-Voltage Battery Cells Under Severe Vehicle Loads
+        </h2>
+
+        <p>
+
+          Formula SAE electric vehicles package a large
+          amount of stored energy into a compact accumulator.
+          The battery module structure must prevent the cells
+          from being mechanically damaged while also remaining
+          electrically safe, lightweight, manufacturable, and
+          practical for a student racing team.
+
+          The design problem was therefore not simply to find
+          the strongest material. The enclosure needed to
+          balance structural performance with electrical
+          insulation, mass, temperature exposure, cost, and
+          fabrication requirements.
+
+        </p>
+
+
+        <div class="two-column-grid">
+
+          <div class="content-card">
+
+            <h3>
+              Structural Objective
+            </h3>
+
+            <p>
+
+              Develop a composite laminate capable of
+              supporting the FSAE acceleration load cases
+              without exceeding the project limits for
+              deflection or structural failure.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Material Objective
+            </h3>
+
+            <p>
+
+              Compare electrically insulating composite
+              systems and identify a material that provides
+              sufficient strength and stiffness while
+              minimizing enclosure mass.
+
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         02 — DESIGN REQUIREMENTS
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          02 — Design Requirements
+        </div>
+
+        <h2>
+          Translating Formula SAE Rules Into Engineering Targets
+        </h2>
+
+        <p>
+
+          The project converted the Formula SAE acceleration
+          requirements into equivalent inertial loads using a
+          6.5 kg battery module mass. Additional project
+          constraints were added for deflection, factor of
+          safety, electrical insulation, and temperature
+          exposure.
+
+        </p>
+
+
+        <div class="metric-grid">
+
+          <div class="metric-card">
+            <div class="metric-value">
+              40 g
+            </div>
+            <div class="metric-title">
+              Longitudinal
+            </div>
+            <div class="metric-description">
+              Forward / aft acceleration requirement
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-value">
+              40 g
+            </div>
+            <div class="metric-title">
+              Lateral
+            </div>
+            <div class="metric-description">
+              Left / right acceleration requirement
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-value">
+              20 g
+            </div>
+            <div class="metric-title">
+              Vertical
+            </div>
+            <div class="metric-description">
+              Up / down acceleration requirement
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-value">
+              &lt; 1 mm
+            </div>
+            <div class="metric-title">
+              Deflection
+            </div>
+            <div class="metric-description">
+              Maximum project deflection criterion
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="two-column-grid">
+
+          <div class="content-card">
+
+            <h3>
+              Calculated Inertial Loads
+            </h3>
+
+            <div class="requirements">
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Vertical: 1,275.3 N at 20 g</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Longitudinal: 2,550.6 N at 40 g</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Lateral: 2,550.6 N at 40 g</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Minimum factor of safety: 1.2</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Additional Constraints
+            </h3>
+
+            <div class="requirements">
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Electrical insulation for a system operating up to 600 V</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Temperature range considered: 10°C to 60°C</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Low structural mass and volume</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Manufacturing process suitable for low-volume student production</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         03 — MATERIAL SCREENING
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          03 — Material Screening
+        </div>
+
+        <h2>
+          Narrowing the Candidate Set to E-Glass and Kevlar 49
+        </h2>
+
+        <p>
+
+          E-glass, Kevlar 49, T700S carbon fiber,
+          T300 carbon fiber, and carbon-Kevlar hybrid
+          systems were considered. Carbon-fiber-based
+          options offered excellent specific stiffness,
+          but their electrical conductivity introduced
+          additional insulation requirements around live
+          battery components.
+
+          E-glass and Kevlar were carried forward because
+          both provide electrical non-conductivity while
+          maintaining useful structural properties.
+
+        </p>
+
+
+        <div class="material-grid">
+
+          <div class="material-card">
+
+            <div class="material-label">
+              Candidate 01
+            </div>
+
+            <h3>
+              E-Glass / Epoxy
+            </h3>
+
+            <p>
+
+              E-glass provides a practical combination of
+              mechanical strength, electrical insulation,
+              environmental resistance, widespread
+              availability, and relatively low material cost.
+
+              Its primary drawback for this application is
+              its higher density compared with Kevlar.
+
+            </p>
+
+            <div class="material-facts">
+              <span class="material-fact">Electrically insulating</span>
+              <span class="material-fact">Lower cost</span>
+              <span class="material-fact">Composite density ≈ 2.186 g/cm³</span>
+            </div>
+
+          </div>
+
+
+          <div class="material-card">
+
+            <div class="material-label">
+              Candidate 02
+            </div>
+
+            <h3>
+              Kevlar 49 / Epoxy
+            </h3>
+
+            <p>
+
+              Kevlar 49 combines electrical insulation with
+              low density, high tensile strength, impact
+              resistance, and strong resistance to crack
+              propagation.
+
+              These characteristics are well suited to the
+              vibration and impact environment of a Formula
+              SAE accumulator.
+
+            </p>
+
+            <div class="material-facts">
+              <span class="material-fact">Electrically insulating</span>
+              <span class="material-fact">Impact resistant</span>
+              <span class="material-fact">Composite density ≈ 1.395 g/cm³</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         04 — LAMINATE DESIGN & CLT
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          04 — Laminate Design &amp; Classical Laminate Theory
+        </div>
+
+        <h2>
+          Building Strength in Every Principal Loading Direction
+        </h2>
+
+        <p>
+
+          A balanced and symmetric laminate was selected
+          so that the panel could respond to longitudinal,
+          lateral, bending, and shear loading while avoiding
+          extension-bending coupling.
+
+          The representative stacking sequence was
+          <strong>[0 / +45 / −45 / 90]s</strong>.
+          The 0° plies support the longitudinal direction,
+          the 90° plies support the lateral direction, and
+          the ±45° plies improve shear and multi-directional
+          load transfer.
+
+        </p>
+
+
+        <div class="analysis-box">
+
+          <h3>
+            Classical Laminate Theory
+          </h3>
+
+          <p>
+
+            Orthotropic lamina properties were transformed
+            into the global laminate coordinate system and
+            assembled into the laminate extensional,
+            coupling, and bending stiffness matrices.
+
+            Because the layup was symmetric, the coupling
+            matrix was reduced to zero, simplifying the
+            relationship between in-plane loading and bending.
+
+          </p>
+
+          <div class="equation">
+            {N, M} = [A B; B D] {ε⁰, κ}
+          </div>
+
+          <p>
+
+            The same framework was used to estimate
+            laminate strains, stresses, effective stiffness,
+            and the influence of thermal expansion.
+
+          </p>
+
+        </div>
+
+
+        <div class="feature-showcase">
+
+          <div class="feature-row image-left">
+
+            <div class="feature-image-wrap">
+
+              <img
+                src="images/composite-layup-setup.png"
+                alt="SolidWorks composite shell definition showing laminate ply orientations"
+                class="feature-image"
+              />
+
+            </div>
+
+            <div class="feature-copy">
+
+              <div class="feature-label">
+                Composite Shell Definition
+              </div>
+
+              <h3>
+                Implementing the Laminate in SolidWorks
+              </h3>
+
+              <p>
+
+                The panel was modeled as a composite shell
+                with 0°, +45°, −45°, and 90° ply
+                orientations. Each ply was assumed to be
+                0.125 mm thick, allowing the laminate to be
+                increased in symmetric increments while
+                preserving the selected stacking sequence.
+
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         05 — ANALYTICAL SIZING
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          05 — Analytical Sizing
+        </div>
+
+        <h2>
+          Estimating Thickness, Failure Margin, and Thermal Response
+        </h2>
+
+        <p>
+
+          Hand calculations were used as an initial design
+          screen before finite element analysis. The direct
+          longitudinal and lateral load cases required very
+          little thickness based on simple allowable-stress
+          calculations, while the vertical bending case
+          controlled the preliminary plate thickness.
+
+        </p>
+
+
+        <div class="three-column-grid">
+
+          <div class="content-card">
+            <h3>
+              Preliminary Thickness
+            </h3>
+            <p>
+              The analytical vertical-load estimate produced
+              a required thickness of approximately 3.14 mm,
+              which was conservatively rounded to a 4 mm,
+              32-ply laminate for the hand calculations.
+            </p>
+          </div>
+
+          <div class="content-card">
+            <h3>
+              Tsai-Wu Failure Analysis
+            </h3>
+            <p>
+              Ply stresses were transformed into the local
+              material axes and evaluated with the Tsai-Wu
+              interactive failure criterion to estimate the
+              laminate safety factor.
+            </p>
+          </div>
+
+          <div class="content-card">
+            <h3>
+              Thermal Expansion
+            </h3>
+            <p>
+              A 50°C temperature change was evaluated.
+              The calculated maximum in-plane expansion was
+              approximately 0.414 mm along the panel length.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="analysis-box">
+
+          <h3>
+            Analytical Deflection Check at 4 mm
+          </h3>
+
+          <p>
+
+            Using equivalent laminate stiffness values and
+            a simplified plate-strip approximation, the
+            predicted maximum vertical deflection was
+            approximately 0.391 mm for E-glass and
+            0.265 mm for Kevlar.
+
+            These calculations indicated that both
+            candidate materials could satisfy the
+            1 mm project deflection criterion.
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         06 — FEA SETUP
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          06 — Finite Element Analysis Setup
+        </div>
+
+        <h2>
+          Modeling the Actual Panel Geometry and Mounting Conditions
+        </h2>
+
+        <p>
+
+          SolidWorks Simulation was used to refine the
+          analytical estimates by including the real panel
+          geometry, mounting holes, composite shell layup,
+          orthotropic material properties, and the three
+          required acceleration load directions.
+
+          The mounting holes were constrained to represent
+          the fastened interface between the battery module
+          structure and its supporting structure.
+
+        </p>
+
+
+        <div class="feature-showcase">
+
+          <div class="feature-row">
+
+            <div class="feature-copy">
+
+              <div class="feature-label">
+                Boundary Conditions
+              </div>
+
+              <h3>
+                Fixture Definition
+              </h3>
+
+              <p>
+
+                The fastener-hole regions were used as
+                fixtures in the simulation. Including these
+                local constraints was important because the
+                FEA later showed that stress concentrations
+                around the holes reduced the factor of safety
+                compared with the simplified hand calculations.
+
+              </p>
+
+            </div>
+
+            <div class="feature-image-wrap">
+
+              <img
+                src="images/composite-fea-fixtures.png"
+                alt="Composite battery enclosure panel with fixture locations applied at mounting holes"
+                class="feature-image"
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="figure-grid-three">
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/composite-vertical-load.png"
+              alt="20 g vertical load applied to the composite panel"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              20 g vertical acceleration load case.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/composite-lateral-load.png"
+              alt="40 g lateral load applied to the composite panel"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              40 g lateral acceleration load case.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/composite-longitudinal-load.png"
+              alt="40 g longitudinal load applied to the composite panel"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              40 g longitudinal acceleration load case.
+            </figcaption>
+
+          </figure>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         07 — E-GLASS RESULTS
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          07 — E-Glass Results
+        </div>
+
+        <h2>
+          Iterating Thickness Until Both Design Criteria Were Met
+        </h2>
+
+        <p>
+
+          E-glass was first evaluated under the 20 g
+          vertical case because bending produced the most
+          demanding deflection response. Increasing the
+          laminate thickness reduced both deformation and
+          failure risk.
+
+          The final E-glass design required a 3 mm laminate
+          to satisfy both the deflection and minimum
+          factor-of-safety requirements before being checked
+          under the 40 g lateral and longitudinal cases.
+
+        </p>
+
+
+        <div class="figure-grid-three">
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/eglass-deflection-20g.png"
+              alt="E-glass vertical deflection finite element result"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Vertical deflection result used during E-glass thickness iteration.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/eglass-fos-20g.png"
+              alt="E-glass factor of safety under the 20 g vertical load case at 3 mm thickness"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              3 mm E-glass laminate under the 20 g vertical load case.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/eglass-fos-40g.png"
+              alt="E-glass factor of safety under the 40 g longitudinal load case at 3 mm thickness"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              3 mm E-glass laminate under the 40 g longitudinal load case.
+            </figcaption>
+
+          </figure>
+
+        </div>
+
+
+        <div class="result-highlight">
+
+          <h3>
+            E-Glass Final Result
+          </h3>
+
+          <p>
+
+            A minimum laminate thickness of 3 mm was
+            established through the FEA iterations.
+            At this thickness the design satisfied the
+            project requirements in all three acceleration
+            directions.
+
+            Under the 40 g longitudinal case, the report
+            identified a minimum Tsai-Wu factor of safety
+            of approximately 3.5.
+
+          </p>
+
+          <div class="result-values">
+            <span class="result-value">Final thickness: 3 mm</span>
+            <span class="result-value">Deflection target: passed</span>
+            <span class="result-value">FoS target: passed</span>
+            <span class="result-value">40 g longitudinal FoS ≈ 3.5</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         08 — KEVLAR RESULTS
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          08 — Kevlar 49 Results
+        </div>
+
+        <h2>
+          Achieving the Structural Targets at the Same Final Thickness
+        </h2>
+
+        <p>
+
+          The Kevlar laminate followed the same iterative
+          process. At 1 mm thickness, the 20 g vertical
+          load produced approximately 4.5 mm of deflection.
+          Increasing the laminate to 2 mm reduced deflection
+          below the 1 mm requirement, but the factor of
+          safety was still below the 1.2 target.
+
+          Increasing the laminate to 3 mm produced a
+          vertical factor of safety of approximately 2.6
+          and satisfied the remaining load cases.
+
+        </p>
+
+
+        <div class="figure-grid-three">
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/kevlar-deflection-20g.png"
+              alt="Kevlar vertical deflection result at 2 mm thickness"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Kevlar deflection under 20 g vertical loading after increasing the laminate to 2 mm.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/kevlar-fos-20g.png"
+              alt="Kevlar factor of safety under 20 g vertical loading at 3 mm thickness"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              3 mm Kevlar laminate with an approximately 2.6 vertical factor of safety.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/kevlar-fos-40g-lateral.png"
+              alt="Kevlar factor of safety under 40 g lateral loading at 3 mm thickness"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              3 mm Kevlar laminate under the 40 g lateral load case.
+            </figcaption>
+
+          </figure>
+
+        </div>
+
+
+        <div class="result-highlight">
+
+          <h3>
+            Kevlar Final Result
+          </h3>
+
+          <p>
+
+            A 3 mm Kevlar laminate met the project's
+            deflection and factor-of-safety criteria in the
+            vertical, lateral, and longitudinal FSAE load
+            cases.
+
+            The longitudinal result shown at the top of this
+            page completes the three-direction validation of
+            the final Kevlar configuration.
+
+          </p>
+
+          <div class="result-values">
+            <span class="result-value">Final thickness: 3 mm</span>
+            <span class="result-value">20 g vertical FoS ≈ 2.6</span>
+            <span class="result-value">40 g lateral: passed</span>
+            <span class="result-value">40 g longitudinal: passed</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         09 — FINAL MATERIAL SELECTION
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          09 — Final Material Selection
+        </div>
+
+        <h2>
+          Selecting Kevlar 49 for the Battery Enclosure
+        </h2>
+
+        <p>
+
+          Both E-glass and Kevlar passed the structural
+          requirements at a 3 mm laminate thickness, so
+          the final decision was driven by system-level
+          considerations rather than strength alone.
+
+          Kevlar was selected because it provided comparable
+          structural performance at a substantially lower
+          composite density, while also offering electrical
+          insulation, impact resistance, crack-arrest
+          behavior, and vibration durability.
+
+        </p>
+
+
+        <div class="two-column-grid">
+
+          <div class="content-card">
+
+            <h3>
+              Mass Advantage
+            </h3>
+
+            <p>
+
+              For the same 3 mm panel geometry, the report
+              used composite densities of approximately
+              2.186 g/cm³ for E-glass and 1.395 g/cm³ for
+              Kevlar.
+
+              With both designs meeting the structural
+              targets, the lower-density Kevlar laminate
+              offered the stronger weight-saving opportunity.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Why Not Carbon Fiber?
+            </h3>
+
+            <p>
+
+              Carbon fiber offered greater stiffness, but
+              its electrical conductivity would require
+              additional insulation between the enclosure
+              and high-voltage components.
+
+              That added complexity reduced its suitability
+              for this specific battery-module application.
+
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="result-highlight">
+
+          <h3>
+            Final Selection: Kevlar 49 / Epoxy
+          </h3>
+
+          <p>
+
+            The selected material system balanced the
+            project priorities of mechanical performance,
+            electrical safety, low mass, impact resistance,
+            and manufacturability for a Formula SAE EV
+            battery enclosure.
+
+          </p>
+
+          <div class="result-values">
+            <span class="result-value">Electrically insulating</span>
+            <span class="result-value">Lower density than E-glass</span>
+            <span class="result-value">Impact resistant</span>
+            <span class="result-value">3 mm laminate</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         10 — MANUFACTURING
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          10 — Manufacturing Strategy
+        </div>
+
+        <h2>
+          Designing a Process Suitable for Low-Volume Student Manufacturing
+        </h2>
+
+        <p>
+
+          Vacuum-assisted hand layup or vacuum-bag
+          consolidation was selected as the recommended
+          fabrication approach.
+
+          The method provides a practical balance between
+          laminate quality, tooling cost, and accessibility.
+          Vacuum consolidation helps remove excess resin,
+          reduce voids, and improve interlaminar bonding so
+          the manufactured laminate more closely matches
+          the assumptions used in the analytical and FEA
+          models.
+
+        </p>
+
+
+        <div class="process-grid">
+
+          <div class="process-card">
+            <div class="process-number">01</div>
+            <h3>Prepare Tooling</h3>
+            <p>
+              Use a simple female mold with a smooth,
+              sealed, release-treated surface.
+            </p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-number">02</div>
+            <h3>Cut &amp; Orient Plies</h3>
+            <p>
+              Cut the dry reinforcement and mark each
+              0°, ±45°, and 90° orientation.
+            </p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-number">03</div>
+            <h3>Lay Up Laminate</h3>
+            <p>
+              Stack the plies in the selected symmetric
+              sequence while wetting with epoxy resin.
+            </p>
+          </div>
+
+          <div class="process-card">
+            <div class="process-number">04</div>
+            <h3>Vacuum Consolidate</h3>
+            <p>
+              Apply peel ply, release film, flow media,
+              vacuum bagging film, and vacuum pressure
+              before cure.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="analysis-box">
+
+          <h3>
+            Manufacturing Trade-Off
+          </h3>
+
+          <p>
+
+            E-glass remains a strong lower-cost alternative
+            and is easier to cut and finish. Kevlar requires
+            more care during cutting and post-processing
+            because aramid fibers tend to fray, but its
+            lower density and impact-related advantages
+            made it the preferred material for the final
+            design recommendation.
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         11 — KEY OUTCOMES
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          11 — Key Outcomes
+        </div>
+
+        <h2>
+          From Material Screening to a Validated Composite Design
+        </h2>
+
+        <p>
+
+          The project established a complete analytical and
+          computational workflow for evaluating composite
+          battery-module structures.
+
+          Rather than selecting a material using strength
+          data alone, the final recommendation incorporated
+          laminate mechanics, local FEA behavior, thermal
+          response, electrical safety, weight, and realistic
+          manufacturing constraints.
+
+        </p>
+
+
+        <div class="two-column-grid">
+
+          <div class="content-card">
+
+            <h3>
+              Engineering Takeaways
+            </h3>
+
+            <div class="requirements">
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Converted FSAE acceleration rules into structural load cases</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Developed orthotropic composite properties from constituent data</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Applied Classical Laminate Theory and Tsai-Wu failure analysis</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Compared analytical estimates against SolidWorks FEA</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Identified mounting-hole stress concentrations as a key local effect</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Final Design Recommendation
+            </h3>
+
+            <div class="requirements">
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Material: Kevlar 49 / epoxy composite</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Laminate thickness: 3 mm</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Balanced symmetric 0° / ±45° / 90° architecture</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Meets 20 g vertical and 40 g lateral / longitudinal load cases</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Recommended process: vacuum-assisted composite layup</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="tags">
+          <span class="tag">Composite Materials</span>
+          <span class="tag">Classical Laminate Theory</span>
+          <span class="tag">Tsai-Wu</span>
+          <span class="tag">SolidWorks Simulation</span>
+          <span class="tag">Finite Element Analysis</span>
+          <span class="tag">Formula SAE EV</span>
+          <span class="tag">Kevlar 49</span>
+          <span class="tag">E-Glass</span>
+          <span class="tag">Structural Analysis</span>
+          <span class="tag">Vacuum Bagging</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         BOTTOM NAVIGATION
+    ===================================================== -->
+
+    <div class="container">
+
+      <div class="bottom-navigation">
+
+        <a
+          href="index.html#projects"
+          class="nav-button"
+        >
+          ← Back to Projects
+        </a>
+
+        <a
+          href="index.html"
+          class="nav-button"
+        >
+          Portfolio Home
+        </a>
+
+      </div>
+
+    </div>
+
+
+  </main>
+
+
+  <!-- ======================================================
+       FOOTER
+  ======================================================= -->
+
+  <footer>
+
+    <div class="container">
+
+      ©
+      <span id="year"></span>
+      Rhythm Patel
+      · Mechanical Engineering Portfolio
+
+    </div>
+
+  </footer>
+
+
+  <script>
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+  </script>
+
+
+</body>
+
+</html>
