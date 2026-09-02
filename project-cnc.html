@@ -1447,6 +1447,60 @@
 
 
     /* =========================================================
+       TESTING VIDEO
+    ========================================================= */
+
+    .testing-video-figure {
+      margin: 30px 0 0;
+    }
+
+    .testing-video-wrap {
+      width: 100%;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background: #000000;
+    }
+
+    .testing-video {
+      width: 100%;
+      height: auto;
+
+      max-height: 650px;
+
+      display: block;
+
+      object-fit: contain;
+
+      background: #000000;
+    }
+
+    .testing-video-caption {
+      max-width: 900px;
+
+      margin: 11px auto 0;
+
+      color: var(--muted);
+
+      font-size: 0.84rem;
+
+      line-height: 1.6;
+
+      text-align: center;
+    }
+
+    .testing-video-speed {
+      color: var(--accent);
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
        COST
     ========================================================= */
 
@@ -4020,6 +4074,48 @@
         </div>
 
 
+        <!-- ================================================
+             CNC TESTING VIDEO
+        ================================================= -->
+
+        <figure class="testing-video-figure">
+
+          <div class="testing-video-wrap">
+
+            <video
+              id="cnc-testing-video"
+              class="testing-video"
+              autoplay
+              muted
+              loop
+              playsinline
+              controls
+              preload="auto"
+            >
+
+              <source
+                src="videos/cnc-testing.mp4"
+                type="video/mp4"
+              />
+
+              Your browser does not support the video tag.
+
+            </video>
+
+          </div>
+
+
+          <figcaption class="testing-video-caption">
+            CNC prototype executing a foam-machining
+            operation during system testing.
+            <span class="testing-video-speed">
+              Playback shown at 2× speed.
+            </span>
+          </figcaption>
+
+        </figure>
+
+
         <div class="tags">
 
           <span class="tag">Mechanical Design</span>
@@ -4039,17 +4135,6 @@
           <span class="tag">Fusion 360</span>
           <span class="tag">G-code</span>
           <span class="tag">Manufacturing</span>
-
-        </div>
-
-
-        <div class="image-placeholder">
-
-          <div>
-            <strong>Suggested image or video:</strong>
-            Prototype operating through UGS / GRBL or
-            the machine cutting foam
-          </div>
 
         </div>
 
@@ -4259,6 +4344,33 @@
 
     document.getElementById("year").textContent =
       new Date().getFullYear();
+
+
+    /* =========================================================
+       CNC TESTING VIDEO
+    ========================================================= */
+
+    const cncTestingVideo =
+      document.getElementById("cnc-testing-video");
+
+    if (cncTestingVideo) {
+
+      cncTestingVideo.defaultPlaybackRate = 2;
+      cncTestingVideo.playbackRate = 2;
+      cncTestingVideo.muted = true;
+
+
+      cncTestingVideo.addEventListener(
+        "loadedmetadata",
+        function() {
+
+          cncTestingVideo.defaultPlaybackRate = 2;
+          cncTestingVideo.playbackRate = 2;
+
+        }
+      );
+
+    }
 
 
     /* =========================================================
