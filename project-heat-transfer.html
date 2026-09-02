@@ -1,1 +1,2915 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    Composite Wall Heat Transfer Analysis | Rhythm Patel
+  </title>
+
+  <meta
+    name="description"
+    content="Analytical and COMSOL Multiphysics investigation of steady-state heat transfer through a multi-material composite wall, including conduction, convection, applied heat flux, numerical validation, and mesh sensitivity analysis."
+  />
+
+
+  <style>
+
+    /* =========================================================
+       GLOBAL
+    ========================================================= */
+
+    :root {
+
+      --background: #071019;
+      --card: #101c29;
+      --card-hover: #142335;
+
+      --text: #f2f6fa;
+      --muted: #9eafbf;
+
+      --accent: #5eb5ff;
+      --accent-light: #8bcbff;
+      --accent-soft: rgba(94, 181, 255, 0.11);
+
+      --border: #213247;
+
+      --max-width: 1080px;
+
+    }
+
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+
+    body {
+
+      margin: 0;
+
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 90% 0%,
+          rgba(94, 181, 255, 0.08),
+          transparent 28%
+        ),
+        var(--background);
+
+      color: var(--text);
+
+      line-height: 1.7;
+
+    }
+
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+
+    .container {
+
+      width: min(
+        calc(100% - 40px),
+        var(--max-width)
+      );
+
+      margin: 0 auto;
+
+    }
+
+
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    header {
+
+      position: sticky;
+      top: 0;
+
+      z-index: 100;
+
+      background: rgba(7, 16, 25, 0.94);
+
+      backdrop-filter: blur(12px);
+
+      border-bottom: 1px solid var(--border);
+
+    }
+
+
+    .header-inner {
+
+      min-height: 70px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+
+    }
+
+
+    .name {
+
+      font-size: 1rem;
+
+      font-weight: 750;
+
+    }
+
+
+    .back-link {
+
+      color: var(--muted);
+
+      font-size: 0.9rem;
+
+      transition: color 0.2s;
+
+    }
+
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .project-hero {
+      padding: 80px 0 48px;
+    }
+
+
+    .project-label {
+
+      margin-bottom: 12px;
+
+      color: var(--accent);
+
+      font-size: 0.78rem;
+
+      font-weight: 750;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.13em;
+
+    }
+
+
+    .project-hero h1 {
+
+      max-width: 940px;
+
+      margin: 0 0 24px;
+
+      font-size:
+        clamp(
+          2.7rem,
+          7vw,
+          5rem
+        );
+
+      line-height: 1;
+
+      letter-spacing: -0.04em;
+
+    }
+
+
+    .project-summary {
+
+      max-width: 880px;
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 1.12rem;
+
+    }
+
+
+
+    /* =========================================================
+       HERO IMAGE
+    ========================================================= */
+
+    .hero-image {
+
+      width: 100%;
+
+      max-height: 650px;
+
+      object-fit: contain;
+
+      border: 1px solid var(--border);
+
+      border-radius: 18px;
+
+      background: #ffffff;
+
+    }
+
+
+
+    /* =========================================================
+       PROJECT INFORMATION
+    ========================================================= */
+
+    .project-info-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-top: 24px;
+
+    }
+
+
+    .info-card {
+
+      padding: 18px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 12px;
+
+      background: var(--card);
+
+    }
+
+
+    .info-label {
+
+      color: var(--muted);
+
+      font-size: 0.72rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.08em;
+
+    }
+
+
+    .info-value {
+
+      margin-top: 5px;
+
+      color: var(--text);
+
+      font-weight: 700;
+
+    }
+
+
+
+    /* =========================================================
+       SECTIONS
+    ========================================================= */
+
+    .project-section {
+      padding-top: 90px;
+    }
+
+
+    .section-number {
+
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.76rem;
+
+      font-weight: 750;
+
+      letter-spacing: 0.13em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .project-section h2 {
+
+      margin: 0 0 18px;
+
+      font-size:
+        clamp(
+          1.8rem,
+          4vw,
+          2.5rem
+        );
+
+      line-height: 1.2;
+
+    }
+
+
+    .project-section > .container > p {
+
+      max-width: 880px;
+
+      color: var(--muted);
+
+    }
+
+
+
+    /* =========================================================
+       CARDS & GRIDS
+    ========================================================= */
+
+    .two-column-grid {
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 18px;
+
+      margin-top: 26px;
+
+    }
+
+
+    .three-column-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 15px;
+
+      margin-top: 26px;
+
+    }
+
+
+    .content-card {
+
+      padding: 25px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: var(--card);
+
+    }
+
+
+    .content-card h3 {
+
+      margin: 0 0 10px;
+
+      font-size: 1.08rem;
+
+    }
+
+
+    .content-card p {
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.94rem;
+
+    }
+
+
+
+    /* =========================================================
+       REQUIREMENTS
+    ========================================================= */
+
+    .requirements {
+
+      display: grid;
+
+      gap: 12px;
+
+      margin-top: 8px;
+
+    }
+
+
+    .requirement {
+
+      display: flex;
+
+      gap: 11px;
+
+      color: var(--muted);
+
+    }
+
+
+    .requirement-marker {
+
+      color: var(--accent);
+
+      font-weight: 800;
+
+    }
+
+
+
+    /* =========================================================
+       METRICS
+    ========================================================= */
+
+    .metric-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 14px;
+
+      margin-top: 28px;
+
+    }
+
+
+    .metric-card {
+
+      padding: 22px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(94, 181, 255, 0.05),
+          transparent 55%
+        ),
+        var(--card);
+
+    }
+
+
+    .metric-value {
+
+      color: var(--accent);
+
+      font-size: 1.45rem;
+
+      font-weight: 800;
+
+      line-height: 1.2;
+
+    }
+
+
+    .metric-title {
+
+      margin-top: 7px;
+
+      color: var(--text);
+
+      font-weight: 700;
+
+    }
+
+
+    .metric-description {
+
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 0.84rem;
+
+    }
+
+
+
+    /* =========================================================
+       ANALYSIS / EQUATIONS
+    ========================================================= */
+
+    .analysis-box {
+
+      margin-top: 26px;
+
+      padding: 28px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.06),
+          transparent 60%
+        ),
+        var(--card);
+
+    }
+
+
+    .analysis-box h3 {
+
+      margin: 0 0 12px;
+
+      font-size: 1.2rem;
+
+    }
+
+
+    .analysis-box p {
+
+      margin: 0;
+
+      color: var(--muted);
+
+    }
+
+
+    .analysis-box p + p {
+      margin-top: 14px;
+    }
+
+
+    .equation {
+
+      margin: 18px 0;
+
+      padding: 16px 18px;
+
+      overflow-x: auto;
+
+      border-left: 3px solid var(--accent);
+
+      border-radius: 8px;
+
+      background: #0b1520;
+
+      color: var(--text);
+
+      font-family:
+        "Cambria Math",
+        "Times New Roman",
+        serif;
+
+      font-size: 1.05rem;
+
+    }
+
+
+
+    /* =========================================================
+       FIGURES
+    ========================================================= */
+
+    .project-figure {
+      margin: 0;
+    }
+
+
+    .section-image {
+
+      width: 100%;
+      height: 100%;
+
+      max-height: 540px;
+
+      object-fit: contain;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: #ffffff;
+
+    }
+
+
+    .figure-caption {
+
+      max-width: 900px;
+
+      margin: 11px auto 0;
+
+      color: var(--muted);
+
+      font-size: 0.83rem;
+
+      line-height: 1.6;
+
+      text-align: center;
+
+    }
+
+
+    .figure-grid-two {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 18px;
+
+      margin-top: 30px;
+
+    }
+
+
+    .figure-grid-three {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 16px;
+
+      margin-top: 30px;
+
+    }
+
+
+    .figure-card {
+
+      padding: 13px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 15px;
+
+      background: var(--card);
+
+    }
+
+
+    .figure-card .section-image {
+      min-height: 220px;
+    }
+
+
+
+    /* =========================================================
+       FEATURE ROWS
+    ========================================================= */
+
+    .feature-showcase {
+
+      display: grid;
+
+      gap: 22px;
+
+      margin-top: 32px;
+
+    }
+
+
+    .feature-row {
+
+      display: grid;
+
+      grid-template-columns:
+        0.9fr 1.1fr;
+
+      min-height: 330px;
+
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background: var(--card);
+
+    }
+
+
+    .feature-copy {
+
+      padding: 34px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+    }
+
+
+    .feature-label {
+
+      margin-bottom: 7px;
+
+      color: var(--accent);
+
+      font-size: 0.72rem;
+
+      font-weight: 750;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.1em;
+
+    }
+
+
+    .feature-copy h3 {
+
+      margin: 0 0 12px;
+
+      font-size: 1.3rem;
+
+    }
+
+
+    .feature-copy p {
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.94rem;
+
+      line-height: 1.75;
+
+    }
+
+
+    .feature-image-wrap {
+
+      min-height: 330px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 16px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(94, 181, 255, 0.06),
+          transparent
+        ),
+        #0b1520;
+
+    }
+
+
+    .feature-image {
+
+      width: 100%;
+      height: 100%;
+
+      max-height: 430px;
+
+      object-fit: contain;
+
+      border-radius: 10px;
+
+      background: #ffffff;
+
+    }
+
+
+    .feature-row.image-left .feature-image-wrap {
+      order: 1;
+    }
+
+
+    .feature-row.image-left .feature-copy {
+      order: 2;
+    }
+
+
+
+    /* =========================================================
+       RESULT HIGHLIGHT
+    ========================================================= */
+
+    .result-highlight {
+
+      margin-top: 28px;
+
+      padding: 32px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      background:
+        linear-gradient(
+          125deg,
+          rgba(94, 181, 255, 0.13),
+          transparent 60%
+        ),
+        var(--card);
+
+    }
+
+
+    .result-highlight h3 {
+
+      margin: 0 0 12px;
+
+      font-size: 1.35rem;
+
+    }
+
+
+    .result-highlight p {
+
+      max-width: 920px;
+
+      margin: 0;
+
+      color: var(--muted);
+
+    }
+
+
+    .result-values {
+
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      margin-top: 20px;
+
+    }
+
+
+    .result-value {
+
+      padding: 8px 12px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: var(--accent);
+
+      font-size: 0.82rem;
+
+      font-weight: 700;
+
+    }
+
+
+
+    /* =========================================================
+       PROCESS
+    ========================================================= */
+
+    .process-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 14px;
+
+      margin-top: 28px;
+
+    }
+
+
+    .process-card {
+
+      padding: 22px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 14px;
+
+      background: var(--card);
+
+    }
+
+
+    .process-number {
+
+      color: var(--accent);
+
+      font-size: 0.73rem;
+
+      font-weight: 750;
+
+    }
+
+
+    .process-card h3 {
+
+      margin: 7px 0 8px;
+
+      font-size: 1rem;
+
+    }
+
+
+    .process-card p {
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 0.88rem;
+
+    }
+
+
+
+    /* =========================================================
+       TAGS
+    ========================================================= */
+
+    .tags {
+
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin-top: 26px;
+
+    }
+
+
+    .tag {
+
+      padding: 6px 10px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 999px;
+
+      color: #ccd8e2;
+
+      font-size: 0.8rem;
+
+    }
+
+
+
+    /* =========================================================
+       BOTTOM NAVIGATION
+    ========================================================= */
+
+    .bottom-navigation {
+
+      margin-top: 100px;
+
+      padding: 35px 0;
+
+      border-top: 1px solid var(--border);
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 20px;
+
+    }
+
+
+    .nav-button {
+
+      min-height: 44px;
+
+      padding: 0 16px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+
+      border-radius: 9px;
+
+      color: var(--muted);
+
+      font-weight: 650;
+
+      transition: 0.2s;
+
+    }
+
+
+    .nav-button:hover {
+
+      color: var(--text);
+
+      border-color: var(--accent);
+
+      background: var(--accent-soft);
+
+    }
+
+
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    footer {
+
+      padding: 25px 0 45px;
+
+      color: var(--muted);
+
+      font-size: 0.86rem;
+
+    }
+
+
+
+    /* =========================================================
+       TABLET
+    ========================================================= */
+
+    @media (max-width: 900px) {
+
+      .project-info-grid {
+
+        grid-template-columns:
+          repeat(3, minmax(0, 1fr));
+
+      }
+
+
+      .metric-grid,
+      .process-grid {
+
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+
+      }
+
+
+      .figure-grid-three {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media (max-width: 700px) {
+
+      .feature-row,
+      .feature-row.image-left {
+        grid-template-columns: 1fr;
+      }
+
+
+      .feature-copy {
+
+        order: 1 !important;
+
+        padding: 25px;
+
+      }
+
+
+      .feature-image-wrap {
+
+        order: 2 !important;
+
+        min-height: 240px;
+
+      }
+
+
+      .figure-grid-two {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+
+    @media (max-width: 650px) {
+
+      .container {
+
+        width: min(
+          calc(100% - 30px),
+          var(--max-width)
+        );
+
+      }
+
+
+      .project-hero {
+        padding-top: 55px;
+      }
+
+
+      .project-info-grid,
+      .two-column-grid,
+      .three-column-grid,
+      .metric-grid,
+      .process-grid {
+
+        grid-template-columns: 1fr;
+
+      }
+
+
+      .bottom-navigation {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+
+<body>
+
+
+  <!-- ======================================================
+       HEADER
+  ======================================================= -->
+
+  <header>
+
+    <div class="container header-inner">
+
+      <a
+        href="index.html"
+        class="name"
+      >
+        Rhythm Patel
+      </a>
+
+
+      <a
+        href="index.html#projects"
+        class="back-link"
+      >
+        ← Back to Portfolio
+      </a>
+
+    </div>
+
+  </header>
+
+
+
+  <main>
+
+
+    <!-- ====================================================
+         HERO
+    ===================================================== -->
+
+    <section class="project-hero">
+
+      <div class="container">
+
+        <div class="project-label">
+          Graduate Engineering Project · Heat Transfer
+        </div>
+
+
+        <h1>
+          Composite Wall Heat Transfer Analysis
+        </h1>
+
+
+        <p class="project-summary">
+
+          Investigated steady-state heat transfer through
+          a multi-material composite wall using both
+          analytical thermal-resistance methods and
+          numerical simulation in COMSOL Multiphysics.
+
+          The analytical model was first used to establish
+          a baseline solution before a three-dimensional
+          COMSOL model was developed and validated.
+
+          Additional studies investigated convection,
+          applied heat flux, multiple heat-loss surfaces,
+          and mesh independence.
+
+        </p>
+
+
+        <div class="tags">
+
+          <span class="tag">
+            COMSOL Multiphysics
+          </span>
+
+          <span class="tag">
+            Heat Transfer
+          </span>
+
+          <span class="tag">
+            Thermal Resistance
+          </span>
+
+          <span class="tag">
+            Numerical Simulation
+          </span>
+
+          <span class="tag">
+            Conduction
+          </span>
+
+          <span class="tag">
+            Convection
+          </span>
+
+          <span class="tag">
+            Mesh Sensitivity
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         HERO IMAGE & QUICK INFO
+    ===================================================== -->
+
+    <section>
+
+      <div class="container">
+
+        <img
+          src="images/composite-wall-heat-transfer.png"
+          alt="COMSOL temperature distribution through the composite wall"
+          class="hero-image"
+        />
+
+
+        <div class="project-info-grid">
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Timeline
+            </div>
+
+            <div class="info-value">
+              Feb – Apr 2026
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Software
+            </div>
+
+            <div class="info-value">
+              COMSOL
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Analysis
+            </div>
+
+            <div class="info-value">
+              Steady-State
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Study Cases
+            </div>
+
+            <div class="info-value">
+              3 Cases
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Max. Difference
+            </div>
+
+            <div class="info-value">
+              5%
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         01 — ENGINEERING PROBLEM
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          01 — The Engineering Problem
+        </div>
+
+
+        <h2>
+          Understanding Heat Flow Through a Multi-Material Wall
+        </h2>
+
+
+        <p>
+
+          Heat transfer through a composite wall becomes
+          more complex when multiple materials create
+          parallel and series conduction paths.
+
+          Different thermal conductivities cause the
+          temperature distribution and heat-transfer rate
+          to depend not only on the wall thickness, but also
+          on the arrangement of the individual materials.
+
+        </p>
+
+
+        <p>
+
+          A one-dimensional thermal-resistance model can
+          provide an efficient analytical estimate, but it
+          does not capture lateral temperature gradients or
+          multidimensional heat-transfer effects.
+
+          The objective of this project was therefore to
+          compare the simplified analytical approach with a
+          full numerical COMSOL model and then use the
+          numerical model to investigate more complex
+          boundary conditions.
+
+        </p>
+
+
+        <div class="two-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Analytical Objective
+            </h3>
+
+            <p>
+
+              Represent the composite wall as an equivalent
+              thermal-resistance network and calculate heat
+              transfer rate, interface temperature, and
+              temperature drop through the final wall
+              section.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Numerical Objective
+            </h3>
+
+            <p>
+
+              Develop a COMSOL model capable of resolving
+              the complete temperature field without
+              imposing the one-dimensional heat-flow
+              assumption used in the analytical solution.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="figure-grid-two">
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/heat-transfer-wall.png"
+              alt="Composite wall configuration used for heat transfer analysis"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Multi-material composite wall analyzed in the project.
+            </figcaption>
+
+          </figure>
+
+
+          <figure class="figure-card project-figure">
+
+            <img
+              src="images/heat-transfer-resistance-network.png"
+              alt="Equivalent thermal resistance network of the composite wall"
+              class="section-image"
+            />
+
+            <figcaption class="figure-caption">
+              Equivalent series and parallel thermal-resistance network.
+            </figcaption>
+
+          </figure>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         02 — ANALYTICAL MODEL
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          02 — Analytical Model
+        </div>
+
+
+        <h2>
+          Establishing a Baseline Using Thermal Resistance
+        </h2>
+
+
+        <p>
+
+          The baseline case assumed steady-state,
+          one-dimensional conduction with constant
+          thermal properties, no internal heat generation,
+          and insulated outer surfaces.
+
+          Heat transfer through each material was described
+          using Fourier's law, while the complete wall was
+          represented as a combination of thermal
+          resistances in series and parallel.
+
+        </p>
+
+
+
+        <div class="analysis-box">
+
+          <h3>
+            Governing Conduction Relationship
+          </h3>
+
+          <p>
+            Heat conduction through each solid region is
+            governed by Fourier's law.
+          </p>
+
+          <div class="equation">
+            q = -kA(dT/dx)
+          </div>
+
+          <p>
+
+            For the simplified one-dimensional analytical
+            model, each section can be represented using a
+            conductive thermal resistance.
+
+          </p>
+
+          <div class="equation">
+            R = L / (kA)
+          </div>
+
+        </div>
+
+
+
+        <div class="metric-grid">
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              0.349
+            </div>
+
+            <div class="metric-title">
+              Total Resistance
+            </div>
+
+            <div class="metric-description">
+              Equivalent composite-wall thermal resistance
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              572 W/m²
+            </div>
+
+            <div class="metric-title">
+              Section Heat Flux
+            </div>
+
+            <div class="metric-description">
+              Analytical heat flux through the reference section
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              1.91 × 10⁵ W
+            </div>
+
+            <div class="metric-title">
+              Total Heat Transfer
+            </div>
+
+            <div class="metric-description">
+              Analytical prediction for the full wall
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              143 K
+            </div>
+
+            <div class="metric-title">
+              ΔT Across F
+            </div>
+
+            <div class="metric-description">
+              Analytical temperature drop through Block F
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="analysis-box">
+
+          <h3>
+            Junction BDE Temperature
+          </h3>
+
+          <p>
+
+            The resistance from the 300°C boundary to
+            Junction BDE was calculated and used with the
+            heat flux to estimate the interface temperature.
+
+            The analytical model predicted a temperature
+            of approximately 263°C, or 536.15 K, at the
+            junction.
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         03 — COMSOL MODEL DEVELOPMENT
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          03 — COMSOL Model Development
+        </div>
+
+
+        <h2>
+          Recreating the Composite Wall in Three Dimensions
+        </h2>
+
+
+        <p>
+
+          Each wall region was individually constructed in
+          COMSOL and positioned to reproduce the composite
+          geometry.
+
+          The blocks were then combined as a union so that
+          heat could transfer continuously between adjacent
+          material regions without artificial gaps.
+
+        </p>
+
+
+
+        <div class="feature-showcase">
+
+
+          <div class="feature-row">
+
+
+            <div class="feature-copy">
+
+              <div class="feature-label">
+                Geometry
+              </div>
+
+              <h3>
+                Multi-Region Solid Model
+              </h3>
+
+              <p>
+
+                The composite wall was divided into six
+                material regions labelled A through F.
+
+                Individual blocks were positioned according
+                to the specified dimensions before being
+                joined into one continuous thermal domain.
+
+              </p>
+
+            </div>
+
+
+            <div class="feature-image-wrap">
+
+              <img
+                src="images/heat-transfer-geometry.png"
+                alt="COMSOL geometry of the multi-material composite wall"
+                class="feature-image"
+              />
+
+            </div>
+
+
+          </div>
+
+
+
+          <div class="feature-row image-left">
+
+
+            <div class="feature-image-wrap">
+
+              <img
+                src="images/heat-transfer-materials.png"
+                alt="Material assignments for the composite wall in COMSOL"
+                class="feature-image"
+              />
+
+            </div>
+
+
+            <div class="feature-copy">
+
+              <div class="feature-label">
+                Material Definition
+              </div>
+
+              <h3>
+                Assigning Thermal Conductivity
+              </h3>
+
+              <p>
+
+                Each wall region was assigned its own
+                thermal conductivity.
+
+                The material conductivities ranged from
+                2 W/m·K in Blocks A and F to 35 W/m·K
+                in Block E, creating different conductive
+                paths through the wall.
+
+              </p>
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="three-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Blocks A &amp; F
+            </h3>
+
+            <p>
+              Thermal conductivity:
+              <strong>2 W/m·K</strong>
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Blocks B &amp; C
+            </h3>
+
+            <p>
+              B: <strong>8 W/m·K</strong><br />
+              C: <strong>20 W/m·K</strong>
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Blocks D &amp; E
+            </h3>
+
+            <p>
+              D: <strong>15 W/m·K</strong><br />
+              E: <strong>35 W/m·K</strong>
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="feature-showcase">
+
+
+          <div class="feature-row">
+
+
+            <div class="feature-copy">
+
+              <div class="feature-label">
+                Discretization
+              </div>
+
+              <h3>
+                Physics-Controlled Mesh
+              </h3>
+
+              <p>
+
+                A physics-controlled normal mesh was used
+                for the primary simulations.
+
+                Finer and extremely fine mesh settings were
+                later evaluated to determine whether further
+                mesh refinement significantly changed the
+                numerical solution.
+
+              </p>
+
+            </div>
+
+
+            <div class="feature-image-wrap">
+
+              <img
+                src="images/heat-transfer-mesh.png"
+                alt="Physics-controlled mesh applied to the COMSOL composite wall"
+                class="feature-image"
+              />
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         04 — CASE 1
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          04 — Case 1 · Fixed Temperature
+        </div>
+
+
+        <h2>
+          Validating the Numerical Model Against the Analytical Solution
+        </h2>
+
+
+        <p>
+
+          The first simulation reproduced the analytical
+          boundary conditions.
+
+          Block A was maintained at 300°C and Block F at
+          100°C, while the remaining external boundaries
+          were treated as insulated.
+
+          This provided a direct comparison between the
+          simplified thermal-resistance model and the
+          multidimensional COMSOL solution.
+
+        </p>
+
+
+
+        <div class="two-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Fixed Temperatures
+            </h3>
+
+            <div class="requirements">
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Block A surface: 300°C</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Block F surface: 100°C</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Remaining external surfaces insulated</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              COMSOL Evaluation
+            </h3>
+
+            <div class="requirements">
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Surface integration used for total heat transfer</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Point evaluation used at Junction BDE</span>
+              </div>
+
+              <div class="requirement">
+                <span class="requirement-marker">+</span>
+                <span>Point temperatures used to determine ΔT across F</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+
+        <figure
+          class="project-figure"
+          style="margin-top: 30px;"
+        >
+
+          <img
+            src="images/heat-transfer-case1.png"
+            alt="COMSOL Case 1 fixed-temperature simulation results"
+            class="section-image"
+          />
+
+          <figcaption class="figure-caption">
+
+            Case 1 COMSOL model used to determine heat
+            transfer rate and temperature values for
+            comparison with the analytical solution.
+
+          </figcaption>
+
+        </figure>
+
+
+
+        <div class="metric-grid">
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              184,700 W
+            </div>
+
+            <div class="metric-title">
+              Numerical Heat Transfer
+            </div>
+
+            <div class="metric-description">
+              Surface-integrated heat-transfer rate
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              543.47 K
+            </div>
+
+            <div class="metric-title">
+              Junction BDE
+            </div>
+
+            <div class="metric-description">
+              Numerical interface temperature
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              135.85 K
+            </div>
+
+            <div class="metric-title">
+              ΔT Across F
+            </div>
+
+            <div class="metric-description">
+              Numerical temperature drop
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              ≤ 5%
+            </div>
+
+            <div class="metric-title">
+              Difference
+            </div>
+
+            <div class="metric-description">
+              Maximum analytical-to-numerical difference
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="result-highlight">
+
+          <h3>
+            Analytical vs. Numerical Validation
+          </h3>
+
+          <p>
+
+            The COMSOL results showed strong agreement with
+            the analytical thermal-resistance model.
+
+            The heat-transfer rate differed by 3.30%,
+            the Junction BDE temperature differed by 1.37%,
+            and the temperature drop across Block F differed
+            by 5.00%.
+
+            These differences were attributed to the
+            simplifying one-dimensional assumption used in
+            the analytical solution compared with the
+            multidimensional temperature field captured by
+            COMSOL.
+
+          </p>
+
+
+          <div class="result-values">
+
+            <span class="result-value">
+              Heat Transfer: 3.30%
+            </span>
+
+            <span class="result-value">
+              Junction Temperature: 1.37%
+            </span>
+
+            <span class="result-value">
+              Block F ΔT: 5.00%
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         05 — CASE 2
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          05 — Case 2 · Convection &amp; Applied Heat Flux
+        </div>
+
+
+        <h2>
+          Replacing the Fixed Boundary With Convective Cooling
+        </h2>
+
+
+        <p>
+
+          The second study replaced the fixed temperature
+          boundary at Block A with convection to ambient air.
+
+          A uniform heat flux was then applied along the
+          bottom surface of the wall while the remaining
+          boundaries were insulated.
+
+          This changed the problem from one driven by two
+          prescribed temperatures to one governed by the
+          balance between heat input and convective heat loss.
+
+        </p>
+
+
+
+        <div class="metric-grid">
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              30°C
+            </div>
+
+            <div class="metric-title">
+              Ambient Temperature
+            </div>
+
+            <div class="metric-description">
+              Surrounding air temperature
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              10 W/m²K
+            </div>
+
+            <div class="metric-title">
+              Convection Coefficient
+            </div>
+
+            <div class="metric-description">
+              Applied convective boundary condition
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              30,000 W/m²
+            </div>
+
+            <div class="metric-title">
+              Applied Heat Flux
+            </div>
+
+            <div class="metric-description">
+              Uniform heat input along the bottom
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              52,800 W
+            </div>
+
+            <div class="metric-title">
+              Heat Loss
+            </div>
+
+            <div class="metric-description">
+              Heat leaving through the convective surface
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="feature-showcase">
+
+
+          <div class="feature-row image-left">
+
+
+            <div class="feature-image-wrap">
+
+              <img
+                src="images/composite-wall-heat-transfer.png"
+                alt="COMSOL Case 2 temperature profile with convection and applied heat flux"
+                class="feature-image"
+              />
+
+            </div>
+
+
+            <div class="feature-copy">
+
+              <div class="feature-label">
+                Temperature Distribution
+              </div>
+
+              <h3>
+                Heat Concentration Near the Applied Flux
+              </h3>
+
+              <p>
+
+                The highest temperature occurred near the
+                bottom surface where the heat flux entered
+                the system.
+
+                Temperature decreased toward the convective
+                boundary as energy was removed to the
+                surrounding air.
+
+                The surface temperature was not prescribed,
+                allowing it to develop naturally from the
+                balance between the applied heat flux and
+                convection.
+
+              </p>
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         06 — CASE 3
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          06 — Case 3 · Dual-Sided Convection
+        </div>
+
+
+        <h2>
+          Increasing Heat Dissipation With a Second Cooling Surface
+        </h2>
+
+
+        <p>
+
+          The third case retained the 30,000 W/m² heat flux
+          applied along the bottom of the wall but exposed
+          both side surfaces to convection.
+
+          This provided an additional path for energy to
+          leave the system and allowed the effect of
+          increased cooling area to be studied.
+
+        </p>
+
+
+
+        <div class="feature-showcase">
+
+
+          <div class="feature-row">
+
+
+            <div class="feature-copy">
+
+              <div class="feature-label">
+                Additional Heat-Loss Path
+              </div>
+
+              <h3>
+                Convection From Both Sides
+              </h3>
+
+              <p>
+
+                Applying convection to both exposed sides
+                reduced the maximum wall temperature
+                compared with Case 2.
+
+                The additional cooling area also produced a
+                less steep temperature gradient and a more
+                uniform overall temperature distribution.
+
+              </p>
+
+            </div>
+
+
+            <div class="feature-image-wrap">
+
+              <img
+                src="images/heat-transfer-case3.png"
+                alt="COMSOL temperature profile for Case 3 with convection on both sides"
+                class="feature-image"
+              />
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="result-highlight">
+
+          <h3>
+            Energy Balance Remained Unchanged
+          </h3>
+
+          <p>
+
+            Although adding a second convective surface
+            reduced the temperature level within the wall,
+            the total heat leaving the two surfaces remained
+            approximately equal to the heat loss obtained in
+            Case 2.
+
+            At steady state, the energy entering through the
+            imposed heat flux must equal the energy leaving
+            the system.
+
+            Case 3 therefore redistributed the heat loss
+            between two surfaces rather than changing the
+            overall steady-state energy balance.
+
+          </p>
+
+
+          <div class="result-values">
+
+            <span class="result-value">
+              Lower Maximum Temperature
+            </span>
+
+            <span class="result-value">
+              Two Convective Surfaces
+            </span>
+
+            <span class="result-value">
+              ≈ 52.8 kW Total Heat Loss
+            </span>
+
+          </div>
+
+        </div>
+
+
+
+        <figure
+          class="project-figure"
+          style="margin-top: 30px;"
+        >
+
+          <img
+            src="images/heat-transfer-case3-flux.png"
+            alt="Heat transfer from the two convective surfaces in Case 3"
+            class="section-image"
+          />
+
+          <figcaption class="figure-caption">
+
+            Heat transfer through Surfaces A and F in
+            Case 3. The total convective heat loss balances
+            the applied heat input at steady state.
+
+          </figcaption>
+
+        </figure>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         07 — MESH SENSITIVITY
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          07 — Mesh Sensitivity
+        </div>
+
+
+        <h2>
+          Verifying That the Results Were Independent of Mesh Refinement
+        </h2>
+
+
+        <p>
+
+          Three physics-controlled mesh qualities were
+          evaluated: Normal, Finer, and Extremely Fine.
+
+          Key output quantities from all three simulation
+          cases were compared to determine whether additional
+          mesh refinement significantly changed the
+          numerical solution.
+
+        </p>
+
+
+
+        <div class="three-column-grid">
+
+
+          <div class="content-card">
+
+            <h3>
+              Normal
+            </h3>
+
+            <p>
+
+              Used for the primary analysis and produced
+              results that were already effectively
+              converged.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Finer
+            </h3>
+
+            <p>
+
+              Produced negligible changes in both heat
+              transfer rate and interface temperature
+              compared with the normal mesh.
+
+            </p>
+
+          </div>
+
+
+          <div class="content-card">
+
+            <h3>
+              Extremely Fine
+            </h3>
+
+            <p>
+
+              Further refinement produced only very small
+              numerical changes, confirming mesh
+              independence.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="metric-grid">
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              184,700 W
+            </div>
+
+            <div class="metric-title">
+              Normal Mesh
+            </div>
+
+            <div class="metric-description">
+              Case 1 heat-transfer rate
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              184,690 W
+            </div>
+
+            <div class="metric-title">
+              Finer Mesh
+            </div>
+
+            <div class="metric-description">
+              Case 1 heat-transfer rate
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              184,710 W
+            </div>
+
+            <div class="metric-title">
+              Extremely Fine
+            </div>
+
+            <div class="metric-description">
+              Case 1 heat-transfer rate
+            </div>
+
+          </div>
+
+
+          <div class="metric-card">
+
+            <div class="metric-value">
+              0.01 K
+            </div>
+
+            <div class="metric-title">
+              Junction Variation
+            </div>
+
+            <div class="metric-description">
+              Maximum BDE temperature change
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="result-highlight">
+
+          <h3>
+            Normal Mesh Selected
+          </h3>
+
+          <p>
+
+            The very small variation between the three mesh
+            levels demonstrated that the solution was
+            effectively independent of further mesh
+            refinement.
+
+            The physics-controlled normal mesh was
+            therefore sufficient for the analysis while
+            requiring less computational effort than the
+            finer alternatives.
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         08 — FINAL RESULTS
+    ===================================================== -->
+
+    <section class="project-section">
+
+      <div class="container">
+
+        <div class="section-number">
+          08 — Final Results
+        </div>
+
+
+        <h2>
+          Analytical Validation and Boundary Conditions Confirmed the Model
+        </h2>
+
+
+        <p>
+
+          The project demonstrated how a simplified
+          thermal-resistance model can provide an effective
+          engineering estimate while numerical simulation
+          can capture the complete temperature field and
+          more complex boundary conditions.
+
+        </p>
+
+
+
+        <div class="process-grid">
+
+
+          <div class="process-card">
+
+            <div class="process-number">
+              01
+            </div>
+
+            <h3>
+              Analytical Model
+            </h3>
+
+            <p>
+
+              Built an equivalent resistance network to
+              establish baseline heat-transfer and
+              temperature predictions.
+
+            </p>
+
+          </div>
+
+
+          <div class="process-card">
+
+            <div class="process-number">
+              02
+            </div>
+
+            <h3>
+              Numerical Validation
+            </h3>
+
+            <p>
+
+              Recreated the wall in COMSOL and achieved
+              analytical-to-numerical differences of
+              5% or less.
+
+            </p>
+
+          </div>
+
+
+          <div class="process-card">
+
+            <div class="process-number">
+              03
+            </div>
+
+            <h3>
+              Boundary Studies
+            </h3>
+
+            <p>
+
+              Evaluated convection, applied heat flux,
+              and additional heat-loss paths through
+              multiple simulation cases.
+
+            </p>
+
+          </div>
+
+
+          <div class="process-card">
+
+            <div class="process-number">
+              04
+            </div>
+
+            <h3>
+              Mesh Verification
+            </h3>
+
+            <p>
+
+              Confirmed that the numerical results were
+              effectively independent of further mesh
+              refinement.
+
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="result-highlight">
+
+          <h3>
+            Project Outcome
+          </h3>
+
+          <p>
+
+            Case 1 validated the COMSOL model against the
+            analytical solution with a maximum difference
+            of 5%.
+
+            Cases 2 and 3 demonstrated how convective
+            boundary conditions and available cooling area
+            influence the temperature distribution without
+            violating the steady-state energy balance.
+
+            Finally, the mesh-sensitivity study confirmed
+            that the normal physics-controlled mesh
+            provided sufficient numerical accuracy.
+
+          </p>
+
+
+          <div class="result-values">
+
+            <span class="result-value">
+              Maximum Difference: 5%
+            </span>
+
+            <span class="result-value">
+              Case 2 Heat Loss: 52.8 kW
+            </span>
+
+            <span class="result-value">
+              Mesh Independent
+            </span>
+
+            <span class="result-value">
+              Analytical + Numerical
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ====================================================
+         BOTTOM NAVIGATION
+    ===================================================== -->
+
+    <div class="container">
+
+      <div class="bottom-navigation">
+
+
+        <a
+          href="project-unet.html"
+          class="nav-button"
+        >
+          ← Newer Project
+        </a>
+
+
+        <a
+          href="index.html#projects"
+          class="nav-button"
+        >
+          All Projects
+        </a>
+
+
+        <a
+          href="project-composite-battery.html"
+          class="nav-button"
+        >
+          Older Project →
+        </a>
+
+
+      </div>
+
+    </div>
+
+
+
+  </main>
+
+
+
+  <!-- ======================================================
+       FOOTER
+  ======================================================= -->
+
+  <footer>
+
+    <div class="container">
+
+      ©
+      <span id="year"></span>
+      Rhythm Patel
+      · Mechanical Engineering Portfolio
+
+    </div>
+
+  </footer>
+
+
+
+  <script>
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+  </script>
+
+
+</body>
+
+</html>
