@@ -1,16 +1,16 @@
 /* =========================================================
-   SHARED PROJECT DATA
+   PORTFOLIO PROJECT DATABASE
    ---------------------------------------------------------
-   This is now the single source of truth for project order.
+   THIS FILE IS THE SINGLE SOURCE OF TRUTH FOR:
 
-   To change a project's position:
-   - Change its startDate and/or endDate here.
-
-   To add a new project:
-   - Add it here.
-   - Add its card to index.html.
-   - Give its project page the matching data-project-id.
+   - Project dates
+   - Homepage project order
+   - Project numbering
+   - Previous / Next navigation
+   - Project-page Timeline display
+   
 ========================================================= */
+
 
 const portfolioProjects = [
 
@@ -58,20 +58,22 @@ const portfolioProjects = [
     id: "bearing-installation",
     title: "Automated Pneumatic Bearing Installation System",
     url: "project-bearing-installation.html",
-    startDate: "2024-11",
-    endDate: "2024-11"
+    startDate: "2024-09",
+    endDate: "2024-12"
   }
 
 ];
 
 
-/* =========================================================
-   SORTING
-   ---------------------------------------------------------
-   Same rule your original index.html used:
 
-   1. Newer END date first
-   2. If equal, newer START date first
+/* =========================================================
+   SORT PROJECTS
+   ---------------------------------------------------------
+   Projects are sorted:
+
+   1. Newest END date first
+   2. If end dates match, newest START date first
+   3. If both dates match, array order above is preserved
 ========================================================= */
 
 function getSortedPortfolioProjects() {
@@ -88,13 +90,28 @@ function getSortedPortfolioProjects() {
         return endDifference;
       }
 
-      return b.startDate.localeCompare(
-        a.startDate
-      );
+
+      const startDifference =
+        b.startDate.localeCompare(
+          a.startDate
+        );
+
+      if (startDifference !== 0) {
+        return startDifference;
+      }
+
+
+      /*
+       * Returning 0 preserves the order in which
+       * equal-date projects appear in the array.
+       */
+
+      return 0;
 
     });
 
 }
+
 
 
 /* =========================================================
@@ -110,6 +127,7 @@ function formatProjectMonth(value) {
     .split("-")
     .map(Number);
 
+
   const date =
     new Date(
       Date.UTC(
@@ -118,6 +136,7 @@ function formatProjectMonth(value) {
         1
       )
     );
+
 
   return new Intl.DateTimeFormat(
     "en-US",
@@ -129,6 +148,7 @@ function formatProjectMonth(value) {
   ).format(date);
 
 }
+
 
 
 function formatProjectDateRange(project) {
@@ -144,12 +164,37 @@ function formatProjectDateRange(project) {
 
   }
 
+
   return (
     `${formatProjectMonth(project.startDate)} – ` +
     `${formatProjectMonth(project.endDate)}`
   );
 
 }
+
+
+
+/* =========================================================
+   FIND PROJECT
+========================================================= */
+
+function getPortfolioProjectById(
+  projectId
+) {
+
+  return portfolioProjects.find(
+    function(project) {
+
+      return (
+        project.id ===
+        projectId
+      );
+
+    }
+  );
+
+}
+
 
 
 /* =========================================================
@@ -162,6 +207,7 @@ function initializeProjectGrid() {
     document.querySelector(
       ".project-grid"
     );
+
 
   if (!projectGrid) {
     return;
@@ -203,15 +249,15 @@ function initializeProjectGrid() {
           project.id
         );
 
+
       if (!card) {
         return;
       }
 
 
-      /*
-       * Keep the card's date attributes synced
-       * to the shared project database.
-       */
+      /* -------------------------------------------------------
+         Keep date attributes synchronized
+      ------------------------------------------------------- */
 
       card.dataset.projectStart =
         project.startDate;
@@ -220,34 +266,36 @@ function initializeProjectGrid() {
         project.endDate;
 
 
-      /*
-       * Automatically update Project 01,
-       * Project 02, Project 03, etc.
-       */
+      /* -------------------------------------------------------
+         Project number
+      ------------------------------------------------------- */
 
       const projectNumber =
         card.querySelector(
           ".project-number"
         );
 
+
       if (projectNumber) {
 
         projectNumber.textContent =
-          `Project ${String(index + 1)
-            .padStart(2, "0")}`;
+          `Project ${
+            String(index + 1)
+              .padStart(2, "0")
+          }`;
 
       }
 
 
-      /*
-       * Automatically update the visible
-       * project date.
-       */
+      /* -------------------------------------------------------
+         Project date
+      ------------------------------------------------------- */
 
       const projectDate =
         card.querySelector(
           ".project-date"
         );
+
 
       if (projectDate) {
 
@@ -259,16 +307,15 @@ function initializeProjectGrid() {
       }
 
 
-      /*
-       * Automatically ensure the project
-       * button links to the URL defined in
-       * this shared file.
-       */
+      /* -------------------------------------------------------
+         Project URL
+      ------------------------------------------------------- */
 
       const projectButton =
         card.querySelector(
           ".project-button"
         );
+
 
       if (projectButton) {
 
@@ -278,9 +325,9 @@ function initializeProjectGrid() {
       }
 
 
-      /*
-       * Re-append the card in sorted order.
-       */
+      /* -------------------------------------------------------
+         Move card into its correct position
+      ------------------------------------------------------- */
 
       projectGrid.appendChild(
         card
@@ -291,24 +338,70 @@ function initializeProjectGrid() {
 }
 
 
+
 /* =========================================================
-   PREVIOUS / NEXT PROJECT NAVIGATION
+   PROJECT PAGE DATE
    ---------------------------------------------------------
-   This will be used by all six project pages.
+   Finds:
 
-   Because the list is newest → oldest:
+   <body data-project-id="...">
 
-   Project 01:
-     Previous = disabled
-     Next = Project 02
+   Then automatically fills:
 
-   Middle project:
-     Previous = project above
-     Next = project below
+   <div data-project-date></div>
+========================================================= */
 
-   Last project:
-     Previous = previous project
-     Next = disabled
+function initializeProjectDate() {
+
+  const currentProjectId =
+    document.body.dataset.projectId;
+
+
+  if (!currentProjectId) {
+    return;
+  }
+
+
+  const project =
+    getPortfolioProjectById(
+      currentProjectId
+    );
+
+
+  if (!project) {
+
+    console.warn(
+      `Unknown project id: ${currentProjectId}`
+    );
+
+    return;
+
+  }
+
+
+  const dateElements =
+    document.querySelectorAll(
+      "[data-project-date]"
+    );
+
+
+  dateElements.forEach(
+    function(element) {
+
+      element.textContent =
+        formatProjectDateRange(
+          project
+        );
+
+    }
+  );
+
+}
+
+
+
+/* =========================================================
+   CREATE PREVIOUS / NEXT BUTTON
 ========================================================= */
 
 function createProjectNavigationButton(
@@ -326,13 +419,19 @@ function createProjectNavigationButton(
       <div
         class="
           project-sequence-button
-          ${isPrevious ? "previous-project" : "next-project"}
+          ${
+            isPrevious
+              ? "previous-project"
+              : "next-project"
+          }
           is-disabled
         "
         aria-disabled="true"
       >
 
-        <span class="project-sequence-direction">
+        <span
+          class="project-sequence-direction"
+        >
 
           ${
             isPrevious
@@ -342,7 +441,9 @@ function createProjectNavigationButton(
 
         </span>
 
-        <span class="project-sequence-title">
+        <span
+          class="project-sequence-title"
+        >
           No project
         </span>
 
@@ -357,11 +458,17 @@ function createProjectNavigationButton(
       href="${project.url}"
       class="
         project-sequence-button
-        ${isPrevious ? "previous-project" : "next-project"}
+        ${
+          isPrevious
+            ? "previous-project"
+            : "next-project"
+        }
       "
     >
 
-      <span class="project-sequence-direction">
+      <span
+        class="project-sequence-direction"
+      >
 
         ${
           isPrevious
@@ -371,7 +478,9 @@ function createProjectNavigationButton(
 
       </span>
 
-      <span class="project-sequence-title">
+      <span
+        class="project-sequence-title"
+      >
         ${project.title}
       </span>
 
@@ -381,8 +490,9 @@ function createProjectNavigationButton(
 }
 
 
+
 /* =========================================================
-   PROJECT PAGE NAVIGATION
+   PROJECT PAGE PREVIOUS / NEXT NAVIGATION
 ========================================================= */
 
 function initializeProjectNavigation() {
@@ -391,6 +501,7 @@ function initializeProjectNavigation() {
     document.querySelector(
       "[data-project-navigation]"
     );
+
 
   if (!navigation) {
     return;
@@ -440,6 +551,12 @@ function initializeProjectNavigation() {
   }
 
 
+  /* ---------------------------------------------------------
+     Previous project
+
+     Project 01 has no previous project.
+  --------------------------------------------------------- */
+
   const previousProject =
     currentIndex > 0
       ? sortedProjects[
@@ -447,6 +564,12 @@ function initializeProjectNavigation() {
         ]
       : null;
 
+
+  /* ---------------------------------------------------------
+     Next project
+
+     Last project has no next project.
+  --------------------------------------------------------- */
 
   const nextProject =
     currentIndex <
@@ -460,6 +583,7 @@ function initializeProjectNavigation() {
   navigation.innerHTML = `
 
     <div class="project-sequence-row">
+
 
       ${createProjectNavigationButton(
         previousProject,
@@ -480,6 +604,7 @@ function initializeProjectNavigation() {
         "next"
       )}
 
+
     </div>
 
 
@@ -499,17 +624,21 @@ function initializeProjectNavigation() {
 }
 
 
+
 /* =========================================================
-   INITIALIZE
+   INITIALIZE EVERYTHING
 ========================================================= */
 
 initializeProjectGrid();
 
+initializeProjectDate();
+
 initializeProjectNavigation();
 
 
+
 /* =========================================================
-   MAKE FUNCTIONS AVAILABLE GLOBALLY
+   GLOBAL ACCESS
 ========================================================= */
 
 window.portfolioProjects =
@@ -517,6 +646,12 @@ window.portfolioProjects =
 
 window.getSortedPortfolioProjects =
   getSortedPortfolioProjects;
+
+window.getPortfolioProjectById =
+  getPortfolioProjectById;
+
+window.formatProjectDateRange =
+  formatProjectDateRange;
 
 window.initializeProjectNavigation =
   initializeProjectNavigation;
