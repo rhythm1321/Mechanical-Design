@@ -723,6 +723,30 @@
       margin-top: 30px;
     }
 
+    /* Concept-development figures use different aspect ratios,
+       so they are stacked instead of forced side-by-side. */
+    .concept-figures {
+      display: grid;
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .concept-figures .section-image {
+      width: 100%;
+      height: auto;
+      max-height: none;
+    }
+
+    .concept-overview-figure {
+      width: min(100%, 860px);
+      margin: 0 auto;
+    }
+
+    .initial-concept-figure {
+      width: min(100%, 760px);
+      margin: 0 auto;
+    }
+
     .full-figure {
       margin-top: 30px;
     }
@@ -1541,9 +1565,9 @@
         </div>
 
 
-        <div class="figure-grid-two">
+        <div class="concept-figures">
 
-          <figure class="figure-card">
+          <figure class="figure-card concept-overview-figure">
 
             <div class="image-wrap">
               <img
@@ -1569,7 +1593,7 @@
           </figure>
 
 
-          <figure class="figure-card">
+          <figure class="figure-card initial-concept-figure">
 
             <div class="image-wrap">
               <img
@@ -2070,7 +2094,7 @@
               />
 
               <div class="image-fallback">
-                Final CAD model image coming soon
+                Revised CAD model image coming soon
               </div>
 
             </div>
