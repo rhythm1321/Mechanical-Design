@@ -120,19 +120,28 @@
 
     .name {
       font-size: 1rem;
+
       font-weight: 750;
     }
 
     .back-link {
       color: var(--muted);
 
-      font-size: 0.9rem;
+      font-size: 1rem;
 
-      transition: color 0.2s;
+      font-weight: 700;
+
+      letter-spacing: 0.01em;
+
+      transition:
+        color 0.2s,
+        transform 0.2s;
     }
 
     .back-link:hover {
       color: var(--accent);
+
+      transform: translateX(-3px);
     }
 
 
@@ -159,7 +168,7 @@
     }
 
     .project-hero h1 {
-      max-width: 900px;
+      max-width: 980px;
 
       margin: 0 0 24px;
 
@@ -176,7 +185,7 @@
     }
 
     .project-summary {
-      max-width: 850px;
+      max-width: 900px;
 
       margin: 0;
 
@@ -300,7 +309,7 @@
     }
 
     .project-section > .container > p {
-      max-width: 850px;
+      max-width: 900px;
 
       color: var(--muted);
     }
@@ -1185,12 +1194,13 @@
     }
 
     .nav-button {
-      min-height: 44px;
+      min-height: 46px;
 
-      padding: 0 16px;
+      padding: 0 18px;
 
       display: inline-flex;
       align-items: center;
+      justify-content: center;
 
       border: 1px solid var(--border);
 
@@ -1198,9 +1208,15 @@
 
       color: var(--muted);
 
-      font-weight: 650;
+      font-size: 0.95rem;
 
-      transition: 0.2s;
+      font-weight: 700;
+
+      transition:
+        color 0.2s,
+        border-color 0.2s,
+        background 0.2s,
+        transform 0.2s;
     }
 
     .nav-button:hover {
@@ -1209,6 +1225,14 @@
       border-color: var(--accent);
 
       background: var(--accent-soft);
+    }
+
+    .nav-button.back-portfolio:hover {
+      transform: translateX(-3px);
+    }
+
+    .nav-button.back-top:hover {
+      transform: translateY(-3px);
     }
 
 
@@ -1320,6 +1344,10 @@
         max-height: 520px;
       }
 
+      .back-link {
+        font-size: 0.9rem;
+      }
+
       .segmentation-carousel {
         height: 260px;
       }
@@ -1341,6 +1369,8 @@
       }
 
       .nav-button {
+        width: 100%;
+
         justify-content: center;
       }
 
@@ -1351,7 +1381,7 @@
 </head>
 
 
-<body>
+<body id="top">
 
 
   <!-- ======================================================
@@ -3231,25 +3261,21 @@
          BOTTOM NAVIGATION
     ===================================================== -->
 
-    <div class="container">
+    <div class="container bottom-navigation">
 
-      <div class="bottom-navigation">
+      <a
+        href="index.html#projects"
+        class="nav-button back-portfolio"
+      >
+        ← Back to Portfolio
+      </a>
 
-        <a
-          href="index.html#projects"
-          class="nav-button"
-        >
-          ← Back to Projects
-        </a>
-
-        <a
-          href="index.html"
-          class="nav-button"
-        >
-          Portfolio Home
-        </a>
-
-      </div>
+      <a
+        href="#top"
+        class="nav-button back-top"
+      >
+        Back to Top ↑
+      </a>
 
     </div>
 
