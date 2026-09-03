@@ -127,13 +127,21 @@
     .back-link {
       color: var(--muted);
 
-      font-size: 0.9rem;
+      font-size: 1rem;
 
-      transition: color 0.2s;
+      font-weight: 700;
+
+      letter-spacing: 0.01em;
+
+      transition:
+        color 0.2s,
+        transform 0.2s;
     }
 
     .back-link:hover {
       color: var(--accent);
+
+      transform: translateX(-3px);
     }
 
 
@@ -1404,7 +1412,6 @@
     }
 
 
-
     /* =========================================================
        IMAGE PLACEHOLDERS
     ========================================================= */
@@ -1613,12 +1620,13 @@
     }
 
     .nav-button {
-      min-height: 44px;
+      min-height: 46px;
 
-      padding: 0 16px;
+      padding: 0 18px;
 
       display: inline-flex;
       align-items: center;
+      justify-content: center;
 
       border: 1px solid var(--border);
 
@@ -1626,9 +1634,15 @@
 
       color: var(--muted);
 
-      font-weight: 650;
+      font-size: 0.95rem;
 
-      transition: 0.2s;
+      font-weight: 700;
+
+      transition:
+        color 0.2s,
+        border-color 0.2s,
+        background 0.2s,
+        transform 0.2s;
     }
 
     .nav-button:hover {
@@ -1637,6 +1651,14 @@
       border-color: var(--accent);
 
       background: var(--accent-soft);
+    }
+
+    .nav-button.back-portfolio:hover {
+      transform: translateX(-3px);
+    }
+
+    .nav-button.back-top:hover {
+      transform: translateY(-3px);
     }
 
 
@@ -1769,6 +1791,10 @@
         gap: 14px;
       }
 
+      .back-link {
+        font-size: 0.9rem;
+      }
+
       .bottom-navigation {
         flex-direction: column;
 
@@ -1776,6 +1802,8 @@
       }
 
       .nav-button {
+        width: 100%;
+
         justify-content: center;
       }
 
@@ -1786,7 +1814,7 @@
 </head>
 
 
-<body>
+<body id="top">
 
 
   <!-- ======================================================
@@ -2539,9 +2567,7 @@
         <div class="modularity-showcase">
 
 
-          <!-- ================================================
-               01 — EXPANDABLE RAILS
-          ================================================= -->
+          <!-- 01 — EXPANDABLE RAILS -->
 
           <div class="modularity-row">
 
@@ -2596,9 +2622,7 @@
           </div>
 
 
-          <!-- ================================================
-               02 — MODULAR BASE
-          ================================================= -->
+          <!-- 02 — MODULAR BASE -->
 
           <div class="modularity-row image-left">
 
@@ -2651,9 +2675,7 @@
           </div>
 
 
-          <!-- ================================================
-               03 — RAIL ALIGNMENT
-          ================================================= -->
+          <!-- 03 — RAIL ALIGNMENT -->
 
           <div class="modularity-row">
 
@@ -2707,9 +2729,7 @@
           </div>
 
 
-          <!-- ================================================
-               04 — ADJUSTABLE WORKHOLDING
-          ================================================= -->
+          <!-- 04 — ADJUSTABLE WORKHOLDING -->
 
           <div class="modularity-row image-left">
 
@@ -2763,9 +2783,7 @@
           </div>
 
 
-          <!-- ================================================
-               05 — LIMIT SWITCHES
-          ================================================= -->
+          <!-- 05 — LIMIT SWITCHES -->
 
           <div class="modularity-row">
 
@@ -2820,9 +2838,7 @@
           </div>
 
 
-          <!-- ================================================
-               06 — CABLE MANAGEMENT
-          ================================================= -->
+          <!-- 06 — CABLE MANAGEMENT -->
 
           <div class="modularity-row image-left">
 
@@ -2942,9 +2958,7 @@
         <div class="material-showcase">
 
 
-          <!-- ================================================
-               01 — PETG
-          ================================================= -->
+          <!-- 01 — PETG -->
 
           <div class="material-row">
 
@@ -3001,9 +3015,7 @@
           </div>
 
 
-          <!-- ================================================
-               02 — PAHT-CF
-          ================================================= -->
+          <!-- 02 — PAHT-CF -->
 
           <div class="material-row image-left">
 
@@ -3041,17 +3053,11 @@
             <div class="material-image-wrap">
 
 
-              <!-- ==========================================
-                   PAHT-CF AUTOMATIC PUSH SLIDESHOW
-              =========================================== -->
-
               <div
                 class="material-carousel"
                 id="pahtcf-carousel"
               >
 
-
-                <!-- TEST 1 -->
 
                 <div class="material-carousel-slide active">
 
@@ -3077,8 +3083,6 @@
                 </div>
 
 
-                <!-- TEST 2 -->
-
                 <div class="material-carousel-slide">
 
                   <img
@@ -3102,8 +3106,6 @@
 
                 </div>
 
-
-                <!-- TEST 3 -->
 
                 <div class="material-carousel-slide">
 
@@ -3129,8 +3131,6 @@
                 </div>
 
 
-                <!-- PREVIOUS BUTTON -->
-
                 <button
                   class="
                     material-carousel-button
@@ -3143,8 +3143,6 @@
                 </button>
 
 
-                <!-- NEXT BUTTON -->
-
                 <button
                   class="
                     material-carousel-button
@@ -3156,8 +3154,6 @@
                   ›
                 </button>
 
-
-                <!-- NAVIGATION DOTS -->
 
                 <div class="material-carousel-dots">
 
@@ -3193,10 +3189,6 @@
 
         </div>
 
-
-        <!-- ================================================
-             MATERIAL SELECTION RESULT
-        ================================================= -->
 
         <div class="material-result">
 
@@ -3269,10 +3261,6 @@
 
         </p>
 
-
-        <!-- ================================================
-             SUMMARY RESULTS
-        ================================================= -->
 
         <div class="analysis-grid">
 
@@ -3444,16 +3432,8 @@
         </div>
 
 
-        <!-- ================================================
-             DETAILED ANALYSIS
-        ================================================= -->
-
         <div class="analysis-showcase">
 
-
-          <!-- ================================================
-               01 — RAIL DEFLECTION
-          ================================================= -->
 
           <div class="analysis-row">
 
@@ -3511,10 +3491,6 @@
           </div>
 
 
-          <!-- ================================================
-               02 — STRUCTURAL FEA
-          ================================================= -->
-
           <div class="analysis-row image-left">
 
 
@@ -3568,10 +3544,6 @@
 
           </div>
 
-
-          <!-- ================================================
-               03 — MOTOR & DRIVE SELECTION
-          ================================================= -->
 
           <div class="analysis-row">
 
@@ -3631,10 +3603,6 @@
 
         </div>
 
-
-        <!-- ================================================
-             04 — VIBRATION ANALYSIS
-        ================================================= -->
 
         <div class="vibration-analysis-box">
 
@@ -4063,10 +4031,6 @@
         </div>
 
 
-        <!-- ================================================
-             CNC TESTING VIDEO
-        ================================================= -->
-
         <figure class="testing-video-figure">
 
           <div class="testing-video-wrap">
@@ -4281,25 +4245,21 @@
          BOTTOM NAVIGATION
     ===================================================== -->
 
-    <div class="container">
+    <div class="container bottom-navigation">
 
-      <div class="bottom-navigation">
+      <a
+        href="index.html#projects"
+        class="nav-button back-portfolio"
+      >
+        ← Back to Portfolio
+      </a>
 
-        <a
-          href="index.html#projects"
-          class="nav-button"
-        >
-          ← Back to Projects
-        </a>
-
-        <a
-          href="index.html"
-          class="nav-button"
-        >
-          Portfolio Home
-        </a>
-
-      </div>
+      <a
+        href="#top"
+        class="nav-button back-top"
+      >
+        Back to Top ↑
+      </a>
 
     </div>
 
@@ -4398,10 +4358,6 @@
       let isAnimating = false;
 
 
-      /* =======================================================
-         SHOW SELECTED SLIDE
-      ======================================================= */
-
       function showMaterialSlide(
         index,
         direction
@@ -4467,12 +4423,6 @@
         );
 
 
-        /*
-          Force the browser to render the incoming
-          slide at its starting position before
-          beginning the push animation.
-        */
-
         incomingSlide.offsetWidth;
 
 
@@ -4525,10 +4475,6 @@
       }
 
 
-      /* =======================================================
-         NEXT SLIDE
-      ======================================================= */
-
       function nextMaterialSlide() {
 
         showMaterialSlide(
@@ -4539,10 +4485,6 @@
       }
 
 
-      /* =======================================================
-         PREVIOUS SLIDE
-      ======================================================= */
-
       function previousMaterialSlide() {
 
         showMaterialSlide(
@@ -4552,10 +4494,6 @@
 
       }
 
-
-      /* =======================================================
-         AUTOMATIC ROTATION
-      ======================================================= */
 
       function startMaterialCarousel() {
 
@@ -4576,10 +4514,6 @@
 
       }
 
-
-      /* =======================================================
-         ARROW CONTROLS
-      ======================================================= */
 
       previousButton.addEventListener(
         "click",
@@ -4604,10 +4538,6 @@
         }
       );
 
-
-      /* =======================================================
-         DOT CONTROLS
-      ======================================================= */
 
       dots.forEach(
         function(dot, index) {
@@ -4637,10 +4567,6 @@
       );
 
 
-      /* =======================================================
-         PAUSE WHILE HOVERING
-      ======================================================= */
-
       materialCarousel.addEventListener(
         "mouseenter",
         stopMaterialCarousel
@@ -4651,10 +4577,6 @@
         startMaterialCarousel
       );
 
-
-      /* =======================================================
-         START CAROUSEL
-      ======================================================= */
 
       startMaterialCarousel();
 
