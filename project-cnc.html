@@ -1601,26 +1601,164 @@
 
 
     /* =========================================================
-       BOTTOM NAVIGATION
+       AUTOMATIC PROJECT NAVIGATION
     ========================================================= */
 
-    .bottom-navigation {
+    .project-navigation {
       margin-top: 100px;
 
       padding: 35px 0;
 
       border-top: 1px solid var(--border);
-
-      display: flex;
-
-      justify-content: space-between;
-      align-items: center;
-
-      gap: 20px;
     }
 
-    .nav-button {
-      min-height: 46px;
+    .project-sequence-row {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        auto
+        minmax(0, 1fr);
+
+      gap: 18px;
+
+      align-items: stretch;
+    }
+
+    .project-sequence-button {
+      min-height: 82px;
+
+      padding: 14px 18px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+
+      border-radius: 11px;
+
+      background: var(--card);
+
+      transition:
+        color 0.2s,
+        border-color 0.2s,
+        background 0.2s,
+        transform 0.2s;
+    }
+
+    .project-sequence-button.previous-project {
+      align-items: flex-start;
+
+      text-align: left;
+    }
+
+    .project-sequence-button.next-project {
+      align-items: flex-end;
+
+      text-align: right;
+    }
+
+    .project-sequence-button:not(.is-disabled):hover {
+      border-color: var(--accent);
+
+      background: var(--accent-soft);
+    }
+
+    .project-sequence-button.previous-project:not(.is-disabled):hover {
+      transform: translateX(-3px);
+    }
+
+    .project-sequence-button.next-project:not(.is-disabled):hover {
+      transform: translateX(3px);
+    }
+
+    .project-sequence-direction {
+      color: var(--accent);
+
+      font-size: 0.78rem;
+
+      font-weight: 750;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.08em;
+    }
+
+    .project-sequence-title {
+      margin-top: 5px;
+
+      color: var(--text);
+
+      font-size: 0.92rem;
+
+      font-weight: 700;
+
+      line-height: 1.4;
+    }
+
+    .project-sequence-button.is-disabled {
+      opacity: 0.35;
+
+      cursor: default;
+
+      user-select: none;
+    }
+
+    .project-sequence-button.is-disabled
+    .project-sequence-direction,
+    .project-sequence-button.is-disabled
+    .project-sequence-title {
+      color: var(--muted);
+    }
+
+    .project-sequence-portfolio {
+      min-height: 82px;
+
+      padding: 0 20px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+
+      border-radius: 11px;
+
+      color: var(--muted);
+
+      font-size: 0.95rem;
+
+      font-weight: 700;
+
+      white-space: nowrap;
+
+      transition:
+        color 0.2s,
+        border-color 0.2s,
+        background 0.2s,
+        transform 0.2s;
+    }
+
+    .project-sequence-portfolio:hover {
+      color: var(--text);
+
+      border-color: var(--accent);
+
+      background: var(--accent-soft);
+
+      transform: translateY(-2px);
+    }
+
+    .project-sequence-top {
+      margin-top: 18px;
+
+      display: flex;
+      justify-content: center;
+    }
+
+    .project-sequence-top-button {
+      min-height: 44px;
 
       padding: 0 18px;
 
@@ -1634,7 +1772,7 @@
 
       color: var(--muted);
 
-      font-size: 0.95rem;
+      font-size: 0.9rem;
 
       font-weight: 700;
 
@@ -1645,19 +1783,13 @@
         transform 0.2s;
     }
 
-    .nav-button:hover {
+    .project-sequence-top-button:hover {
       color: var(--text);
 
       border-color: var(--accent);
 
       background: var(--accent-soft);
-    }
 
-    .nav-button.back-portfolio:hover {
-      transform: translateX(-3px);
-    }
-
-    .nav-button.back-top:hover {
       transform: translateY(-3px);
     }
 
@@ -1795,16 +1927,33 @@
         font-size: 0.9rem;
       }
 
-      .bottom-navigation {
-        flex-direction: column;
-
-        align-items: stretch;
+      .project-sequence-row {
+        grid-template-columns: 1fr;
       }
 
-      .nav-button {
-        width: 100%;
+      .project-sequence-button.previous-project,
+      .project-sequence-button.next-project {
+        align-items: center;
 
-        justify-content: center;
+        text-align: center;
+      }
+
+      .project-sequence-button.previous-project {
+        order: 1;
+      }
+
+      .project-sequence-portfolio {
+        order: 2;
+
+        min-height: 58px;
+      }
+
+      .project-sequence-button.next-project {
+        order: 3;
+      }
+
+      .project-sequence-top-button {
+        width: 100%;
       }
 
     }
@@ -1814,7 +1963,7 @@
 </head>
 
 
-<body id="top">
+<body id="top" data-project-id="cnc">
 
 
   <!-- ======================================================
@@ -1921,9 +2070,10 @@
               Timeline
             </div>
 
-            <div class="info-value">
-              Jan – Apr 2025
-            </div>
+            <div
+              class="info-value"
+              data-project-date
+            ></div>
 
           </div>
 
@@ -2228,10 +2378,6 @@
 
         </div>
 
-
-        <!-- ==================================================
-             MORPHOLOGICAL CHART
-        =================================================== -->
 
         <div
           style="
@@ -2567,10 +2713,7 @@
         <div class="modularity-showcase">
 
 
-          <!-- 01 — EXPANDABLE RAILS -->
-
           <div class="modularity-row">
-
 
             <div class="modularity-copy">
 
@@ -2618,14 +2761,10 @@
 
             </div>
 
-
           </div>
 
 
-          <!-- 02 — MODULAR BASE -->
-
           <div class="modularity-row image-left">
-
 
             <div class="modularity-copy">
 
@@ -2671,14 +2810,10 @@
 
             </div>
 
-
           </div>
 
 
-          <!-- 03 — RAIL ALIGNMENT -->
-
           <div class="modularity-row">
-
 
             <div class="modularity-copy">
 
@@ -2725,14 +2860,10 @@
 
             </div>
 
-
           </div>
 
 
-          <!-- 04 — ADJUSTABLE WORKHOLDING -->
-
           <div class="modularity-row image-left">
-
 
             <div class="modularity-copy">
 
@@ -2779,14 +2910,10 @@
 
             </div>
 
-
           </div>
 
 
-          <!-- 05 — LIMIT SWITCHES -->
-
           <div class="modularity-row">
-
 
             <div class="modularity-copy">
 
@@ -2834,14 +2961,10 @@
 
             </div>
 
-
           </div>
 
 
-          <!-- 06 — CABLE MANAGEMENT -->
-
           <div class="modularity-row image-left">
-
 
             <div class="modularity-copy">
 
@@ -2913,7 +3036,6 @@
 
             </div>
 
-
           </div>
 
 
@@ -2958,10 +3080,7 @@
         <div class="material-showcase">
 
 
-          <!-- 01 — PETG -->
-
           <div class="material-row">
-
 
             <div class="material-copy">
 
@@ -3011,14 +3130,10 @@
 
             </div>
 
-
           </div>
 
 
-          <!-- 02 — PAHT-CF -->
-
           <div class="material-row image-left">
-
 
             <div class="material-copy">
 
@@ -4242,26 +4357,13 @@
 
 
     <!-- ====================================================
-         BOTTOM NAVIGATION
+         AUTOMATIC PROJECT NAVIGATION
     ===================================================== -->
 
-    <div class="container bottom-navigation">
-
-      <a
-        href="index.html#projects"
-        class="nav-button back-portfolio"
-      >
-        ← Back to Portfolio
-      </a>
-
-      <a
-        href="#top"
-        class="nav-button back-top"
-      >
-        Back to Top ↑
-      </a>
-
-    </div>
+    <div
+      class="container project-navigation"
+      data-project-navigation
+    ></div>
 
 
   </main>
@@ -4283,6 +4385,13 @@
     </div>
 
   </footer>
+
+
+  <!-- ======================================================
+       SHARED PROJECT DATABASE
+  ======================================================= -->
+
+  <script src="projects.js"></script>
 
 
   <script>
