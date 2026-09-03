@@ -60,6 +60,14 @@ const portfolioProjects = [
     url: "project-bearing-installation.html",
     startDate: "2024-09",
     endDate: "2024-12"
+  },
+
+  {
+    id: "wind-turbine-vibration-absorber",
+    title: "Wind Turbine Vibration Absorber Design",
+    url: "project-wind-turbine-vibration-absorber.html",
+    startDate: "2022-01",
+    endDate: "2022-04"
   }
 
 ];
