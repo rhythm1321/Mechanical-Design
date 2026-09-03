@@ -939,10 +939,10 @@
 
 
     /* =========================================================
-       BOTTOM NAVIGATION
+       AUTOMATIC PROJECT NAVIGATION
     ========================================================= */
 
-    .bottom-navigation {
+    .project-navigation {
 
       margin-top: 100px;
 
@@ -950,20 +950,204 @@
 
       border-top: 1px solid var(--border);
 
-      display: flex;
+    }
 
-      justify-content: space-between;
 
-      align-items: center;
+    .project-sequence-row {
 
-      gap: 20px;
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        auto
+        minmax(0, 1fr);
+
+      gap: 18px;
+
+      align-items: stretch;
 
     }
 
 
-    .nav-button {
+    .project-sequence-button {
 
-      min-height: 46px;
+      min-height: 82px;
+
+      padding: 14px 18px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      border: 1px solid var(--border);
+
+      border-radius: 11px;
+
+      background: var(--card);
+
+      transition:
+        color 0.2s,
+        border-color 0.2s,
+        background 0.2s,
+        transform 0.2s;
+
+    }
+
+
+    .project-sequence-button.previous-project {
+
+      align-items: flex-start;
+
+      text-align: left;
+
+    }
+
+
+    .project-sequence-button.next-project {
+
+      align-items: flex-end;
+
+      text-align: right;
+
+    }
+
+
+    .project-sequence-button:not(.is-disabled):hover {
+
+      border-color: var(--accent);
+
+      background: var(--accent-soft);
+
+    }
+
+
+    .project-sequence-button.previous-project:not(.is-disabled):hover {
+
+      transform: translateX(-3px);
+
+    }
+
+
+    .project-sequence-button.next-project:not(.is-disabled):hover {
+
+      transform: translateX(3px);
+
+    }
+
+
+    .project-sequence-direction {
+
+      color: var(--accent);
+
+      font-size: 0.78rem;
+
+      font-weight: 750;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.08em;
+
+    }
+
+
+    .project-sequence-title {
+
+      margin-top: 5px;
+
+      color: var(--text);
+
+      font-size: 0.92rem;
+
+      font-weight: 700;
+
+      line-height: 1.4;
+
+    }
+
+
+    .project-sequence-button.is-disabled {
+
+      opacity: 0.35;
+
+      cursor: default;
+
+      user-select: none;
+
+    }
+
+
+    .project-sequence-button.is-disabled
+    .project-sequence-direction,
+    .project-sequence-button.is-disabled
+    .project-sequence-title {
+
+      color: var(--muted);
+
+    }
+
+
+    .project-sequence-portfolio {
+
+      min-height: 82px;
+
+      padding: 0 20px;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border: 1px solid var(--border);
+
+      border-radius: 11px;
+
+      color: var(--muted);
+
+      font-size: 0.95rem;
+
+      font-weight: 700;
+
+      white-space: nowrap;
+
+      transition:
+        color 0.2s,
+        border-color 0.2s,
+        background 0.2s,
+        transform 0.2s;
+
+    }
+
+
+    .project-sequence-portfolio:hover {
+
+      color: var(--text);
+
+      border-color: var(--accent);
+
+      background: var(--accent-soft);
+
+      transform: translateY(-2px);
+
+    }
+
+
+    .project-sequence-top {
+
+      margin-top: 18px;
+
+      display: flex;
+
+      justify-content: center;
+
+    }
+
+
+    .project-sequence-top-button {
+
+      min-height: 44px;
 
       padding: 0 18px;
 
@@ -979,7 +1163,7 @@
 
       color: var(--muted);
 
-      font-size: 0.95rem;
+      font-size: 0.9rem;
 
       font-weight: 700;
 
@@ -992,25 +1176,13 @@
     }
 
 
-    .nav-button:hover {
+    .project-sequence-top-button:hover {
 
       color: var(--text);
 
       border-color: var(--accent);
 
       background: var(--accent-soft);
-
-    }
-
-
-    .nav-button.back-portfolio:hover {
-
-      transform: translateX(-3px);
-
-    }
-
-
-    .nav-button.back-top:hover {
 
       transform: translateY(-3px);
 
@@ -1132,16 +1304,47 @@
       }
 
 
-      .bottom-navigation {
+      .project-sequence-row {
 
-        flex-direction: column;
-
-        align-items: stretch;
+        grid-template-columns: 1fr;
 
       }
 
 
-      .nav-button {
+      .project-sequence-button.previous-project,
+      .project-sequence-button.next-project {
+
+        align-items: center;
+
+        text-align: center;
+
+      }
+
+
+      .project-sequence-button.previous-project {
+
+        order: 1;
+
+      }
+
+
+      .project-sequence-portfolio {
+
+        order: 2;
+
+        min-height: 58px;
+
+      }
+
+
+      .project-sequence-button.next-project {
+
+        order: 3;
+
+      }
+
+
+      .project-sequence-top-button {
 
         width: 100%;
 
@@ -1156,7 +1359,7 @@
 
 
 
-<body id="top">
+<body id="top" data-project-id="electromechanical-scale">
 
 
   <!-- ======================================================
@@ -1266,9 +1469,10 @@
               Timeline
             </div>
 
-            <div class="info-value">
-              Sep – Dec 2024
-            </div>
+            <div
+              class="info-value"
+              data-project-date
+            ></div>
 
           </div>
 
@@ -2651,29 +2855,13 @@
 
 
     <!-- ====================================================
-         BOTTOM NAVIGATION
+         AUTOMATIC PROJECT NAVIGATION
     ===================================================== -->
 
-    <div class="container bottom-navigation">
-
-
-      <a
-        href="index.html#projects"
-        class="nav-button back-portfolio"
-      >
-        ← Back to Portfolio
-      </a>
-
-
-      <a
-        href="#top"
-        class="nav-button back-top"
-      >
-        Back to Top ↑
-      </a>
-
-
-    </div>
+    <div
+      class="container project-navigation"
+      data-project-navigation
+    ></div>
 
 
   </main>
@@ -2697,6 +2885,13 @@
 
   </footer>
 
+
+
+  <!-- ======================================================
+       SHARED PROJECT DATABASE
+  ======================================================= -->
+
+  <script src="projects.js"></script>
 
 
   <script>
