@@ -168,9 +168,15 @@
 
       color: var(--muted);
 
-      font-size: 0.9rem;
+      font-size: 1rem;
 
-      transition: color 0.2s;
+      font-weight: 700;
+
+      letter-spacing: 0.01em;
+
+      transition:
+        color 0.2s,
+        transform 0.2s;
 
     }
 
@@ -178,6 +184,8 @@
     .back-link:hover {
 
       color: var(--accent);
+
+      transform: translateX(-3px);
 
     }
 
@@ -1170,9 +1178,9 @@
 
     .nav-button {
 
-      min-height: 44px;
+      min-height: 46px;
 
-      padding: 0 16px;
+      padding: 0 18px;
 
       display: inline-flex;
 
@@ -1186,9 +1194,15 @@
 
       color: var(--muted);
 
-      font-weight: 650;
+      font-size: 0.95rem;
 
-      transition: 0.2s;
+      font-weight: 700;
+
+      transition:
+        color 0.2s,
+        border-color 0.2s,
+        background 0.2s,
+        transform 0.2s;
 
     }
 
@@ -1200,6 +1214,20 @@
       border-color: var(--accent);
 
       background: var(--accent-soft);
+
+    }
+
+
+    .nav-button.back-portfolio:hover {
+
+      transform: translateX(-3px);
+
+    }
+
+
+    .nav-button.back-top:hover {
+
+      transform: translateY(-3px);
 
     }
 
@@ -1339,11 +1367,25 @@
       }
 
 
+      .back-link {
+
+        font-size: 0.9rem;
+
+      }
+
+
       .bottom-navigation {
 
         flex-direction: column;
 
         align-items: stretch;
+
+      }
+
+
+      .nav-button {
+
+        width: 100%;
 
       }
 
@@ -1356,7 +1398,7 @@
 
 
 
-<body>
+<body id="top">
 
 
   <!-- ======================================================
@@ -1520,37 +1562,14 @@
 
         <div class="tags">
 
-          <span class="tag">
-            Machine Design
-          </span>
-
-          <span class="tag">
-            Pneumatics
-          </span>
-
-          <span class="tag">
-            PLC
-          </span>
-
-          <span class="tag">
-            Ladder Logic
-          </span>
-
-          <span class="tag">
-            SolidWorks
-          </span>
-
-          <span class="tag">
-            FEA
-          </span>
-
-          <span class="tag">
-            Sensors
-          </span>
-
-          <span class="tag">
-            Industrial Automation
-          </span>
+          <span class="tag">Machine Design</span>
+          <span class="tag">Pneumatics</span>
+          <span class="tag">PLC</span>
+          <span class="tag">Ladder Logic</span>
+          <span class="tag">SolidWorks</span>
+          <span class="tag">FEA</span>
+          <span class="tag">Sensors</span>
+          <span class="tag">Industrial Automation</span>
 
         </div>
 
@@ -2158,21 +2177,10 @@
 
             <div class="component-facts">
 
-              <span class="component-fact">
-                20 mm piston
-              </span>
-
-              <span class="component-fact">
-                300 mm stroke
-              </span>
-
-              <span class="component-fact">
-                Double acting
-              </span>
-
-              <span class="component-fact">
-                PPV cushioning
-              </span>
+              <span class="component-fact">20 mm piston</span>
+              <span class="component-fact">300 mm stroke</span>
+              <span class="component-fact">Double acting</span>
+              <span class="component-fact">PPV cushioning</span>
 
             </div>
 
@@ -2200,21 +2208,10 @@
 
             <div class="component-facts">
 
-              <span class="component-fact">
-                32 mm piston
-              </span>
-
-              <span class="component-fact">
-                300 mm stroke
-              </span>
-
-              <span class="component-fact">
-                Slow uniform motion
-              </span>
-
-              <span class="component-fact">
-                P cushioning
-              </span>
+              <span class="component-fact">32 mm piston</span>
+              <span class="component-fact">300 mm stroke</span>
+              <span class="component-fact">Slow uniform motion</span>
+              <span class="component-fact">P cushioning</span>
 
             </div>
 
@@ -2241,21 +2238,10 @@
 
             <div class="component-facts">
 
-              <span class="component-fact">
-                63 mm piston
-              </span>
-
-              <span class="component-fact">
-                100 mm stroke
-              </span>
-
-              <span class="component-fact">
-                Double acting
-              </span>
-
-              <span class="component-fact">
-                PPV cushioning
-              </span>
+              <span class="component-fact">63 mm piston</span>
+              <span class="component-fact">100 mm stroke</span>
+              <span class="component-fact">Double acting</span>
+              <span class="component-fact">PPV cushioning</span>
 
             </div>
 
@@ -2462,172 +2448,72 @@
 
 
           <div class="sequence-card">
-
-            <div class="sequence-number">
-              STEP 01
-            </div>
-
-            <h3>
-              CYL-Grip +
-            </h3>
-
-            <p>
-              Lower the gripper toward the bearing feeder.
-            </p>
-
+            <div class="sequence-number">STEP 01</div>
+            <h3>CYL-Grip +</h3>
+            <p>Lower the gripper toward the bearing feeder.</p>
           </div>
 
 
           <div class="sequence-card">
-
-            <div class="sequence-number">
-              STEP 02
-            </div>
-
-            <h3>
-              Gripper +
-            </h3>
-
-            <p>
-              Grip the bearing through its inner race.
-            </p>
-
+            <div class="sequence-number">STEP 02</div>
+            <h3>Gripper +</h3>
+            <p>Grip the bearing through its inner race.</p>
           </div>
 
 
           <div class="sequence-card">
-
-            <div class="sequence-number">
-              STEP 03
-            </div>
-
-            <h3>
-              CYL-Grip −
-            </h3>
-
-            <p>
-              Raise the bearing clear of the feeder.
-            </p>
-
+            <div class="sequence-number">STEP 03</div>
+            <h3>CYL-Grip −</h3>
+            <p>Raise the bearing clear of the feeder.</p>
           </div>
 
 
           <div class="sequence-card">
-
-            <div class="sequence-number">
-              STEP 04
-            </div>
-
-            <h3>
-              CYL-Move +
-            </h3>
-
-            <p>
-              Rotate the assembly toward the motor housing.
-            </p>
-
+            <div class="sequence-number">STEP 04</div>
+            <h3>CYL-Move +</h3>
+            <p>Rotate the assembly toward the motor housing.</p>
           </div>
 
 
           <div class="sequence-card">
-
-            <div class="sequence-number">
-              STEP 05
-            </div>
-
-            <h3>
-              CYL-Grip +
-            </h3>
-
-            <p>
-              Lower the bearing into the motor housing.
-            </p>
-
+            <div class="sequence-number">STEP 05</div>
+            <h3>CYL-Grip +</h3>
+            <p>Lower the bearing into the motor housing.</p>
           </div>
 
 
           <div class="sequence-card">
-
-            <div class="sequence-number">
-              STEP 06
-            </div>
-
-            <h3>
-              Gripper −
-            </h3>
-
-            <p>
-              Release the bearing into the housing.
-            </p>
-
+            <div class="sequence-number">STEP 06</div>
+            <h3>Gripper −</h3>
+            <p>Release the bearing into the housing.</p>
           </div>
 
 
           <div class="sequence-card">
-
-            <div class="sequence-number">
-              STEP 07
-            </div>
-
-            <h3>
-              CYL-Grip −
-            </h3>
-
-            <p>
-              Retract the gripper clear of the housing.
-            </p>
-
+            <div class="sequence-number">STEP 07</div>
+            <h3>CYL-Grip −</h3>
+            <p>Retract the gripper clear of the housing.</p>
           </div>
 
 
           <div class="sequence-card">
-
-            <div class="sequence-number">
-              STEP 08
-            </div>
-
-            <h3>
-              CYL-Move −
-            </h3>
-
-            <p>
-              Rotate the assembly back to its initial position.
-            </p>
-
+            <div class="sequence-number">STEP 08</div>
+            <h3>CYL-Move −</h3>
+            <p>Rotate the assembly back to its initial position.</p>
           </div>
 
 
           <div class="sequence-card">
-
-            <div class="sequence-number">
-              STEP 09
-            </div>
-
-            <h3>
-              CYL-Press +
-            </h3>
-
-            <p>
-              Extend the press and install the bearing.
-            </p>
-
+            <div class="sequence-number">STEP 09</div>
+            <h3>CYL-Press +</h3>
+            <p>Extend the press and install the bearing.</p>
           </div>
 
 
           <div class="sequence-card">
-
-            <div class="sequence-number">
-              STEP 10
-            </div>
-
-            <h3>
-              CYL-Press −
-            </h3>
-
-            <p>
-              Retract the press cylinder and finish the cycle.
-            </p>
-
+            <div class="sequence-number">STEP 10</div>
+            <h3>CYL-Press −</h3>
+            <p>Retract the press cylinder and finish the cycle.</p>
           </div>
 
 
@@ -3597,29 +3483,12 @@
 
           <div class="result-values">
 
-            <span class="result-value">
-              Pneumatic Automation
-            </span>
-
-            <span class="result-value">
-              PLC Control
-            </span>
-
-            <span class="result-value">
-              100 lbf Press Force
-            </span>
-
-            <span class="result-value">
-              &lt; 30 s Cycle Target
-            </span>
-
-            <span class="result-value">
-              Custom Tooling
-            </span>
-
-            <span class="result-value">
-              SolidWorks FEA
-            </span>
+            <span class="result-value">Pneumatic Automation</span>
+            <span class="result-value">PLC Control</span>
+            <span class="result-value">100 lbf Press Force</span>
+            <span class="result-value">&lt; 30 s Cycle Target</span>
+            <span class="result-value">Custom Tooling</span>
+            <span class="result-value">SolidWorks FEA</span>
 
           </div>
 
@@ -3641,17 +3510,17 @@
 
       <a
         href="index.html#projects"
-        class="nav-button"
+        class="nav-button back-portfolio"
       >
-        ← All Projects
+        ← Back to Portfolio
       </a>
 
 
       <a
-        href="index.html"
-        class="nav-button"
+        href="#top"
+        class="nav-button back-top"
       >
-        Back to Portfolio ↑
+        Back to Top ↑
       </a>
 
 
