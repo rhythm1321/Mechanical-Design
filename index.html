@@ -1489,8 +1489,7 @@
 
           <article
             class="project-card featured"
-            data-project-start="2026-05"
-            data-project-end="2026-08"
+            data-project-id="unet"
           >
 
             <div class="project-image-container">
@@ -1521,9 +1520,7 @@
                 </span>
 
                 <span class="project-date">
-                  <time datetime="2026-05">May 2026</time>
-                  –
-                  <time datetime="2026-08">August 2026</time>
+                  May 2026 – August 2026
                 </span>
 
               </div>
@@ -1595,8 +1592,7 @@
 
           <article
             class="project-card featured"
-            data-project-start="2026-02"
-            data-project-end="2026-04"
+            data-project-id="heat-transfer"
           >
 
             <div class="project-image-container">
@@ -1627,9 +1623,7 @@
                 </span>
 
                 <span class="project-date">
-                  <time datetime="2026-02">February 2026</time>
-                  –
-                  <time datetime="2026-04">April 2026</time>
+                  February 2026 – April 2026
                 </span>
 
               </div>
@@ -1703,8 +1697,7 @@
 
           <article
             class="project-card featured"
-            data-project-start="2026-01"
-            data-project-end="2026-04"
+            data-project-id="composite-battery"
           >
 
             <div class="project-image-container">
@@ -1735,9 +1728,7 @@
                 </span>
 
                 <span class="project-date">
-                  <time datetime="2026-01">January 2026</time>
-                  –
-                  <time datetime="2026-04">April 2026</time>
+                  January 2026 – April 2026
                 </span>
 
               </div>
@@ -1809,8 +1800,7 @@
 
           <article
             class="project-card featured"
-            data-project-start="2025-01"
-            data-project-end="2025-04"
+            data-project-id="cnc"
           >
 
             <div class="project-image-container">
@@ -1841,9 +1831,7 @@
                 </span>
 
                 <span class="project-date">
-                  <time datetime="2025-01">January 2025</time>
-                  –
-                  <time datetime="2025-04">April 2025</time>
+                  January 2025 – April 2025
                 </span>
 
               </div>
@@ -1912,8 +1900,7 @@
 
           <article
             class="project-card featured"
-            data-project-start="2024-09"
-            data-project-end="2024-12"
+            data-project-id="electromechanical-scale"
           >
 
             <div class="project-image-container">
@@ -1944,9 +1931,7 @@
                 </span>
 
                 <span class="project-date">
-                  <time datetime="2024-09">September 2024</time>
-                  –
-                  <time datetime="2024-12">December 2024</time>
+                  September 2024 – December 2024
                 </span>
 
               </div>
@@ -2029,8 +2014,7 @@
 
           <article
             class="project-card featured"
-            data-project-start="2024-11"
-            data-project-end="2024-11"
+            data-project-id="bearing-installation"
           >
 
             <div class="project-image-container">
@@ -2061,7 +2045,7 @@
                 </span>
 
                 <span class="project-date">
-                  <time datetime="2024-11">November 2024</time>
+                  November 2024
                 </span>
 
               </div>
@@ -3316,55 +3300,20 @@
   </div>
 
 
+  <!-- ======================================================
+       SHARED PROJECT DATA / SORTING
+  ======================================================= -->
+
+  <script src="projects.js"></script>
+
+
   <script>
 
     document.getElementById("year").textContent =
       new Date().getFullYear();
 
-    const projectGrid = document.querySelector(".project-grid");
-
-    if (projectGrid) {
-
-      const projects = [
-        ...projectGrid.querySelectorAll(".project-card")
-      ];
-
-      projects
-        .sort((a, b) => {
-
-          const endDifference =
-            b.dataset.projectEnd.localeCompare(
-              a.dataset.projectEnd
-            );
-
-          if (endDifference !== 0) {
-            return endDifference;
-          }
-
-          return b.dataset.projectStart.localeCompare(
-            a.dataset.projectStart
-          );
-
-        })
-        .forEach((project, index) => {
-
-          const projectNumber =
-            project.querySelector(".project-number");
-
-          if (projectNumber) {
-
-            projectNumber.textContent =
-              `Project ${String(index + 1).padStart(2, "0")}`;
-
-          }
-
-          projectGrid.appendChild(project);
-
-        });
-
-    }
-
   </script>
+
 
 </body>
 
