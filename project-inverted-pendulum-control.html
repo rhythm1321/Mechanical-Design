@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Inverted Pendulum Control System | Rhythm Patel</title>
+
+  <meta
+    name="description"
+    content="MEC 830 inverted pendulum control project using Python, nonlinear dynamics, PID control, pole placement, sensor-noise filtering, SysML/MBSE, and Pygame visualization."
+  />
+
+  <style>
+    /* =========================================================
+       GLOBAL
+    ========================================================= */
+
+    :root {
+      --background: #071019;
+      --card: #101c29;
+      --card-hover: #142335;
+
+      --text: #f2f6fa;
+      --muted: #9eafbf;
+
+      --accent: #5eb5ff;
+      --accent-light: #8bcbff;
+      --accent-soft: rgba(94, 181, 255, 0.11);
+
+      --border: #213247;
+      --success: #77d8a4;
+
+      --max-width: 1080px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 90% 0%,
+          rgba(94, 181, 255, 0.08),
+          transparent 28%
+        ),
+        var(--background);
+
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    pre,
+    code {
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+    }
+
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      background: rgba(7, 16, 25, 0.94);
+      backdrop-filter: blur(12px);
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      min-height: 70px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .name {
+      font-size: 1rem;
+      font-weight: 750;
+    }
+
+    .back-link {
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 700;
+
+      transition:
+        color 0.2s,
+        transform 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+      transform: translateX(-3px);
+    }
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .project-hero {
+      padding: 80px 0 48px;
+    }
+
+    .project-label {
+      margin-bottom: 12px;
+
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+    }
+
+    .project-hero h1 {
+      max-width: 1000px;
+      margin: 0 0 24px;
+
+      font-size: clamp(2.7rem, 7vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .project-summary {
+      max-width: 920px;
+      margin: 0;
+
+      color: var(--muted);
+      font-size: 1.12rem;
+    }
+
+
+    /* =========================================================
+       HERO IMAGE
+    ========================================================= */
+
+    .hero-image-wrap {
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+      border-radius: 18px;
+
+      background: var(--card);
+    }
+
+    .hero-image-media {
+      padding: 18px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #ffffff;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-height: 700px;
+      object-fit: contain;
+    }
+
+    .hero-image-caption {
+      padding: 14px 18px;
+
+      border-top: 1px solid var(--border);
+
+      color: var(--muted);
+      font-size: 0.86rem;
+      text-align: center;
+    }
+
+
+    /* =========================================================
+       PROJECT INFO
+    ========================================================= */
+
+    .project-info-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+
+      margin-top: 24px;
+    }
+
+    .info-card {
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 12px;
+
+      background: var(--card);
+    }
+
+    .info-label {
+      margin-bottom: 5px;
+
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .info-value {
+      font-size: 0.95rem;
+      font-weight: 750;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 7px 11px;
+
+      border: 1px solid var(--border);
+      border-radius: 999px;
+
+      color: var(--accent-light);
+      background: var(--accent-soft);
+
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       PROJECT SECTIONS
+    ========================================================= */
+
+    .project-section {
+      padding-top: 105px;
+    }
+
+    .section-number {
+      margin-bottom: 9px;
+
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .project-section h2 {
+      max-width: 900px;
+      margin: 0 0 22px;
+
+      font-size: clamp(2rem, 4.5vw, 3.1rem);
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+    }
+
+    .project-section > .container > p,
+    .text-block p {
+      max-width: 930px;
+      margin: 0 0 18px;
+
+      color: var(--muted);
+    }
+
+    .project-section strong {
+      color: var(--text);
+    }
+
+
+    /* =========================================================
+       REQUIREMENTS
+    ========================================================= */
+
+    .requirements-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+
+      margin-top: 28px;
+    }
+
+    .requirement {
+      display: flex;
+      gap: 14px;
+
+      padding: 21px;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      background: var(--card);
+    }
+
+    .requirement-number {
+      flex: 0 0 auto;
+
+      width: 36px;
+      height: 36px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      color: var(--accent);
+      background: var(--accent-soft);
+
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .requirement h3 {
+      margin: 0 0 5px;
+      font-size: 1rem;
+    }
+
+    .requirement p {
+      margin: 0;
+
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================================================
+       FIGURES
+    ========================================================= */
+
+    .figure {
+      margin: 30px 0 0;
+      overflow: hidden;
+
+      border: 1px solid var(--border);
+      border-radius: 16px;
+
+      background: var(--card);
+    }
+
+    .figure-media {
+      width: 100%;
+      padding: 18px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #ffffff;
+    }
+
+    .figure-media.dark {
+      background: #0b1520;
+    }
+
+    .figure-media img {
+      width: 100%;
+      max-height: 760px;
+      object-fit: contain;
+    }
+
+    .figure figcaption {
+      padding: 14px 18px;
+
+      border-top: 1px solid var(--border);
+
+      color: var(--muted);
+      font-size: 0.84rem;
+      text-align: center;
+    }
+
+    .figure-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+
+      margin-top: 30px;
+    }
+
+    .figure-grid .figure {
+      margin: 0;
+    }
+
+
+    /* =========================================================
+       PARAMETER / RESULT CARDS
+    ========================================================= */
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+
+      margin-top: 28px;
+    }
+
+    .result-card {
+      padding: 21px;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(94, 181, 255, 0.05),
+          transparent 55%
+        ),
+        var(--card);
+    }
+
+    .result-value {
+      color: var(--accent);
+      font-size: 1.4rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .result-name {
+      margin-top: 7px;
+
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+
+    /* =========================================================
+       PIPELINE
+    ========================================================= */
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+
+      margin-top: 28px;
+    }
+
+    .pipeline-step {
+      position: relative;
+
+      padding: 18px 12px;
+
+      border: 1px solid var(--border);
+      border-radius: 12px;
+
+      background: var(--card);
+      text-align: center;
+    }
+
+    .pipeline-step:not(:last-child)::after {
+      content: "→";
+
+      position: absolute;
+      right: -14px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      color: var(--accent);
+      font-weight: 800;
+      z-index: 3;
+    }
+
+    .pipeline-number {
+      display: block;
+      margin-bottom: 7px;
+
+      color: var(--accent);
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .pipeline-step span:last-child {
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       EQUATIONS / CODE
+    ========================================================= */
+
+    .equation-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+
+      margin-top: 26px;
+    }
+
+    .equation-card {
+      padding: 22px;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      background: var(--card);
+    }
+
+    .equation-label {
+      margin-bottom: 10px;
+
+      color: var(--accent);
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .equation {
+      overflow-x: auto;
+
+      color: #dfeaf4;
+      font-family:
+        "SFMono-Regular",
+        Consolas,
+        monospace;
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+
+    .code-block {
+      margin-top: 26px;
+      overflow-x: auto;
+
+      padding: 22px;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      background: #0b1520;
+    }
+
+    .code-block pre {
+      margin: 0;
+
+      color: #cbd8e5;
+      font-size: 0.86rem;
+      line-height: 1.65;
+    }
+
+
+    /* =========================================================
+       CALLOUT / COMPARISON
+    ========================================================= */
+
+    .callout {
+      margin-top: 28px;
+      padding: 24px;
+
+      border: 1px solid rgba(94, 181, 255, 0.3);
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          120deg,
+          rgba(94, 181, 255, 0.11),
+          transparent 65%
+        ),
+        var(--card);
+    }
+
+    .callout p {
+      margin: 0;
+      color: #c4d0db;
+    }
+
+    .callout strong {
+      color: var(--accent-light);
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+
+      margin-top: 28px;
+    }
+
+    .comparison-card {
+      padding: 24px;
+
+      border: 1px solid var(--border);
+      border-radius: 15px;
+
+      background: var(--card);
+    }
+
+    .comparison-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.15rem;
+    }
+
+    .comparison-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .status {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 6px 10px;
+
+      border: 1px solid var(--border);
+      border-radius: 999px;
+
+      color: var(--success);
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+
+    /* =========================================================
+       FINAL HIGHLIGHT
+    ========================================================= */
+
+    .result-highlight {
+      margin-top: 32px;
+      padding: 32px;
+
+      border: 1px solid var(--border);
+      border-radius: 16px;
+
+      background:
+        linear-gradient(
+          125deg,
+          rgba(94, 181, 255, 0.13),
+          transparent 60%
+        ),
+        var(--card);
+    }
+
+    .result-highlight h3 {
+      margin: 0 0 12px;
+      font-size: 1.35rem;
+    }
+
+    .result-highlight p {
+      max-width: 920px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .result-values {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      margin-top: 20px;
+    }
+
+    .result-pill {
+      padding: 8px 12px;
+
+      border: 1px solid var(--border);
+      border-radius: 999px;
+
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       AUTOMATIC PROJECT NAVIGATION
+    ========================================================= */
+
+    .project-navigation {
+      margin-top: 100px;
+      padding: 35px 0;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .project-sequence-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .project-sequence-button {
+      min-height: 82px;
+      padding: 14px 18px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+      border-radius: 13px;
+
+      background: var(--card);
+
+      transition:
+        border-color 0.2s,
+        background 0.2s,
+        transform 0.2s;
+    }
+
+    .project-sequence-button:hover:not(.is-disabled) {
+      border-color: rgba(94, 181, 255, 0.55);
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+
+    .project-sequence-button.next-project {
+      text-align: right;
+      align-items: flex-end;
+    }
+
+    .project-sequence-direction {
+      margin-bottom: 5px;
+
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .project-sequence-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .project-sequence-button.is-disabled {
+      opacity: 0.38;
+      cursor: default;
+    }
+
+    .project-sequence-portfolio {
+      padding: 0 14px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 750;
+      text-align: center;
+    }
+
+    .project-sequence-portfolio:hover {
+      color: var(--accent);
+    }
+
+    .project-sequence-top {
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .project-sequence-top-button {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .project-sequence-top-button:hover {
+      color: var(--accent);
+    }
+
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    footer {
+      padding: 28px 0 40px;
+
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 900px) {
+      .project-info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .results-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pipeline {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .pipeline-step:nth-child(3)::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .project-hero {
+        padding-top: 58px;
+      }
+
+      .requirements-grid,
+      .figure-grid,
+      .equation-grid,
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-sequence-row {
+        grid-template-columns: 1fr;
+      }
+
+      .project-sequence-button.next-project {
+        text-align: left;
+        align-items: flex-start;
+      }
+
+      .project-sequence-portfolio {
+        min-height: 45px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .container {
+        width: min(calc(100% - 28px), var(--max-width));
+      }
+
+      .header-inner {
+        min-height: 62px;
+      }
+
+      .name {
+        display: none;
+      }
+
+      .project-info-grid,
+      .results-grid,
+      .pipeline {
+        grid-template-columns: 1fr;
+      }
+
+      .pipeline-step::after {
+        display: none !important;
+      }
+
+      .project-section {
+        padding-top: 78px;
+      }
+    }
+  </style>
+</head>
+
+<body id="top" data-project-id="inverted-pendulum-control">
+
+  <!-- ======================================================
+       HEADER
+  ======================================================= -->
+
+  <header>
+    <div class="container header-inner">
+      <div class="name">Rhythm Patel</div>
+
+      <a href="index.html#projects" class="back-link">
+        ← Back to Portfolio
+      </a>
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- ====================================================
+         HERO
+    ===================================================== -->
+
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-label">
+          MEC 830 · Mechatronics System Design · Control Systems
+        </div>
+
+        <h1>
+          Inverted Pendulum Control System
+        </h1>
+
+        <p class="project-summary">
+          Designed and simulated an inverted pendulum on a cart using Python,
+          combining Model-Based Systems Engineering, nonlinear dynamic modeling,
+          sensor-noise simulation, low-pass filtering, PID control, pole-placement
+          state feedback, and real-time Pygame visualization. The two control
+          strategies were evaluated under damped, undamped, noisy, and filtered
+          operating conditions.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- ====================================================
+         HERO IMAGE & QUICK INFO
+    ===================================================== -->
+
+    <section>
+      <div class="container">
+
+        <div class="hero-image-wrap">
+          <div class="hero-image-media">
+            <img
+              src="images/mec830-pygame-interface.png"
+              alt="Inverted pendulum on cart simulation developed in Python and Pygame"
+              class="hero-image"
+            />
+          </div>
+
+          <div class="hero-image-caption">
+            Python/Pygame visualization of the cart-pendulum system used to study
+            controller response, damping, disturbances, sensor noise, and filtering.
+          </div>
+        </div>
+
+
+        <div class="project-info-grid">
+
+          <div class="info-card">
+            <div class="info-label">Timeline</div>
+            <div class="info-value">Fall 2024</div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-label">Course</div>
+            <div class="info-value">MEC 830</div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-label">Controllers</div>
+            <div class="info-value">PID + Pole Placement</div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-label">Modeling</div>
+            <div class="info-value">Lagrangian + State Space</div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-label">Software</div>
+            <div class="info-value">Python + SciPy + Pygame</div>
+          </div>
+
+        </div>
+
+
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">Control Systems</span>
+          <span class="tag">PID Control</span>
+          <span class="tag">Pole Placement</span>
+          <span class="tag">SciPy</span>
+          <span class="tag">Pygame</span>
+          <span class="tag">Signal Filtering</span>
+          <span class="tag">MBSE</span>
+          <span class="tag">SysML</span>
+          <span class="tag">Dynamic Simulation</span>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================
+         01 — PROJECT OBJECTIVE
+    ===================================================== -->
+
+    <section class="project-section">
+      <div class="container">
+
+        <div class="section-number">
+          01 — Project Objective
+        </div>
+
+        <h2>
+          Stabilizing an Unstable Cart-Pendulum System Under Realistic Disturbances
+        </h2>
+
+        <p>
+          The project objective was to maintain an inverted pendulum in its
+          upright position by commanding horizontal motion of the cart. The
+          system was intentionally evaluated with external disturbances,
+          damping effects, and simulated sensor noise so that the control
+          strategies could be compared under more realistic operating conditions.
+        </p>
+
+
+        <div class="requirements-grid">
+
+          <div class="requirement">
+            <div class="requirement-number">01</div>
+            <div>
+              <h3>Upright Stability</h3>
+              <p>
+                Maintain the pendulum near the vertical equilibrium position
+                after a disturbance.
+              </p>
+            </div>
+          </div>
+
+          <div class="requirement">
+            <div class="requirement-number">02</div>
+            <div>
+              <h3>Two Control Strategies</h3>
+              <p>
+                Implement and compare both PID control and pole-placement
+                state-feedback control.
+              </p>
+            </div>
+          </div>
+
+          <div class="requirement">
+            <div class="requirement-number">03</div>
+            <div>
+              <h3>Sensor Noise Handling</h3>
+              <p>
+                Introduce measurement noise and apply filtering to examine
+                controller robustness and signal quality.
+              </p>
+            </div>
+          </div>
+
+          <div class="requirement">
+            <div class="requirement-number">04</div>
+            <div>
+              <h3>No Pivot Actuator</h3>
+              <p>
+                Stabilization had to be achieved by moving the cart rather than
+                directly actuating the pendulum joint.
+              </p>
+            </div>
+          </div>
+
+          <div class="requirement">
+            <div class="requirement-number">05</div>
+            <div>
+              <h3>Dynamic Visualization</h3>
+              <p>
+                Animate the cart and pendulum response in real time using
+                Pygame and display key controller variables.
+              </p>
+            </div>
+          </div>
+
+          <div class="requirement">
+            <div class="requirement-number">06</div>
+            <div>
+              <h3>Defined Physical Geometry</h3>
+              <p>
+                Model a 0.4 m pendulum with a 0.05 kg pendulum mass and a
+                0.5 kg cart.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================
+         02 — MBSE & SYSTEM ARCHITECTURE
+    ===================================================== -->
+
+    <section class="project-section">
+      <div class="container">
+
+        <div class="section-number">
+          02 — MBSE &amp; System Architecture
+        </div>
+
+        <h2>
+          Defining the System Before Building the Controller
+        </h2>
+
+        <p>
+          Model-Based Systems Engineering principles were used to organize the
+          system architecture and identify the relationships between the cart,
+          pendulum, sensors, controller, and external environment. SysML models
+          were created in Eclipse Papyrus before the dynamic simulation and
+          controller implementation were developed.
+        </p>
+
+
+        <figure class="figure">
+          <div class="figure-media">
+            <img
+              src="images/mec830-mind-map.png"
+              alt="Mind map for the inverted pendulum control project"
+            />
+          </div>
+          <figcaption>
+            Project mind map used to organize modeling, controller development,
+            filtering, visualization, and system constraints.
+          </figcaption>
+        </figure>
+
+
+        <div class="figure-grid">
+
+          <figure class="figure">
+            <div class="figure-media">
+              <img
+                src="images/mec830-bdd.png"
+                alt="SysML block definition diagram for the inverted pendulum system"
+              />
+            </div>
+            <figcaption>
+              SysML Block Definition Diagram showing the primary cart,
+              pendulum, sensor, and controller elements.
+            </figcaption>
+          </figure>
+
+
+          <figure class="figure">
+            <div class="figure-media">
+              <img
+                src="images/mec830-ibd.png"
+                alt="SysML internal block diagram for the inverted pendulum system"
+              />
+            </div>
+            <figcaption>
+              Internal Block Diagram describing signal and force interactions
+              within the cart-pendulum system.
+            </figcaption>
+          </figure>
+
+        </div>
+
+
+        <figure class="figure">
+          <div class="figure-media">
+            <img
+              src="images/mec830-activity-diagram.png"
+              alt="SysML activity diagram for the inverted pendulum controller"
+            />
+          </div>
+          <figcaption>
+            Activity flow from the initial system state through impulse input,
+            controller calculation, control-force application, and response animation.
+          </figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================
+         03 — MATHEMATICAL MODEL
+    ===================================================== -->
+
+    <section class="project-section">
+      <div class="container">
+
+        <div class="section-number">
+          03 — Mathematical Model
+        </div>
+
+        <h2>
+          Deriving the Nonlinear Dynamics With the Lagrangian Method
+        </h2>
+
+        <p>
+          The cart-pendulum equations of motion were developed from the kinetic
+          and potential energy of the system using Lagrange's equations. The
+          model included cart translation, pendulum rotation, gravitational
+          effects, air drag, pivot damping, and an externally applied cart force.
+        </p>
+
+
+        <div class="results-grid">
+
+          <div class="result-card">
+            <div class="result-value">0.50 kg</div>
+            <div class="result-name">Cart mass, M</div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-value">0.05 kg</div>
+            <div class="result-name">Pendulum mass, m</div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-value">0.40 m</div>
+            <div class="result-name">Pendulum length, l</div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-value">9.81 m/s²</div>
+            <div class="result-name">Gravitational acceleration, g</div>
+          </div>
+
+        </div>
+
+
+        <figure class="figure">
+          <div class="figure-media">
+            <img
+              src="images/mec830-free-body-diagram.png"
+              alt="Free body diagram of an inverted pendulum mounted on a translating cart"
+            />
+          </div>
+          <figcaption>
+            Free-body representation used to define cart position, pendulum
+            angle, applied force, and geometric relationships for the derivation.
+          </figcaption>
+        </figure>
+
+
+        <div class="equation-grid">
+
+          <div class="equation-card">
+            <div class="equation-label">Pendulum Position</div>
+            <div class="equation">
+              x<sub>p</sub> = x + l sin(θ)<br />
+              y<sub>p</sub> = l cos(θ)
+            </div>
+          </div>
+
+          <div class="equation-card">
+            <div class="equation-label">State Vector</div>
+            <div class="equation">
+              X = [ x, ẋ, θ, θ̇ ]<sup>T</sup>
+            </div>
+          </div>
+
+          <div class="equation-card">
+            <div class="equation-label">Lagrangian</div>
+            <div class="equation">
+              L = T − V
+            </div>
+          </div>
+
+          <div class="equation-card">
+            <div class="equation-label">Controller Input</div>
+            <div class="equation">
+              F = horizontal force applied to cart
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================
+         04 — SIMULATION PIPELINE
+    ===================================================== -->
+
+    <section class="project-section">
+      <div class="container">
+
+        <div class="section-number">
+          04 — Simulation Pipeline
+        </div>
+
+        <h2>
+          Connecting Dynamics, Control, Noise, Filtering, and Visualization
+        </h2>
+
+        <p>
+          The Python simulation numerically integrated the nonlinear equations
+          of motion and repeatedly updated the controller from the current
+          system state. Separate cases were executed with and without damping,
+          noise, and filtering to expose the effect of each modeling choice.
+        </p>
+
+
+        <div class="pipeline">
+
+          <div class="pipeline-step">
+            <span class="pipeline-number">Step 01</span>
+            <span>Initial State / Disturbance</span>
+          </div>
+
+          <div class="pipeline-step">
+            <span class="pipeline-number">Step 02</span>
+            <span>Sensor Measurement</span>
+          </div>
+
+          <div class="pipeline-step">
+            <span class="pipeline-number">Step 03</span>
+            <span>Noise &amp; Filtering</span>
+          </div>
+
+          <div class="pipeline-step">
+            <span class="pipeline-number">Step 04</span>
+            <span>Controller Calculation</span>
+          </div>
+
+          <div class="pipeline-step">
+            <span class="pipeline-number">Step 05</span>
+            <span>ODE Integration</span>
+          </div>
+
+          <div class="pipeline-step">
+            <span class="pipeline-number">Step 06</span>
+            <span>Plots &amp; Pygame</span>
+          </div>
+
+        </div>
+
+
+        <div class="callout">
+          <p>
+            <strong>Implementation:</strong> NumPy was used for array and
+            state-space calculations, SciPy for numerical integration and pole
+            placement, Matplotlib for performance plots, and Pygame for the
+            animated cart-pendulum visualization.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================
+         05 — PID CONTROLLER
+    ===================================================== -->
+
+    <section class="project-section">
+      <div class="container">
+
+        <div class="section-number">
+          05 — PID Controller
+        </div>
+
+        <h2>
+          Correcting Pendulum-Angle Error With Proportional, Integral, and Derivative Action
+        </h2>
+
+        <p>
+          The PID controller used the pendulum-angle error as its feedback signal.
+          The proportional term responded to the current deviation, the integral
+          term accumulated persistent error, and the derivative term reacted to
+          the rate of change to reduce oscillation and overshoot.
+        </p>
+
+
+        <div class="equation-card" style="margin-top: 26px;">
+          <div class="equation-label">PID Control Law</div>
+          <div class="equation">
+            F = K<sub>p</sub>e + K<sub>i</sub>∫e dt + K<sub>d</sub>(de/dt)
+          </div>
+        </div>
+
+
+        <div class="code-block">
+<pre>def pid_controller(y, int_err, prev_err):
+    error = -y[2]
+    int_err += error * dt
+    derivative_error = (error - prev_err) / dt
+
+    F = Kp * error + Ki * int_err + Kd * derivative_error
+
+    return F, int_err, error</pre>
+        </div>
+
+
+        <div class="results-grid">
+
+          <div class="result-card">
+            <div class="result-value">10.0</div>
+            <div class="result-name">Kp</div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-value">1.0</div>
+            <div class="result-name">Ki</div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-value">5.0</div>
+            <div class="result-name">Kd</div>
+          </div>
+
+          <div class="result-card">
+            <div class="result-value">0.01 s</div>
+            <div class="result-name">Simulation time step</div>
+          </div>
+
+        </div>
+
+
+        <figure class="figure">
+          <div class="figure-media">
+            <img
+              src="images/mec830-pid-results.png"
+              alt="PID controller cart position and pendulum angle results under damped and undamped noisy conditions"
+            />
+          </div>
+          <figcaption>
+            PID simulation results comparing cart position and pendulum angle
+            under damped and undamped conditions with simulated measurement noise.
+          </figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================
+         06 — POLE PLACEMENT
+    ===================================================== -->
+
+    <section class="project-section">
+      <div class="container">
+
+        <div class="section-number">
+          06 — Pole-Placement Controller
+        </div>
+
+        <h2>
+          Using State Feedback to Place the Closed-Loop Dynamics
+        </h2>
+
+        <p>
+          A second controller was implemented using state feedback. Linearized
+          damped and undamped state-space models were defined, desired stable
+          pole locations were selected, and SciPy's <strong>place_poles()</strong>
+          routine was used to calculate the feedback gain matrix.
+        </p>
+
+
+        <div class="equation-grid">
+
+          <div class="equation-card">
+            <div class="equation-label">State Feedback</div>
+            <div class="equation">
+              F = −KX
+            </div>
+          </div>
+
+          <div class="equation-card">
+            <div class="equation-label">Desired Poles</div>
+            <div class="equation">
+              [ −3, −3.5, −4, −4.5 ]
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="code-block">
+<pre>desired_poles_damped = np.array([-3, -3.5, -4, -4.5])
+
+desired_poles_undamped = np.array([-3, -3.5, -4, -4.5])
+
+K_gain_damped = place_poles(
+    A_matrix_damped,
+    B_matrix,
+    desired_poles_damped
+).gain_matrix
+
+control_force = (-K_gain @ state_vector).item()</pre>
+        </div>
+
+
+        <figure class="figure">
+          <div class="figure-media">
+            <img
+              src="images/mec830-pole-placement-results.png"
+              alt="Pole-placement controller cart position and pendulum angle results"
+            />
+          </div>
+          <figcaption>
+            Pole-placement simulation results showing strong convergence with
+            damping and persistent oscillation in the undamped case.
+          </figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================
+         07 — SENSOR NOISE & FILTERING
+    ===================================================== -->
+
+    <section class="project-section">
+      <div class="container">
+
+        <div class="section-number">
+          07 — Sensor Noise &amp; Filtering
+        </div>
+
+        <h2>
+          Testing Controller Performance With Imperfect Measurements
+        </h2>
+
+        <p>
+          Gaussian noise was added to the simulated cart-position and pendulum-
+          angle measurements to approximate imperfect sensor data. Low-pass
+          filtering was then used to smooth high-frequency fluctuations before
+          the response was visualized and compared.
+        </p>
+
+
+        <div class="comparison-grid">
+
+          <div class="comparison-card">
+            <h3>Noise Simulation</h3>
+            <p>
+              Random measurement variations were introduced around the true
+              state so the controllers could be assessed with non-ideal data.
+            </p>
+            <span class="status">Gaussian Noise</span>
+          </div>
+
+          <div class="comparison-card">
+            <h3>Low-Pass Filtering</h3>
+            <p>
+              Filtered signals reduced visible measurement fluctuations and
+              made the underlying cart and pendulum response easier to track.
+            </p>
+            <span class="status">Signal Smoothing</span>
+          </div>
+
+        </div>
+
+
+        <div class="callout">
+          <p>
+            <strong>Key observation:</strong> filtering improved signal quality,
+            but filtering alone could not replace physical damping when the
+            pole-placement controller was tested in the undamped noisy case.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================
+         08 — CONTROLLER COMPARISON
+    ===================================================== -->
+
+    <section class="project-section">
+      <div class="container">
+
+        <div class="section-number">
+          08 — Controller Comparison
+        </div>
+
+        <h2>
+          Comparing Robustness Across Damped and Undamped Conditions
+        </h2>
+
+        <p>
+          The final comparison focused on how the two control strategies behaved
+          when damping and measurement noise were changed. This made it possible
+          to separate the effect of the controller itself from the stabilizing
+          contribution of damping and filtering.
+        </p>
+
+
+        <div class="comparison-grid">
+
+          <div class="comparison-card">
+            <h3>PID Controller</h3>
+            <p>
+              The PID controller maintained the pendulum near the upright state
+              in both damped and undamped simulations. Noise increased visible
+              variation, while filtering smoothed the measured response.
+            </p>
+            <span class="status">Stable Across Tested Cases</span>
+          </div>
+
+          <div class="comparison-card">
+            <h3>Pole Placement</h3>
+            <p>
+              Pole placement produced a stable, decaying response when damping
+              was present. In the undamped noisy case, oscillations persisted and
+              filtering alone was not sufficient to achieve the same stability.
+            </p>
+            <span class="status">Damping-Sensitive</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================
+         09 — INTERACTIVE VISUALIZATION
+    ===================================================== -->
+
+    <section class="project-section">
+      <div class="container">
+
+        <div class="section-number">
+          09 — Interactive Visualization
+        </div>
+
+        <h2>
+          Turning the Numerical Model Into a Real-Time Cart-Pendulum Animation
+        </h2>
+
+        <p>
+          Pygame was used to convert the simulated state history into an animated
+          cart, rail, pendulum rod, and pendulum mass. The visualization displayed
+          time and pendulum angle while allowing the user to switch between test
+          conditions and interact with controller-gain sliders.
+        </p>
+
+
+        <figure class="figure">
+          <div class="figure-media dark">
+            <img
+              src="images/mec830-pygame-interface.png"
+              alt="Pygame interface for the inverted pendulum control simulation"
+            />
+          </div>
+          <figcaption>
+            Pygame interface used to visualize cart motion, pendulum angle,
+            controller cases, and adjustable gain parameters.
+          </figcaption>
+        </figure>
+
+
+        <div class="result-highlight">
+          <h3>
+            Project Outcome
+          </h3>
+
+          <p>
+            The project combined system architecture, analytical dynamics,
+            numerical simulation, control design, signal processing, and software
+            visualization into a single mechatronics workflow. It demonstrated
+            the trade-offs between PID and pole-placement control and highlighted
+            the importance of damping and measurement filtering in dynamic systems.
+          </p>
+
+          <div class="result-values">
+            <span class="result-pill">Python</span>
+            <span class="result-pill">Nonlinear Dynamics</span>
+            <span class="result-pill">PID Control</span>
+            <span class="result-pill">Pole Placement</span>
+            <span class="result-pill">State Space</span>
+            <span class="result-pill">Sensor Noise</span>
+            <span class="result-pill">Low-Pass Filtering</span>
+            <span class="result-pill">Pygame</span>
+            <span class="result-pill">SysML / MBSE</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================
+         AUTOMATIC PROJECT NAVIGATION
+    ===================================================== -->
+
+    <div
+      class="container project-navigation"
+      data-project-navigation
+    ></div>
+
+  </main>
+
+
+  <!-- ======================================================
+       FOOTER
+  ======================================================= -->
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Rhythm Patel
+      · Mechanical Engineering Portfolio
+    </div>
+  </footer>
+
+
+  <!-- ======================================================
+       SHARED PROJECT DATABASE
+  ======================================================= -->
+
+  <script src="projects.js"></script>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+
+</body>
+</html>
