@@ -63,6 +63,14 @@ const portfolioProjects = [
   },
 
   {
+    id: "inverted-pendulum-control",
+    title: "Inverted Pendulum Control — PID & Pole Placement",
+    url: "project-inverted-pendulum-control.html",
+    startDate: "2024-09",
+    endDate: "2024-11"
+  },
+
+  {
     id: "wind-turbine-vibration-absorber",
     title: "Wind Turbine Vibration Absorber Design",
     url: "project-wind-turbine-vibration-absorber.html",
