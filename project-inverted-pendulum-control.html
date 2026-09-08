@@ -412,6 +412,16 @@
       text-align: center;
     }
 
+    .figure figcaption a {
+      color: var(--accent-light);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .figure figcaption a:hover {
+      color: var(--accent);
+    }
+
     .figure-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -906,11 +916,18 @@
 
   <header>
     <div class="container header-inner">
-      <div class="name">Rhythm Patel</div>
 
-      <a href="index.html#projects" class="back-link">
+      <div class="name">
+        Rhythm Patel
+      </div>
+
+      <a
+        href="index.html#projects"
+        class="back-link"
+      >
         ← Back to Portfolio
       </a>
+
     </div>
   </header>
 
@@ -922,7 +939,9 @@
     ===================================================== -->
 
     <section class="project-hero">
+
       <div class="container">
+
         <div class="project-label">
           MEC 830 · Mechatronics System Design · Control Systems
         </div>
@@ -932,14 +951,19 @@
         </h1>
 
         <p class="project-summary">
+
           Designed and simulated an inverted pendulum on a cart using Python,
           combining Model-Based Systems Engineering, nonlinear dynamic modeling,
           sensor-noise simulation, low-pass filtering, PID control, pole-placement
-          state feedback, and real-time Pygame visualization. The two control
-          strategies were evaluated under damped, undamped, noisy, and filtered
-          operating conditions.
+          state feedback, and real-time Pygame visualization.
+
+          The two control strategies were evaluated under damped, undamped,
+          noisy, and filtered operating conditions.
+
         </p>
+
       </div>
+
     </section>
 
 
@@ -948,68 +972,148 @@
     ===================================================== -->
 
     <section>
+
       <div class="container">
 
         <div class="hero-image-wrap">
+
           <div class="hero-image-media">
+
             <img
-              src="images/mec830-pygame-interface.png"
-              alt="Inverted pendulum on cart simulation developed in Python and Pygame"
+              src="images/mec830-pid-results.png"
+              alt="PID controller simulation results for the inverted pendulum cart system"
               class="hero-image"
             />
+
           </div>
 
           <div class="hero-image-caption">
-            Python/Pygame visualization of the cart-pendulum system used to study
-            controller response, damping, disturbances, sensor noise, and filtering.
+
+            PID controller simulation results comparing cart position
+            and pendulum angle under damped, undamped, noisy, and
+            filtered operating conditions.
+
           </div>
+
         </div>
 
 
         <div class="project-info-grid">
 
           <div class="info-card">
-            <div class="info-label">Timeline</div>
-            <div class="info-value">Fall 2024</div>
+
+            <div class="info-label">
+              Timeline
+            </div>
+
+            <div
+              class="info-value"
+              data-project-date
+            ></div>
+
           </div>
 
-          <div class="info-card">
-            <div class="info-label">Course</div>
-            <div class="info-value">MEC 830</div>
-          </div>
 
           <div class="info-card">
-            <div class="info-label">Controllers</div>
-            <div class="info-value">PID + Pole Placement</div>
+
+            <div class="info-label">
+              Course
+            </div>
+
+            <div class="info-value">
+              MEC 830
+            </div>
+
           </div>
 
-          <div class="info-card">
-            <div class="info-label">Modeling</div>
-            <div class="info-value">Lagrangian + State Space</div>
-          </div>
 
           <div class="info-card">
-            <div class="info-label">Software</div>
-            <div class="info-value">Python + SciPy + Pygame</div>
+
+            <div class="info-label">
+              Controllers
+            </div>
+
+            <div class="info-value">
+              PID + Pole Placement
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Modeling
+            </div>
+
+            <div class="info-value">
+              Lagrangian + State Space
+            </div>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-label">
+              Software
+            </div>
+
+            <div class="info-value">
+              Python + SciPy + Pygame
+            </div>
+
           </div>
 
         </div>
 
 
         <div class="tags">
-          <span class="tag">Python</span>
-          <span class="tag">Control Systems</span>
-          <span class="tag">PID Control</span>
-          <span class="tag">Pole Placement</span>
-          <span class="tag">SciPy</span>
-          <span class="tag">Pygame</span>
-          <span class="tag">Signal Filtering</span>
-          <span class="tag">MBSE</span>
-          <span class="tag">SysML</span>
-          <span class="tag">Dynamic Simulation</span>
+
+          <span class="tag">
+            Python
+          </span>
+
+          <span class="tag">
+            Control Systems
+          </span>
+
+          <span class="tag">
+            PID Control
+          </span>
+
+          <span class="tag">
+            Pole Placement
+          </span>
+
+          <span class="tag">
+            SciPy
+          </span>
+
+          <span class="tag">
+            Pygame
+          </span>
+
+          <span class="tag">
+            Signal Filtering
+          </span>
+
+          <span class="tag">
+            MBSE
+          </span>
+
+          <span class="tag">
+            SysML
+          </span>
+
+          <span class="tag">
+            Dynamic Simulation
+          </span>
+
         </div>
 
       </div>
+
     </section>
 
 
@@ -1018,6 +1122,7 @@
     ===================================================== -->
 
     <section class="project-section">
+
       <div class="container">
 
         <div class="section-number">
@@ -1029,85 +1134,154 @@
         </h2>
 
         <p>
+
           The project objective was to maintain an inverted pendulum in its
-          upright position by commanding horizontal motion of the cart. The
-          system was intentionally evaluated with external disturbances,
+          upright position by commanding horizontal motion of the cart.
+
+          The system was intentionally evaluated with external disturbances,
           damping effects, and simulated sensor noise so that the control
           strategies could be compared under more realistic operating conditions.
+
         </p>
 
 
         <div class="requirements-grid">
 
           <div class="requirement">
-            <div class="requirement-number">01</div>
+
+            <div class="requirement-number">
+              01
+            </div>
+
             <div>
-              <h3>Upright Stability</h3>
+
+              <h3>
+                Upright Stability
+              </h3>
+
               <p>
                 Maintain the pendulum near the vertical equilibrium position
                 after a disturbance.
               </p>
+
             </div>
+
           </div>
 
+
           <div class="requirement">
-            <div class="requirement-number">02</div>
+
+            <div class="requirement-number">
+              02
+            </div>
+
             <div>
-              <h3>Two Control Strategies</h3>
+
+              <h3>
+                Two Control Strategies
+              </h3>
+
               <p>
                 Implement and compare both PID control and pole-placement
                 state-feedback control.
               </p>
+
             </div>
+
           </div>
 
+
           <div class="requirement">
-            <div class="requirement-number">03</div>
+
+            <div class="requirement-number">
+              03
+            </div>
+
             <div>
-              <h3>Sensor Noise Handling</h3>
+
+              <h3>
+                Sensor Noise Handling
+              </h3>
+
               <p>
                 Introduce measurement noise and apply filtering to examine
                 controller robustness and signal quality.
               </p>
+
             </div>
+
           </div>
 
+
           <div class="requirement">
-            <div class="requirement-number">04</div>
+
+            <div class="requirement-number">
+              04
+            </div>
+
             <div>
-              <h3>No Pivot Actuator</h3>
+
+              <h3>
+                No Pivot Actuator
+              </h3>
+
               <p>
                 Stabilization had to be achieved by moving the cart rather than
                 directly actuating the pendulum joint.
               </p>
+
             </div>
+
           </div>
 
+
           <div class="requirement">
-            <div class="requirement-number">05</div>
+
+            <div class="requirement-number">
+              05
+            </div>
+
             <div>
-              <h3>Dynamic Visualization</h3>
+
+              <h3>
+                Dynamic Visualization
+              </h3>
+
               <p>
                 Animate the cart and pendulum response in real time using
                 Pygame and display key controller variables.
               </p>
+
             </div>
+
           </div>
 
+
           <div class="requirement">
-            <div class="requirement-number">06</div>
+
+            <div class="requirement-number">
+              06
+            </div>
+
             <div>
-              <h3>Defined Physical Geometry</h3>
+
+              <h3>
+                Defined Physical Geometry
+              </h3>
+
               <p>
                 Model a 0.4 m pendulum with a 0.05 kg pendulum mass and a
                 0.5 kg cart.
               </p>
+
             </div>
+
           </div>
 
         </div>
 
       </div>
+
     </section>
 
 
@@ -1116,6 +1290,7 @@
     ===================================================== -->
 
     <section class="project-section">
+
       <div class="container">
 
         <div class="section-number">
@@ -1127,74 +1302,98 @@
         </h2>
 
         <p>
+
           Model-Based Systems Engineering principles were used to organize the
           system architecture and identify the relationships between the cart,
-          pendulum, sensors, controller, and external environment. SysML models
-          were created in Eclipse Papyrus before the dynamic simulation and
-          controller implementation were developed.
+          pendulum, sensors, controller, and external environment.
+
+          SysML models were created in Eclipse Papyrus before the dynamic
+          simulation and controller implementation were developed.
+
         </p>
 
 
         <figure class="figure">
+
           <div class="figure-media">
+
             <img
               src="images/mec830-mind-map.png"
               alt="Mind map for the inverted pendulum control project"
             />
+
           </div>
+
           <figcaption>
             Project mind map used to organize modeling, controller development,
             filtering, visualization, and system constraints.
           </figcaption>
+
         </figure>
 
 
         <div class="figure-grid">
 
           <figure class="figure">
+
             <div class="figure-media">
+
               <img
                 src="images/mec830-bdd.png"
                 alt="SysML block definition diagram for the inverted pendulum system"
               />
+
             </div>
+
             <figcaption>
               SysML Block Definition Diagram showing the primary cart,
               pendulum, sensor, and controller elements.
             </figcaption>
+
           </figure>
 
 
           <figure class="figure">
+
             <div class="figure-media">
+
               <img
                 src="images/mec830-ibd.png"
                 alt="SysML internal block diagram for the inverted pendulum system"
               />
+
             </div>
+
             <figcaption>
               Internal Block Diagram describing signal and force interactions
               within the cart-pendulum system.
             </figcaption>
+
           </figure>
 
         </div>
 
 
         <figure class="figure">
+
           <div class="figure-media">
+
             <img
               src="images/mec830-activity-diagram.png"
               alt="SysML activity diagram for the inverted pendulum controller"
             />
+
           </div>
+
           <figcaption>
             Activity flow from the initial system state through impulse input,
             controller calculation, control-force application, and response animation.
           </figcaption>
+
         </figure>
 
       </div>
+
     </section>
 
 
@@ -1203,6 +1402,7 @@
     ===================================================== -->
 
     <section class="project-section">
+
       <div class="container">
 
         <div class="section-number">
@@ -1214,86 +1414,162 @@
         </h2>
 
         <p>
+
           The cart-pendulum equations of motion were developed from the kinetic
-          and potential energy of the system using Lagrange's equations. The
-          model included cart translation, pendulum rotation, gravitational
+          and potential energy of the system using Lagrange's equations.
+
+          The model included cart translation, pendulum rotation, gravitational
           effects, air drag, pivot damping, and an externally applied cart force.
+
         </p>
 
 
         <div class="results-grid">
 
           <div class="result-card">
-            <div class="result-value">0.50 kg</div>
-            <div class="result-name">Cart mass, M</div>
+
+            <div class="result-value">
+              0.50 kg
+            </div>
+
+            <div class="result-name">
+              Cart mass, M
+            </div>
+
           </div>
 
-          <div class="result-card">
-            <div class="result-value">0.05 kg</div>
-            <div class="result-name">Pendulum mass, m</div>
-          </div>
 
           <div class="result-card">
-            <div class="result-value">0.40 m</div>
-            <div class="result-name">Pendulum length, l</div>
+
+            <div class="result-value">
+              0.05 kg
+            </div>
+
+            <div class="result-name">
+              Pendulum mass, m
+            </div>
+
           </div>
 
+
           <div class="result-card">
-            <div class="result-value">9.81 m/s²</div>
-            <div class="result-name">Gravitational acceleration, g</div>
+
+            <div class="result-value">
+              0.40 m
+            </div>
+
+            <div class="result-name">
+              Pendulum length, l
+            </div>
+
+          </div>
+
+
+          <div class="result-card">
+
+            <div class="result-value">
+              9.81 m/s²
+            </div>
+
+            <div class="result-name">
+              Gravitational acceleration, g
+            </div>
+
           </div>
 
         </div>
 
 
         <figure class="figure">
+
           <div class="figure-media">
+
             <img
               src="images/mec830-free-body-diagram.png"
-              alt="Free body diagram of an inverted pendulum mounted on a translating cart"
+              alt="Free-body diagram of an inverted pendulum mounted on a translating cart"
             />
+
           </div>
+
           <figcaption>
-            Free-body representation used to define cart position, pendulum
-            angle, applied force, and geometric relationships for the derivation.
+
+            Free-body diagram used to define cart position,
+            pendulum angle, applied force, and geometric relationships
+            for the equations-of-motion derivation.
+
+            Adapted from
+
+            <a
+              href="https://aleksandarhaber.com/equations-of-motion-of-a-pendulum-on-a-cart-by-using-lagranges-equations/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Aleksandar Haber, “Equations of Motion of a Pendulum on a Cart by Using Lagrange’s Equations”
+            </a>.
+
           </figcaption>
+
         </figure>
 
 
         <div class="equation-grid">
 
           <div class="equation-card">
-            <div class="equation-label">Pendulum Position</div>
+
+            <div class="equation-label">
+              Pendulum Position
+            </div>
+
             <div class="equation">
               x<sub>p</sub> = x + l sin(θ)<br />
               y<sub>p</sub> = l cos(θ)
             </div>
+
           </div>
 
+
           <div class="equation-card">
-            <div class="equation-label">State Vector</div>
+
+            <div class="equation-label">
+              State Vector
+            </div>
+
             <div class="equation">
               X = [ x, ẋ, θ, θ̇ ]<sup>T</sup>
             </div>
+
           </div>
 
+
           <div class="equation-card">
-            <div class="equation-label">Lagrangian</div>
+
+            <div class="equation-label">
+              Lagrangian
+            </div>
+
             <div class="equation">
               L = T − V
             </div>
+
           </div>
 
+
           <div class="equation-card">
-            <div class="equation-label">Controller Input</div>
+
+            <div class="equation-label">
+              Controller Input
+            </div>
+
             <div class="equation">
               F = horizontal force applied to cart
             </div>
+
           </div>
 
         </div>
 
       </div>
+
     </section>
 
 
@@ -1302,6 +1578,7 @@
     ===================================================== -->
 
     <section class="project-section">
+
       <div class="container">
 
         <div class="section-number">
@@ -1313,58 +1590,93 @@
         </h2>
 
         <p>
+
           The Python simulation numerically integrated the nonlinear equations
           of motion and repeatedly updated the controller from the current
-          system state. Separate cases were executed with and without damping,
+          system state.
+
+          Separate cases were executed with and without damping,
           noise, and filtering to expose the effect of each modeling choice.
+
         </p>
 
 
         <div class="pipeline">
 
           <div class="pipeline-step">
-            <span class="pipeline-number">Step 01</span>
-            <span>Initial State / Disturbance</span>
+            <span class="pipeline-number">
+              Step 01
+            </span>
+            <span>
+              Initial State / Disturbance
+            </span>
           </div>
 
           <div class="pipeline-step">
-            <span class="pipeline-number">Step 02</span>
-            <span>Sensor Measurement</span>
+            <span class="pipeline-number">
+              Step 02
+            </span>
+            <span>
+              Sensor Measurement
+            </span>
           </div>
 
           <div class="pipeline-step">
-            <span class="pipeline-number">Step 03</span>
-            <span>Noise &amp; Filtering</span>
+            <span class="pipeline-number">
+              Step 03
+            </span>
+            <span>
+              Noise &amp; Filtering
+            </span>
           </div>
 
           <div class="pipeline-step">
-            <span class="pipeline-number">Step 04</span>
-            <span>Controller Calculation</span>
+            <span class="pipeline-number">
+              Step 04
+            </span>
+            <span>
+              Controller Calculation
+            </span>
           </div>
 
           <div class="pipeline-step">
-            <span class="pipeline-number">Step 05</span>
-            <span>ODE Integration</span>
+            <span class="pipeline-number">
+              Step 05
+            </span>
+            <span>
+              ODE Integration
+            </span>
           </div>
 
           <div class="pipeline-step">
-            <span class="pipeline-number">Step 06</span>
-            <span>Plots &amp; Pygame</span>
+            <span class="pipeline-number">
+              Step 06
+            </span>
+            <span>
+              Plots &amp; Pygame
+            </span>
           </div>
 
         </div>
 
 
         <div class="callout">
+
           <p>
-            <strong>Implementation:</strong> NumPy was used for array and
-            state-space calculations, SciPy for numerical integration and pole
-            placement, Matplotlib for performance plots, and Pygame for the
+
+            <strong>Implementation:</strong>
+
+            NumPy was used for array and state-space calculations,
+            SciPy for numerical integration and pole placement,
+            Matplotlib for performance plots, and Pygame for the
             animated cart-pendulum visualization.
+
           </p>
+
         </div>
 
       </div>
+
     </section>
 
 
@@ -1373,6 +1685,7 @@
     ===================================================== -->
 
     <section class="project-section">
+
       <div class="container">
 
         <div class="section-number">
@@ -1384,18 +1697,29 @@
         </h2>
 
         <p>
+
           The PID controller used the pendulum-angle error as its feedback signal.
+
           The proportional term responded to the current deviation, the integral
           term accumulated persistent error, and the derivative term reacted to
           the rate of change to reduce oscillation and overshoot.
+
         </p>
 
 
-        <div class="equation-card" style="margin-top: 26px;">
-          <div class="equation-label">PID Control Law</div>
+        <div
+          class="equation-card"
+          style="margin-top: 26px;"
+        >
+
+          <div class="equation-label">
+            PID Control Law
+          </div>
+
           <div class="equation">
             F = K<sub>p</sub>e + K<sub>i</sub>∫e dt + K<sub>d</sub>(de/dt)
           </div>
+
         </div>
 
 
@@ -1414,42 +1738,81 @@
         <div class="results-grid">
 
           <div class="result-card">
-            <div class="result-value">10.0</div>
-            <div class="result-name">Kp</div>
+
+            <div class="result-value">
+              10.0
+            </div>
+
+            <div class="result-name">
+              Kp
+            </div>
+
           </div>
 
-          <div class="result-card">
-            <div class="result-value">1.0</div>
-            <div class="result-name">Ki</div>
-          </div>
 
           <div class="result-card">
-            <div class="result-value">5.0</div>
-            <div class="result-name">Kd</div>
+
+            <div class="result-value">
+              1.0
+            </div>
+
+            <div class="result-name">
+              Ki
+            </div>
+
           </div>
 
+
           <div class="result-card">
-            <div class="result-value">0.01 s</div>
-            <div class="result-name">Simulation time step</div>
+
+            <div class="result-value">
+              5.0
+            </div>
+
+            <div class="result-name">
+              Kd
+            </div>
+
+          </div>
+
+
+          <div class="result-card">
+
+            <div class="result-value">
+              0.01 s
+            </div>
+
+            <div class="result-name">
+              Simulation time step
+            </div>
+
           </div>
 
         </div>
 
 
         <figure class="figure">
+
           <div class="figure-media">
+
             <img
               src="images/mec830-pid-results.png"
               alt="PID controller cart position and pendulum angle results under damped and undamped noisy conditions"
             />
+
           </div>
+
           <figcaption>
+
             PID simulation results comparing cart position and pendulum angle
             under damped and undamped conditions with simulated measurement noise.
+
           </figcaption>
+
         </figure>
 
       </div>
+
     </section>
 
 
@@ -1458,6 +1821,7 @@
     ===================================================== -->
 
     <section class="project-section">
+
       <div class="container">
 
         <div class="section-number">
@@ -1469,27 +1833,42 @@
         </h2>
 
         <p>
-          A second controller was implemented using state feedback. Linearized
-          damped and undamped state-space models were defined, desired stable
-          pole locations were selected, and SciPy's <strong>place_poles()</strong>
-          routine was used to calculate the feedback gain matrix.
+
+          A second controller was implemented using state feedback.
+
+          Linearized damped and undamped state-space models were defined,
+          desired stable pole locations were selected, and SciPy's
+          <strong>place_poles()</strong> routine was used to calculate
+          the feedback gain matrix.
+
         </p>
 
 
         <div class="equation-grid">
 
           <div class="equation-card">
-            <div class="equation-label">State Feedback</div>
+
+            <div class="equation-label">
+              State Feedback
+            </div>
+
             <div class="equation">
               F = −KX
             </div>
+
           </div>
 
+
           <div class="equation-card">
-            <div class="equation-label">Desired Poles</div>
+
+            <div class="equation-label">
+              Desired Poles
+            </div>
+
             <div class="equation">
               [ −3, −3.5, −4, −4.5 ]
             </div>
+
           </div>
 
         </div>
@@ -1511,19 +1890,27 @@ control_force = (-K_gain @ state_vector).item()</pre>
 
 
         <figure class="figure">
+
           <div class="figure-media">
+
             <img
               src="images/mec830-pole-placement-results.png"
               alt="Pole-placement controller cart position and pendulum angle results"
             />
+
           </div>
+
           <figcaption>
+
             Pole-placement simulation results showing strong convergence with
             damping and persistent oscillation in the undamped case.
+
           </figcaption>
+
         </figure>
 
       </div>
+
     </section>
 
 
@@ -1532,6 +1919,7 @@ control_force = (-K_gain @ state_vector).item()</pre>
     ===================================================== -->
 
     <section class="project-section">
+
       <div class="container">
 
         <div class="section-number">
@@ -1543,45 +1931,72 @@ control_force = (-K_gain @ state_vector).item()</pre>
         </h2>
 
         <p>
-          Gaussian noise was added to the simulated cart-position and pendulum-
-          angle measurements to approximate imperfect sensor data. Low-pass
-          filtering was then used to smooth high-frequency fluctuations before
-          the response was visualized and compared.
+
+          Gaussian noise was added to the simulated cart-position and
+          pendulum-angle measurements to approximate imperfect sensor data.
+
+          Low-pass filtering was then used to smooth high-frequency
+          fluctuations before the response was visualized and compared.
+
         </p>
 
 
         <div class="comparison-grid">
 
           <div class="comparison-card">
-            <h3>Noise Simulation</h3>
+
+            <h3>
+              Noise Simulation
+            </h3>
+
             <p>
               Random measurement variations were introduced around the true
               state so the controllers could be assessed with non-ideal data.
             </p>
-            <span class="status">Gaussian Noise</span>
+
+            <span class="status">
+              Gaussian Noise
+            </span>
+
           </div>
 
+
           <div class="comparison-card">
-            <h3>Low-Pass Filtering</h3>
+
+            <h3>
+              Low-Pass Filtering
+            </h3>
+
             <p>
               Filtered signals reduced visible measurement fluctuations and
               made the underlying cart and pendulum response easier to track.
             </p>
-            <span class="status">Signal Smoothing</span>
+
+            <span class="status">
+              Signal Smoothing
+            </span>
+
           </div>
 
         </div>
 
 
         <div class="callout">
+
           <p>
-            <strong>Key observation:</strong> filtering improved signal quality,
-            but filtering alone could not replace physical damping when the
-            pole-placement controller was tested in the undamped noisy case.
+
+            <strong>Key observation:</strong>
+
+            filtering improved signal quality, but filtering alone could
+            not replace physical damping when the pole-placement controller
+            was tested in the undamped noisy case.
+
           </p>
+
         </div>
 
       </div>
+
     </section>
 
 
@@ -1590,6 +2005,7 @@ control_force = (-K_gain @ state_vector).item()</pre>
     ===================================================== -->
 
     <section class="project-section">
+
       <div class="container">
 
         <div class="section-number">
@@ -1601,38 +2017,59 @@ control_force = (-K_gain @ state_vector).item()</pre>
         </h2>
 
         <p>
+
           The final comparison focused on how the two control strategies behaved
-          when damping and measurement noise were changed. This made it possible
-          to separate the effect of the controller itself from the stabilizing
-          contribution of damping and filtering.
+          when damping and measurement noise were changed.
+
+          This made it possible to separate the effect of the controller itself
+          from the stabilizing contribution of damping and filtering.
+
         </p>
 
 
         <div class="comparison-grid">
 
           <div class="comparison-card">
-            <h3>PID Controller</h3>
+
+            <h3>
+              PID Controller
+            </h3>
+
             <p>
               The PID controller maintained the pendulum near the upright state
               in both damped and undamped simulations. Noise increased visible
               variation, while filtering smoothed the measured response.
             </p>
-            <span class="status">Stable Across Tested Cases</span>
+
+            <span class="status">
+              Stable Across Tested Cases
+            </span>
+
           </div>
 
+
           <div class="comparison-card">
-            <h3>Pole Placement</h3>
+
+            <h3>
+              Pole Placement
+            </h3>
+
             <p>
               Pole placement produced a stable, decaying response when damping
-              was present. In the undamped noisy case, oscillations persisted and
-              filtering alone was not sufficient to achieve the same stability.
+              was present. In the undamped noisy case, oscillations persisted
+              and filtering alone was not sufficient to achieve the same stability.
             </p>
-            <span class="status">Damping-Sensitive</span>
+
+            <span class="status">
+              Damping-Sensitive
+            </span>
+
           </div>
 
         </div>
 
       </div>
+
     </section>
 
 
@@ -1641,6 +2078,7 @@ control_force = (-K_gain @ state_vector).item()</pre>
     ===================================================== -->
 
     <section class="project-section">
+
       <div class="container">
 
         <div class="section-number">
@@ -1652,54 +2090,80 @@ control_force = (-K_gain @ state_vector).item()</pre>
         </h2>
 
         <p>
-          Pygame was used to convert the simulated state history into an animated
-          cart, rail, pendulum rod, and pendulum mass. The visualization displayed
-          time and pendulum angle while allowing the user to switch between test
-          conditions and interact with controller-gain sliders.
+
+          Pygame was used to convert the simulated state history into an
+          animated cart, rail, pendulum rod, and pendulum mass.
+
+          The visualization displayed time and pendulum angle while allowing
+          the user to switch between test conditions and interact with
+          controller-gain sliders.
+
         </p>
 
 
-        <figure class="figure">
-          <div class="figure-media dark">
-            <img
-              src="images/mec830-pygame-interface.png"
-              alt="Pygame interface for the inverted pendulum control simulation"
-            />
-          </div>
-          <figcaption>
-            Pygame interface used to visualize cart motion, pendulum angle,
-            controller cases, and adjustable gain parameters.
-          </figcaption>
-        </figure>
-
-
         <div class="result-highlight">
+
           <h3>
             Project Outcome
           </h3>
 
           <p>
+
             The project combined system architecture, analytical dynamics,
-            numerical simulation, control design, signal processing, and software
-            visualization into a single mechatronics workflow. It demonstrated
-            the trade-offs between PID and pole-placement control and highlighted
-            the importance of damping and measurement filtering in dynamic systems.
+            numerical simulation, control design, signal processing, and
+            software visualization into a single mechatronics workflow.
+
+            It demonstrated the trade-offs between PID and pole-placement
+            control and highlighted the importance of damping and measurement
+            filtering in dynamic systems.
+
           </p>
 
+
           <div class="result-values">
-            <span class="result-pill">Python</span>
-            <span class="result-pill">Nonlinear Dynamics</span>
-            <span class="result-pill">PID Control</span>
-            <span class="result-pill">Pole Placement</span>
-            <span class="result-pill">State Space</span>
-            <span class="result-pill">Sensor Noise</span>
-            <span class="result-pill">Low-Pass Filtering</span>
-            <span class="result-pill">Pygame</span>
-            <span class="result-pill">SysML / MBSE</span>
+
+            <span class="result-pill">
+              Python
+            </span>
+
+            <span class="result-pill">
+              Nonlinear Dynamics
+            </span>
+
+            <span class="result-pill">
+              PID Control
+            </span>
+
+            <span class="result-pill">
+              Pole Placement
+            </span>
+
+            <span class="result-pill">
+              State Space
+            </span>
+
+            <span class="result-pill">
+              Sensor Noise
+            </span>
+
+            <span class="result-pill">
+              Low-Pass Filtering
+            </span>
+
+            <span class="result-pill">
+              Pygame
+            </span>
+
+            <span class="result-pill">
+              SysML / MBSE
+            </span>
+
           </div>
+
         </div>
 
       </div>
+
     </section>
 
 
@@ -1720,10 +2184,16 @@ control_force = (-K_gain @ state_vector).item()</pre>
   ======================================================= -->
 
   <footer>
+
     <div class="container">
-      © <span id="year"></span> Rhythm Patel
+
+      ©
+      <span id="year"></span>
+      Rhythm Patel
       · Mechanical Engineering Portfolio
+
     </div>
+
   </footer>
 
 
@@ -1733,10 +2203,14 @@ control_force = (-K_gain @ state_vector).item()</pre>
 
   <script src="projects.js"></script>
 
+
   <script>
+
     document.getElementById("year").textContent =
       new Date().getFullYear();
+
   </script>
 
 </body>
+
 </html>
