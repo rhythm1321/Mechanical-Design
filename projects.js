@@ -66,7 +66,7 @@ const portfolioProjects = [
     id: "inverted-pendulum-control",
     title: "Inverted Pendulum Control — PID & Pole Placement",
     url: "project-inverted-pendulum-control.html",
-    startDate: "2024-09",
+    startDate: "2024-10",
     endDate: "2024-11"
   },
 
